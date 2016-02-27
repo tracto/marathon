@@ -1,0 +1,105 @@
+{% macro playlist(theme,joggeur) %}
+<div class='playlist-body row'>
+	<div class='hidden'>
+		{% if theme is not null %}
+			{% if theme.musicTitles is not null %}		
+				<ul class='musicTitlesListe'>
+					{% for musicTitle in theme.musicTitles %}
+						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='{{ musicTitle.joggeur.pseudo  }}' data-thumb='{{ musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') }}' data-path='{{ asset(musicTitle.webPath) }}'>
+							{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
+						</li>					
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% elseif joggeur is not null %}								
+			{% if joggeur.musicTitles is not null %}
+				<ul class='musicTitlesListe'>
+					{% for musicTitle in joggeur.musicTitles %}
+						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='theme / {{ musicTitle.theme.titre }}' data-thumb='{{ musicTitle.theme.image.webPath | imagine_filter('tiny_thumb')  }}' data-path='{{ asset(musicTitle.webPath) }}'>
+							{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
+						</li>					
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endif %}
+	</div>
+
+
+
+					
+	<div id="" class="jp-jplayer"></div>
+		<div id="" class="jp-container jp-audio" role="application" aria-label="media player">
+			<div class="jp-type-playlist">
+				<div class="jp-gui jp-interface row">
+					<div class="jp-controls-holder col col-xs-12">
+						<div class="jp-controls">
+							<button class="jp-previous" role="button" tabindex="0">
+								<span class=""></span>
+							</button>
+							<button class="jp-play" role="button" tabindex="0">
+								<span class="">
+								</span>
+							</button>
+							<button class="jp-stop" role="button" tabindex="0">
+								<span class=""></span>
+							</button>
+							<button class="jp-next" role="button" tabindex="0">
+								<span class=""></span>
+							</button>
+						</div>
+
+						<div class="jp-timeline col col-xs-12">
+							<div class="jp-title"></div>
+							<div class="jp-progress">
+								<div class="jp-seek-bar">
+									<div class="jp-play-bar"></div>
+								</div>
+							</div>
+							<div class="jp-duration pull-left" role="timer" aria-label="duration">&nbsp;</div>
+							<div class="jp-current-time pull-right" role="timer" aria-label="time">&nbsp;</div>
+						</div>
+						
+						<div class="jp-volume-toggles"> 
+							<div class="col col-xs-4 jp-volume-controls">
+								<button class="jp-mute btn btn-default" role="button" tabindex="0">
+									<span class=""></span>
+								</button>
+								<button class="jp-volume-max btn btn-default pull-right" role="button" tabindex="0">
+									<span class=""></span>
+								</button>
+								<div class="jp-volume-bar">
+									<div class="jp-volume-bar-value"></div>
+								</div>
+							</div>
+
+							<div class="col col-xs-3 pull-right jp-toggles">
+								<button class="jp-repeat btn btn-default" role="button" tabindex="0">
+									<span class=""></span>
+								</button>
+								<button class="jp-shuffle btn btn-default" role="button" tabindex="0">
+									<span class=""></span>
+								</button>
+							</div> 
+
+							
+						</div>
+					</div>
+					
+				
+				</div>
+				<div class="jp-playlist">
+					<div class="jp-playlist-inner">
+						<ul class="unstyled">
+							<li>&nbsp;</li>
+						</ul>
+					</div>
+				</div>
+				<div class="jp-no-solution">
+					<span>Update Required</span>
+					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+				</div>
+			</div>
+	</div>
+</div>
+
+{% endmacro %}

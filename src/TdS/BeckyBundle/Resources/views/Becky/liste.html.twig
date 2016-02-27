@@ -1,0 +1,43 @@
+{% extends "TdSCoreBundle::layout.html.twig" %}
+
+{% block body %}
+	<div id="content" class="bg--lightgrey pam pbxxl">
+		<h1 class="main-title man align-center">
+			<svg class="icon icon--m icon-notebook-list"><use xlink:href="#icon-notebook-list"></use></svg>
+			<span>Phrases de becky</span>
+		</h1> 
+		<div>
+			{% for beckyphrase in beckyListe %}
+				<div class="row mas pas sep--dashed">
+					<div class="col col-xs-10">{{ beckyphrase.info | raw }}</div>
+					<div class="col col-xs-2">
+						<a class='button btn btn-action btn-user-delete' data-href="{{ path('tds_becky_delete', {'id': beckyphrase.id}) }}" data-pseudo="la phrase" href="#">
+                            <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                    	</a>
+                    </div>
+				</div>
+			{% endfor %}
+		</div>
+		
+	
+
+
+	<div id="popup-delete-user" class='popup-delete-confirmation'>
+        <div>
+            <p></p>
+            <a href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+            <a href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+            </div>
+    </div>
+
+
+    <button class="button btn btn-action mtn" data-btnbecky>
+            <svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+            <span class="btn__label">Ajouter une phrase</span>
+    </button>
+
+    <div class="form-becky pts mts">
+    	{{ include('TdSBeckyBundle:Becky:form.html.twig') }}
+	</div>
+</div>
+{% endblock %}

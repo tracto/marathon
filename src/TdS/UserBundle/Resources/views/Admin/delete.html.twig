@@ -1,0 +1,10 @@
+{% extends "TdSUserBundle::layout-admin.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsadmin_body %}
+	<h1>Suppression de l'utilisateur: {{ user.username }}</h1>
+	
+{% endblock %}

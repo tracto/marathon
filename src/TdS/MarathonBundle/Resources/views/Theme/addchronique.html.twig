@@ -1,0 +1,19 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div id="content" class="bg--lightgrey pam pbxxl">
+		<h1 class="main-title man align-center">
+			<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+			<span>Ajout d'une chronique</span>
+			<span class="button btn btn-default btn-becky mbs" data-info="Bravo! Tu dois écrire une chronique, tu vas voir, c'est un peu compliqué.<br/>Si tu veux écrire un texte, c'est simple. <br/><br/> Si tu veux mettre une vidéo, par contre, je vais devoir rentrer dans le vif du sujet:<br/>Sur youtube, copie le lien 'iframe' (sous la vidéo -> partager -> onglet intégrer) puis sur cette page clique sur 'source' et copie.<br/> Le truc un peu bizarre, c'est qu'il faut directement valider sans recliquer sur 'source', alors si tu veux ajouter un texte, il vaut mieux le faire avant.<br/><br/>Si tu veux ajouter une image, il faut qu'elle soit sur l'internet. Copie son url (clique-droit->copier l'adresse de l'image) puis clique sur l'icone 'image' et colle le lien dans la boite de dialogue.<br/><br/>Ne t'inquiète pas trop car tu pourras modifier ta chronique autant de fois que tu veux sur la page du thème. Bravo d'avance!">
+            	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
+          	</span>
+		</h1>
+		<h2 class="sub-title align-center">Thème : {{ theme.titre }}</h2>
+		{{ include('TdSMarathonBundle:Theme:formChronique.html.twig') }}
+	</div>
+{% endblock %}

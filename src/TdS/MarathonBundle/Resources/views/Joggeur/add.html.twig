@@ -1,0 +1,15 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div id="content" class="bg--lightgrey pam pbxxl">
+		<h1 class="main-title man align-center">
+			<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+			<span>Ajout d'un joggeur</span>
+		</h1>
+	    {{ include('TdSMarathonBundle:Joggeur:form.html.twig') }}
+ 	</div>
+{% endblock %}

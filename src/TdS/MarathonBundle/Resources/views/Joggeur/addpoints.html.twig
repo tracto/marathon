@@ -1,0 +1,98 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div id="content" class="bg--lightgrey pam pbxxl">
+		<h1 class="main-title man pan align-center">
+			<svg class="icon icon--m icon-heart"><use xlink:href="#icon-heart"></use></svg>
+			<span>Attribuer des points coeurs</span>
+			<span class="button btn btn-default btn-becky" data-info="C'est ici que tu répartis tes points coeurs, tu as une semaine pour le faire.<br/>Prends ton temps et sinon, c'est en faisant des erreurs qu'on apprend.<br/>Par contre, si tu as oublié de les dépenser ils seront retirés de ton score et un mail sera directement envoyé à la CAF de ta région pour un rendez-vous de contrôle.">
+	        	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
+	        </span>
+		</h1>
+	<div class="align-center sep">
+	    <h2 class="sub-title pbn mbn">theme : {{ themePostActivate.titre }}</h2>
+	    <div class="pbm">
+	    	<strong>nombre de points disponibles :</strong>
+	    	<span><span class='joggeurDonneur-points'>{{ joggeur.pointstogive }}</span>
+	    	 / 
+	    	<span class='joggeurDonneur-pointsInit'>{{ joggeur.pointstogive }}</span></span>
+		</div>
+	</div>
+
+	<div class='row'>
+		{% for musicTitle in themePostActivate.musicTitles %}
+			
+				{% if musicTitle is not null %}
+					{% if musicTitle.joggeur != app.user.joggeur %}
+					<div class='col-addPoints-joggeurTitle col col-xs-12 col-md-4 pas sep--dashed'>
+						<div class="col col-xs-5 col-md-6">
+							<h3 class="sub-sub-title man pan">{{ musicTitle.joggeur.pseudo }}</h3>
+							<strong class="block">titre : {{ musicTitle.titre }}</strong>
+						</div>
+
+						
+						<div class='col col-xs-7 col-md-6 heartPoints-icons clearfix' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
+								{% for i in 6..1  %}
+									<span class="heartPoints-icon" data-heart='{{ i }}'>
+										<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
+									</span>
+								{% endfor %}
+								<span class="heartPoints-icon heart-empty" data-heart='0'>
+									<svg class="icon icon--s icon-none"><use xlink:href="#icon-none"></use></svg>
+								</span>
+						</div>						
+					</div>
+				{% endif %}
+
+				{% else %}
+					<div>Shocking! personne n'a participé à ce thème!</div>
+				{% endif %}
+			
+		{% endfor %}
+	</div>
+
+<div id="popup" data-id="0">
+	<div class="popup-wrapper">
+		<div class='inner-popup'>
+			<btn class="button btn-action btn btn-default pull-right popup-close">
+				<svg class="icon icon-cancel" ><use xlink:href="#icon-cancel"></use></svg>
+			</btn>
+			<div class="message">Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.</div>
+		</div>
+	</div>
+</div>
+
+<div class='row addPoints-form'>
+	{{ form_start(form) }}
+	    {{ form_row(form.remainingPoints, {'attr': {'value': joggeur.pointstogive}}) }}
+	    <ul class="tags score-tags">
+	        {% for tag in form.tags %}
+	            <li class="form-joggeur-item">
+	            	{{ form_widget(tag.idJoggeur, {'attr': {'class': 'tag-idJoggeur'}}) }}
+	            	{{ form_widget(tag.heartPoints, {'attr': {'class': 'tag-heartPoints'}}) }}
+	            </li>
+	        {% endfor %}
+	    </ul>
+
+	    <div class="align-center mts">
+        <div class="button btn btn-action">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(form.valider, {'attr': {'value': 'valider'}}) }}
+        </div>
+
+        <a class="button btn btn-actualiser" href="">
+			<svg class="icon icon--s icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
+			<span>réactualiser</span>
+		</a>
+      </div>
+	
+	
+	{{ form_end(form) }}
+	
+</div>
+
+{% endblock %}

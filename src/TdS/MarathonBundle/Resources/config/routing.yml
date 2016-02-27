@@ -1,0 +1,183 @@
+# tds_marathon_homepage:
+#     path:     /
+#     defaults: { _controller: TdSMarathonBundle:Theme:index }
+
+
+tds_marathon_theme_home:
+    path:     /themes
+    defaults: { _controller: TdSMarathonBundle:Theme:index }
+    options:
+        expose: true
+
+
+
+tds_marathon_theme_view:
+    path:     /theme/view/{id}
+    defaults:  { _controller:  TdSMarathonBundle:Theme:view }      
+    requirements:
+        id: \d+
+    options:
+        expose: true
+    
+
+
+tds_marathon_theme_view_js:
+    pattern: /theme/view/{id}
+    defaults: {_controller: TdSMarathonBundle:Theme:view, autoplay: "true" }       
+    requirements:
+        id: \d+
+        autoplay: "true"
+    options:
+        expose: true
+
+
+
+
+tds_marathon_theme_add:
+    path:     /theme/add
+    defaults: 
+        _controller: TdSMarathonBundle:Theme:add 
+        draftmode: null 
+
+tds_marathon_theme_edit:
+    path:     /theme/edit/{id}
+    defaults: { _controller: TdSMarathonBundle:Theme:edit }
+    requirements:
+        id: \d+
+
+
+tds_marathon_theme_add_draftmode:
+    path:     /theme/add/draftmode
+    defaults:  
+        _controller: TdSMarathonBundle:Theme:add 
+        draftmode: 1
+
+tds_marathon_theme_edit_draftmode:
+    path:     /theme/edit/draftmode/{id}
+    defaults:  
+        _controller: TdSMarathonBundle:Theme:edit 
+        draftmode: 1
+        requirements:
+            id: \d+
+
+
+tds_marathon_theme_add_chronique:
+    path:     /theme/addchronique/{theme_id}/{joggeurChronique_id}
+    defaults: { _controller: TdSMarathonBundle:Theme:addChronique }
+    requirements:
+        theme_id: \d+
+        joggeurChronique_id: \d+
+
+
+tds_marathon_theme_edit_chronique:
+    path:     /theme/editchronique/{theme_id}/{joggeurChronique_id}
+    defaults: { _controller: TdSMarathonBundle:Theme:editChronique }
+    requirements:
+        theme_id: \d+
+        joggeurChronique_id: \d+
+
+
+
+
+
+
+
+
+
+tds_marathon_theme_switch:
+    pattern: /theme/switch
+    defaults: { _controller: TdSMarathonBundle:Theme:switch }
+    options:
+        expose: true
+
+tds_marathon_theme_switch_validation:
+    path: /theme/switch/validation
+    defaults: { _controller: TdSMarathonBundle:Theme:switchValidation }
+
+
+# tds_marathon_theme_active:
+#     pattern: /theme/active
+#     defaults: { _controller: TdSMarathonBundle:Theme:active }
+#     options:
+#         expose: true
+
+tds_marathon_theme_active_validation:
+    path: /theme/active/validation
+    defaults: { _controller: TdSMarathonBundle:Theme:activeValidation }
+
+# tds_marathon_theme_edit_draftmode:
+#     path:     /theme/edit/draftmode/{id}
+#     defaults:  
+#         _controller: TdSMarathonBundle:Theme:edit
+#         draftmode: 1
+#         id: \d+
+
+
+tds_marathon_saison_add:
+    path:     /saisons
+    defaults: { _controller: TdSMarathonBundle:Theme:addSaison }
+
+tds_marathon_joggeur_home:
+    path:     /joggeurs
+    defaults: { _controller: TdSMarathonBundle:Joggeur:index }
+    options:
+        expose: true
+
+
+tds_marathon_joggeur_classement:
+    path:     /joggeurs/classement
+    defaults: { _controller: TdSMarathonBundle:Joggeur:classement }
+
+
+tds_marathon_joggeur_view:
+    path:     /joggeur/view/{id}
+    defaults: 
+        _controller: TdSMarathonBundle:Joggeur:view
+        autoplay:    false
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+
+
+tds_marathon_joggeur_view_js:
+    pattern: /joggeur/view/{id}
+    defaults:  
+        _controller: TdSMarathonBundle:Joggeur:view
+        autoplay:    true
+    options:
+        expose: true
+
+
+
+tds_marathon_joggeur_add:
+    path:     /joggeur/add
+    defaults: { _controller: TdSMarathonBundle:Joggeur:add }
+
+tds_marathon_joggeur_edit:
+    path:    /joggeur/edit/{id}
+    defaults: { _controller: TdSMarathonBundle:Joggeur:edit }
+    requirements:
+        id: \d+
+
+
+
+
+tds_marathon_joggeur_addpoints:
+    path:    /joggeur/addpoints/{id}
+    defaults: { _controller: TdSMarathonBundle:Joggeur:addpoints }
+    requirements:
+        id: \d+
+
+
+
+tds_marathon_musicTitle_add:
+    path:  /musictitle/add/{route}/{theme_id}/{joggeur_id}
+    defaults: { _controller: TdSMarathonBundle:MusicTitle:add }
+    requirements:
+        route:  "[^/]+"
+        theme_id: \d+
+        joggeur_id: \d+
+
+

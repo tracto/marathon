@@ -1,0 +1,62 @@
+{% extends "TdSUserBundle::layout-admin.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsadmin_body %}
+    <div id="content" class="bg--lightgrey pam pbxxl">
+
+    	
+        <div class="align-center mbm">
+        <h1 class="main-title man">
+            <svg class="icon icon-user"><use xlink:href="#icon-user"></use></svg>
+            <span>Utilisateurs</span>
+        </h1>
+
+        <a class="button btn btn-action mtn " href="{{ path('fos_user_registration_register') }}">
+            <svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+            <span class="btn__label">Ajouter un utilisateur</span>
+         </a>
+        </div>
+
+        
+
+        <div class='user-table'>
+        	<div class='row row-title'>
+        		<div class='col col-md-4'>nom</div>
+        		<div class='col col-md-4'>email</div>
+        		<div class='col col-md-4'>joggeur relié</div>
+        	</div>
+            {% for user in users %}
+            	<div class='row'>
+            		<div class='col col-md-4'>{{ user.username }}</div>
+            		<div class='col col-md-4'>{{ user.email }}</div>
+            		{% if user.joggeur is not null %}
+            			<div class='col col-md-2'>{{ user.joggeur.pseudo }}</div>
+            			{% else %}
+            			<div class='col col-md-2'>pas de joggeur</div>
+            		{% endif %}
+                    <div class='col col-md-2 align-center'>
+                        <a class='button btn btn-action' href="{{ path('tds_admin_user_edit', {'id': user.id}) }}">
+                            <svg class="icon icon-alone icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+                        </a>
+                        {% if user != app.user %}
+                            <a class='button btn btn-action btn-user-delete' data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
+                                <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                            </a>
+                        {% endif %}
+                    </div>
+            	</div>
+            {% endfor %}
+        </div>
+        
+        <div id="popup-delete-user" class='popup-delete-confirmation'>
+            <div>
+                <p></p>
+                <a href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+                <a href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+            </div>
+        </div> 
+    </div>
+{% endblock %}

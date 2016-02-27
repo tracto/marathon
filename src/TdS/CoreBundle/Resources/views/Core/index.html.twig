@@ -1,0 +1,186 @@
+{% extends "TdSCoreBundle::layout.html.twig" %}
+
+
+{% block body %}
+   
+
+     
+ 
+      <div id="content" class="">
+      	<div class="index row">
+
+      		<div class=''>
+      			{% if saison is defined and saison.activate is not null %}
+      				<div class="saison-title align-center man">
+      					<h1 class="man">{{ saison.titre }}</h1>
+      				</div>
+      				{% if theme is defined and theme is not null %}	    				
+	  					{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}
+	  				{% elseif themePost is defined and themePost is not null %}
+	  					{{ playlistWrapperModule.pl_theme(themePost,null,null,false) }}	
+					{% endif %}
+				{% else %}
+					<div class="saison-closed">
+						<h1 class="man">La saison est finie!</h1>
+					</div>
+      			{% endif %}
+	  				
+			</div>		
+
+
+			<div class="flex-container-h">
+				<div class='col col-xs-12 col-md-6 col-md-push-6 col-droite'>
+					<div class="row col-classement pam">
+						<h2 class="sub-title">Classement</h2>
+						<div class="bg-op--white-5 pam">
+							<div class="row">
+								{% for joggeurScore in listeJoggeursScore %}
+									
+										{% if loop.index == 1 %}
+											<div class="podium-wrapper mbl">
+											<div class="podium podium-1 list-item col col-xs-4 col-xs-push-4">
+												<div class="inner-podium">
+													<div class="colonne">
+														<strong class="place">{{ loop.index }}</strong>
+														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.id}) }}">
+															<div class="round">
+															    {% if joggeurScore.image is not null %}
+														  			<img class="" src="{{ joggeurScore.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.image.alt }}">
+																{% endif %}
+															</div>
+														</a>
+														<span class="score">{{ joggeurScore.score }}</span>
+														<span class="joggeur-name">{{ joggeurScore.pseudo }}</span>
+													</div>
+												</div>
+											</div>
+										{% elseif loop.index == 2 %}
+											<div class="podium podium-2 list-item col col-xs-4 col-xs-pull-4">
+												<div class="inner-podium">
+													<div class="colonne">
+														<strong class="place">{{ loop.index }}</strong>
+														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.id}) }}">
+															<div class="round">
+															    {% if joggeurScore.image is not null %}
+														  			<img class="" src="{{ joggeurScore.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.image.alt }}">
+																{% endif %}
+															</div>
+														</a>
+														<span class="score">{{ joggeurScore.score }}</span>
+														<span class="joggeur-name">{{ joggeurScore.pseudo }}</span>
+													</div>
+												</div>
+											</div>
+										{% elseif loop.index == 3 %}
+											<div class="podium podium-3 list-item col col-xs-4 mbl">
+												<div class="inner-podium">
+													<div class="colonne">
+														<strong class="place">{{ loop.index }}</strong>
+														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.id}) }}">
+															<div class="round">
+															    {% if joggeurScore.image is not null %}
+														  			<img class="" src="{{ joggeurScore.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.image.alt }}">
+																{% endif %}
+															</div>
+														</a>
+														<span class="score">{{ joggeurScore.score }}</span>
+														<span class="joggeur-name">{{ joggeurScore.pseudo }}</span>
+													</div>
+												</div>
+											</div>
+											</div>
+
+										{% else %}
+											<div class="list-item plm prm">
+												<strong>{{ loop.index }}</strong>
+												<span>{{ joggeurScore.pseudo }}</span>
+												<span>{{ joggeurScore.score }}</span>
+											</div>
+										{% endif %}								
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-regles pas pbxxl-screen">
+						<h2 class="sub-title">Les lois du Marathon</h2>
+						<div class="sep--dashed">
+							<span>Un morceau (poème, chanson, cri, blabla, instrumental, recette, solo, hymne...) a composer dans la semaine, en rapport avec le thème.</span>
+							<ol>
+								<li>1 - Le premier a poster gagne un max de points, mais chronique les morceaux de la semaine passée</li>
+								<li>2 - Il ne peut pas être premier 2 fois de suite</li>
+								<li>3 - Le 10ème a poster choisit le thème de la semaine suivante
+								Il n'est pas obligatoire de poster toutes les semaines. Mais les points n'augmentent évidement pas, pardi.</li>
+							</ol>
+						</div>
+
+						<h2 class="sub-title">Système de points</h2>
+						<div>
+							<span>
+							Le premier a poster son morceau gagne x points, x étant le nombre de participants.Le deuxième x-1, le troisième x-2, etc...Jusqu'au dernier, qui gagne 1 point.Mais attention !!! chaque participant donne 6 points ♥ a qui il veut (repartis ou pas)<br/>
+							*nouvelle règle : s'il donne pas ses points a temps, ils lui sont retirés de son score ! bzbzzbaam!*.<br/>
+							Ainsi, même le dernier, s'il a composé un méga-tube ultra raccord avec le thème, peut rafler la mise...
+							SIMPLE COMME SAUCISSE!
+							...Et si je gagne j'aurai un cadeau.
+							Lemarathondelasemaine@gmail.com
+							</span>
+						</div>
+					</div>				
+				</div>
+
+
+				<div class='col col-xs-12 col-md-6 col-md-pull-6  col-gauche'>
+					<div class="row list col-joggeurs pas">
+						<h2 class="sub-title">Les joggeurs</h2>
+						<div class="block align-center clearfix">
+						    {% for joggeur in listeJoggeurs %}
+						    	{% if joggeur is not null %}
+						    		{% if loop.index <= 9 %}
+							    		<div class='col col-xs-6 col-sm-4 col-lg-3 list-item vignette-item man pan'>
+								    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+										    	<div class="square">
+												    {% if joggeur.image is not null %}
+											  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+													{% endif %}
+												
+
+												    <div class='inner-item-text'>
+												    	<div class="bg-vignette"></div>
+												    	<div class="inner-item-text-content">
+													    	<h3>{{ joggeur.pseudo }}</h3>				
+													    	<div class="musictitle-count">
+													    		<span class="glyphicon"></span>
+													    		<span class="number">12</span>
+													    	</div>
+												    	</div>
+												    </div>	
+												</div>					    		
+										    </a>
+										</div>
+									{% endif %}
+							    {% endif %}
+						    {% endfor %}
+						</div>
+					    <div class="block align-center clearfix mtm mbs">
+						    <a class="button" href="{{ path('tds_marathon_joggeur_home') }}">
+						    	<svg class="icon icon-alone icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+						    </a>
+						</div>
+					</div>
+
+					<div class="row pas pbxxl align-center col-liens">
+						<h2 class="sub-title">Pas loin</h2>
+						<ul class="unstyled">
+							{% for website in websites %}
+								<li><a href="{{ website.url }}">{{ website.name }}</a></li>
+							{% endfor %}						
+						</ul>
+					</div>				
+				</div>
+			</div>
+
+		</div>
+
+      </div>
+
+{% endblock %}
