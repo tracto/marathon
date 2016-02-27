@@ -1,0 +1,66 @@
+{% macro header() %}
+	<div id="header" class="main-header">
+
+			<input id="mobile-nav" type="checkbox" class="nav-toggler" />
+				<label for="mobile-nav" class="nav-toggler__label button">
+					<svg xmlns="http://www.w3.org/2000/svg" version="1.1"  viewBox="0 0 32 32">
+					  <path d="M0 0v3h32v-3h-32zm0 10v3h32v-3h-32zm0 10v3h32v-3h-32z"/>
+					</svg>
+				</label>
+
+
+			<nav class="navbar-header">
+			 
+					<ul class="unstyled">
+						<li><a  href="{{ path('tds_home') }}">Accueil</a></li>
+						<li><a href="{{ path('tds_marathon_theme_home') }}">Themes</a></li>
+						<li><a  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+
+						{% if is_granted("ROLE_SUPER_ADMIN") %}
+		            		<li><a href="{{ path('tds_admin_home') }}">utilisateurs</a></li>           		
+		            	{% endif %}
+
+		            	<li class="user" aria-label="user">
+				          	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}				   
+				          		<div class='thumb-line author'>
+									<div>										
+										<span class="author-name mls">
+											<a href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
+												<span>{{ app.user.joggeur.pseudo }}</span> 
+											</a>
+											<a class="deconnexion block" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+										</span>
+
+										<span class="author-thumb">
+											<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+										</span>
+									</div>									
+								</div>
+								
+				            {% else %}
+				               <a href="{{ path('fos_user_security_login') }}">Connexion</a>		
+				            {% endif %}
+				        </li>
+					</ul>
+
+					<div class="beta align-center">
+						<div class="inner-beta pas">
+							<h3 class="sub-sub-title pan man">Version Beta</h3>
+							<a target="_blank" href="https://docs.google.com/document/d/1GTL6brkuObv2_A48yWqceZnjcQFlOpCC0y8HI3XMuSo/">
+								<span>Un bug? Ce serait chouette de le signaler ici.</span>
+							</a>
+						</div>
+					</div>
+
+				</nav>
+
+				
+
+	
+
+				
+			<div class="container-fluid">
+				<img class="main-logo" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
+			</div>
+	 </div>
+ {% endmacro %}

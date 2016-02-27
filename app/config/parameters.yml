@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: 8889
+    database_name: symfony-marathon
+    database_user: root
+    database_password: root
+    mailer_transport: mail
+    mailer_host: localhost
+    mailer_user: contact@tiretdusix.net
+    mailer_password: chevreuil
+    secret: 4e89c8b80da27409d1ebb0673e1fadacd818f2cc

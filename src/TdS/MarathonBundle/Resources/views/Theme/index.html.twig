@@ -1,0 +1,79 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div class="container-fluid main-content-page pbxxl">
+		{% if is_granted("ROLE_SUPER_ADMIN") %}
+			<div class="mtm mrm mbn clearfix">
+				<a class="button btn btn-action pull-right mls" href="{{ path('tds_marathon_saison_add') }}">
+					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+					<span>Ajouter une saison</span>
+				</a>
+				<a class="button btn btn-action pull-right " href="{{ path('tds_marathon_theme_add') }}" >
+					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+					<span>Ajouter un theme</span>
+				</a>
+			</div>
+		{% endif %}
+
+	    <h1 class="main-title align-center mas">Thèmes</h1>
+
+	    {% for saison in listeSaisons %}
+	    	<div class="mas">
+		    	<h2 class="sub-title align-center pan man">{{ saison.titre }}</h2>
+		    	{% if saison.activate is defined and saison.activate == 1 %}
+		    		<h4 class="sub-sub-title align-center pan man">(en cours)</h4>
+		    	{% endif %}
+	    	</div>
+		    <div class='row list pbm sep--dashed pas'>	
+			     {% for theme in saison.themes %}
+
+			     	{% if theme.draftmode is null or theme.draftmode == 0 or (is_granted("ROLE_SUPER_ADMIN","ROLE_USER") and theme.draftmode == 1 and theme.joggeur == app.user.joggeur ) %}
+				     	{% if theme.draftmode == 1 and theme.joggeur == app.user.joggeur %}
+				     		<div class='col col-xs-6 col-md-4 col-lg-3 list-item vignette-item col-draftmode-theme man pan'>
+				     					    		
+						{% else %}
+					    	<div class='col col-xs-6 col-md-4 col-lg-3 list-item vignette-item man pan'>
+					    {% endif %}
+					    		
+
+				    		<a class="thumbnail paxs" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+
+					    		<div class="square">
+								    {% if theme.image is not null %}
+							  			<img class="" src="{{ theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ theme.image.alt }}">
+									{% endif %}
+									
+									{% if theme.draftmode == 1 and theme.joggeur.id == app.user.joggeur.id %}
+					    				<div class="ribbon">
+											<div class="line flex-container-h align-center">							
+												<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
+												<span class="flex-item-fluid mls">Theme en attente crée par toi</strong></span>
+											</div>
+										</div>
+					    			{% endif %}
+
+								    <div class='inner-item-text'>
+								    	<div class="bg-vignette"></div>
+								    	<div class="inner-item-text-content">
+									    	<h3>{{ theme.titre }}</h3>				
+									    	<div class="musictitle-count">
+									    		<span class="glyphicon"></span>
+									    		<span class="number">12</span>
+									    	</div>
+								    	</div>
+								    </div>	
+								</div>					    		
+				    		</a>				    		
+					    </div>
+			    	{% endif %}
+			    {% endfor %} 
+			</div> 
+		{% endfor %}
+	</div>
+{% endblock %}
+
+

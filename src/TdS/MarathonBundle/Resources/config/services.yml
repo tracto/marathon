@@ -1,0 +1,9 @@
+services:
+    # td_s_marathon.ckeditor:
+    #     class: TdS\MarathonBundle\Form\Type\CkeditorType
+    #     tags:
+    #         - { name: form.type, alias: ckeditor }
+
+    tds_marathon.scoring:
+        class:  TdS\MarathonBundle\Scoring\TdSScoring
+

@@ -1,0 +1,21 @@
+TdS\UserBundle\Entity\User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    oneToOne:
+        joggeur:
+            targetEntity: TdS\MarathonBundle\Entity\Joggeur
+            inversedBy: user
+            joinColumn:
+                name: joggeur_id
+                referencedColumnName: id
+
+
+
+    lifecycleCallbacks: {  }

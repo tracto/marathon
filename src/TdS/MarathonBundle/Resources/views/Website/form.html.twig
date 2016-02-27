@@ -1,0 +1,32 @@
+{{ form_start(formWebsite) }}
+<fieldset class="form-group row mll mrl ptm pbm">
+      
+      <div class="col-xs-12 col-sm-12">
+        <div class="col-xs-12 col-sm-12">
+          {{ form_label(formWebsite.name, "nom", {'label_attr': {'class': 'col-xs-12 col-sm-2 control-label'}}) }}
+          {{ form_errors(formWebsite.name) }}
+          <div class="col-xs-12 col-sm-10">
+            {{ form_widget(formWebsite.name, {'attr': {'class': 'form-joggeur-website'}}) }}
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+          {{ form_label(formWebsite.url, "url", {'label_attr': {'class': 'col-xs-12 col-sm-2 control-label'}}) }}
+          {{ form_errors(formWebsite.url) }}
+          <div class="col-xs-12 col-sm-10">
+            {{ form_widget(formWebsite.url, {'attr': {'class': 'form-joggeur-website'}}) }}
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+    <div class="row align-center">
+        <div class="button btn btn-action mts">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           <input type="submit" value="Valider"/>
+        </div> 
+      </div>
+
+  {{ form_rest(formWebsite) }}
+  {{ form_end(formWebsite) }}

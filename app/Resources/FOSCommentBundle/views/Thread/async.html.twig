@@ -1,0 +1,80 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+<div id="fos_comment_thread_wrapper">
+	<div class="">
+		<button class="btn fos_comments_close" data-action="hide-comments">
+			<svg class="icon icon--s icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+		</button>
+
+		<button class="btn fos_comments_reload" data-action="reload-comments">
+			<svg class="icon icon--s icon-alone icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
+		</button>
+	</div>
+
+
+	<h2 class="sub-title align-center">Commentaires</h2>
+
+	<div id="fos_comment_thread">
+	</div>
+</div>
+    
+	{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+	<script type="text/javascript">
+		// thread id
+		var fos_comment_thread_id = '{{ id }}';
+
+		// api base url to use for initial requests
+		var fos_comment_thread_api_base_url = "{{ path('fos_comment_get_threads') }}";
+
+		var $root = $('html, body');
+
+		$("[data-action='show-comments']").on('click',function(){
+				$("#fos_comment_thread_wrapper").css({'height':'auto'});
+				$("#fos_comment_thread_wrapper").show();
+				$root.animate({
+			        scrollTop: $( $.attr(this, 'href') ).offset().top
+			    }, 500);			    
+				return false;
+		});
+		
+		$("[data-action='hide-comments']").on('click',function(){
+				// $("#fos_comment_thread_wrapper").css({'height':'auto'});
+				$("#fos_comment_thread_wrapper").hide();
+				
+		});
+
+		// Snippet for asynchronously loading the comments
+		$("[data-action='reload-comments']").on('click',function(){
+			launchComments();
+		});
+
+		$(function() {
+		    launchComments();		    			
+		})();
+
+
+
+		function launchComments(){
+			var fos_comment_script = document.createElement('script');
+		    fos_comment_script.async = true;
+		    fos_comment_script.src = '{{ asset_url }}';
+		    fos_comment_script.type = 'text/javascript';
+
+		    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
+
+		    
+		};
+
+
+	</script>
+	{% endjavascripts %}
+

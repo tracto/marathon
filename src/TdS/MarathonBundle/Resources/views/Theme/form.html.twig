@@ -1,0 +1,111 @@
+
+<div class="form-wrapper bg-op--white bd--light pam">
+   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_errors(form) }}
+
+    <div class="form-group row sep--dashed mll mrl mts pbm">
+      {{ form_label(form.titre, "Titre", {'label_attr': {'class': 'col-xs-12 col-sm-4  control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-xs-12 col-sm-6">
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    {% if is_granted("ROLE_SUPER_ADMIN")  %}
+      {% if form.saison is defined %}
+        <div class="form-group row mll mrl ptm pbm">
+          {{ form_label(form.saison, "Saison", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+          {{ form_errors(form.saison) }}
+          <div class="col-xs-12 col-sm-6">
+            {{ form_widget(form.saison, {'attr': {'class': 'form-control'}}) }}
+          </div>
+        </div>
+      {% endif %}
+
+
+      {% if form.joggeur is defined %}
+          <div class="form-group row mll mrl">
+              {{ form_label(form.joggeur, "Joggeur auteur", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+              {{ form_errors(form.joggeur) }}
+          <div class="col-xs-12 col-sm-6">
+              {{ form_widget(form.joggeur, {'attr': {'class': 'form-control'}}) }}
+          </div>
+      </div>
+      {% endif %}
+    {% endif %}
+
+    
+    {% if form.dateDebut is defined and form.dateFin is defined %}
+      <fieldset class="form-group row mll mrl mts mbs pas clearfix bg-op--white">
+        <div class="col-xs-12">
+          {{ form_label(form.dateDebut, "date de début", {'label_attr': {'class': 'col-xs-12 col-sm-4  control-label'}}) }}
+          {{ form_errors(form.dateDebut) }}
+          <div class="col-xs-12 col-sm-6">
+              {{ form_widget(form.dateDebut) }} 
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          {{ form_label(form.dateFin, "date de fin", {'label_attr': {'class': 'col-xs-12 col-sm-4  control-label'}}) }}
+          {{ form_errors(form.dateFin) }}
+          <div class="col-xs-12 col-sm-6">       
+              {{ form_widget(form.dateFin) }}           
+        </div>
+      </fieldset>
+    {% endif %}
+
+    <div class="form-group row mll mrl pbm sep--dashed">
+        {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+        {{ form_errors(form.image) }}
+        <div class='col-xs-12 col-sm-6'>
+          {{ form_widget(form.image,{'attr':{'class':''}}) }}
+        </div>
+    </div>
+
+
+    <fieldset class="form-group row mll mrl">
+        {% if form.chronique is defined %}
+            <div class="form-group row  ptm">
+              {{ form_label(form.chronique, "Chronique", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+              {{ form_errors(form.chronique) }}
+              <div class="col-xs-12 col-sm-6">
+                {{ form_widget(form.chronique) }}
+              </div>
+            </div>
+        {% endif %}
+
+        {% if form.joggeurChronique is defined %}
+            <div class="form-group row ptm pbm sep--dashed">
+              {{ form_label(form.joggeurChronique, "Joggeur de la Chronique", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+              {{ form_errors(form.joggeurChronique) }}
+              <div class="col-xs-12 col-sm-6">
+                {{ form_widget(form.joggeurChronique, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+        {% endif %}
+    </fieldset>
+
+
+    {% if form.activate is defined %}
+      <div class="form-group row mll mrl pbm">             
+              {{ form_label(form.activate, "thème en cours", {'label_attr': {'class': 'col-sm-7 control-label'}}) }}       
+            <div class='col-sm-3'>
+              {{ form_widget(form.activate,{'attr':{'class':'form-control'}}) }}
+            </div>
+      </div>
+    {% endif %}
+
+
+     <div class="align-center">
+        <div class="button btn btn-action mts">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(form.save, {'attr': {'value': 'valider'}}) }}
+        </div>
+      </div>
+   
+
+
+
+  {{ form_end(form) }} 
+</div>

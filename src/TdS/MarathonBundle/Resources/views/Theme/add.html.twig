@@ -1,0 +1,28 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div id="content" class="bg--lightgrey pam pbxxl">
+		{% if draftmode == 1 %}			
+			<h1 class="main-title man align-center">
+				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				<span>Nouveau thème d'attente</span>
+				<span class="button btn btn-default btn-becky pull-left" data-info="Tu es sur le point de créer le thème d'attente, c'est à dire le thème de la semaine prochaine. Il sera considéré comme brouillon et sera invisible des autres joggeurs jusqu'à son activation.<br/>N'oublie pas d'ajouter une image, c'est très important.">
+	        		<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
+	        	</span>
+	        </h1>
+		{% elseif draftmode == 0 %}
+			
+	    	<h1 class="main-title man align-center">
+
+				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				<span>Nouveau thème</span>
+				
+			</h1>
+		{% endif %}
+	    {{ include('TdSMarathonBundle:Theme:form.html.twig') }}
+ 	</div>
+{% endblock %}

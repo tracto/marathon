@@ -1,0 +1,55 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div class="container-fluid main-content-page pbxl">
+
+		{% if is_granted("ROLE_SUPER_ADMIN") %}
+			<div class="pull-right mtm mrl">
+				<a class="button btn btn-action" href="{{ path('tds_marathon_joggeur_add') }}" >
+					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+					<span>Ajouter un joggeur</span>
+				</a>
+			</div>
+		{% endif %}
+
+		<h1 class="main-title align-center mas">joggeurs</h1>
+			
+			    
+	    <div class="row list pas">
+		    {% for joggeur in listeJoggeurs %}
+		    	{% if joggeur is not null %}
+			    	{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
+			    		<div class='col col-xs-6 col-sm-4 col-lg-3 list-item list-item-logged vignette-item man pan'>
+			    	{% else %}
+			    		<div class='col col-xs-6 col-sm-4 col-lg-3 list-item vignette-item man pan'>
+			    	{% endif %}
+
+					    <a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+					    	<div class="square">
+							    {% if joggeur.image is not null %}
+						  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+								{% endif %}
+							
+
+							    <div class='inner-item-text'>
+							    	<div class="bg-vignette"></div>
+							    	<div class="inner-item-text-content">
+								    	<h3>{{ joggeur.pseudo }}</h3>				
+								    	<div class="musictitle-count">
+								    		<span class="glyphicon"></span>
+								    		<span class="number">{{ joggeur.musicTitles.count }}</span>
+								    	</div>
+							    	</div>
+							    </div>	
+							</div>					    		
+					    </a>
+					</div>
+			    {% endif %}
+		    {% endfor %}
+		</div>
+	</div> 
+{% endblock %}

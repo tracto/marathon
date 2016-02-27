@@ -1,0 +1,21 @@
+
+
+{{ form_start(form) }}
+	<div class="form-group row mll mrl mts pbm">
+      {{ form_label(form.info, "Texte", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+      {{ form_errors(form.info) }}
+      <div class="col-xs-12 col-sm-6">
+        {{ form_widget(form.info) }}
+      </div>
+    </div>
+    
+    <div class="align-center">
+        <div class="button btn btn-action mts">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(form.ajouter, {'attr': {'value': 'ajouter'}}) }}
+        </div>
+      </div>
+
+  {{ form_rest(form) }}
+{{ form_end(form) }}  
+ 

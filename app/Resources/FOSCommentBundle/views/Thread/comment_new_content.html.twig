@@ -1,0 +1,63 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+{% set first = first|default(false) %}
+
+{% set url_parameters = {'id': id } %}
+{% if parent is not null %}
+    {% set url_parameters = url_parameters|merge({'parentId': parent.id}) %}
+{% endif %}
+
+{% block fos_comment_comment_form_holder %}
+    <div class="fos_comment_comment_form_holder">
+        {% block fos_comment_form_title %}
+        {% endblock %}
+
+        {% block fos_comment_comment_new_form %}
+            <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
+
+
+                {% block fos_comment_form_fields %}
+                    <div class="fos_comment_form_errors">
+                    {{ form_errors(form) }}
+                    {{ form_errors(form.body) }}
+                    </div>
+
+
+                    <div class="fos_comment_comment_form_body">
+                        <div class="fos_comment_comment_authorImage comment_authorImage_preview">
+                            {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+                                <img class="img-responsive" src="{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ app.user.joggeur.image.alt }}"/>
+                            {% else %}
+                                <img class="img-responsive" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="anonymous img"/>
+                            {% endif %}
+                        </div>
+
+                        {{ form_widget(form.body) }}
+                    </div>
+
+                    {{ form_rest(form) }}
+                {% endblock %}
+
+                <div class="fos_comment_submit">
+                    {% block fos_comment_form_submit %}
+                        {% if parent is not null %}
+                            <input type="button" value="annuler" class="fos_comment_comment_reply_cancel pull-right" />
+                        {% endif %}
+                        <input class="fos_comment_comment_validate pull-right" type="submit" value="commenter" />
+                    {% endblock %}
+                </div>
+
+            </form>
+        {% endblock fos_comment_comment_new_form %}
+
+    </div>
+{% endblock fos_comment_comment_form_holder %}

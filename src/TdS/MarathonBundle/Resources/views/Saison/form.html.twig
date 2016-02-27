@@ -1,0 +1,34 @@
+<div class="form-wrapper bg-op--white bd--light pam">
+   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_errors(form) }}
+
+    <div class="form-group row mll mrl ptm">
+      {{ form_label(form.titre, "titre", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-xs-12 col-sm-6">
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    
+    <div class="form-group row mll mrl pbm">           
+          {{ form_label(form.activate, "Saison en cours", {'label_attr': {'class': 'col-sm-7 control-label'}}) }}       
+          <div class='col-sm-3'>
+            {{ form_widget(form.activate,{'attr':{'class':'form-control'}}) }}
+          </div>
+    </div>
+
+    
+    <div class="align-center">
+        <div class="button btn btn-action mts">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary','value':'valider'}}) }}
+        </div>
+    </div>
+   
+
+
+
+  {{ form_end(form) }} 
+</div>

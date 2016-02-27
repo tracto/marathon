@@ -1,0 +1,108 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+
+acme_robots:
+    path: /robots.txt
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: AcmeBundle:Static:robots_%kernel.environment%.txt.twig
+
+
+# _console:
+#     resource: "@CoreSphereConsoleBundle/Resources/config/routing.yml"
+#     prefix: /_console
+
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+
+td_s_marathon:
+    resource: "@TdSMarathonBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+td_s_becky:
+    resource: "@TdSBeckyBundle/Resources/config/routing.yml"
+    prefix:   /
+
+tds_admin_home:
+    path:     /admin
+    defaults: { _controller: TdSUserBundle:Admin:index }
+
+
+tds_participate:
+    path:    /participate
+    defaults: { _controller: TdSCoreBundle:Core:participate }
+
+tds_participate_validation:
+    path:    /participate-validation
+    defaults: { _controller: TdSCoreBundle:Core:participate }
+
+
+tds_admin_user_edit:
+    path:     /admin/edit/{id}
+    defaults: { _controller: TdSUserBundle:Admin:edit }
+    requirements:
+        id: \d+
+
+tds_admin_user_delete:
+    path:     /admin/delete/{id}
+    defaults: { _controller: TdSUserBundle:Admin:delete }
+    # requirements:
+    #     id: \d+
+
+
+tds_home:
+    path:     /
+    defaults: { _controller: TdSCoreBundle:Core:index }
+
+
+tds_becky_infos:
+    pattern: /becky/infos
+    defaults: { _controller: TdSBeckyBundle:Becky:infos }
+    options:
+        expose: true
+
+
+tds_marathon_kilometrage:
+    pattern: /kilometrage
+    defaults: { _controller: TdSCoreBundle:Core:kilometrage }
+    options:
+        expose: true
+
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+
+
+
+fos_comment_api:
+    type: rest
+    resource: "@TdSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }

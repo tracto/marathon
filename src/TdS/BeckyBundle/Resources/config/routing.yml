@@ -1,0 +1,14 @@
+tds_becky_liste_phrases:
+    path:     /becky/liste
+    defaults: { _controller: TdSBeckyBundle:Becky:liste }
+
+tds_becky_delete:
+    path:     /becky/delete/{id}
+    defaults: { _controller: TdSBeckyBundle:Becky:delete }
+
+
+tds_becky_add:
+    path:     /becky/add
+    defaults: { _controller: TdSBeckyBundle:Becky:add }
+
+

@@ -1,0 +1,365 @@
+{% extends "TdSCoreBundle::layout.html.twig" %}
+
+
+{% block body %}
+
+    <span class="btn btn-default btn-becky hidden" data-random="1" data-info="">
+	        	<span class="icon-cocktail"></span>
+		</span>
+    
+    <div id="content" class=""> 
+      	
+		{% set joggeurInPlaylist = 0 %}
+
+	    {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+	        
+	        <div class='tableau-bord row'>
+	        <div class="col col-xs-12 col-sm-4 col-sm-push-8 col-lg-4 tableau-bord_col-gauche">
+	        	
+			        <div class="panneau-infos row">
+			        	
+
+						<h2 class="sub-title man pan">
+							<span>Panneau d'information</span>
+							<span class="button btn btn-default btn-becky" data-info="Le panneau d'information te renseigne sur le thème en cours, le thème d'attente ou les chroniques à écrire.">
+	        				<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
+	        			</span>
+						</h2>
+												
+							
+							<div class="theme-attente sep clearfix">
+								<h3 class="sub-sub-title">Thème en attente</h3>
+								<div>
+									{% if is_granted("ROLE_SUPER_ADMIN")  %}
+										{% if draftmodeTheme is not null %}
+						        			<div class="flex-container-h pbm">
+												<svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
+												<span class="btn__label flex-item-fluid mls">Il y a un thème en attente</span>
+											</div>
+											{% if draftmodeTheme.joggeur == app.user.joggeur %}
+												<a class="button btn btn-action pull-right mbs" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': draftmodeTheme.id}) }}">
+			  										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+			  										<span class="btn__label">Modifier le thème d'attente</span>
+												</a>
+											{% endif %}
+						        		{% else %}
+						        			<div class="flex-container-h ptm pbm sep--dashed">
+												<svg class="icon icon-warning"><use xlink:href="#icon-warning"></use></svg>
+												<span class="btn__label flex-item-fluid mls">Il n'y a pas de thème en attente</span>
+											</div>
+
+											<div class="ptm pbm sep--dashed clearfix">
+												{% if musicTitle10th is not null %}
+					        						<strong>Le prochain thème doit être proposé par :</strong>
+					        						<div class='thumb-line author'>
+														<a href="{{ path('tds_marathon_joggeur_view', {'id': theme.joggeur.id}) }}">
+															<span class="author-thumb">
+																<img class='thumbnail' src='{{ theme.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+															</span>
+															<span class="author-name">
+																{{ musicTitle10th.joggeur.pseudo }}
+															</span>
+														</a>
+													</div>
+													<a class="btn btn-default" href=""><span class="glyphicon glyphicon-send"></span></a><span>Lui envoyer un message télépathique</span>
+						        				{% else %}
+						        					<div class="mbs flex-container-h">
+							        					<svg class="icon icon-warning"><use xlink:href="#icon-warning"></use></svg>
+														<span class="flex-item-fluid mls">Il n'y a pas d'auteur attitré <br/><strong>(pas de 10ème participant au thème en cours)</strong></span>
+													</div>
+
+						        					
+						        					
+								        			<a class="button btn btn-action pull-right"  href="{{ path('tds_marathon_theme_add_draftmode') }}">
+			  											<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+			  											<span class="btn__label">Ecrire un thème d'attente</span>
+													</a>
+													
+												{% endif %}	
+				        					</div>
+				        				{% endif %}
+
+				        			{% elseif is_granted("ROLE_USER")  %}
+				        				<div class="pbm flex-container-h clearfix">
+				        				{% if musicTitle10th is not null %}
+					        				{% if app.user.joggeur == musicTitle10th.joggeur %}
+					        					{% if draftmodeTheme is not defined or draftmodeTheme.draftmode is null or draftmodeTheme.draftmode == 0 %} 
+					        						<div class="flex-item-fluid"><strong class="text--m">Tu es l'élu !</strong><br/> 
+					        							C'est à toi de proposer le prochain thème.</div>
+					        						<div class="pull-right">
+						        						<a class="button btn btn-action "  href="{{ path('tds_marathon_theme_add_draftmode') }}">
+				  											<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+				  											<span class="btn__label">Ecrire un thème d'attente</span>
+														</a>
+													</div>
+												{% elseif draftmodeTheme is defined and draftmodeTheme.draftmode == 1 %}
+													{% if draftmodeTheme.joggeur == app.user.joggeur %}
+														<div class="flex-item-fluid"><strong class="text--m">Tu es l'élu !</strong><br/>
+
+						        							Tu as déjà écris le thème en attente mais il est encore temps de le modifier.
+						        						</div>
+						        						<div class="pull-right">
+															<a class="button btn btn-action mbs" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': draftmodeTheme.id}) }}">
+						  										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+						  										<span class="btn__label">Modifier le thème d'attente</span>
+															</a>
+														</div>
+													{% else %}
+														<div class="flex-item-fluid"><strong class="text--m">Tu es l'élu !</strong><br/> 
+						        							Mais Bob marathon t'as devancé et a écris le thème d'attente à ta place, va savoir pourquoi.
+						        						</div>
+													{% endif %}
+												{% endif %}
+				        					{% else %}
+				        						<div>C'est triste à dire mais ce n'est pas à toi d'écrire le futur thème</div>
+				        					{% endif %}
+				        				{% else %}
+				        					<div>Aucun joggeur n'est encore déterminé pour écrire le futur thème</div>
+			        					{% endif %}
+			        					</div>
+					        		{% endif %}
+				        		</div>
+							</div>
+
+
+
+
+							{% if is_granted("ROLE_SUPER_ADMIN")  %}
+								<div class="theme-cours sep pbm">								
+									{% if theme is defined and theme is not null %}
+											<div class='closeTheme-wrapper ptm'>
+							        			<a id="closeTheme-grosBouton" data-action="switch-show-brief" class='btn' href="#">
+							        				<svg class="icon icon--xl icon-toggle"><use xlink:href="#icon-toggle"></use></svg>
+							        			</a>
+							        			<span>Gros bouton qui ferme le thème pour toujours</span>
+							        			<div id="closeTheme-brief"></div>
+						        			</div>
+					        			
+
+									{% else %}
+										<div class="line">
+											<svg class="icon icon-warning"><use xlink:href="#icon-warning"></use></svg>
+											<span class="text pbm">Il n'y a aucun thème en cours</span>
+											{% if draftmodeTheme is not null %}
+												<div class='activeTheme-wrapper ptm'>
+						        					<a id="activeTheme-grosBouton" data-action="active-show-brief" class='btn btn-dedault' href="#">
+						        						<svg class="icon icon--xl icon-toggle"><use xlink:href="#icon-toggle"></use></svg>
+						        					</a>
+								        			<span>Gros bouton qui active le thème d'attente</span>
+								        			<div id="activeTheme-brief" class="activeTheme-brief mts pas">					
+								        				<span>Es-tu sûr de vouloir activer le thème d'attente (qui deviendra le thème en cours)?</span>
+								        				<div>
+								        					<a class="button btn btn-action btn-oui" href="{{ path('tds_marathon_theme_active_validation') }}">oui</a>
+								        					<a class="button btn btn-action btn-non" href="">non</a>
+								        				</div>
+								        				
+								        			</div>
+							        			</div>
+											{% endif %}
+										</div>
+									{% endif %}
+								</div>
+							{% endif %}
+
+
+
+
+
+							<div class='chroniques sep'>
+								<h3 class="sub-sub-title">Chroniques</h3>
+								{% if is_granted("ROLE_SUPER_ADMIN")  %}
+	        						{% set i=0 %}
+	        						{% for theme in allThemes %}
+		        						{% if theme.chronique is null and theme.draftmode == 0 %}
+		        							{% set i=i+1 %}
+		        						{% endif %}
+		        					{% endfor %}
+
+		        					
+		        						
+		        						<div data-action="show-chronique" class='btn btn-caret'>
+		        							<span>Chroniques à écrire ({{ i }})</span>
+		        							<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+		        						</div>
+		        					
+
+		        					<div class='chroniques-list mtm'>
+			        					{% for theme in allThemes %}
+			        						{% if theme.chronique is null and theme.draftmode == 0 %}
+			        						<div class="flex-container-h pas sep--dashed">
+			        							<div class="flex-item-fluid">
+				        							<strong>{{ theme.titre }}</strong>
+				        							{% for musicTitle in theme.musicTitles %}
+				        								{% if loop.index == 1 %}
+				        									<span>par : {{ musicTitle.joggeur.pseudo }}</span>
+				        								{% endif %}
+				        							{% endfor %}
+			        							</div>
+				        						<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
+				        							<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+				        							<span class="btn__label">Ecrire</span>
+				        						</a>
+			        						</div>
+			        						
+			        						{% endif %}
+			        					{% endfor %}
+		        					</div>
+
+		        				{% elseif is_granted("ROLE_USER")  %}
+		        					{% set i=0 %}
+		        					<div>
+		        						{% for theme in allThemes %}
+		        							{% if theme.chronique is null and theme.draftmode == 0 %}		
+		        								{% for musicTitle in theme.musicTitles %}
+			        								{% if loop.index == 1 %}
+			        									{% if app.user.joggeur == musicTitle.joggeur %}
+			        										{% set i=i+1 %}
+			        										<div data-action="show-chronique" class='btn btn-caret'>
+		        												<span>tu as {{ i }} chronique(s) à écrire</span>
+		        												<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+		        											</div>
+			        										<div class='chroniques-list mtm'>
+				        										<div class="flex-container-h pas sep--dashed">
+				        											<div class="flex-item-fluid">	
+					        											<strong>{{ theme.titre }}</strong>
+					        										</div>
+						        									<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
+						        										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+						        										<span class="btn__label">Ecrire</span>
+						        									</a>
+						        								</div>
+					        								</div>
+			        									{% endif %}
+			        								{% endif %}
+			        							{% endfor %}		        			
+			        						{% endif %}
+		        						{% endfor %}
+
+		        						{% if i==0 %}
+			        						<div>Zut de flûte, tu n'as aucune chronique à écrire</div>
+			        					{% endif %}	
+		        					</div>
+		        				{% endif %}		        					
+	        				</div>
+						</div>
+
+						
+					
+
+
+
+
+	        		<div class="col-score row">
+	        			<h2 class="sub-title">Score</h2>
+	        			
+	        			<div class="bg-op--black pas">
+	        				<span class="align-center block">pour la saison en cours</span>
+	        				<span class="align-center block text--m">{{ app.user.joggeur.score }} points </span>
+	        			</div>
+
+	        			<div class="flex-container-h line mts mbs">
+		        			<a class="button btn flex-item-center align-center" href="{{ path('tds_marathon_joggeur_classement') }}">
+		        				<svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>
+		        				<span>classement</span>
+		        			</a>
+	        			</div>
+
+	        			<div class="flex-container-h">
+							<div class="btn__info flex-item-fluid align-right prm mrn pts pbs">
+	        					<span>Il te restes {{ app.user.joggeur.pointstogive }} points à attribuer</span>
+							</div>
+
+							<a class="button btn btn-action mln" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+								<svg class="icon icon-heart"><use xlink:href="#icon-heart"></use></svg>
+								<span class="btn__label">Donner des points</span>
+							</a>
+						</div>
+
+	        			
+	        		</div>
+
+	        		<div class="col-profil row">
+		        		<h2 class="sub-title">Mon profil</h2>
+		        		
+
+							<div class="flex-container-h">
+								{% if app.user.joggeur.image is not null %}
+							  		<span class="flex-item-center">
+										<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>  
+									</span>
+								{% endif %}
+
+								{% if app.user.joggeur.presentation is not null %}
+							  		<div class="line block align-center">{{ app.user.joggeur.presentation | raw }}</div>
+								{% endif %}
+							
+
+							<div class="line block align-center pbxxl-screen">
+								<a class="button btn flex-item-center" href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
+									<svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>
+			        				<span>Voir mon profil</span>								
+								</a>
+							</div>
+							</div>
+		        	</div>
+		        </div>
+
+
+
+
+
+		        <div class="col col-xs-12 col-sm-8 col-md-pull-4 col-lg-8 tableau-bord_col-droite pbxxl-mobile">
+	        		<div class='row'>
+      				{% if saison is defined and saison.activate is not null %}
+      					<div class="saison-title align-center man">
+	      					<h1 class="man">{{ saison.titre }}</h1>
+	      				</div>
+
+			        	{% if theme is defined and theme is not null %}
+			        		{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}	
+						{% else %}
+			        		<div>
+			        			<h3>Pas de thème en cours</h3>
+			        		</div>
+			        	{% endif %}
+			        {% else %} 
+			        	<div class="saison-closed">
+							<h1 class="man">La saison est finie!</h1>
+						</div>
+		        	{% endif %}       		
+	        		</div>
+
+
+
+	        		<div class="row pas pbxxl align-center col-liens">
+	        			<h2 class="sub-title">Pas loin</h2>
+						<ul class="unstyled ptm">
+						{% for website in websites %}
+							<li><a href="{{ website.url }}">{{ website.name }}</a></li>
+						{% endfor %}						
+						</ul>
+
+						{% if is_granted("ROLE_SUPER_ADMIN")  %}
+							<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
+			  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+			  					<span class="btn__label">Ajouter un lien</span>
+							</a>
+
+							<div class="form-website pts mts">
+    							{{ include('TdSMarathonBundle:Website:form.html.twig') }}
+							</div>
+							<div id="anchorLiens"></div>
+						{% endif %}
+	        		</div>
+	        	</div>
+
+	   
+		    {% else %}
+		        <h1>Accueil</h1>
+		    {% endif %} 
+			</div>
+	      </div>
+	   	</div>
+{% endblock %}
+
+

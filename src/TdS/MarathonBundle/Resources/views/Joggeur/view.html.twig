@@ -1,0 +1,12 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div class="pbxxl bg--marbre">
+		{% set autoplay = "true" %}
+		{{ playlistWrapperModule.pl_joggeur(null,joggeur,tabIdJoggeur, autoplay) }}
+	</div>	
+{% endblock %}
