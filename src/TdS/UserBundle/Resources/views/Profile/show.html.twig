@@ -1,0 +1,24 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block fos_user_content %}
+<div class="bg--lightgrey pam pbxxl">
+	<h1 class="main-title man align-center">
+		<svg class="icon icon-locked"><use xlink:href="#icon-locked"></use></svg>
+		<span>Paramètres de connexion</span>
+	</h1>
+	<div class="form-wrapper bg-op--white bd--light pam">		
+		{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+
+		<div class="align-center mtm">
+		    	<a class="button btn btn-action mbs" href="{{ path('fos_user_profile_edit') }}">
+		    		<svg class="icon icon--m icon-locked"><use xlink:href="#icon-locked"></use></svg>
+		    		<span>Modifier mon identifiant / email</span> 
+		    	</a>
+	    
+		    	<a class="button btn btn-action mbs" href="{{ path('fos_user_change_password') }}">
+		    		<svg class="icon icon--m icon-key"><use xlink:href="#icon-key"></use></svg>
+		    		<span>Modifier mon mot de passe</span> 
+		    	</a>
+	    </div>		
+	</div>
+</div>
+{% endblock fos_user_content %}

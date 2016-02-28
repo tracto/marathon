@@ -47,7 +47,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle","TdSCoreBundle"]
+    bundles:        [ "FOSCommentBundle","TdSCoreBundle","TdSMarathonBundle"]
     variables:
         env:      [dev, prod]
     #java: /usr/bin/java
