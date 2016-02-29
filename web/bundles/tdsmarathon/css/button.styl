@@ -1,0 +1,81 @@
+button, .button, input[type="submit"],{
+  padding: 0.5em;
+  background: $grey1;
+  border:none;
+  cursor: pointer;
+  display:inline-block;
+
+  &:hover{
+    color:$grey5;
+  }
+
+  &:focus {
+    outline:0;
+  } 
+}
+
+
+
+
+
+.btn-wrapper{
+  width:100%;
+}
+
+.btn .icon {
+	margin-right: 10px;
+}
+
+.btn .icon-alone {
+  margin-right: 0;
+}
+
+.btn__label {
+	display: inline-block;
+	vertical-align: middle;
+
+}
+
+.btn__info{
+  display:inline-block;
+  vertical-align:middle;
+  line-height:0.9em;
+  background-color:$color10;
+  color:$grey1;
+}
+
+
+.btn-action{
+  color: $color10;
+}
+
+.btn-caret{
+  background-color:transparent;
+  border:none;
+  cursor:pointer;
+
+  .icon{
+    transition-duration:0.25s;
+  }  
+}
+
+.btn-caret.active .icon{
+  transform:rotate(-90deg);
+
+}
+
+
+
+.social-share {
+  overflow: hidden;
+  margin-bottom: 1em; }
+  .social-share li {
+    float: left;
+    margin-right: 0.5em; }
+  .social-share a {
+    background: #333333;
+    color: white;
+    display: block;
+    padding: 0.5em; }
+    .social-share a:hover {
+      background: gray; }
