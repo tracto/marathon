@@ -1,0 +1,281 @@
+.relative { position: relative; }
+
+.right {
+	float: right !important;
+}
+
+.middle{
+  margin:0 auto;
+}
+
+.block{
+  display:block;
+  width:100%;
+}
+
+.text--m{
+  font-size:1.2em;
+}
+
+
+.align-center { text-align: center; }
+.align-right { text-align: right; }
+
+.p0 { padding: 0; }
+.m0 { margin: 0; }
+
+ul.unstyled,
+ol.unstyled { 
+	list-style-type: none;
+	padding-left: 0; 
+  margin: 0;
+}
+
+/* spacing helpers
+p,m = padding,margin
+a,t,r,b,l = all,top,right,bottom,left
+s,m,l,n = small, medium, large, none
+*/
+.man,
+.ma0 {
+  margin: 0;
+}
+.pan,
+.pa0 {
+  padding: 0;
+}
+.mas {
+  margin: 1rem;
+}
+.mam {
+  margin: 2rem;
+}
+.mal {
+  margin: 4rem;
+}
+.paxs{
+  padding:0.5rem;
+}
+.pas {
+  padding: 1rem;
+}
+.pam {
+  padding: 2rem;
+}
+.pal {
+  padding: 4rem;
+}
+.mtn,
+.mt0 {
+  margin-top: 0;
+}
+.mts {
+  margin-top: 1rem;
+}
+.mtm {
+  margin-top: 2rem;
+}
+.mtl {
+  margin-top: 4rem;
+}
+.mrn,
+.mr0 {
+  margin-right: 0;
+}
+.mrs {
+  margin-right: 1rem;
+}
+.mrm {
+  margin-right: 2rem;
+}
+.mrl {
+  margin-right: 4rem;
+}
+.mbn,
+.mb0 {
+  margin-bottom: 0;
+}
+.mbs {
+  margin-bottom: 1rem;
+}
+.mbm {
+  margin-bottom: 2rem;
+}
+.mbl {
+  margin-bottom: 4rem;
+}
+.mln,
+.ml0 {
+  margin-left: 0;
+}
+.mls {
+  margin-left: 1rem;
+}
+.mlm {
+  margin-left: 2rem;
+}
+.mll {
+  margin-left: 4rem;
+}
+.mauto {
+  margin: auto;
+}
+.mtauto {
+  margin-top: auto;
+}
+.mrauto {
+  margin-right: auto;
+}
+.mbauto {
+  margin-bottom: auto;
+}
+.mlauto {
+  margin-left: auto;
+}
+.ptn,
+.pt0 {
+  padding-top: 0;
+}
+.pts {
+  padding-top: 1rem;
+}
+.ptm {
+  padding-top: 2rem;
+}
+.ptl {
+  padding-top: 4rem;
+}
+.prn,
+.pr0 {
+  padding-right: 0;
+}
+.prs {
+  padding-right: 1rem;
+}
+.prm {
+  padding-right: 2rem;
+}
+.prl {
+  padding-right: 4rem;
+}
+.pbn,
+.pb0 {
+  padding-bottom: 0;
+}
+.pbs {
+  padding-bottom: 1rem;
+}
+.pbm {
+  padding-bottom: 2rem;
+}
+.pbl {
+  padding-bottom: 4rem;
+}
+
+.pbxl{
+  padding-bottom:7rem;
+}
+
+.pbxxl{
+  padding-bottom:15rem;
+}
+
+.pbxxl-screen {
+
+  @media $medium{
+      padding-bottom:15rem;
+  }
+
+}
+
+.pbxxl-mobile {
+  padding-bottom:15rem;
+
+  @media $medium{
+      padding-bottom:0rem;
+  }
+
+}
+
+
+.pln,
+.pl0 {
+  padding-left: 0;
+}
+.pls {
+  padding-left: 1rem;
+}
+.plm {
+  padding-left: 2rem;
+}
+.pll {
+  padding-left: 4rem;
+}
+
+/* inline-block */
+.inbl {
+  display: inline-block;
+  vertical-align: top;
+}
+/* flexbox layout
+http://www.alsacreations.com/tuto/lire/1493-css3-flexbox-layout-module.html
+*/
+[class*="flex-container"],
+.flex-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.flex-container-h {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.flex-container-v {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.flex-item-fluid {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.flex-item-first {
+  -webkit-box-ordinal-group: 0;
+  -webkit-order: -1;
+      -ms-flex-order: -1;
+          order: -1;
+}
+.flex-item-medium {
+  -webkit-box-ordinal-group: 1;
+  -webkit-order: 0;
+      -ms-flex-order: 0;
+          order: 0;
+}
+.flex-item-last {
+  -webkit-box-ordinal-group: 2;
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
+}
+.flex-item-center {
+  margin: auto;
+}
+
+
+.clearfix::after{
+  content: "";
+  display: table;
+  clear: both;
+  border-collapse: collapse;
+}
