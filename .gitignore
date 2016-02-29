@@ -1,5 +1,5 @@
 
-# Cache and logs (Symfony2)
+
 /app/cache/
 /app/logs/dev.log
 /app/logs/prod.log
@@ -7,11 +7,11 @@
 !app/logs/.gitkeep
 
 
-# Parameters
+
 /app/config/parameters.yml
 /app/config/parameters.ini
 
-# Managed by Composer
+
 /app/bootstrap.php.cache
 /var/bootstrap.php.cache
 /bin/*
@@ -19,37 +19,35 @@
 !bin/symfony_requirements
 /vendor/
 
-# Assets and user uploads
-/web/bundles/
-!/web/bundles/tdsbecky/
-!/web/bundles/tdsmarathon/
-!/web/bundles/tdscomment/
+
+/web/bundles/*
+!/web/bundles/tdsbecky
+!/web/bundles/tdsmarathon
+!/web/bundles/tdscomment
 /web/uploads/
 /web/media/
 
-# Vendor
+
 /vendor/
 /node_modules/
 
-# PHPUnit
+
 /app/phpunit.xml
 /phpunit.xml
 
-# Build data
+
 /build/
 
-# Composer PHAR
+
 /composer.phar
 
 
-# Logs and databases #
-######################
+
 *.log
 *.sql
 *.sqlite
 
-# OS generated files #
-######################
+
 .DS_Store
 .DS_Store?
 ._*
