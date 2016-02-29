@@ -1,40 +1,38 @@
 <div class="form-wrapper bg-op--white bd--light pam">
    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
     {{ form_errors(form) }}
 
-    
-
-    <div class="form-group row sep--dashed mll mrl mts pbm">     
+      <div class="form-group row sep--dashed mll mrl mts mbm pbm">     
         {{ form_label(form.titre, "titre", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
         {{ form_errors(form.titre) }}
         <div class="col-xs-12 col-sm-6">
           {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
         </div>
-    </div>
-
-    
-      <div class="form-group row mll mrl ptm">
-        {{ form_label(form.theme, "thème", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-        {{ form_errors(form.theme) }}
-        <div class="col-xs-12 col-sm-6">
-          {{ form_widget(form.theme, {'attr': {'class': 'form-control'}}) }}
-        </div>
       </div>
-    
 
-    
-      <div class="form-group row mll mrl pbm">
-        {{ form_label(form.joggeur, "joggeur", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-        {{ form_errors(form.joggeur) }}
-        <div class="col-xs-12 col-sm-6">
-          {{ form_widget(form.joggeur, {'attr': {'class': 'form-control'}}) }}
+      {% if is_granted("ROLE_SUPER_ADMIN") %} 
+        <div class="form-group row mll mrl ">
+          {{ form_label(form.theme, "thème", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+          {{ form_errors(form.theme) }}
+          <div class="col-xs-12 col-sm-6">
+            {{ form_widget(form.theme, {'attr': {'class': 'form-control'}}) }}
+          </div>
         </div>
-      </div>
+      
+
+      
+        <div class="form-group row mll mrl pbm">
+          {{ form_label(form.joggeur, "joggeur", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+          {{ form_errors(form.joggeur) }}
+          <div class="col-xs-12 col-sm-6">
+            {{ form_widget(form.joggeur, {'attr': {'class': 'form-control'}}) }}
+          </div>
+        </div>
+      {% endif %} 
     
 
 
-     <div class="form-group row mll mrl  pbm">
+      <div class="form-group row mll mrl  pbm">
         {{ form_label(form.file, "fichier audio", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
         {{ form_errors(form.file) }}
         <div class='col-xs-12 col-sm-6'>
@@ -48,8 +46,6 @@
            {{ form_widget(form.valider, {'attr': {'class': ''}}) }}
         </div>
       </div>
-
-
 
   {{ form_end(form) }} 
 </div>
