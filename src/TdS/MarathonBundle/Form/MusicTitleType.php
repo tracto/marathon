@@ -21,13 +21,15 @@ class MusicTitleType extends AbstractType
                     'class'    => 'TdSMarathonBundle:Joggeur',
                     'property' => 'pseudo',
                     'multiple' => false,
-                    'expanded' => false
+                    'expanded' => false,
+                    'is_granted' => 'ROLE_ADMIN'
                   ))
             ->add('theme', 'entity', array(
                     'class'    => 'TdSMarathonBundle:Theme',
                     'property' => 'titre',
                     'multiple' => false,
-                    'expanded' => false
+                    'expanded' => false,
+                    'is_granted' => 'ROLE_ADMIN'
                   ))
             ->add('valider','submit');
     }
