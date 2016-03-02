@@ -2,6 +2,7 @@ $(document).ready(function(){
       var playlistBody=$('.playlist-body');
       var i=1;
       var musicTitlesArray = [];
+      var titleCurrent=0;
 
 
       playlistBody.each(function(){
@@ -92,9 +93,15 @@ $(document).ready(function(){
 
              },
 
+             play : function(){
+                titleCurrent=myPlaylist.current;
+             },
+
              ended: function() {
-               if(typeof idPlaylistRedirect !== 'undefined' && idPlaylistRedirect != 0){
-                    window.open(Routing.generate('tds_marathon_'+playlistType+'_view_js', { 'id': idPlaylistRedirect }), "_self");
+                if(typeof idPlaylistRedirect !== 'undefined' && idPlaylistRedirect != 0){
+                  if(titleCurrent == (Object.keys(myPlaylist.playlist).length)-1){
+                      window.open(Routing.generate('tds_marathon_'+playlistType+'_view_js', { 'id': idPlaylistRedirect }), "_self");
+                  }
                 }
              },
             
