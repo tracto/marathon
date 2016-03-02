@@ -9,13 +9,10 @@
 	  
    	  <link href="{{ asset('bundles/tdsmarathon/css/styles.css') }}" rel='stylesheet' type='text/css'>   	
 	  
-	  <script src="{{ asset('js/jquery-2.1.4.min.js') }}" type="text/javascript"></script>  
-	  <script src="{{ asset('js/moment.min.js') }}" type="text/javascript"></script>
 	  
-	  <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-	  <script src="{{ asset('bundles/tdscomment/js/comments.js') }}"></script>
-	   
-      <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+	  <script src="{{ asset('js/jquery-2.1.4.min.js') }}" type="text/javascript"></script> 
+	  <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
+
 
 	</head>
 
@@ -244,26 +241,37 @@
   
 
 	  {% block javascripts %} 
-	  	 
-	   	<script src="{{ asset('bundles/tdsmarathon/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
-	   	
+	  	
+	  	
 
+	  	<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+	  	<script src="{{ asset('bundles/tdsmarathon/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+
+	  	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+      	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+	  	 
+	   	
 	   	<script src="{{ asset('js/jquery.jplayer.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('js/jplayer.playlist.min.js') }}" type="text/javascript"></script>
+	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/form.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/marathon-jplayer.js') }}" type="text/javascript"></script>
-	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>
+	   	
 	   	<script src="{{ asset('bundles/tdsmarathon/js/indexAdmin.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/form-addpoints.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsbecky/js/liste.js') }}" type="text/javascript"></script>
-	    {% javascripts 'js/bootstrap.min.js' %}
-  			<script type="text/javascript" src="{{ asset_url }}"></script>
-		{% endjavascripts %}
+	    
+	     
+	     
+	    
+  		<script src="{{ asset('bundles/tdscomment/js/comments.js') }}"></script>
+
+  		
 	  {% endblock %}
 
 
 	</body>
-
+{# <script src="{{ asset('../Vendor/friendsofsymfony/comment-bundle/FOS/CommentBundle/Resources/assets/js/comments.js') }}" type="text/javascript"></script> #}
 
 
 </html>

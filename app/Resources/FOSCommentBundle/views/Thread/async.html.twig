@@ -26,40 +26,42 @@
 	<div id="fos_comment_thread">
 	</div>
 </div>
-    
+    {# {% javascripts %} #}
 	{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
 	<script type="text/javascript">
-		// thread id
-		var fos_comment_thread_id = '{{ id }}';
+		// $(function() {
+			// thread id
+			var fos_comment_thread_id = '{{ id }}';
 
-		// api base url to use for initial requests
-		var fos_comment_thread_api_base_url = "{{ path('fos_comment_get_threads') }}";
+			// api base url to use for initial requests
+			var fos_comment_thread_api_base_url = "{{ path('fos_comment_get_threads') }}";
 
-		var $root = $('html, body');
+			var $root = $('html, body');
 
-		$("[data-action='show-comments']").on('click',function(){
-				$("#fos_comment_thread_wrapper").css({'height':'auto'});
-				$("#fos_comment_thread_wrapper").show();
-				$root.animate({
-			        scrollTop: $( $.attr(this, 'href') ).offset().top
-			    }, 500);			    
-				return false;
-		});
-		
-		$("[data-action='hide-comments']").on('click',function(){
-				// $("#fos_comment_thread_wrapper").css({'height':'auto'});
-				$("#fos_comment_thread_wrapper").hide();
-				
-		});
+			$("[data-action='show-comments']").on('click',function(){
+					$("#fos_comment_thread_wrapper").css({'height':'auto'});
+					$("#fos_comment_thread_wrapper").show();
+					$root.animate({
+				        scrollTop: $( $.attr(this, 'href') ).offset().top
+				    }, 500);			    
+					return false;
+			});
+			
+			$("[data-action='hide-comments']").on('click',function(){
+					// $("#fos_comment_thread_wrapper").css({'height':'auto'});
+					$("#fos_comment_thread_wrapper").hide();
+					
+			});
 
-		// Snippet for asynchronously loading the comments
-		$("[data-action='reload-comments']").on('click',function(){
-			launchComments();
-		});
+			// Snippet for asynchronously loading the comments
+			$("[data-action='reload-comments']").on('click',function(){
+				launchComments();
+			});
 
-		$(function() {
-		    launchComments();		    			
-		})();
+			$(function() {
+			    launchComments();		    			
+			})();
+		// };
 
 
 
