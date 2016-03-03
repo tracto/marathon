@@ -6,27 +6,53 @@
 
 {% block tdsmarathon_body %}
 	<div id="content" class="bg--lightgrey pam pbxxl">
-		{% for joggeur in listeJoggeurs %}
-			<div class="row classement sep--dashed">
-				<h3 class='col col-md-5'>{{ loop.index }} - {{ joggeur.pseudo }}</h3>
-				<div>
-					<div class='col col-md-2'>
-						<strong class="glyphicon glyphicon-tower">												
-							{{ joggeur.score }}						
-						</strong>
+		<div class="classement">
+			<h1 class="main-title man pbm align-center">
+				{# <svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg> #}
+				<span>Classement</span>
+			</h1>
+			<div class="row row-header sep--dashed pas">
+					<h3 class='col col-md-5 man pan'>Joggeur</h3>
+					<div>
+						<div class='col col-md-3'>
+							<strong class="glyphicon glyphicon-tower">												
+								Score Total						
+							</strong>
+						</div>
+						<div class='col col-md-2'>
+							<span class="glyphicon glyphicon-heart">
+								derniers points coeurs
+							</span>
+						</div>
+						<div class='col col-md-2'>
+							<span class="glyphicon glyphicon-scale">
+								derniers points vitesse
+							</span>
+						</div>
 					</div>
-					<div class='col col-md-2'>
-						<span class="glyphicon glyphicon-heart">
-							{{ joggeur.lastheartpoints }}
-						</span>
+			</div>
+			{% for joggeur in listeJoggeurs %}
+				<div class="row sep--dashed pas">
+					<h3 class='col col-md-5 man pan'>{{ loop.index }} - {{ joggeur.pseudo }}</h3>
+					<div>
+						<div class='col col-md-3'>
+							<strong class="glyphicon glyphicon-tower">												
+								{{ joggeur.score }}						
+							</strong>
+						</div>
+						<div class='col col-md-2'>
+							<span class="glyphicon glyphicon-heart">
+								{{ joggeur.lastheartpoints }}
+							</span>
+						</div>
+						<div class='col col-md-2'>
+							<span class="glyphicon glyphicon-scale">
+								{{ joggeur.lastfastpoints }}
+							</span>
+						</div>
 					</div>
-					<div class='col col-md-2'>
-						<span class="glyphicon glyphicon-scale">
-							{{ joggeur.lastfastpoints }}
-						</span>
-					</div>
-				</div>
-			</div>		
-		{% endfor %}
+				</div>		
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}

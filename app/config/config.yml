@@ -47,9 +47,9 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle","TdSCoreBundle"]
     variables:
         env:      [dev, prod]
+        bundles: [ "FOSCommentBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

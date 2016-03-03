@@ -11,7 +11,7 @@
 				<div class="row mas pas sep--dashed">
 					<div class="col col-xs-10">{{ beckyphrase.info | raw }}</div>
 					<div class="col col-xs-2">
-						<a class='button btn btn-action btn-user-delete' data-href="{{ path('tds_becky_delete', {'id': beckyphrase.id}) }}" data-pseudo="la phrase" href="#">
+						<a class='button btn btn-action btn-becky-delete' data-delete data-href="{{ path('tds_becky_delete', {'id': beckyphrase.id}) }}" data-pseudo="la phrase" href="#">
                             <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
                     	</a>
                     </div>
@@ -22,11 +22,11 @@
 	
 
 
-	<div id="popup-delete-user" class='popup-delete-confirmation'>
+	<div class='popup-delete-confirmation' data-popupdelete>
         <div>
             <p></p>
-            <a href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-            <a href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
             </div>
     </div>
 

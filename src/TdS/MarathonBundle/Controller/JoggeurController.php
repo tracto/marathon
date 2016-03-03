@@ -110,6 +110,36 @@ class JoggeurController extends Controller{
     }
 
 
+    public function deleteAction(Joggeur $joggeur, $id, Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $joggeur = $em->getRepository('TdSMarathonBundle:Joggeur')
+                    ->findOneBy(array('id' => $id));
+
+        // $username=$joggeur->getUser()->getUsername();
+        // echo "<h2>".$username."</h2>";
+
+         // $user = $em->getRepository('TdSUserBundle:User')->find($id);
+
+        if($joggeur!=null){
+            $userAttached=$joggeur->getUser();
+            if($userAttached != null){
+               
+               $userAttached->setJoggeur(null); 
+               $em->persist($userAttached);
+            }
+             $em->remove($joggeur);
+             $em->flush();
+        }
+
+        
+        $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
+                           ->findAll();
+
+        return $this->render('TdSMarathonBundle:Joggeur:index.html.twig', array(
+                                'listeJoggeurs'=>$listeJoggeurs));
+    }
+
+
     public function addpointsAction(Joggeur $joggeur, $id, Request $request){
     	$em=$this->getDoctrine()->getManager();
 

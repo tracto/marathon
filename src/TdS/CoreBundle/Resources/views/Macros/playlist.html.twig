@@ -5,9 +5,14 @@
 			{% if theme.musicTitles is not null %}		
 				<ul class='musicTitlesListe'>
 					{% for musicTitle in theme.musicTitles %}
-						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='{{ musicTitle.joggeur.pseudo  }}' data-thumb='{{ musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') }}' data-path='{{ asset(musicTitle.webPath) }}'>
-							{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
-						</li>					
+						{% if musicTitle.joggeur.image is null %}
+							{% set imagePlaylist = "" %}
+						{% else %}
+							{% set imagePlaylist = musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') %}
+						{% endif %}
+						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='{{ musicTitle.joggeur.pseudo  }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}'>
+								{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
+						</li>										
 					{% endfor %}
 				</ul>
 			{% endif %}
@@ -15,8 +20,14 @@
 			{% if joggeur.musicTitles is not null %}
 				<ul class='musicTitlesListe'>
 					{% for musicTitle in joggeur.musicTitles %}
-						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='theme / {{ musicTitle.theme.titre }}' data-thumb='{{ musicTitle.theme.image.webPath | imagine_filter('tiny_thumb')  }}' data-path='{{ asset(musicTitle.webPath) }}'>
+						{% if musicTitle.theme.image is null %}
+							{% set imagePlaylist = "" %}
+						{% else %}
+							{% set imagePlaylist = musicTitle.theme.image.webPath | imagine_filter('tiny_thumb') %}
+						{% endif %}
+						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='theme / {{ musicTitle.theme.titre }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}'>
 							{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
+							
 						</li>					
 					{% endfor %}
 				</ul>

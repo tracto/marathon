@@ -58,7 +58,7 @@ class Joggeur
     private $mail;
 
     /**
-     * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\MusicTitle",mappedBy="joggeur")
+     * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\MusicTitle", cascade={"persist","remove"},mappedBy="joggeur")
      * @ORM\OrderBy({"dateUpload" = "ASC"})
      * @ORM\JoinColumn(nullable=true)
      */
