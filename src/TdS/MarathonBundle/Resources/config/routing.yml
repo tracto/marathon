@@ -45,6 +45,13 @@ tds_marathon_theme_edit:
     requirements:
         id: \d+
 
+tds_marathon_theme_delete:
+    path:     /theme/delete/{id}
+    defaults:  
+        _controller: TdSMarathonBundle:Theme:delete 
+        requirements:
+            id: \d+
+
 
 tds_marathon_theme_add_draftmode:
     path:     /theme/add/draftmode
@@ -75,10 +82,6 @@ tds_marathon_theme_edit_chronique:
     requirements:
         theme_id: \d+
         joggeurChronique_id: \d+
-
-
-
-
 
 
 
@@ -160,6 +163,13 @@ tds_marathon_joggeur_edit:
     defaults: { _controller: TdSMarathonBundle:Joggeur:edit }
     requirements:
         id: \d+
+
+tds_marathon_joggeur_delete:
+    path:     /joggeur/delete/{id}
+    defaults:  
+        _controller: TdSMarathonBundle:Joggeur:delete 
+        requirements:
+            id: \d+
 
 
 

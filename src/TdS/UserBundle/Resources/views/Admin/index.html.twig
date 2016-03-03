@@ -42,7 +42,7 @@
                             <svg class="icon icon-alone icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
                         </a>
                         {% if user != app.user %}
-                            <a class='button btn btn-action btn-user-delete' data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
+                            <a class='button btn btn-action btn-user-delete' data-delete data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
                                 <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
                             </a>
                         {% endif %}
@@ -51,11 +51,11 @@
             {% endfor %}
         </div>
         
-        <div id="popup-delete-user" class='popup-delete-confirmation'>
+        <div data-popupdelete class='popup-delete-confirmation'>
             <div>
                 <p></p>
-                <a href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-                <a href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+                <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+                <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
             </div>
         </div> 
     </div>

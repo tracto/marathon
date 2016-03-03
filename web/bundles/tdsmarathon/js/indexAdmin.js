@@ -3,7 +3,6 @@ $("[data-action='show-chronique']").on('click',function(){
 		$(this).siblings(".chroniques-list").hide();
 		$(this).removeClass('active');
 	}else{
-		console.log("yo chronique");
 		$(this).siblings(".chroniques-list").show();
 		$(this).addClass('active');
 	}
