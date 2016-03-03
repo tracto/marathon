@@ -19,7 +19,7 @@ class User extends BaseUser{
 
 	 /**
        * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\Joggeur", cascade={"persist","merge"}, inversedBy="user")
-        * @ORM\JoinColumn(nullable=false)
+        * @ORM\JoinColumn(nullable=true)
        */
      private $joggeur;
 

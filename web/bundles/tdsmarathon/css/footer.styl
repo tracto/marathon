@@ -1,0 +1,159 @@
+footer{
+	width: 100%;
+    height: 60px;
+    margin-top: -60px;  
+    position:relative;
+    bottom: 0px;
+}
+
+.kilometrage-wrapper{
+	text-align:center;
+	position: absolute;
+    bottom: -5px;
+    width: 100%;
+    pointer-events:none;
+}
+
+.total-km{
+	/*background-image:url('../images/footer/bg-footer-mouchete.png');
+	background-repeat:repeat-x;*/
+	width:100%;
+	height:140px;
+	position:relative;
+	
+}
+
+.total-km-content{
+	position:relative;
+	height:150px;
+	width:68px;
+	margin:0 auto;
+	
+
+
+	.borne-km-icon{
+		position:absolute;
+		bottom:0;
+		background-image:url('../images/footer/footer-borne-km.png');
+		background-size:cover;
+		background-repeat:no-repeat;
+		width:100%;
+		height:100px;
+		margin:0 auto;
+	}
+
+	span{
+		position: absolute;
+    	left: 0;
+    	width: 100%;
+		height:100px;
+		margin:0px auto;
+		padding:95px 10px 10px 10px;
+		text-align:center;
+		font-size:1.2em;
+		font-weight:bold;
+		line-height:0.8em;
+	}
+}
+
+.total-temps{
+		position:relative;
+		color:$grey4;
+		background-color:black;
+		text-align:center;
+		z-index:1;
+		padding: 3px 0 3px 0;
+}
+
+.joggeurs-group{
+	position:absolute;
+	top:40px;
+	width:100%;
+	height:200px;
+	z-index:2;
+
+	span{
+		position:absolute;
+	}
+}
+
+/*.jog1{
+	left:0%;
+}
+.jog2{
+	left: 10%;
+    top: 10px;
+}
+.jog3{
+	left: 20%;
+}
+.jog4{
+	left: 22%;
+}
+.jog5{
+	left: 65%;
+    top: 30px;
+}
+.jog6{
+	left: 67%;
+}
+.jog7{
+	left: 72%;
+    top: 56px;
+}
+.jog8{
+	left: 52%;
+}
+.jog9{
+	left: 87%;
+}
+.jog10{
+	top: -55px;
+	left: 6%;
+}
+.jog11{
+	left:95%;
+}*/
+
+
+.footer-wrapper{
+	background-color:rgba(253, 98, 116, 0.72);
+	/*padding:20px 0px 0px 0px;*/
+	width:100%;
+	
+}
+
+.btns-footer{ 
+	
+	/*text-align:center;
+	margin-bottom:20px;*/
+
+	@media $medium{
+   		/*margin-bottom:0px;*/
+    }
+}
+
+.btn-footer{
+	/*padding:20px;
+	display:inline-block;
+	margin:0 10px;*/
+	background-color:black;
+	color:$grey5;
+	/*border:solid 1px $grey2;*/
+	/*border-radius:0px;*/
+}
+.btn-footer:hover{
+	background-color:$grey2;
+	color:$grey5;
+	border:solid 1px $grey2;
+	/*border-radius:0px;*/
+}
+
+.footer-credits{
+	position: absolute;
+    /*bottom: 15px;*/
+	color:$grey3;
+	font-size:12px;
+	z-index:4;
+	width: 100%;
+}

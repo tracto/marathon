@@ -1,0 +1,150 @@
+.list{
+	/*width:95%;
+	margin:0 auto;*/
+}
+
+
+.list-item{
+	/*padding: 5px;*/
+
+	.thumbnail{
+		color:$grey6;
+    	text-align: center;
+    	border:none;
+    	display:block;
+    	width:100%;
+    	height:100%;
+	}
+
+	
+
+	.square {
+		background-color:rgba(255,255,255,0.5);
+		border:solid 1px $grey3;
+		border-radius:5px;
+	    position:relative;
+	    width:100%;
+	    overflow:hidden;
+	    padding-bottom:100%;
+
+		img {
+	    	position:absolute;
+	    	left: 0;
+    		width: 100%;
+		}
+	}
+
+	.round{
+		border-radius:50%;
+		overflow:hidden;
+		width:100%;
+
+		img {
+	    	
+	    	left: 0;
+    		width: 100%;
+		}
+	}
+}
+
+
+
+
+.inner-item-text{
+	position:absolute;
+	bottom:0;
+	margin:0 auto;
+	width:100%;
+						
+	.bg-vignette{
+		background-image:url("../../tdsmarathon/images/bg-vignette.png");
+		background-repeat:repeat-x;
+		height:95px;
+		width:100%;
+		position:absolute;
+		bottom:0;
+	}
+
+	.inner-item-text-content{
+		overflow-x:hidden;
+		position:absolute;
+		bottom:0;
+		margin:0 auto;
+		width:100%;
+		
+	}
+
+	span{
+		display:inline-block;
+	}
+
+	h3{
+		font-size:1.2em;
+		padding:10px;
+	}
+}
+
+
+
+
+
+
+
+
+.musictitle-count{
+	display:none;
+	background-color:$color6;	
+	height: 29px;
+    width: 44px;
+    margin: 0 auto;
+    padding: 3px;
+
+	.glyphicon{
+		background-image:url("../../tdsmarathon/images/icons/musictitle-icon.svg");
+		background-repeat:no-repeat;
+    	background-size: cover;
+    	height: 100%;
+    	width: 20px;
+    	display:inline-block;
+    	vertical-align:middle;
+	}
+
+	.number{
+		display:inline-block;
+		vertical-align:middle;
+		color:$grey1;
+	}
+
+
+}
+
+
+.btn-liste-delete{
+	position:absolute;
+	right:0;
+	top:0;
+	border-radius:0 5px 0 0;
+}
+
+.joggeur-list-item-logged{
+	background-color:pink;
+}
+
+
+
+.col-draftmode-theme{
+	overflow:hidden;
+
+	.ribbon {
+		
+	}
+
+	.square {
+		background-color:$color1;
+
+		img {
+			opacity:0.6;
+		}
+
+	}
+}

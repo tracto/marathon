@@ -18,6 +18,13 @@ services:
 
     fos_user.doctrine_registry:
         alias: doctrine
+
+    td_s_marathon.security_type_extension:
+        class: TdS\MarathonBundle\Form\Extension\SecurityTypeExtension
+        arguments:
+            - @security.context
+        tags:
+            - { name: form.type_extension, alias: form }
         
     app.form.registration:
         class: AppBundle\Form\RegistrationType

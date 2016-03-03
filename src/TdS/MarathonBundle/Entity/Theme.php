@@ -68,7 +68,7 @@ class Theme
 
 
     /**
-     * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\MusicTitle",mappedBy="theme")
+     * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\MusicTitle", cascade={"persist","remove"}, mappedBy="theme")
      * @ORM\OrderBy({"dateUpload" = "ASC"})
      * @ORM\JoinColumn(nullable=true)
      */

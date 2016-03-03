@@ -67,12 +67,27 @@
 								    	</div>
 								    </div>	
 								</div>					    		
-				    		</a>				    		
+				    		</a>
+				    		{% if is_granted("ROLE_SUPER_ADMIN") %}
+		                        <a class='button btn btn-action btn-liste-delete btn-theme-delete mrs mts' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
+		                            <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+		                        </a>
+		                    {% endif %}				    		
 					    </div>
 			    	{% endif %}
 			    {% endfor %} 
 			</div> 
 		{% endfor %}
+
+		{% if is_granted("ROLE_SUPER_ADMIN") %}
+			<div class='popup-delete-confirmation' data-popupdelete>
+	            <div>
+	                <p></p>
+	                <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+	                <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+	            </div>
+	        </div>
+    	{% endif %}
 	</div>
 {% endblock %}
 

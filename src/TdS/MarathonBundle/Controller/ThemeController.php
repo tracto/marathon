@@ -133,6 +133,25 @@ class ThemeController extends Controller{
     }
 
 
+    public function deleteAction(Theme $theme, $id, Request $request){
+		$em=$this->getDoctrine()->getManager();
+		$theme = $em->getRepository('TdSMarathonBundle:Theme')
+					->findOneBy(array('id' => $id));
+
+		if($theme!=null){
+			$em->remove($theme);
+        	$em->flush();
+		}
+
+		
+		$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
+    					 ->findAll();
+    	
+        return $this->render('TdSMarathonBundle:Theme:index.html.twig', array(
+        						'listeSaisons'=>$listeSaisons));
+	}
+
+
     public function switchAction(Request $request){
     	if($request->isXmlHttpRequest()){
 	    	$em=$this->getDoctrine()->getManager(); 
