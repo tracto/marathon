@@ -65,31 +65,7 @@ class Joggeur
     private $musicTitles;
     
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="score", type="integer",nullable=true)
-     */
-    private $score;
-
-
-
     
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="lastfastpoints", type="integer",nullable=true)
-     */
-    private $lastfastpoints;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="lastheartpoints", type="integer",nullable=true)
-     */
-    private $lastheartpoints;
-
 
 
     /**
@@ -100,8 +76,6 @@ class Joggeur
      private $pointstogive;
 
 
-
-    
 
 
     /**
@@ -278,29 +252,25 @@ class Joggeur
     }
 
 
-    /**
-     * Set score
-     *
-     * @param integer $score
-     *
-     * @return Joggeur
-     */
-    public function setScore($score)
-    {
-        $this->score = $score;
 
-        return $this;
-    }
 
-    /**
-     * Get score
-     *
-     * @return integer
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
+
+    // public function addScore(Score $score)
+    // {
+    //     $this->scores[] = $score;
+
+    //     return $this;
+    // }
+
+    // public function removeScore(Score $score)
+    // {
+    //     $this->scores->removeElement($score);
+    // }
+
+    // public function getScores()
+    // {
+    //     return $this->scores;
+    // }
 
 
 
@@ -310,56 +280,9 @@ class Joggeur
    
 
 
-    /**
-     * Set lastfastpoints
-     *
-     * @param integer $lastfastpoints
-     *
-     * @return Joggeur
-     */
-    public function setLastfastpoints($lastfastpoints)
-    {
-        $this->lastfastpoints = $lastfastpoints;
-        return $this;
-    }
-
-    /**
-     * Get 
-     *
-     * @return integer
-     */
-    public function getLastfastpoints()
-    {
-        return $this->lastfastpoints;
-    }
 
 
-    /**
-     * Set lastheartpoints
-     *
-     * @param integer $lastheartpoints
-     *
-     * @return Joggeur
-     */
-    public function setLastheartpoints($lastheartpoints)
-    {
-        $this->lastheartpoints = $lastheartpoints;
-        return $this;
-    }
-
-    /**
-     * Get 
-     *
-     * @return integer
-     */
-    public function getLastheartpoints()
-    {
-        return $this->lastheartpoints;
-    }
-
-
-
-
+    
 
     /**
      * Set pointstogive

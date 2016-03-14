@@ -119,6 +119,14 @@ class Theme
     private $postActivate;
 
 
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\Score", cascade={"persist","remove"},mappedBy="theme")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $scores;
+
+
     public function __construct(){
         // $this->$musicTitles = new ArrayCollection();
     }
