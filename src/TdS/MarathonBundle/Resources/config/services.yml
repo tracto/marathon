@@ -6,4 +6,5 @@ services:
 
     tds_marathon.scoring:
         class:  TdS\MarathonBundle\Scoring\TdSScoring
+        
 

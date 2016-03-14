@@ -7,6 +7,10 @@ use AppBundle\Entity\Task;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\Type\TaskType;
 use TdS\MarathonBundle\Entity\Joggeur;
+use TdS\MarathonBundle\Entity\JoggeurScore;
+use TdS\MarathonBundle\Entity\Score;
+use TdS\MarathonBundle\Entity\Theme;
+use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\MusicTitle;
 use TdS\MarathonBundle\Form\JoggeurType;
 use TdS\MarathonBundle\Form\JoggeurEditType;
@@ -47,21 +51,50 @@ class JoggeurController extends Controller{
    		;
 	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
           'tabIdJoggeur'=>$tabIdJoggeur,
-	      'joggeur' => $joggeur,
+	        'joggeur' => $joggeur,
 	      // 'listeMusicTitles'=> $listeMusicTitles
 	    ));
 	} 
 
 
-	public function classementAction(){
+	public function classementAction(Request $request){
 		$em=$this->getDoctrine()->getManager();
-        
-    	$listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
-    					   ->findBy([],array('score' => 'DESC'));
-        
-		return $this->render('TdSMarathonBundle:Joggeur:classement.html.twig', array(
-        						'listeJoggeurs'=>$listeJoggeurs));
+
+    // $listeScores=$em->getRepository('TdSMarathonBundle:Score')
+    //                      ->findAll();
+      
+    $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
+    					    ->findAll();
+
+    $listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
+                  ->findAll();
+
+    $lastSaison=$em->getRepository('TdSMarathonBundle:Saison')
+                  ->findLastOne();
+    $lastSaison=$lastSaison[0];
+
+
+    
+
+    $listeJoggeurScore = $em
+      ->getRepository('TdSMarathonBundle:JoggeurScore')
+      ->findAll();
+
+    $tdsScoring = $this->container->get('tds_marathon.scoring');
+    $listeJoggeurScore=$tdsScoring->sortScorebyTotal($listeJoggeurScore);
+
+ 
+
+	return $this->render('TdSMarathonBundle:Joggeur:classement.html.twig', array(
+				'listeJoggeurs'=>$listeJoggeurs,
+                'lastSaison'=>$lastSaison,
+                'listeJoggeurScore'=>$listeJoggeurScore,
+        ));
 	}
+
+
+
+
 
     public function addAction(Request $request){
     	$joggeur=new Joggeur();

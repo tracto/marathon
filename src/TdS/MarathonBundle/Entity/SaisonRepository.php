@@ -15,6 +15,6 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
     }
 
     public function findLastOne(){
-    	return $this->findBy(array(), array('activate' => 1));
+    	return $this->findBy(array('activate' => 1));
     }
 }
