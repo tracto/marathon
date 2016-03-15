@@ -128,8 +128,10 @@ tds_marathon_joggeur_home:
 
 
 tds_marathon_joggeur_classement:
-    path:     /joggeurs/classement
+    path:     /joggeurs/classement/{saisonid}
     defaults: { _controller: TdSMarathonBundle:Joggeur:classement }
+    requirements:
+        saisonid: \d+
 
 
 tds_marathon_joggeur_view:
