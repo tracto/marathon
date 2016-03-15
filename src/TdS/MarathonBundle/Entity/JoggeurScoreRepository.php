@@ -3,7 +3,9 @@
 namespace TdS\MarathonBundle\Entity;
 
 use TdS\MarathonBundle\Entity\Joggeur;
+use TdS\MarathonBundle\Entity\Theme;
 use TdS\MarathonBundle\Entity\Score;
+use TdS\MarathonBundle\Entity\Saison;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -13,7 +15,26 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
+	public function findAllBySaison(Saison $saison){
+    	$themesId = array();
+  		foreach ($saison->getThemes() as $theme) {
+      		$themesId[] = $theme->getId();
+  		}
 
+
+
+  		$queryBuilder = $this->createQueryBuilder('c')
+        	->addSelect('m')
+        	->leftJoin('c.scores', 'm')
+        	->where('m.theme IN (:theme)')
+        	->setParameter('theme', $themesId);
+ 
+
+		return $queryBuilder
+     		->getQuery()
+     		->getResult();
+
+    }
 
 }
 

@@ -144,7 +144,28 @@ class Score
 
 
     
+    /**
+     * Set joggeurScore
+     *
+     * @param integer $joggeurScore
+     *
+     * @return Score
+     */
+    public function setJoggeurScore($joggeurScore)
+    {
+        $this->joggeurScore = $joggeurScore;
+        return $this;
+    }
 
+    /**
+     * Get joggeurScore
+     *
+     * @return integer
+     */
+    public function getJoggeurScore()
+    {
+        return $this->joggeurScore;
+    }
 
 
 }

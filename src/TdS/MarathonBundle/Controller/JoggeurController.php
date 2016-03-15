@@ -57,38 +57,42 @@ class JoggeurController extends Controller{
 	} 
 
 
-	public function classementAction(Request $request){
+	public function classementAction($saisonid, Request $request){
 		$em=$this->getDoctrine()->getManager();
-
-    // $listeScores=$em->getRepository('TdSMarathonBundle:Score')
-    //                      ->findAll();
+                     
       
-    $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
-    					    ->findAll();
+        $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
+        				->findAll();
 
-    $listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-                  ->findAll();
+        $listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
+                       ->findAll();
 
-    $lastSaison=$em->getRepository('TdSMarathonBundle:Saison')
-                  ->findLastOne();
-    $lastSaison=$lastSaison[0];
+        // if($saisonid == null){
+        //     $lastSaison=$em->getRepository('TdSMarathonBundle:Saison')
+        //               ->findLastOne();
+        //     $saison=$lastSaison[0]; 
+
+        // }else{
+           $saison=$em->getRepository('TdSMarathonBundle:Saison')
+                      ->findOneBy(array('id' => $saisonid));
+        // }
+        
 
 
-    
+        $listeJoggeurScore = $em
+          ->getRepository('TdSMarathonBundle:JoggeurScore')
+          ->findAllBySaison($saison);
 
-    $listeJoggeurScore = $em
-      ->getRepository('TdSMarathonBundle:JoggeurScore')
-      ->findAll();
 
-    $tdsScoring = $this->container->get('tds_marathon.scoring');
-    $listeJoggeurScore=$tdsScoring->sortScorebyTotal($listeJoggeurScore);
+        $tdsScoring = $this->container->get('tds_marathon.scoring');
+        $listeJoggeurScore=$tdsScoring->sortScorebyTotal($listeJoggeurScore);
 
- 
+     
 
-	return $this->render('TdSMarathonBundle:Joggeur:classement.html.twig', array(
-				'listeJoggeurs'=>$listeJoggeurs,
-                'lastSaison'=>$lastSaison,
-                'listeJoggeurScore'=>$listeJoggeurScore,
+    	return $this->render('TdSMarathonBundle:Joggeur:classement.html.twig', array(
+    				'listeJoggeurs'=>$listeJoggeurs,
+                    'listeSaisons'=>$listeSaisons,
+                    'listeJoggeurScore'=>$listeJoggeurScore,
         ));
 	}
 

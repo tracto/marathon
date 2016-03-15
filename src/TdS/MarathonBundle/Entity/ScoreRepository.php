@@ -25,7 +25,7 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository {
        		->setParameter('joggeur', $joggeur)
 			->from($this->_entityName,'a');
 
-		$listeEntries=$queryBuilder
+		  $listeEntries=$queryBuilder
      		->getQuery()
      		->getResult();
 
@@ -35,45 +35,24 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findAllBySaison(Saison $saison){
     	$themesId = array();
-		foreach ($saison->getThemes() as $theme) {
-    		$themesId[] = $theme->getId();
-		}
+  		foreach ($saison->getThemes() as $theme) {
+      		$themesId[] = $theme->getId();
+  		}
 
 
     	$queryBuilder=$this->_em->createQueryBuilder()
 			->select('a')
 			->where('a.theme IN (:theme)')
-       		->setParameter('theme', $themesId)
+      ->setParameter('theme', $themesId)
 			->from($this->_entityName,'a');
 
-		return $queryBuilder
+		  return $queryBuilder
      		->getQuery()
      		->getResult();
 
     }
 
 
-
-    public function findBySaisonAndJoggeur(Joggeur $joggeur, Saison $saison){
-    	$themesId = array();
-		foreach ($saison->getThemes() as $theme) {
-    		$themesId[] = $theme->getId();
-		}
-
-
-    	$queryBuilder=$this->_em->createQueryBuilder()
-			->select('a')
-			->where('a.theme IN (:theme)')
-       		->setParameter('theme', $themesId)
-       		->where('a.joggeur = :joggeur')
-       		->setParameter('joggeur', $joggeur)
-			->from($this->_entityName,'a');
-
-		return $queryBuilder
-     		->getQuery()
-     		->getResult();
-
-    }
 
 
 
