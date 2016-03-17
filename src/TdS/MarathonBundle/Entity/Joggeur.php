@@ -65,15 +65,14 @@ class Joggeur
     private $musicTitles;
     
 
-    
-
-
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="pointstogive", type="integer",nullable=true)
+     * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\JoggeurScore", mappedBy="joggeur",cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
-     private $pointstogive;
+    protected $joggeurScore; 
+
+
+    
 
 
 
@@ -253,47 +252,17 @@ class Joggeur
 
 
 
-
-
-    // public function addScore(Score $score)
-    // {
-    //     $this->scores[] = $score;
-
-    //     return $this;
-    // }
-
-    // public function removeScore(Score $score)
-    // {
-    //     $this->scores->removeElement($score);
-    // }
-
-    // public function getScores()
-    // {
-    //     return $this->scores;
-    // }
-
-
-
-    
-
-
-   
-
-
-
-
-    
-
     /**
-     * Set pointstogive
+     * Set joggeurScore
      *
-     * @param integer $pointstogive
+     * @param integer $joggeurScore
      *
      * @return Joggeur
      */
-    public function setPointstogive($pointstogive)
+    public function setJoggeurScore($joggeurScore)
     {
-        $this->pointstogive = $pointstogive;
+        $this->joggeurScore = $joggeurScore;
+        $joggeurScore->setJoggeur($this);
         return $this;
     }
 
@@ -302,10 +271,14 @@ class Joggeur
      *
      * @return integer
      */
-    public function getPointstogive()
+    public function getJoggeurScore()
     {
-        return $this->pointstogive;
+        return $this->joggeurScore;
     }
+
+       
+
+    
 
 
      /**

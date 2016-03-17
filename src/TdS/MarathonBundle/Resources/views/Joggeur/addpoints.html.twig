@@ -17,9 +17,9 @@
 	    <h2 class="sub-title pbn mbn">theme : {{ themePostActivate.titre }}</h2>
 	    <div class="pbm">
 	    	<strong>nombre de points disponibles :</strong>
-	    	<span><span class='joggeurDonneur-points'>{{ joggeur.pointstogive }}</span>
+	    	<span><span class='joggeurDonneur-points'>{{ scoreJoggeurParTheme.pointstogive }}</span>
 	    	 / 
-	    	<span class='joggeurDonneur-pointsInit'>{{ joggeur.pointstogive }}</span></span>
+	    	<span class='joggeurDonneur-pointsInit'>{{ scoreJoggeurParTheme.pointstogive }}</span></span>
 		</div>
 	</div>
 
@@ -68,7 +68,7 @@
 
 <div class='row addPoints-form'>
 	{{ form_start(form) }}
-	    {{ form_row(form.remainingPoints, {'attr': {'value': joggeur.pointstogive}}) }}
+	    {{ form_row(form.remainingPoints, {'attr': {'value': scoreJoggeurParTheme.pointstogive}}) }}
 	    <ul class="tags score-tags">
 	        {% for tag in form.tags %}
 	            <li class="form-joggeur-item">

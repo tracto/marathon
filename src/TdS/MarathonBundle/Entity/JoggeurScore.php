@@ -20,24 +20,50 @@ class JoggeurScore
 
  
   /**
-   * @ORM\ManyToOne(targetEntity="TdS\MarathonBundle\Entity\Joggeur")
+   * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\Joggeur", inversedBy="joggeurScore", cascade={"persist","remove"})
    * @ORM\JoinColumn(nullable=false)
    */
   private $joggeur;
 
+  
+
 
   /**
-   * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\Score", mappedBy="joggeurScore")
+   * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\Score", mappedBy="joggeurScore", cascade={"persist","remove"})
    */
   private $scores; 
 
+
   /**
-  */
-  private $total;
+     * @var integer
+     *
+     * @ORM\Column(name="pointstogive", type="integer",nullable=false)
+     */
+  private $pointstogive=0;
+
+
+  private $total=0;
+
+
+
+
 
   public function __construct(){
     $this->scores = new ArrayCollection();
   }
+
+
+
+  public function setScore(Score $score){
+    $this->score[] = $score;
+    return $this;
+  }
+
+  public function getScore(){
+    return $this->score;
+  }
+
+
 
   public function addScore(Score $score)
   {
@@ -60,6 +86,7 @@ class JoggeurScore
 
   public function setJoggeur(Joggeur $joggeur){
     $this->joggeur = $joggeur;
+
     return $this;
   }
 
@@ -68,13 +95,29 @@ class JoggeurScore
   }
 
 
-  public function setScore(Score $score){
-    $this->score = $score;
+  
+
+  /**
+   * Set pointstogive
+   *
+   * @param integer $pointstogive
+   *
+   * @return Joggeur
+  */
+  public function setPointstogive($pointstogive)
+  {
+    $this->pointstogive = $pointstogive;
     return $this;
   }
 
-  public function getScore(){
-    return $this->score;
+  /**
+   * Get 
+   *
+   * @return integer
+  */
+  public function getPointstogive()
+  {
+      return $this->pointstogive;
   }
 
 
@@ -84,6 +127,11 @@ class JoggeurScore
       $this->total+=$score->getTotalTheme();
     }
     return $this->total;
+  }
+
+  public function setTotal($total){
+    $this->total = $total;
+    return $this;
   }
 
 
