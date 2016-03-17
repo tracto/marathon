@@ -24,7 +24,7 @@ class Score
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="TdS\MarathonBundle\Entity\JoggeurScore", inversedBy="scores")
+     * @ORM\ManyToOne(targetEntity="TdS\MarathonBundle\Entity\JoggeurScore", inversedBy="scores",cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $joggeurScore;
@@ -43,14 +43,22 @@ class Score
      *
      * @ORM\Column(name="heartpoints", type="integer")
      */
-    private $heartpoints;
+    private $heartpoints=0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="fastpoints", type="integer")
      */
-    private $fastpoints;
+    private $fastpoints=0;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="takenpoints", type="integer")
+     */
+    private $takenpoints=0;
+
 
     private $totalTheme;
 
@@ -132,13 +140,38 @@ class Score
     }
 
 
+    /**
+     * Set takenpoints
+     *
+     * @param integer $takenpoints
+     *
+     * @return Score
+     */
+    public function setTakenpoints($takenpoints)
+    {
+        $this->takenpoints = $takenpoints;
+
+        return $this;
+    }
+
+    /**
+     * Get takenpoints
+     *
+     * @return integer
+     */
+    public function getTakenpoints()
+    {
+        return $this->takenpoints;
+    }
+
+
 
     /**
      * Get totalTheme
      */
     public function getTotalTheme()
     {
-        $this->totalTheme=$this->heartpoints+$this->fastpoints;
+        $this->totalTheme=$this->heartpoints+$this->fastpoints-$this->takenpoints;
         return $this->totalTheme;
     }
 

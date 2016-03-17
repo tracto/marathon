@@ -52,16 +52,16 @@
 												{% if musicTitle10th is not null %}
 					        						<strong>Le prochain thème doit être proposé par :</strong>
 					        						<div class='thumb-line author'>
-														<a href="{{ path('tds_marathon_joggeur_view', {'id': theme.joggeur.id}) }}">
+														<a href="{{ path('tds_marathon_joggeur_view', {'id': musicTitle10th.joggeur.id}) }}">
 															<span class="author-thumb">
-																<img class='thumbnail' src='{{ theme.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+																<img class='thumbnail' src='{{ musicTitle10th.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
 															</span>
 															<span class="author-name">
 																{{ musicTitle10th.joggeur.pseudo }}
 															</span>
 														</a>
 													</div>
-													<a class="btn btn-default" href=""><span class="glyphicon glyphicon-send"></span></a><span>Lui envoyer un message télépathique</span>
+													<a class="btn btn-default" href="mailto:"><span class="glyphicon glyphicon-send"></span></a><span>Lui envoyer un message télépathique</span>
 						        				{% else %}
 						        					<div class="mbs flex-container-h">
 							        					<svg class="icon icon-warning"><use xlink:href="#icon-warning"></use></svg>
@@ -254,7 +254,13 @@
 	        			
 	        			<div class="bg-op--black pas">
 	        				<span class="align-center block">pour la saison en cours</span>
-	        				{# <span class="align-center block text--m">{{ app.user.joggeur.score }} points </span> #}
+	        				{% set scoreTotal = 0 %}
+	        				{% if joggeurScore is defined %}
+	        					{% if joggeurScore.total is defined %}
+	        						{% set scoreTotal = joggeurScore.total %}
+	        					{% endif %}
+	        				{% endif %}
+	        				<span class="align-center block text--m">{{ scoreTotal }} points </span>
 	        			</div>
 
 	        			<div class="flex-container-h line mts mbs">
@@ -266,7 +272,9 @@
 
 	        			<div class="flex-container-h">
 							<div class="btn__info flex-item-fluid align-right prm mrn pts pbs">
-	        					<span>Il te restes {{ app.user.joggeur.pointstogive }} points à attribuer</span>
+								{% if joggeurScore is defined %}
+	        						<span>Il te reste {{ joggeurScore.pointstogive }} points à attribuer</span>
+	        					{% endif %}
 							</div>
 
 							<a class="button btn btn-action mln" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">

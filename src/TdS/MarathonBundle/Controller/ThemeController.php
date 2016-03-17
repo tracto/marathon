@@ -6,6 +6,8 @@ use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\MusicTitle;
 use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\Theme;
+use TdS\MarathonBundle\Entity\JoggeurScore;
+use TdS\MarathonBundle\Entity\Score;
 use TdS\UserBundle\Entity\User;
 use TdS\MarathonBundle\Form\SaisonType;
 use TdS\MarathonBundle\Form\ThemeType;
@@ -182,34 +184,49 @@ class ThemeController extends Controller{
     	$referer = $this->getRequest()->headers->get('referer');
     	$em=$this->getDoctrine()->getManager(); 
 
+    	$saison=$em->getRepository('TdSMarathonBundle:Saison')
+	      			->findOneBy(array('activate' => 1));
+
     	$allThemes = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
 	      			->findAll();
 
-	    $draftmodeTheme = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('draftmode' => 1));  	
+	    $draftmodeTheme = $em->getRepository('TdSMarathonBundle:Theme')
+	      					 ->findOneBy(array('draftmode' => 1));  	
 
-    	$currentTheme = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('activate' => 1));
+    	$currentTheme = $em->getRepository('TdSMarathonBundle:Theme')
+	      				   ->findOneBy(array('activate' => 1));
 
-	    $postTheme = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('postActivate' => 1)); 
+	    $postTheme = $em->getRepository('TdSMarathonBundle:Theme')
+	      				->findOneBy(array('postActivate' => 1));
+
+	    $scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
+	    					->findBy(array('theme' => $postTheme)); 
 
 	    $allJoggeurs = $em
 	      			->getRepository('TdSMarathonBundle:Joggeur')
 	      			->findAll();
 
-	    foreach($allJoggeurs as $joggeur){
-	    	$joggeur->setLastheartpoints(0);
-	    	$joggeur->setLastfastpoints(0);
-	    	$pointsToTake=$joggeur->getPointstogive();
-	    	$scoretotal=$joggeur->getScore() - $pointsToTake;
-	    	$joggeur->setScore($scoretotal);
-	    	$joggeur->setPointstogive(0);
-	    }
+
+	    $listeJoggeursScore = $em
+          ->getRepository('TdSMarathonBundle:JoggeurScore')
+          ->findAllBySaison($saison);
+
+        foreach($allJoggeurs as $joggeur){
+        	$joggeurScore=$joggeur->getJoggeurScore();
+
+    	}
+
+    	 foreach($scoresPostTheme as $scorePostTheme){
+         	$joggeurScore=$scorePostTheme->getJoggeurScore();
+         	$scorePostTheme->setTakenpoints($joggeurScore->getPointstogive());
+        	
+         }
+
+         foreach($allJoggeurs as $joggeur){
+        	$joggeurScore=$joggeur->getJoggeurScore();
+        	$joggeurScore->setPointstogive(0);
+    	}
 
 	    $musicTitlesDuTheme=$currentTheme->getMusicTitles();
 	    $joggeursDuTheme= new ArrayCollection();
@@ -219,13 +236,38 @@ class ThemeController extends Controller{
             }
         }
         $i=$joggeursDuTheme->count();
+
         foreach($joggeursDuTheme as $joggeurDuTheme){
-        	$joggeurDuTheme->setLastfastpoints($i);
-        	$scoretotal=$joggeurDuTheme->getScore() + $joggeurDuTheme->getLastfastpoints();
-        	$joggeurDuTheme->setScore($scoretotal);
-        	$joggeurDuTheme->setPointstogive(6);
-        	$i--;
+        	$joggeurScore=$joggeurDuTheme->getJoggeurScore();
+
+        	if(empty($joggeurDuTheme->getJoggeurScore())){
+         		$joggeurScore= new JoggeurScore;
+         		$joggeurDuTheme->setJoggeurScore($joggeurScore); 
+         		$em->persist($joggeurDuTheme);       		
+         	}
+
+         	 if(empty($joggeurScore->getJoggeur())){
+         	 	$joggeurScore->setJoggeur($joggeurDuTheme);        		
+         	 }
+
+        	
+        	$joggeurScore->setPointstogive(6);
+
+        	$score= new Score;
+        	$score->setJoggeurScore($joggeurScore);
+        	$score->setTheme($currentTheme);
+        	$score->setFastpoints($i);
+
+        	$joggeurScore->addScore($score);
+
+        	$em->persist($score);
+        	$em->persist($joggeurScore);
+        	$em->persist($joggeurDuTheme); 
+        	
+         	$i--;
         }
+
+
 
 
 	    foreach ($allThemes as $theme) {
@@ -243,7 +285,6 @@ class ThemeController extends Controller{
 			$currentTheme->setPostActivate(1); 
 		}
 
-		
 		$em->flush();
 		return $this->redirect($referer);
 
