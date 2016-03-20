@@ -28,11 +28,17 @@ $("[data-action='switch-show-brief']").on('click',function(){
 });
 
 
-
 $("[data-action='active-show-brief']").on('click',function(){
 	$(".activeTheme-brief").show();
 	return false; 
 });
+
+
+$("[data-action='show-brief-saison']").on('click',function(){
+	$("#closeSaison-brief").show();
+	return false; 
+});
+
 
 
 $("[data-action='show-website-form']").on('click',function(){

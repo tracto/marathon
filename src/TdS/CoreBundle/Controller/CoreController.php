@@ -24,6 +24,12 @@ class CoreController extends Controller{
 			$saison=$em
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findOneBy(array('activate' => 1));
+
+	      	$lastSaison=$em
+	      			->getRepository('TdSMarathonBundle:Saison')
+	      			->findLastOne();
+	      	$lastSaison=$lastSaison[0];		
+	      	// var_dump($lastSaison);
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -47,19 +53,21 @@ class CoreController extends Controller{
 			   		$draftmodeTheme = $em
 			      			->getRepository('TdSMarathonBundle:Theme')
 			      			->findOneBy(array('draftmode' => 1));
-			      	if($theme){
+			      	if(!empty($theme)){
 				   		$musicTitle10th = $em
 				      			->getRepository('TdSMarathonBundle:MusicTitle')
 				      			->getDixieme($theme);
 				      	$timeGap=$theme->getTimeGap($theme->getDateFin());
-			      	}else{
+			      	}else if(!empty($themePost)){
 			      		$musicTitle10th = $em
 				      			->getRepository('TdSMarathonBundle:MusicTitle')
 				      			->getDixieme($themePost);
 			      		$timeGap=null;
+			      	}else{
+			      		$timeGap=null;
 			      	}
 
-					if($musicTitle10th){
+					if(!empty($musicTitle10th)){
 						$musicTitle10th=$musicTitle10th[0];
 					}else{
 						$musicTitle10th=null;
@@ -83,12 +91,16 @@ class CoreController extends Controller{
 					$user=$this->getUser();
 					$joggeur=$user->getJoggeur();
 
-					$joggeurScore = $em
-			          ->getRepository('TdSMarathonBundle:JoggeurScore')
-			          ->findJoggeurBySaison($saison, $joggeur);
+					if(!empty($saison)){
+						$joggeurScore = $em
+				          ->getRepository('TdSMarathonBundle:JoggeurScore')
+				          ->findJoggeurBySaison($saison, $joggeur);
 
-			        if(!empty($joggeurScore)){
-						$joggeurScore=$joggeurScore[0];
+				        if(!empty($joggeurScore)){
+							$joggeurScore=$joggeurScore[0];
+						}else{
+							$joggeurScore=new JoggeurScore;
+						}
 					}else{
 						$joggeurScore=new JoggeurScore;
 					}			        
@@ -98,6 +110,7 @@ class CoreController extends Controller{
 						      
 					return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
 							'saison'=>$saison,
+							'lastSaison'=>$lastSaison,
 							'theme'=>$theme,
 							'timeGap'=>$timeGap,
 							'joggeurScore'=>$joggeurScore,

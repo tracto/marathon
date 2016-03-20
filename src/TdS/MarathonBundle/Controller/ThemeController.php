@@ -54,24 +54,7 @@ class ThemeController extends Controller{
 	}
 
 
-	public function addSaisonAction(Request $request){
-		$saison=new Saison();
-		$form=$this->get('form.factory')->create(new SaisonType(), $saison); 
-		$form->handleRequest($request);
-
-		if($form->isValid()){
-
-			$em=$this->getDoctrine()->getManager();
-			$em->persist($saison);
-			$em->flush();
-
-			$request->getSession()->getFlashBag()->add('notice','theme bien enregistré.');
-
-			return $this->redirect($this->generateUrl('tds_marathon_theme_home'));
-		}
-
-        return $this->render('TdSMarathonBundle:Saison:add.html.twig', array('form'=>$form->createView()));
-	}
+	
 
 
     public function addAction(Request $request,$draftmode){
