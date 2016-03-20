@@ -203,7 +203,10 @@ class JoggeurController extends Controller{
 
         $scoreJoggeurParTheme=$em->getRepository('TdSMarathonBundle:JoggeurScore')
                            ->findJoggeurParTheme($joggeur,$themePostActivate);
-        $scoreJoggeurParTheme=$scoreJoggeurParTheme[0];
+        if(!empty($scoreJoggeurParTheme)){
+            $scoreJoggeurParTheme=$scoreJoggeurParTheme[0];
+        }
+        
 
         foreach($musicTitlesDuTheme as $musicTitleDuTheme){
             if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {

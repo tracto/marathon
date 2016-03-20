@@ -14,7 +14,22 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
         return $this->findBy(array(), array('titre' => 'DESC'));
     }
 
+    // public function findLastOne(){
+    // 	return $this->findBy(array('activate' => 1));
+    // }
+
     public function findLastOne(){
-    	return $this->findBy(array('activate' => 1));
+    	// return $this->findBy(array(), array('id' => 'DESC'));
+    	$queryBuilder=$this->_em->createQueryBuilder()
+			->select('a')
+       		->orderBy('a.id', 'DESC')
+       		->setFirstResult(0)
+   			->setMaxResults(1)
+			->from($this->_entityName,'a');
+
+
+		return $queryBuilder
+    		->getQuery()
+    		->getResult();
     }
 }
