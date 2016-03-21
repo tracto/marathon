@@ -59,11 +59,20 @@
 								    <div class='inner-item-text'>
 								    	<div class="bg-vignette"></div>
 								    	<div class="inner-item-text-content">
-									    	<h3>{{ theme.titre }}</h3>				
+									    	<h3 class="man pbs">{{ theme.titre }}</h3>				
 									    	<div class="musictitle-count">
-									    		<span class="glyphicon"></span>
-									    		<span class="number">12</span>
+									    		<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
+									    		<span class="number">{{ theme.musicTitles|length  }}</span>
 									    	</div>
+
+									    	<div class="comment-count">
+											    <svg class="icon icon--m icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
+											    {% if theme.thread is defined and theme.thread is not null %}
+												    <span>{{ theme.thread.numComments }}</span>
+												{% else %}
+												    <span>0</span>
+											    {% endif %}										
+											</div>
 								    	</div>
 								    </div>	
 								</div>					    		
