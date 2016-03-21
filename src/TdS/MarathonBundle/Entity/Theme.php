@@ -127,6 +127,13 @@ class Theme
     private $scores;
 
 
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="TdS\CommentBundle\Entity\Thread", cascade={"persist","remove"})
+     */
+    private $thread;
+
+
     public function __construct(){
         // $this->$musicTitles = new ArrayCollection();
     }
@@ -447,6 +454,31 @@ class Theme
         $today=new \DateTime('now');
         $gap = $today->diff($dateFin);
         return $gap->format('%R%a');
+    }
+
+
+    /**
+     * Set thread
+     *
+     * @param string $thread
+     *
+     * @return Theme
+     */
+    public function setThread($thread)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return string
+     */
+    public function getThread()
+    {
+        return $this->thread;
     }
 }
 
