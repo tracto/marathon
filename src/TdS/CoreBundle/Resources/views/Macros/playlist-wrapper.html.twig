@@ -261,7 +261,11 @@
 			
 
 					<div class="playlist-header pam">
-						<span class="playlist-header-score">Score : {{ joggeur.score }}</span>
+						{% if joggeur.joggeurScore is defined and joggeur.joggeurScore is not null %}
+							{% if joggeur.joggeurScore.total is defined %}
+							<span class="playlist-header-score">Score : {{ joggeur.joggeurScore.total }}</span>
+							{% endif %}
+						{% endif %}
 
 						{% if joggeur.mail is defined and joggeur.mail is not null %}
 							<div class="playlist-header-mail">

@@ -16,7 +16,6 @@ class SaisonType extends AbstractType
     {
         $builder
             ->add('titre','text')
-            ->add('activate','checkbox',array('required'=>false))
             ->add('save','submit')
         ;
     }

@@ -1,5 +1,6 @@
 <?php
 
+use TdS\MarathonBundle\Entity\Saison;
 namespace TdS\MarathonBundle\Entity;
 
 /**
@@ -11,5 +12,19 @@ namespace TdS\MarathonBundle\Entity;
 class ThemeRepository extends \Doctrine\ORM\EntityRepository{
 	public function findAll(){
         return $this->findBy(array(), array('dateFin' => 'DESC'));
+    }
+
+    public function findThemesBySaison(Saison $saison){
+        	$queryBuilder=$this->_em->createQueryBuilder()
+			->select('a')
+			->where('a.saison = :saison')
+       			->setParameter('saison', $saison)
+       		->orderBy('a.dateDebut', 'ASC')
+			->from($this->_entityName,'a');
+
+
+		return $queryBuilder
+    		->getQuery()
+    		->getResult();
     }
 }

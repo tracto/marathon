@@ -66,42 +66,15 @@ class Joggeur
     
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="score", type="integer",nullable=true)
+     * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\JoggeurScore", mappedBy="joggeur",cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $score;
-
+    protected $joggeurScore; 
 
 
     
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="lastfastpoints", type="integer",nullable=true)
-     */
-    private $lastfastpoints;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="lastheartpoints", type="integer",nullable=true)
-     */
-    private $lastheartpoints;
-
-
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pointstogive", type="integer",nullable=true)
-     */
-     private $pointstogive;
-
-
-
-    
 
 
     /**
@@ -278,111 +251,34 @@ class Joggeur
     }
 
 
+
     /**
-     * Set score
+     * Set joggeurScore
      *
-     * @param integer $score
+     * @param integer $joggeurScore
      *
      * @return Joggeur
      */
-    public function setScore($score)
+    public function setJoggeurScore($joggeurScore)
     {
-        $this->score = $score;
-
+        $this->joggeurScore = $joggeurScore;
+        $joggeurScore->setJoggeur($this);
         return $this;
     }
 
     /**
-     * Get score
+     * Get 
      *
      * @return integer
      */
-    public function getScore()
+    public function getJoggeurScore()
     {
-        return $this->score;
+        return $this->joggeurScore;
     }
 
-
+       
 
     
-
-
-   
-
-
-    /**
-     * Set lastfastpoints
-     *
-     * @param integer $lastfastpoints
-     *
-     * @return Joggeur
-     */
-    public function setLastfastpoints($lastfastpoints)
-    {
-        $this->lastfastpoints = $lastfastpoints;
-        return $this;
-    }
-
-    /**
-     * Get 
-     *
-     * @return integer
-     */
-    public function getLastfastpoints()
-    {
-        return $this->lastfastpoints;
-    }
-
-
-    /**
-     * Set lastheartpoints
-     *
-     * @param integer $lastheartpoints
-     *
-     * @return Joggeur
-     */
-    public function setLastheartpoints($lastheartpoints)
-    {
-        $this->lastheartpoints = $lastheartpoints;
-        return $this;
-    }
-
-    /**
-     * Get 
-     *
-     * @return integer
-     */
-    public function getLastheartpoints()
-    {
-        return $this->lastheartpoints;
-    }
-
-
-
-
-
-    /**
-     * Set pointstogive
-     *
-     * @param integer $pointstogive
-     *
-     * @return Joggeur
-     */
-    public function setPointstogive($pointstogive)
-    {
-        $this->pointstogive = $pointstogive;
-        return $this;
-    }
-
-    /**
-     * Get 
-     *
-     * @return integer
-     */
-    public function getPointstogive()
-    {
-        return $this->pointstogive;
-    }
 
 
      /**
