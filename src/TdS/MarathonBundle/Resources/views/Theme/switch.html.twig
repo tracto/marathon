@@ -27,38 +27,42 @@
                {% endif %}
             </div>
 
-   			<div class="line sep--dashed pbm">
-   				<h4 class="pan man">Thème à fermer :</h4>
-               <div class='thumb-line bg-op--black'>
-                  <a href="{{ path('tds_marathon_joggeur_view', {'id': currentTheme.id}) }}">
-                     <span class="">
-                        {% if currentTheme.image is not null %}
-                           <img class='thumbnail' src='{{ currentTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-                        {% endif %}  
-                     </span>
-                     <span class="pas">
-                        {{ currentTheme.titre }}
-                     </span>
-                  </a>
-               </div> 
-   			</div>
+            {% if currentTheme is defined and currentTheme is not null %}
+      			<div class="line sep--dashed pbm">
+      				<h4 class="pan man">Thème à fermer :</h4>
+                  <div class='thumb-line bg-op--black'>
+                     <a href="{{ path('tds_marathon_joggeur_view', {'id': currentTheme.id}) }}">
+                        <span class="">
+                           {% if currentTheme.image is not null %}
+                              <img class='thumbnail' src='{{ currentTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+                           {% endif %}  
+                        </span>
+                        <span class="pas">
+                           {{ currentTheme.titre }}
+                        </span>
+                     </a>
+                  </div> 
+      			</div>
+            {% endif %}
 
-   			 <div  class="line sep--dashed pbm ptm">
-   				<h4 class="pan man">Thème précédent à archiver :</h4>
-   				<span>(fermeture des attributions de points.)</span>
-               <div class='thumb-line bg-op--black'>
-                  <a href="{{ path('tds_marathon_joggeur_view', {'id': postTheme.id}) }}">
-                     <span class="">
-                        {% if postTheme.image is not null %}
-                           <img class='thumbnail' src='{{ postTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-                        {% endif %}  
-                     </span>
-                     <span class="pas">
-                        {{ postTheme.titre }}
-                     </span>
-                  </a>
-               </div>
-   			</div> 
+            {% if postTheme is defined and postTheme is not null %}
+      			<div  class="line sep--dashed pbm ptm">
+      				<h4 class="pan man">Thème précédent à archiver :</h4>
+      				<span>(fermeture des attributions de points.)</span>
+                  <div class='thumb-line bg-op--black'>
+                     <a href="{{ path('tds_marathon_joggeur_view', {'id': postTheme.id}) }}">
+                        <span class="">
+                           {% if postTheme.image is not null %}
+                              <img class='thumbnail' src='{{ postTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+                           {% endif %}  
+                        </span>
+                        <span class="pas">
+                           {{ postTheme.titre }}
+                        </span>
+                     </a>
+                  </div>
+      			</div>
+            {% endif %} 
 
 
    			 

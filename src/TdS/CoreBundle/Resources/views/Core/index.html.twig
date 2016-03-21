@@ -35,22 +35,21 @@
 						<div class="bg-op--white-5 pam">
 							<div class="row">
 								{% for joggeurScore in listeJoggeursScore %}
-									
-										{% if loop.index == 1 %}
-											<div class="podium-wrapper mbl">
+									<div class="podium-wrapper mbl">
+									{% if loop.index == 1 %}										
 											<div class="podium podium-1 list-item col col-xs-4 col-xs-push-4">
 												<div class="inner-podium">
 													<div class="colonne">
 														<strong class="place">{{ loop.index }}</strong>
-														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.id}) }}">
+														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
 															<div class="round">
-															    {% if joggeurScore.image is not null %}
-														  			<img class="" src="{{ joggeurScore.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.image.alt }}">
+															    {% if joggeurScore.joggeur.image is not null %}
+														  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
 																{% endif %}
 															</div>
 														</a>
-														<span class="score">{{ joggeurScore.score }}</span>
-														<span class="joggeur-name">{{ joggeurScore.pseudo }}</span>
+														<span class="score">{{ joggeurScore.total }}</span>
+														<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
 													</div>
 												</div>
 											</div>
@@ -59,15 +58,15 @@
 												<div class="inner-podium">
 													<div class="colonne">
 														<strong class="place">{{ loop.index }}</strong>
-														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.id}) }}">
+														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
 															<div class="round">
-															    {% if joggeurScore.image is not null %}
-														  			<img class="" src="{{ joggeurScore.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.image.alt }}">
+															    {% if joggeurScore.joggeur.image is not null %}
+														  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
 																{% endif %}
 															</div>
 														</a>
-														<span class="score">{{ joggeurScore.score }}</span>
-														<span class="joggeur-name">{{ joggeurScore.pseudo }}</span>
+														<span class="score">{{ joggeurScore.total }}</span>
+														<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
 													</div>
 												</div>
 											</div>
@@ -76,27 +75,28 @@
 												<div class="inner-podium">
 													<div class="colonne">
 														<strong class="place">{{ loop.index }}</strong>
-														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.id}) }}">
+														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
 															<div class="round">
-															    {% if joggeurScore.image is not null %}
-														  			<img class="" src="{{ joggeurScore.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.image.alt }}">
+															    {% if joggeurScore.joggeur.image is not null %}
+														  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
 																{% endif %}
 															</div>
 														</a>
-														<span class="score">{{ joggeurScore.score }}</span>
-														<span class="joggeur-name">{{ joggeurScore.pseudo }}</span>
+														<span class="score">{{ joggeurScore.total }}</span>
+														<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
 													</div>
 												</div>
 											</div>
-											</div>
+											
 
 										{% else %}
 											<div class="list-item plm prm">
 												<strong>{{ loop.index }}</strong>
-												<span>{{ joggeurScore.pseudo }}</span>
-												<span>{{ joggeurScore.score }}</span>
+												<span>{{ joggeurScore.joggeur.pseudo }}</span>
+												<span>{{ joggeurScore.total }}</span>
 											</div>
-										{% endif %}								
+										{% endif %}	
+									</div>							
 								{% endfor %}
 							</div>
 						</div>

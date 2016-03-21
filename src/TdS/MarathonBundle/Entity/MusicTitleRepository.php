@@ -34,7 +34,7 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 		$queryBuilder=$this->_em->createQueryBuilder()
 			->select('a')
 			->where('a.theme = :theme')
-       			->setParameter('theme', $theme)
+       		->setParameter('theme', $theme)
        		->orderBy('a.dateUpload', 'ASC')
        		->setFirstResult(0)
    			->setMaxResults(1)

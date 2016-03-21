@@ -3,6 +3,7 @@ namespace TdS\CoreBundle\Controller;
 
 
 use TdS\MarathonBundle\Entity\Joggeur;
+use TdS\MarathonBundle\Entity\JoggeurScore;
 use TdS\MarathonBundle\Entity\Theme;
 use TdS\MarathonBundle\Entity\Website;
 use TdS\MarathonBundle\Form\WebsiteType;
@@ -23,6 +24,12 @@ class CoreController extends Controller{
 			$saison=$em
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findOneBy(array('activate' => 1));
+
+	      	$lastSaison=$em
+	      			->getRepository('TdSMarathonBundle:Saison')
+	      			->findLastOne();
+	      	$lastSaison=$lastSaison[0];		
+	      	// var_dump($lastSaison);
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -46,19 +53,21 @@ class CoreController extends Controller{
 			   		$draftmodeTheme = $em
 			      			->getRepository('TdSMarathonBundle:Theme')
 			      			->findOneBy(array('draftmode' => 1));
-			      	if($theme){
+			      	if(!empty($theme)){
 				   		$musicTitle10th = $em
 				      			->getRepository('TdSMarathonBundle:MusicTitle')
 				      			->getDixieme($theme);
 				      	$timeGap=$theme->getTimeGap($theme->getDateFin());
-			      	}else{
+			      	}else if(!empty($themePost)){
 			      		$musicTitle10th = $em
 				      			->getRepository('TdSMarathonBundle:MusicTitle')
 				      			->getDixieme($themePost);
 			      		$timeGap=null;
+			      	}else{
+			      		$timeGap=null;
 			      	}
 
-					if($musicTitle10th){
+					if(!empty($musicTitle10th)){
 						$musicTitle10th=$musicTitle10th[0];
 					}else{
 						$musicTitle10th=null;
@@ -79,12 +88,32 @@ class CoreController extends Controller{
 						return $this->redirect($this->generateUrl('tds_home'). '#anchorLiens');
 					}
 
+					$user=$this->getUser();
+					$joggeur=$user->getJoggeur();
+
+					if(!empty($saison)){
+						$joggeurScore = $em
+				          ->getRepository('TdSMarathonBundle:JoggeurScore')
+				          ->findJoggeurBySaison($saison, $joggeur);
+
+				        if(!empty($joggeurScore)){
+							$joggeurScore=$joggeurScore[0];
+						}else{
+							$joggeurScore=new JoggeurScore;
+						}
+					}else{
+						$joggeurScore=new JoggeurScore;
+					}			        
+
+
 					
 						      
 					return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
 							'saison'=>$saison,
+							'lastSaison'=>$lastSaison,
 							'theme'=>$theme,
 							'timeGap'=>$timeGap,
+							'joggeurScore'=>$joggeurScore,
 							'draftmodeTheme'=>$draftmodeTheme,
 							'allThemes'=>$allThemes,
 							'musicTitle10th'=>$musicTitle10th,
@@ -98,8 +127,13 @@ class CoreController extends Controller{
 					      			->getRepository('TdSMarathonBundle:Joggeur')
 					      			->findAll();
 
-					$listeJoggeursScore=$em->getRepository('TdSMarathonBundle:Joggeur')
-    					   ->findBy([],array('score' => 'DESC'));
+					$listeJoggeursScore = $em
+				          ->getRepository('TdSMarathonBundle:JoggeurScore')
+				          ->findAllBySaison($saison);
+
+
+			        $tdsScoring = $this->container->get('tds_marathon.scoring');
+			        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
 
     				
 
