@@ -55,6 +55,8 @@
 	bottom:0;
 	margin:0 auto;
 	width:100%;
+	height: 50px;
+    background-color:$color5;
 						
 	.bg-vignette{
 		background-image:url("../../tdsmarathon/images/bg-vignette.png");
@@ -62,11 +64,11 @@
 		height:95px;
 		width:100%;
 		position:absolute;
-		bottom:0;
+		bottom:20px;
 	}
 
 	.inner-item-text-content{
-		overflow-x:hidden;
+		overflow:hidden;
 		position:absolute;
 		bottom:0;
 		margin:0 auto;
@@ -80,7 +82,6 @@
 
 	h3{
 		font-size:1.2em;
-		padding:10px;
 	}
 }
 
@@ -92,17 +93,17 @@
 
 
 .musictitle-count{
-	display:none;
-	background-color:$color6;	
+	display:inline-block;
+	vertical-align:bottom;
+	background-color:black;	
 	height: 29px;
-    width: 44px;
+    width: 50px;
     margin: 0 auto;
+    border-radius:5px 5px 0 0;
     padding: 3px;
+    color:$color2;
 
-	.glyphicon{
-		background-image:url("../../tdsmarathon/images/icons/musictitle-icon.svg");
-		background-repeat:no-repeat;
-    	background-size: cover;
+	.icon{		
     	height: 100%;
     	width: 20px;
     	display:inline-block;
@@ -112,10 +113,30 @@
 	.number{
 		display:inline-block;
 		vertical-align:middle;
-		color:$grey1;
+		font-size:1.2em;
+	}
+}
+
+.comment-count{
+	display:inline-block;
+	vertical-align:bottom;
+	width:50px;
+	height:30px;
+	background-color:black;	
+	border-radius:5px 5px 0 0;
+	color:$color6;
+	padding-top:3px;
+
+	svg{
+		width:20px;
+		display:inline-block;
+		vertical-align:middle;
 	}
 
-
+	span{
+		display:inline-block;
+		vertical-align:middle;
+	}
 }
 
 
