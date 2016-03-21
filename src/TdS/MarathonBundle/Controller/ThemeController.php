@@ -28,7 +28,7 @@ class ThemeController extends Controller{
 	public function indexAction(){
     	$em=$this->getDoctrine()->getManager();
     	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-    					 ->findAll();
+    					 ->findAll();   	
     	
         return $this->render('TdSMarathonBundle:Theme:index.html.twig', array(
         						'listeSaisons'=>$listeSaisons));
@@ -200,11 +200,13 @@ class ThemeController extends Controller{
 
     	}
 
-    	 foreach($scoresPostTheme as $scorePostTheme){
-         	$joggeurScore=$scorePostTheme->getJoggeurScore();
-         	$scorePostTheme->setTakenpoints($joggeurScore->getPointstogive());
-        	
-         }
+    	if(!empty($scoresPostTheme)){
+	    	foreach($scoresPostTheme as $scorePostTheme){
+	         	$joggeurScore=$scorePostTheme->getJoggeurScore();
+	         	$scorePostTheme->setTakenpoints($joggeurScore->getPointstogive());
+	        	
+	        }
+    	}
 
          foreach($allJoggeurs as $joggeur){
         	$joggeurScore=$joggeur->getJoggeurScore();
