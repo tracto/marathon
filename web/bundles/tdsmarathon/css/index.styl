@@ -114,22 +114,31 @@
 
 
 .index{
-	background-color:$grey1;
+	background-color:$grey4bis;
+	/*border:solid 1px $grey4;*/
+	box-shadow:0 0 5px $grey4;
 
 	.sub-title{
 		text-align:center;
 	}
 }
 
-.saison-title{
-	background-color:$grey0;
-	color:$color3;
+
+
+.col-droite{
+	background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+	background-repeat:repeat-y;
+	flex: 1 1 auto;
 }
 
-
 .col-classement{
-	background-image:url('../images/bg-marbre.jpg');
 	color:$grey5;
+	/*background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+	background-repeat:repeat-y;
+	/*color:$grey6;
+	flex: 1 1 auto;*/
 
 	>div{
 		color:$grey1;
@@ -200,9 +209,7 @@
     			font-size:1.2em;
     			line-height: 0.8em;
     		}
-		}
-
-		
+		}		
 	}
 	
 
@@ -218,11 +225,9 @@
 			.thumbnail{
     			display: block;
     			width: 160%;
-    			margin-left: -30%;
-    			
+    			margin-left: -30%;    			
     		}	
-		}
-		
+		}		
 	}
 
 	.podium-2{
@@ -233,7 +238,6 @@
 				background-color:$color12;
 				
 			}
-
 		}
 	}
 
@@ -248,7 +252,6 @@
 			
 		}
 	}
-
 }
 
 
@@ -271,12 +274,55 @@
 	}
 }
 
+.col-articles{
+	background-color:$grey4bis;
+	flex: 1 1 auto;
+
+	.article-wrapper{
+		border-color:$grey3;
+
+		.article-titre{
+			font-size:1.4em;
+			text-align:left;
+		}
+
+		.article-date{
+			color:$grey3;
+			display:block;
+			text-align:left;
+			font-style:italic;
+		}
+
+		.content{
+			width:100%;
+
+			iframe, img{
+				width:100%;
+			}
+		}
+	}
+}
+
+.col-themes{
+
+	.vignette-item{
+		width:100%;
+	}
+
+	.square{
+		border-radius:0;
+		border:none;
+	}
+}
+
 .col-liens{
-	background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-image:url('../images/bg-marbre.jpg');
+	color:$grey6;
+	/*background-image:url('../images/bg-marathonchanteurs.jpg');
 	background-size:cover;
 	background-repeat:repeat-y;
-	color:$grey6;
-	flex: 1 1 auto;
+	*/
+	flex: 0 0 auto;
 
 	.form-website{
 		display:none;

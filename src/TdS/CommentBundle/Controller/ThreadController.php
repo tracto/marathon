@@ -401,14 +401,16 @@ class ThreadController extends Controller
             $thread->setPermalink($permalink);
 
             $url=$thread->getPermalink();
-            // echo "<h2>xoxo ".$url."</h2>";
             $taburl=explode('/',$url);
             $themeId=end($taburl);
             $em=$this->getDoctrine()->getManager();
             $theme=$em->getRepository('TdSMarathonBundle:Theme')
                  ->findOneBy(array('id'=>$themeId));
-            $theme->setThread($thread);
-            $em->persist($theme);
+                 
+            if(!empty($theme)){
+                $theme->setThread($thread);
+                $em->persist($theme);
+            }
 
             // Validate the entity
             $validator = $this->get('validator');

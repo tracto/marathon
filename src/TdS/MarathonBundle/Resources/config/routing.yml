@@ -116,6 +116,16 @@ tds_marathon_theme_active_validation:
 #         id: \d+
 
 
+
+tds_marathon_article_add:
+    path:     /article/add
+    defaults: 
+        _controller: TdSMarathonBundle:Article:add  
+
+
+
+
+
 tds_marathon_saison_add:
     path:     /saisons
     defaults: { _controller: TdSMarathonBundle:Saison:addSaison }
