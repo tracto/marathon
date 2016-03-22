@@ -63,6 +63,10 @@ tds_home:
     path:     /
     defaults: { _controller: TdSCoreBundle:Core:index }
 
+tds_dashboard:
+    path:     /dashboard
+    defaults: { _controller: TdSCoreBundle:Core:dashboard }
+
 
 tds_becky_infos:
     pattern: /becky/infos

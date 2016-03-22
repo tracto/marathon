@@ -45,109 +45,154 @@ class CoreController extends Controller{
 	      			->getRepository('TdSMarathonBundle:Theme')
 	      			->findAll();
 
+	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
+	      					  ->findSeveral(3);
+
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
     						->findAll();
 
-	      	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || $this->get('security.context')->isGranted('ROLE_USER')) {
-			   		$draftmodeTheme = $em
-			      			->getRepository('TdSMarathonBundle:Theme')
-			      			->findOneBy(array('draftmode' => 1));
-			      	if(!empty($theme)){
-				   		$musicTitle10th = $em
-				      			->getRepository('TdSMarathonBundle:MusicTitle')
-				      			->getDixieme($theme);
-				      	$timeGap=$theme->getTimeGap($theme->getDateFin());
-			      	}else if(!empty($themePost)){
-			      		$musicTitle10th = $em
-				      			->getRepository('TdSMarathonBundle:MusicTitle')
-				      			->getDixieme($themePost);
-			      		$timeGap=null;
-			      	}else{
-			      		$timeGap=null;
-			      	}
+	      	
+			
 
-					if(!empty($musicTitle10th)){
-						$musicTitle10th=$musicTitle10th[0];
-					}else{
-						$musicTitle10th=null;
-					}
+			$listeJoggeurs=$em
+			      			->getRepository('TdSMarathonBundle:Joggeur')
+			      			->findAll();
 
-					$website=new Website();
-    				$formWebsite=$this->createForm(new WebsiteType(),$website,array(
-    						'method' => 'POST',
-            				'action' => '#anchorLiens'
-        			));
-
-    				
-		  	
-					if($formWebsite->handleRequest($request)->isValid()){
-						$em=$this->getDoctrine()->getManager();
-						$em->persist($website);
-						$em->flush();
-						return $this->redirect($this->generateUrl('tds_home'). '#anchorLiens');
-					}
-
-					$user=$this->getUser();
-					$joggeur=$user->getJoggeur();
-
-					if(!empty($saison)){
-						$joggeurScore = $em
-				          ->getRepository('TdSMarathonBundle:JoggeurScore')
-				          ->findJoggeurBySaison($saison, $joggeur);
-
-				        if(!empty($joggeurScore)){
-							$joggeurScore=$joggeurScore[0];
-						}else{
-							$joggeurScore=new JoggeurScore;
-						}
-					}else{
-						$joggeurScore=new JoggeurScore;
-					}			        
+			$listeJoggeursScore = $em
+		          ->getRepository('TdSMarathonBundle:JoggeurScore')
+		          ->findAllBySaison($saison);
 
 
-					
-						      
-					return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
-							'saison'=>$saison,
-							'lastSaison'=>$lastSaison,
-							'theme'=>$theme,
-							'timeGap'=>$timeGap,
-							'joggeurScore'=>$joggeurScore,
-							'draftmodeTheme'=>$draftmodeTheme,
-							'allThemes'=>$allThemes,
-							'musicTitle10th'=>$musicTitle10th,
-							'themePost'=>$themePost,
-							'websites'=>$websites,
-							'formWebsite'=>$formWebsite->createView()											
-					));
-			}else{
+	        $tdsScoring = $this->container->get('tds_marathon.scoring');
+	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
 
-					$listeJoggeurs=$em
-					      			->getRepository('TdSMarathonBundle:Joggeur')
-					      			->findAll();
+			
 
-					$listeJoggeursScore = $em
-				          ->getRepository('TdSMarathonBundle:JoggeurScore')
-				          ->findAllBySaison($saison);
-
-
-			        $tdsScoring = $this->container->get('tds_marathon.scoring');
-			        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
-
-    				
-
-					return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
-							'saison'=>$saison,
-							'theme'=>$theme,							
-							'allThemes'=>$allThemes,							
-							'themePost'=>$themePost,
-							'listeJoggeurs'=>$listeJoggeurs,
-							'listeJoggeursScore'=>$listeJoggeursScore,
-							"websites"=>$websites			
-					));
-			}
+			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
+					'saison'=>$saison,
+					'theme'=>$theme,							
+					'allThemes'=>$allThemes,							
+					'themePost'=>$themePost,
+					'listeArticles'=>$listeArticles,
+					'listeJoggeurs'=>$listeJoggeurs,
+					'listeJoggeursScore'=>$listeJoggeursScore,
+					"websites"=>$websites			
+			));
+			
 			 
+	}
+
+
+	public function DashboardAction(Request $request){
+		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || $this->get('security.context')->isGranted('ROLE_USER')) {
+			$em = $this->getDoctrine()->getManager();
+
+			$saison=$em
+	      			->getRepository('TdSMarathonBundle:Saison')
+	      			->findOneBy(array('activate' => 1));
+
+	      	$lastSaison=$em
+	      			->getRepository('TdSMarathonBundle:Saison')
+	      			->findLastOne();
+	      	$lastSaison=$lastSaison[0];		
+	      	// var_dump($lastSaison);
+			
+	    	$theme = $em
+	      			->getRepository('TdSMarathonBundle:Theme')
+	      			->findOneBy(array('activate' => 1));
+
+
+	      	$themePost = $em
+	      			->getRepository('TdSMarathonBundle:Theme')
+	      			->findOneBy(array('postActivate' => 1));
+
+
+	      	$allThemes=$em
+	      			->getRepository('TdSMarathonBundle:Theme')
+	      			->findAll();
+
+	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
+	      					  ->findSeveral(3);
+
+	      	
+	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
+							->findAll();
+
+		
+	   		$draftmodeTheme = $em
+	      			->getRepository('TdSMarathonBundle:Theme')
+	      			->findOneBy(array('draftmode' => 1));
+	      	if(!empty($theme)){
+		   		$musicTitle10th = $em
+		      			->getRepository('TdSMarathonBundle:MusicTitle')
+		      			->getDixieme($theme);
+		      	$timeGap=$theme->getTimeGap($theme->getDateFin());
+	      	}else if(!empty($themePost)){
+	      		$musicTitle10th = $em
+		      			->getRepository('TdSMarathonBundle:MusicTitle')
+		      			->getDixieme($themePost);
+	      		$timeGap=null;
+	      	}else{
+	      		$timeGap=null;
+	      	}
+
+			if(!empty($musicTitle10th)){
+				$musicTitle10th=$musicTitle10th[0];
+			}else{
+				$musicTitle10th=null;
+			}
+
+			$website=new Website();
+			$formWebsite=$this->createForm(new WebsiteType(),$website,array(
+					'method' => 'POST',
+    				'action' => '#anchorLiens'
+			));
+
+			
+  	
+			if($formWebsite->handleRequest($request)->isValid()){
+				$em=$this->getDoctrine()->getManager();
+				$em->persist($website);
+				$em->flush();
+				return $this->redirect($this->generateUrl('tds_home'). '#anchorLiens');
+			}
+
+			$user=$this->getUser();
+			$joggeur=$user->getJoggeur();
+
+			if(!empty($saison)){
+				$joggeurScore = $em
+		          ->getRepository('TdSMarathonBundle:JoggeurScore')
+		          ->findJoggeurBySaison($saison, $joggeur);
+
+		        if(!empty($joggeurScore)){
+					$joggeurScore=$joggeurScore[0];
+				}else{
+					$joggeurScore=new JoggeurScore;
+				}
+			}else{
+				$joggeurScore=new JoggeurScore;
+			}			        
+
+
+			
+				      
+			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
+					'saison'=>$saison,
+					'lastSaison'=>$lastSaison,
+					'theme'=>$theme,
+					'listeArticles'=>$listeArticles,
+					'timeGap'=>$timeGap,
+					'joggeurScore'=>$joggeurScore,
+					'draftmodeTheme'=>$draftmodeTheme,
+					'allThemes'=>$allThemes,
+					'musicTitle10th'=>$musicTitle10th,
+					'themePost'=>$themePost,
+					'websites'=>$websites,
+					'formWebsite'=>$formWebsite->createView()											
+			));
+		}
 	}
 
 

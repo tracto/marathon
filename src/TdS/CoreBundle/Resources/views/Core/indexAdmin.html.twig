@@ -16,8 +16,7 @@
 	        <div class='tableau-bord row'>
 	        <div class="col col-xs-12 col-sm-4 col-sm-push-8 col-lg-4 tableau-bord_col-gauche">
 	        	
-			        <div class="panneau-infos row">
-			        	
+			        <div class="panneau-infos row">			        	
 
 							<h2 class="sub-title man pan">
 								<span>Panneau d'information</span>
@@ -397,6 +396,24 @@
 		        	{% endif %}       		
 	        		</div>
 
+	        		{# <div class="row pas align-center col-articles pal">
+	        			<h2 class="sub-title sep ">Articles</h2>
+	        			{% if listeArticles is defined and listeArticles is not null %}
+	        				{% for article in listeArticles %}
+		        				{{ articleWrapperModule.article(article) }}
+	        				{% endfor %}
+	        			{% else %}
+	        				<div>
+	        					<h3>Il n'y a aucun article pour l'instant</h3>	        			
+	        				</div>
+	        			{% endif %}
+	        			{% if is_granted("ROLE_SUPER_ADMIN")  %}
+		        			<a href="{{ path('tds_marathon_article_add') }}" class="button btn btn-action mtm">
+		        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				  				<span class="btn__label">Ajouter un Article</span>
+		        			</a>
+	        			{% endif %}
+	        		</div>
 
 
 	        		<div class="row pas pbxxl align-center col-liens">
@@ -418,7 +435,7 @@
 							</div>
 							<div id="anchorLiens"></div>
 						{% endif %}
-	        		</div>
+	        		</div> #}
 	        	</div>
 
 	   
