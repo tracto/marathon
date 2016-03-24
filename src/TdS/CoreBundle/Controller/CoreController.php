@@ -5,6 +5,7 @@ namespace TdS\CoreBundle\Controller;
 use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\JoggeurScore;
 use TdS\MarathonBundle\Entity\Theme;
+use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\Website;
 use TdS\MarathonBundle\Form\WebsiteType;
 use TdS\MarathonBundle\Entity\MusicTitle;
@@ -45,6 +46,11 @@ class CoreController extends Controller{
 	      			->getRepository('TdSMarathonBundle:Theme')
 	      			->findAll();
 
+	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
+	      			->findAll();
+
+	      	shuffle($musicTitles);
+
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
 	      					  ->findSeveral(3);
 
@@ -52,7 +58,20 @@ class CoreController extends Controller{
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
     						->findAll();
 
-	      	
+	      	$website=new Website();
+			$formWebsite=$this->createForm(new WebsiteType(),$website,array(
+					'method' => 'POST',
+    				'action' => '#anchorLiens'
+			));
+
+			
+  	
+			if($formWebsite->handleRequest($request)->isValid()){
+				$em=$this->getDoctrine()->getManager();
+				$em->persist($website);
+				$em->flush();
+				return $this->redirect($this->generateUrl('tds_home'). '#anchorLiens');
+			}
 			
 
 			$listeJoggeurs=$em
@@ -77,7 +96,9 @@ class CoreController extends Controller{
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
-					"websites"=>$websites			
+					"websites"=>$websites,
+					"musicTitles"=>$musicTitles,
+					'formWebsite'=>$formWebsite->createView()			
 			));
 			
 			 

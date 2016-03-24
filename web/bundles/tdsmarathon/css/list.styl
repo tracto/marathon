@@ -9,7 +9,6 @@
 
 	.thumbnail{
 		color:$grey6;
-    	text-align: center;
     	border:none;
     	display:block;
     	width:100%;
@@ -81,7 +80,9 @@
 	}
 
 	h3{
-		font-size:1.2em;
+		font-size:1.1em;
+		font-weight:normal;
+		text-align:center;
 	}
 }
 
@@ -95,13 +96,16 @@
 .musictitle-count{
 	display:inline-block;
 	vertical-align:bottom;
-	background-color:black;	
-	height: 29px;
-    width: 50px;
+	height: 25px;
+    width: auto;
+    position:relative;
+    bottom:3px;
+    text-align:left;
     margin: 0 auto;
     border-radius:5px 5px 0 0;
     padding: 3px;
-    color:$color2;
+    /*color:$color2;*/
+   	color:$grey5;
 
 	.icon{		
     	height: 100%;
@@ -113,7 +117,7 @@
 	.number{
 		display:inline-block;
 		vertical-align:middle;
-		font-size:1.2em;
+		font-size:1em;
 	}
 }
 
@@ -121,10 +125,11 @@
 	display:inline-block;
 	vertical-align:bottom;
 	width:50px;
-	height:30px;
-	background-color:black;	
+	height:25px;
+	position:relative;
+    bottom:5px;
 	border-radius:5px 5px 0 0;
-	color:$color6;
+	color:$grey5;
 	padding-top:3px;
 
 	svg{

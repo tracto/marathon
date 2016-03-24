@@ -1,0 +1,102 @@
+{% macro playlist(musicTitles) %}
+	<div class='playlist-index-body'>
+		
+		{% if musicTitles is not null %}
+			<ul class='musicTitlesListe'>
+				{% for musicTitle in musicTitles %}
+					{% if musicTitle.theme.image is null %}
+						{% set imageThemePlaylist = "" %}
+					{% else %}
+						{% set imageThemePlaylist = musicTitle.theme.image.webPath | imagine_filter('medium_thumb') %}
+					{% endif %}
+					{# big_image #}
+					{% if musicTitle.joggeur.image is null %}
+						{% set imageJoggeurPlaylist = "" %}
+					{% else %}
+						{% set imageJoggeurPlaylist = musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') %}
+					{% endif %}
+
+					<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}' data-theme='{{ musicTitle.theme.titre }}'  data-thumbtheme='{{ imageThemePlaylist }}' data-artiste='{{ musicTitle.joggeur.pseudo }}' data-thumbartiste='{{ imageJoggeurPlaylist }}'  data-path='{{ asset(musicTitle.webPath) }}'>
+						{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
+					</li>					
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+
+
+						
+		<div id="jp-jplayer_index" class="jp-jplayer_index"></div>
+			<div id="jp-container_index" class="jp-container_index jp-audio" role="application" aria-label="media player">
+				<div class="jp-type-playlist">
+					<div class="jp-gui jp-interface ">
+						<div class="jp-controls-holder row">
+							<div class="jp-thumb-theme col col-xs-2 col-sm-2 col-lg-1">
+							</div>
+
+							<div class="jp-timeline col col-xs-10 col-sm-7">
+								<div class="jp-infos-title" data-infostitle></div>
+								<div class="jp-progress">
+									<div class="jp-seek-bar">
+										<div class="jp-play-bar"></div>
+									</div>
+								</div>								
+							</div>
+
+							
+
+							<div class="col col-xs-12 col-sm-3 pull-right">
+								<div class="jp-controls row">
+									<div class="col col-xs-7 col-sm-12 pull-right align-right"> 
+										<button class="jp-previous" role="button" tabindex="0">
+											<svg class="icon icon-alone icon--s icon-first"><use xlink:href="#icon-first"></use></svg>
+										</button>
+										<button class="jp-play" role="button" tabindex="0">
+											<svg class="icon icon-alone icon--s icon-play"><use xlink:href="#icon-play"></use></svg>
+										</button>
+										<button class="jp-stop" role="button" tabindex="0">
+											<svg class="icon icon-alone icon--s icon-stop"><use xlink:href="#icon-stop"></use></svg>
+										</button>
+										<button class="jp-next" role="button" tabindex="0">
+											<svg class="icon icon-alone icon--s icon-last"><use xlink:href="#icon-last"></use></svg>
+										</button>
+									</div>
+
+									<div class="jp-volume-toggles col col-xs-5 col-sm-9 pull-right align-right"> 
+										<div class="jp-volume-controls">
+											<div class="block clearfix">
+												<button class="jp-mute btn btn-default pull-left" role="button" tabindex="0">
+													<svg class="icon icon--s  icon-volume-off"><use xlink:href="#icon-volume-off"></use></svg>
+												</button>
+												<button class="jp-volume-max btn btn-default align-right pull-right" role="button" tabindex="0">
+													<svg class="icon icon--s  icon-volume-up"><use xlink:href="#icon-volume-up"></use></svg>
+												</button>
+											</div>
+											<div class="jp-volume-bar">
+												<div class="jp-volume-bar-value"></div>
+											</div>
+										</div>
+								
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+					
+					</div>
+					<div class="jp-playlist">
+						<div class="jp-playlist-inner">
+							<ul class="unstyled">
+								<li>&nbsp;</li>
+							</ul>
+						</div>
+					</div>
+					<div class="jp-no-solution">
+						<span>Update Required</span>
+						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+					</div>
+				</div>
+		</div>
+	</div>
+{% endmacro %}
