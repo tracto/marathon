@@ -4,15 +4,19 @@
 {% block body %}
    
 
-     
- 
-      <div id="content" class="">
-      	<div class="index row">
+        <div class="playlist-body-wrapper">
+ 	  		{{ playlistIndexModule.playlist(musicTitles) }}
+ 	  	</div>
+      
+
+
+
+
 
       		<div class=''>
       			 {% if saison is defined and saison.activate is not null %}
       				<div class="row man flex-container">
-	      				<div class="col col-md-8 align-center col-articles  pal ptn">
+	      				<div class="col col-articles">
 		        			{% if listeArticles is defined and listeArticles is not null %}
 		        				{% for article in listeArticles %}
 			        				{{ articleWrapperModule.article(article) }}
@@ -32,7 +36,7 @@
 		        		</div>
 	        		
 
-		        		<div class="col col-md-4 align-center col-themes man pan">
+		        		<div class="col col-md-4 col-themes man pan">
 
 	      				{# {% if theme is defined and theme is not null %}	    				
 		  					{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}
@@ -175,7 +179,7 @@
 				<div class='col col-xs-12 col-md-5 col-md-pull-7  col-gauche'>
 					<div class="row list col-joggeurs pas">
 						<h2 class="sub-title">Les joggeurs</h2>
-						<div class="block align-center clearfix">
+						<div class="block clearfix">
 						    {% for joggeur in listeJoggeurs %}
 						    	{% if joggeur is not null %}
 						    		{% if loop.index <= 9 %}
@@ -190,11 +194,11 @@
 												    <div class='inner-item-text'>
 												    	<div class="bg-vignette"></div>
 												    	<div class="inner-item-text-content">
-													    	<h3>{{ joggeur.pseudo }}</h3>				
+													    	<h3 class="man pls prs">{{ joggeur.pseudo }}</h3>				
 													    	<div class="musictitle-count">
-													    		<span class="glyphicon"></span>
-													    		<span class="number">12</span>
-													    	</div>
+														    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
+														    	<span class="number">{{ joggeur.musicTitles|length  }}</span>
+														    </div>
 												    	</div>
 												    </div>	
 												</div>					    		
@@ -218,6 +222,18 @@
 								<li><a href="{{ website.url }}">{{ website.name }}</a></li>
 							{% endfor %}						
 						</ul>
+
+						{% if is_granted("ROLE_SUPER_ADMIN")  %}
+							<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
+			  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+			  					<span class="btn__label">Ajouter un lien</span>
+							</a>
+
+							<div class="form-website pts mts">
+    							{{ include('TdSMarathonBundle:Website:form.html.twig') }}
+							</div>
+							<div id="anchorLiens"></div>
+						{% endif %}
 					</div>				
 				</div>
 			</div>

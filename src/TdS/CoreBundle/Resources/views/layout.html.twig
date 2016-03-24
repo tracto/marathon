@@ -21,6 +21,7 @@
 	{% import "TdSCoreBundle:Macros:footer.html.twig" as footerModule %}
 	{% import "TdSCoreBundle:Macros:playlist-wrapper.html.twig" as playlistWrapperModule %}  
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
+	{% import "TdSCoreBundle:Macros:playlist-index.html.twig" as playlistIndexModule %}
 	{% import "TdSCoreBundle:Macros:article-wrapper.html.twig" as articleWrapperModule %}
 	{% import "TdSCoreBundle:Macros:lois.html.twig" as loisModule %}
 
@@ -196,6 +197,38 @@
 <title>arrow-left</title>
 <path class="path1" d="M577.044 795.746c4.719 4.727 10.904 7.070 17.080 7.070s12.37-2.343 17.080-7.070c9.437-9.437 9.437-24.723 0-34.152l-351.977-351.994 351.977-352.002c9.437-9.413 9.437-24.699 0-34.152-9.437-9.421-24.723-9.421-34.161 0l-369.058 369.091c-9.437 9.421-9.437 24.699 0 34.161l369.058 369.050z"></path>
 </symbol>
+
+{# playlist buttons #}
+<symbol id="icon-play" viewBox="0 0 16 16">
+<title>play</title>
+<path class="path1" d="M3 2l10 6-10 6z"></path>
+</symbol>
+<symbol id="icon-pause" viewBox="0 0 16 16">
+<title>pause</title>
+<path class="path1" d="M2 2h5v12h-5zM9 2h5v12h-5z"></path>
+</symbol>
+<symbol id="icon-stop" viewBox="0 0 16 16">
+<title>stop</title>
+<path class="path1" d="M2 2h12v12h-12z"></path>
+</symbol>
+<symbol id="icon-first" viewBox="0 0 16 16">
+<title>first</title>
+<path class="path1" d="M2 14v-12h2v5.5l5-5v5l5-5v11l-5-5v5l-5-5v5.5z"></path>
+</symbol>
+<symbol id="icon-last" viewBox="0 0 16 16">
+<title>last</title>
+<path class="path1" d="M14 2v12h-2v-5.5l-5 5v-5l-5 5v-11l5 5v-5l5 5v-5.5z"></path>
+</symbol>
+<symbol id="icon-volume-up" viewBox="0 0 26 28">
+<title>volume-up</title>
+<path class="path1" d="M12 5.5v17q0 0.406-0.297 0.703t-0.703 0.297-0.703-0.297l-5.203-5.203h-4.094q-0.406 0-0.703-0.297t-0.297-0.703v-6q0-0.406 0.297-0.703t0.703-0.297h4.094l5.203-5.203q0.297-0.297 0.703-0.297t0.703 0.297 0.297 0.703zM18 14q0 1.188-0.664 2.211t-1.758 1.461q-0.156 0.078-0.391 0.078-0.406 0-0.703-0.289t-0.297-0.711q0-0.328 0.187-0.555t0.453-0.391 0.531-0.359 0.453-0.555 0.187-0.891-0.187-0.891-0.453-0.555-0.531-0.359-0.453-0.391-0.187-0.555q0-0.422 0.297-0.711t0.703-0.289q0.234 0 0.391 0.078 1.094 0.422 1.758 1.453t0.664 2.219zM22 14q0 2.391-1.328 4.414t-3.516 2.945q-0.203 0.078-0.391 0.078-0.422 0-0.719-0.297t-0.297-0.703q0-0.609 0.609-0.922 0.875-0.453 1.188-0.688 1.156-0.844 1.805-2.117t0.648-2.711-0.648-2.711-1.805-2.117q-0.313-0.234-1.188-0.688-0.609-0.313-0.609-0.922 0-0.406 0.297-0.703t0.703-0.297q0.203 0 0.406 0.078 2.188 0.922 3.516 2.945t1.328 4.414zM26 14q0 3.594-1.984 6.602t-5.281 4.43q-0.203 0.078-0.406 0.078-0.406 0-0.703-0.297t-0.297-0.703q0-0.562 0.609-0.922 0.109-0.063 0.352-0.164t0.352-0.164q0.719-0.391 1.281-0.797 1.922-1.422 3-3.547t1.078-4.516-1.078-4.516-3-3.547q-0.562-0.406-1.281-0.797-0.109-0.063-0.352-0.164t-0.352-0.164q-0.609-0.359-0.609-0.922 0-0.406 0.297-0.703t0.703-0.297q0.203 0 0.406 0.078 3.297 1.422 5.281 4.43t1.984 6.602z"></path>
+</symbol>
+<symbol id="icon-volume-off" viewBox="0 0 12 28">
+<title>volume-off</title>
+<path class="path1" d="M12 5.5v17q0 0.406-0.297 0.703t-0.703 0.297-0.703-0.297l-5.203-5.203h-4.094q-0.406 0-0.703-0.297t-0.297-0.703v-6q0-0.406 0.297-0.703t0.703-0.297h4.094l5.203-5.203q0.297-0.297 0.703-0.297t0.703 0.297 0.297 0.703z"></path>
+</symbol>
+
+
 <symbol id="icon-playlist-arrow-prev" viewBox="0 0 846 1024">
 <title>playlist-arrow-prev</title>
 <path class="path1" d="M797.421 1024c-10.25 0-20.489-3.423-27.315-11.391l-500.765-500.775 500.765-500.755c14.793-14.793 39.826-14.793 55.76 0 14.804 14.793 14.804 39.836 0 55.76l-446.115 444.994 446.125 446.146c14.804 14.793 14.804 39.816 0 55.76-7.967 6.826-18.217 10.26-28.456 10.26z"></path>
@@ -264,6 +297,7 @@
 	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/form.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/marathon-jplayer.js') }}" type="text/javascript"></script>
+	   	<script src="{{ asset('bundles/tdsmarathon/js/index-jplayer.js') }}" type="text/javascript"></script>
 	   	
 	   	<script src="{{ asset('bundles/tdsmarathon/js/indexAdmin.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/form-addpoints.js') }}" type="text/javascript"></script>

@@ -1,8 +1,8 @@
 {% macro article(article) %}
-	<div class="article-wrapper sep--dashed pam">
+	<div class="article-wrapper pam">
 		<h3 class="article-titre man pan">{{ article.titre }}</h3>
 		<strong class="article-date">le {{ article.datePost|date('d/m/Y à H:s') }}</strong>
-		<div class="article-image">
+		<div class="article-image mtm">
 			{% if article.image is not null %}
 				<img class="img-responsive" src="{{ article.image.webPath  | imagine_filter('big_image') }}" alt="{{ article.image.alt }}">
 			{% endif %}

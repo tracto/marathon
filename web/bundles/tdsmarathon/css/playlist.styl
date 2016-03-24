@@ -214,9 +214,20 @@
 
 
 
+
+
+
+
 .playlist-body-wrapper{
 	background-image:url('../images/playlist/playlist-bg.jpg');
 }
+
+
+
+
+
+
+
 
 
 
@@ -277,11 +288,8 @@
 	}
 
 
-	.jp-play{
-		span{			
-			background-image:url('../images/playlist/playlist-btns/playlist-btn-play.svg');
-			background-size:cover;
-		}
+	/*.jp-play{
+		
 	}
 
 	.jp-stop{
@@ -303,7 +311,7 @@
 			background-image:url('../images/playlist/playlist-btns/playlist-btn-next.svg');
 			background-size:cover;
 		}
-	}
+	}*/
 }
 
 
@@ -369,7 +377,7 @@ div.jp-seeking-bg {
 
 
 .jp-volume-controls{
-
+	width:100%;
 }
 
 
@@ -391,7 +399,7 @@ div.jp-seeking-bg {
 	}
 }
 
-	.jp-mute{
+	/*.jp-mute{
 		span{
 			background-image:url('../images/playlist/playlist-btns/playlist-btn-volume-min.svg');
 			background-size:cover;
@@ -403,7 +411,7 @@ div.jp-seeking-bg {
 			background-image:url('../images/playlist/playlist-btns/playlist-btn-volume-max.svg');
 			background-size:cover;
 		}
-	} 
+	}*/ 
 
 
 
@@ -526,7 +534,7 @@ div.jp-seeking-bg {
 .playlist-item{	
 	font-size:1em;
 
-	.jp-thumb, .jp-title-artist{
+	.jp-thumb, .jp-artist, .jp-theme{
 		display:inline-block;
 		vertical-align:middle;
 	}
@@ -554,10 +562,115 @@ div.jp-seeking-bg {
 	}
 }
 
+.playlist-index-body{
+	height:150px;
+	width:100%;
+	display:flex;
+	position:relative;
+	background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+	z-index:1;
 
-.playlist-comments{
+	@media $medium{
+		height:100px;
+	}
+
+
+	.musicTitlesListe{
+		display:none;
+	}
+
+	.jp-jplayer_index{
+		width:100%;
+	}
+
+	.jp-container_index{
+		height:100px;
+		width:100%;
+		
+		.jp-interface{
+			background-color:transparent;
+			padding:0 20px 20px 20px;
+		}
+		
+		.jp-controls{
+			text-align:left;
+			top:10px;
+
+			button{
+				background-color:$grey5;
+				width:30px;
+				height:30px;
+				padding:0px;
+				margin:3px;
+				border:outset 1px white;
+				cursor:pointer;
+
+				&:hover{
+					color:$color2;
+				}
+			}
+		}
+
+		.jp-volume-controls{
+			padding-left:10px;
+		}
+
+		.jp-volume-toggles{
+			margin:0 auto;
+			/*width:50%;*/
+
+			.btn {
+				width:20px;
+				height:20px;
+				border:none;
+				padding-bottom:1px;
+				background:transparent;
+
+			}
+		}
+
+		.playlist-item{	
+			padding:0;
+
+			.jp-title{
+				text-align:left;
+			}
+
+			.jp-playlist-item{
+				display:block;
+			}
+
+			.jp-artist{
+				color:$grey1;
+				display:inline-block;
+			}
+
+			.jp-thumb-artiste{
+				display:inline-block;
+				margin-right:0px;
+			}
+		}
+
+		.jp-playlist{
+			display:none;
+		}	
+	}
+
+	.jp-thumb-theme{
+		height: 95px;
+	    overflow: hidden;
+	    padding: 0;
+	    margin-top: 5px;
+
+    	img {
+    		height:100%;
+    	}
+	}
 
 }
+
 
 
 
