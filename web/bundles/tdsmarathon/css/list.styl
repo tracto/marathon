@@ -54,29 +54,16 @@
 	bottom:0;
 	margin:0 auto;
 	width:100%;
-	height: 50px;
     background-color:$color5;
 						
-	.bg-vignette{
+	&::before {
+		content: '';
 		background-image:url("../../tdsmarathon/images/bg-vignette.png");
 		background-repeat:repeat-x;
 		height:95px;
 		width:100%;
 		position:absolute;
-		bottom:20px;
-	}
-
-	.inner-item-text-content{
-		overflow:hidden;
-		position:absolute;
-		bottom:0;
-		margin:0 auto;
-		width:100%;
-		
-	}
-
-	span{
-		display:inline-block;
+		top: -50px;
 	}
 
 	h3{
@@ -89,60 +76,23 @@
 
 
 
+.comment-count,
+.musictitle-count {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 12px;
+	padding: 0 3px 3px 5px;
 
+	.icon { padding: 7px; }
 
-
-
-.musictitle-count{
-	display:inline-block;
-	vertical-align:bottom;
-	height: 25px;
-    width: auto;
-    position:relative;
-    bottom:3px;
-    text-align:left;
-    margin: 0 auto;
-    border-radius:5px 5px 0 0;
-    padding: 3px;
-    /*color:$color2;*/
-   	color:$grey5;
-
-	.icon{		
-    	height: 100%;
-    	width: 20px;
-    	display:inline-block;
-    	vertical-align:middle;
-	}
-
-	.number{
-		display:inline-block;
-		vertical-align:middle;
-		font-size:1em;
+	span {
+		transform: translateX(-3px);
 	}
 }
 
-.comment-count{
-	display:inline-block;
-	vertical-align:bottom;
-	width:50px;
-	height:25px;
-	position:relative;
-    bottom:5px;
-	border-radius:5px 5px 0 0;
-	color:$grey5;
-	padding-top:3px;
 
-	svg{
-		width:20px;
-		display:inline-block;
-		vertical-align:middle;
-	}
 
-	span{
-		display:inline-block;
-		vertical-align:middle;
-	}
-}
+
 
 
 .btn-liste-delete{

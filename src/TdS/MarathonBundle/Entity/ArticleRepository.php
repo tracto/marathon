@@ -9,12 +9,12 @@ namespace TdS\MarathonBundle\Entity;
  * repository methods below.
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository{
-	public function findSeveral($count){
+	public function findSeveral($count,$offset){
 
 		$queryBuilder=$this->_em->createQueryBuilder()
 			->select('a')
        		->orderBy('a.datePost', 'DESC')
-       		->setFirstResult(0)
+       		->setFirstResult($offset)
    			->setMaxResults($count)
 			->from($this->_entityName,'a');
 

@@ -10,25 +10,36 @@
       
 
 
-
-
-
-      		<div class=''>
+      	<div class=''>
       			 {% if saison is defined and saison.activate is not null %}
       				<div class="row man flex-container">
-	      				<div class="col col-articles">
+	      				<div class="col col-md-8 col-articles">
+	      					
 		        			{% if listeArticles is defined and listeArticles is not null %}
-		        				{% for article in listeArticles %}
-			        				{{ articleWrapperModule.article(article) }}
-		        				{% endfor %}
+		        				<div class="articles-liste">
+			        				{% for article in listeArticles %}
+				        				{{ articleWrapperModule.article(article) }}
+			        				{% endfor %}
+		        				</div>
+
+		        				{# <div class="more-articles-content"></div> #}
+
+		        				<div class="clearfix"></div>
+
+		        				<button href="" class="button btn-more btn pull-left mas" data-action="show-more-articles" data-offset="4">
+			        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+					  				<span class="btn__label">Plus d'articles</span>
+			        			</button>
 		        			{% else %}
 		        				<div>
 		        					<h3>Il n'y a aucun article pour l'instant</h3>	        		
 		        				</div>
 		        			{% endif %}
 
+		        			
+
 		        			{% if is_granted("ROLE_SUPER_ADMIN")  %}
-			        			<a href="{{ path('tds_marathon_article_add') }}" class="button btn pull-right btn-action mtm">
+			        			<a href="{{ path('tds_marathon_article_add') }}" class="button btn pull-right btn-action mas">
 			        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
 					  				<span class="btn__label">Ajouter un Article</span>
 			        			</a>
@@ -60,16 +71,14 @@
 
 										    {% if theme.image is not null %}
 									  			<img class="" src="{{ theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ theme.image.alt }}">
-											{% endif %}
-											
+											{% endif %}											
 											
 										    <div class='inner-item-text'>
-										    	<div class="bg-vignette"></div>
-										    	<div class="inner-item-text-content">
+										    	<div class="relative">
 											    	<h3 class="man pbs">{{ theme.titre }}</h3>				
 											    	<div class="musictitle-count">
 											    		<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-											    		<span class="number">{{ theme.musicTitles|length  }}</span>
+											    		<span>{{ theme.musicTitles|length  }}</span>
 											    	</div>
 
 											    	<div class="comment-count">
@@ -188,16 +197,14 @@
 										    	<div class="square">
 												    {% if joggeur.image is not null %}
 											  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
-													{% endif %}
-												
+													{% endif %}										
 
 												    <div class='inner-item-text'>
-												    	<div class="bg-vignette"></div>
-												    	<div class="inner-item-text-content">
+												    	<div class="relative">
 													    	<h3 class="man pls prs">{{ joggeur.pseudo }}</h3>				
 													    	<div class="musictitle-count">
 														    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-														    	<span class="number">{{ joggeur.musicTitles|length  }}</span>
+														    	<span>{{ joggeur.musicTitles|length  }}</span>
 														    </div>
 												    	</div>
 												    </div>	
@@ -237,9 +244,16 @@
 					</div>				
 				</div>
 			</div>
-
 		</div>
+    </div>
 
-      </div>
-
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+		<div class='popup-delete-confirmation' data-popupdelete>
+	        <div>
+	            <p></p>
+	            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+	            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+	        </div>
+	    </div>
+    {% endif %}
 {% endblock %}

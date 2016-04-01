@@ -2,7 +2,8 @@
    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(form) }}
-
+    <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />
+    
     <div class="form-group row mll mrl ptm">
       {{ form_label(form.titre, "titre", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
       {{ form_errors(form.titre) }}
