@@ -120,8 +120,29 @@ tds_marathon_theme_active_validation:
 tds_marathon_article_add:
     path:     /article/add
     defaults: 
-        _controller: TdSMarathonBundle:Article:add  
+        _controller: TdSMarathonBundle:Article:add 
 
+
+tds_marathon_article_edit:
+    path:     /article/edit/{id} 
+    defaults: { _controller: TdSMarathonBundle:Article:edit }
+    requirements:
+        id: \d+ 
+
+tds_marathon_article_delete:
+    path:     /article/delete/{id} 
+    defaults: { _controller: TdSMarathonBundle:Article:delete }
+    requirements:
+        id: \d+
+
+
+tds_marathon_article_more:
+    pattern: /article/more/{offset}
+    defaults: { _controller: TdSMarathonBundle:Article:more }       
+    requirements:
+        offset: \d+ 
+    options:
+        expose: true
 
 
 

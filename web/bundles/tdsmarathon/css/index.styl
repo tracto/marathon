@@ -280,13 +280,28 @@
 
 .col-articles{
 	background:rgba(208,201,201,1);
-	/*background:url('../images/playlist/playlist-bg.jpg');*/
-
 	flex: 1 1 auto;
+	padding:0;
+	/*background:url('../images/playlist/playlist-bg.jpg');*/
+	.more-articles-content{
+		background-color:red;
+	}
+	
 
 	.article-wrapper{
-		background: white;
-		margin: 5px;
+		padding:5px;
+
+		&:first-child{
+			width:100%;
+		}
+
+		.article-inner-wrapper{
+			/*margin: 5px;*/
+			background: white;
+		}
+
+
+		
 
 
 		.article-titre{
@@ -311,18 +326,13 @@
 	}
 }
 
-.col-articles:before{
-	/*content:'';
-	background:rgba(208,201,201,0.7);
-	position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;*/
-    
-}
+
+
+
 
 .col-themes{
+	flex: 1 1 auto;
+	background-color:$color11;
 
 	.vignette-item{
 		width:100%;

@@ -52,7 +52,7 @@ class CoreController extends Controller{
 	      	shuffle($musicTitles);
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
-	      					  ->findSeveral(3);
+	      					  ->findSeveral(4,0);
 
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
@@ -134,7 +134,7 @@ class CoreController extends Controller{
 	      			->findAll();
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
-	      					  ->findSeveral(3);
+	      					  ->findSeveral(4,0);
 
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
@@ -227,15 +227,17 @@ class CoreController extends Controller{
 
             $contenuMail="<div>
             				<h2>“".$data['pseudo']."“ veut devenir joggeur !</h2>
-            				<h2>Mail : </h2>
-            				<span>".$data['email']."</span><br/>
-            				<h2>Candidature :</h2>
-            				<span>".$data['content']."</span><br/>
+            				<h3>Mail : </h3>
+            				<span>".$data['email']."</span>
+            				<h3>Candidature :</h3>
+            				<p>".$data['content']."</p>
             			 </div>";
+
+            // $contenuMail="yo";
 
             $message = \Swift_Message::newInstance()
                 ->setContentType('text/html')
-                ->setSubject("Marathon : demande d'inscription")
+                ->setSubject("Marathon de la Semaine : demande d'inscription")
                 ->setFrom($data['email'])
                 ->setTo('contact@tiretdusix.net')
                 ->setBody($contenuMail);
