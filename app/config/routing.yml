@@ -45,6 +45,12 @@ tds_participate_validation:
     path:    /participate-validation
     defaults: { _controller: TdSCoreBundle:Core:participate }
 
+tds_credits:
+    path:    /credits
+    defaults: { _controller: TdSCoreBundle:Core:credits }
+    options:
+        expose: true
+
 
 tds_admin_user_edit:
     path:     /admin/edit/{id}
