@@ -58,14 +58,13 @@ $(function() {
 
 
 $(".btn-becky").on('click',function(){
-  console.log($(this).data('id'));
   $('#becky-content').show();
   $('#becky-content').find(".becky-text").html($(this).data('info'));
 });
 
 
 $("[data-action='credits']").on('click',function(){ 
-  $("[data-credits]").show();
+  
   $.ajax({
     type: "GET",
     url: Routing.generate('tds_credits'),
@@ -73,7 +72,8 @@ $("[data-action='credits']").on('click',function(){
     cache: false,
     success: function(data){
        $("[data-credits]").html(data);
-       console.log("yo");     
+       $("[data-credits]").show();
+       $("html, body").animate({ scrollTop: $(document).height() }, 500);    
     },
   });
 
