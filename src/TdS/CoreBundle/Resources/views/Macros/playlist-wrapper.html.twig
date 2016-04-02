@@ -177,7 +177,7 @@
 						{% endif %}
 						</div>
 					{% endif %} 
-				{% endif %} 
+				{% endif %}
 
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
@@ -190,8 +190,11 @@
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 		  				<span class="btn__label">Modifier le thème d'attente</span>
 					</a>					
-				{% endif %}	
+				{% endif %}
 
+				<a class="creativec-lien pts pull-right" href="http://creativecommons.org/licenses/by-sa/4.0/">
+					<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
+				</a>
 			</div>			
 		</div>
 
@@ -328,8 +331,12 @@
 							<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
 							<span class="btn__label">ajouter un morceau</span>
 						</a>
+
 					</div>
-				{% endif %} 		
+				{% endif %}
+				<a class="creativec-lien pts pull-right" href="http://creativecommons.org/licenses/by-sa/4.0/">
+					<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
+				</a> 		
 			</div>
 		</div>
 	</div>
