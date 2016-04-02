@@ -252,6 +252,10 @@ class CoreController extends Controller{
 		
 	}
 
+	public function creditsAction(){
+		return $this->render('TdSCoreBundle:Core:credits.html.twig');
+	}
+
 	public function kilometrageAction(){
 		$em = $this->getDoctrine()->getManager();
 		$allMusicTitles=$em
