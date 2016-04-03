@@ -1,0 +1,36 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	{% if is_granted("ROLE_SUPER_ADMIN") %}
+		<div id="content" class="bg--lightgrey pam pbxxl">
+			<h1 class="main-title man align-center">
+				<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
+				<span>Liste des morceaux</span>
+			</h1>
+			<h3 class="sub-title man align-center">Thème : {{ theme.titre }}</h3>
+			<div class="bg-op--white bd--light pam">
+				{% for musicTitle in listeMusicTitles %}
+					<div class="list-item sep--dashed pam clearfix">
+						<a class='button pull-right btn btn-action btn-musictitle-delete mrs mts' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }} "  data-pseudo="{{ musicTitle.titre }}">
+		                    <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+		                </a>
+
+						<h3 class="man">{{ musicTitle.titre }}</h3>
+						<span>Par : {{ musicTitle.joggeur.pseudo }}</span>				
+					</div>
+				{% endfor %}
+			</div>
+	 	</div>
+	 	<div class='popup-delete-confirmation' data-popupdelete>
+	        <div>
+	            <p></p>
+	            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+	            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+	        </div>
+		</div>
+	{% endif %}
+{% endblock %}

@@ -181,10 +181,17 @@
 
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<a class="button btn btn-action pull-right mtm" href="{{ path('tds_marathon_theme_edit', {'id': theme.id}) }}">
+					<a class="button btn btn-action mtm pull-right" href="{{ path('tds_marathon_musictitle_list', {'theme_id': theme.id}) }}">
+		  				<svg class="icon icon--m  icon-remove-music"><use xlink:href="#icon-remove-music"></use></svg>
+		  				<span class="btn__label">Supprimer un morceau</span>
+					</a>
+
+					<a class="button btn btn-action mtm" href="{{ path('tds_marathon_theme_edit', {'id': theme.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 		  				<span class="btn__label">Modifier le thème</span>
 					</a>
+
+					
 				{% elseif is_granted("ROLE_USER") and theme.draftmode == 1 and theme.joggeur == app.user.joggeur %} 
 					<a class="button btn btn-action pull-right mtm" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': theme.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
@@ -192,7 +199,7 @@
 					</a>					
 				{% endif %}
 
-				<a class="creativec-lien pts pull-right" href="http://creativecommons.org/licenses/by-sa/4.0/">
+				<a class="creativec-lien pts block" href="http://creativecommons.org/licenses/by-sa/4.0/">
 					<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
 				</a>
 			</div>			
