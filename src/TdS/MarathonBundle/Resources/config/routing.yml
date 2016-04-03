@@ -234,4 +234,18 @@ tds_marathon_musicTitle_add:
         theme_id: \d+
         joggeur_id: \d+
 
+tds_marathon_musictitle_list:
+    path:  /musictitle/list/{theme_id}
+    defaults: { _controller: TdSMarathonBundle:MusicTitle:list }
+    requirements:
+        theme_id: \d+
+
+tds_marathon_musictitle_delete:
+    path:  /musictitle/delete/{id}
+    defaults: { _controller: TdSMarathonBundle:MusicTitle:delete }
+    requirements:
+        id: \d+
+
+
+
 

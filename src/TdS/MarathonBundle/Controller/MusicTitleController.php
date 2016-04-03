@@ -67,5 +67,39 @@ class MusicTitleController extends Controller{
         							'form'=>$form->createView()
         ));
 	}
+
+
+	public function listAction($theme_id, Request $request){
+		 $em=$this->getDoctrine()->getManager();
+
+		 $theme = $em->getRepository('TdSMarathonBundle:Theme')
+	      			 ->find($theme_id);
+
+		 $listeMusicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
+	           			      ->findBy(array('theme' => $theme));
+
+	    return $this->render('TdSMarathonBundle:MusicTitle:liste.html.twig', array(
+        							'theme'=>$theme,
+        							 'listeMusicTitles'=>$listeMusicTitles
+        							));
+	}
+
+
+	public function deleteAction(MusicTitle $musicTitle, $id, Request $request){
+		$referer = $this->getRequest()->headers->get('referer');
+
+		$em=$this->getDoctrine()->getManager();
+
+		// $joggeur = $em->getRepository('TdSMarathonBundle:Joggeur')
+  //                   ->findOneBy(array('id' => $id));
+
+
+        if($musicTitle!=null){
+             $em->remove($musicTitle);
+             $em->flush();
+        }
+
+        return $this->redirect($referer);
+	}
 }
 ?>
