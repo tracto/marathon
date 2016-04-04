@@ -9,23 +9,49 @@
 		<div class="classement">
 			<h1 class="main-title man pbm align-center">
 				<span>Classement</span><br/>
-				{% for saison in listeSaisons %}
-					<span><a href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saison.id }) }}">{{ saison.titre }}</a></span>
-				{% endfor %}
+				<div class="dropdown-saison align-center mbs">
+					<div class="dropdown-saison-wrapper">
+						<div class="dropdown-saison-item select pas sep">
+							<span>{{ saison.titre }}</span>
+							<svg class="icon icon--s icon-arrow-left pull-right" ><use xlink:href="#icon-arrow-left"></use></svg>
+						</div>
+						{% for saisonItem in listeSaisons %}
+							{% if saison != saisonItem %}
+								<div class="dropdown-saison-item pas sep--dashed"><a href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saisonItem.id }) }}">{{ saisonItem.titre }}</a></div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
 			</h1>
+
+			<div class="legende align-center pas mbs mtl">
+				<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg> -> points bisous
+				<svg class="icon icon--m icon-fast mls" ><use xlink:href="#icon-fast"></use></svg> -> points vitesse 
+				<svg class="icon icon--m icon-minus mls" ><use xlink:href="#icon-minus"></use></svg> -> points retirés
+			</div>
 			
-			<div class="sep">
+			<div class="sep accordion-joggeur">
 				
       			{% for joggeurScore in listeJoggeursScore %}
-      				<div class="sep">
-	      				<h2 class="sub-title man">{{ loop.index }} - {{ joggeurScore.joggeur.pseudo }} / {{ joggeurScore.total }}</h2>
-	      				{% for score in joggeurScore.scores %}
-	      					<div class="pbs sep--dashed">
-	      						<span class="pls mls block"><strong>{{ score.theme.saison.titre }}</strong> -> {{ score.theme.titre }} : {{ score.totalTheme }}
-	      						(points coeurs : {{ score.heartpoints }}, points vitesse : {{ score.fastpoints }})</span>
-	      					</div>
-		      			{% endfor %}
-	      			</div> 
+	      				<div class="accordion-header flex-container flex-align pas">
+	      					<h2 class="sub-title man mrs">{{ loop.index }} {{ joggeurScore.joggeur.pseudo }}</h2> 
+	      				    <span class="score">Score Total : {{ joggeurScore.total }}</span>
+	      				    <svg class="icon icon--s icon-arrow-left mlauto" ><use xlink:href="#icon-arrow-left"></use></svg>
+	      				    
+	      				</div>
+	      				<div class="accordion-body">
+		      				{% for score in joggeurScore.scores %}
+		      					<div class="pbs flex-container flex-align">
+		      						<div class="pls mls prm sub-sub-title">{{ score.theme.titre }} : {{ score.totalTheme }}</div>
+
+		      						<span>
+		      						(<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>{{ score.heartpoints }} 
+		      						<svg class="icon icon--m icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>
+		      						{{ score.fastpoints }} 
+		      						<svg class="icon icon--m icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>{{ score.takenpoints }} )</span>
+		      					</div>
+			      			{% endfor %}
+		      			</div>
       			{% endfor %}
 			</div>
 
