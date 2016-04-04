@@ -99,9 +99,10 @@ class JoggeurController extends Controller{
      
 
     	return $this->render('TdSMarathonBundle:Joggeur:classement.html.twig', array(
+            'saison'=>$saison,
     				'listeJoggeurs'=>$listeJoggeurs,
-                    'listeSaisons'=>$listeSaisons,
-                    'listeJoggeursScore'=>$listeJoggeursScore,
+            'listeSaisons'=>$listeSaisons,
+            'listeJoggeursScore'=>$listeJoggeursScore,
         ));
 	}
 
