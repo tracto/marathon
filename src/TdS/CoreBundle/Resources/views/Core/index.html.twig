@@ -47,13 +47,7 @@
 		        		</div>
 	        		
 
-		        		<div class="col col-md-4 col-themes man pan">
-
-	      				{# {% if theme is defined and theme is not null %}	    				
-		  					{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}
-		  				{% elseif themePost is defined and themePost is not null %}
-		  					{{ playlistWrapperModule.pl_theme(themePost,null,null,false) }}	
-						{% endif %} #}
+		        		<div class="col col-md-4 col-themes man pan">		
 							{% if theme is defined and theme is not null %}
 								<div class='list-item vignette-item man pan'>
 									<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
@@ -186,8 +180,8 @@
 
 						<div class="walloffame bg-op--white-5 align-center pam mtm">
 							<h3>Wall of Fame</h3>
-							<div class="flex-container">
-								<div class="wof_jogEgoiste flex-item-fluid list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
+							<div class="wof-wrapper flex-container-h">
+								<div class="wof-item wof_jogEgoiste flex-item-fluid list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
 										<div class="round">
 												{% if wof_jogEgoiste.image is not null %}
 													<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}">
@@ -201,7 +195,7 @@
 									</div> 
 								</div>
 
-								<div class="wof_jogDonJuan flex-item-fluid list-item pas">
+								<div class="wof-item wof_jogDonJuan flex-item-fluid list-item pas">
 									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
 										<div class="round">
 												{% if wof_jogDonJuan.image is not null %}
@@ -216,7 +210,7 @@
 									</div> 
 								</div>
 
-								<div class="wof_jogPetitGros flex-item-fluid list-item pas">
+								<div class="wof-item wof_jogPetitGros flex-item-fluid list-item pas">
 									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogPetitGros.id}) }}">								
 										<div class="round">
 												{% if wof_jogPetitGros.image is not null %}
@@ -231,7 +225,7 @@
 									 </div> 
 								</div>
 
-								<div class="wof_jogLfdy flex-item-fluid list-item pas">
+								<div class="wof-item wof_jogLfdy flex-item-fluid list-item pas">
 									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogLfdy.id}) }}">								
 										<div class="round">
 												{% if wof_jogLfdy.image is not null %}
