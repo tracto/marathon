@@ -114,26 +114,46 @@
 
 
 .index{
-	background-color:$grey1;
+	background-color:$grey4bis;
+	/*border:solid 1px $grey4;*/
+	box-shadow:0 0 5px $grey4;
 
 	.sub-title{
 		text-align:center;
 	}
 }
 
-.saison-title{
-	background-color:$grey0;
-	color:$color3;
+
+
+.col-droite{
+	background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+	background-repeat:repeat-y;
+	flex: 1 1 auto;
 }
 
-
 .col-classement{
-	background-image:url('../images/bg-marbre.jpg');
 	color:$grey5;
+	/*background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+	background-repeat:repeat-y;
+	/*color:$grey6;
+	flex: 1 1 auto;*/
 
 	>div{
 		color:$grey1;
 	}
+
+
+	
+
+
+	.round{
+		border: solid 1px $grey2;
+		box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+	}
+    			
+    
 
 	.podium-wrapper{
 		position:relative;
@@ -161,20 +181,15 @@
     		}
 
     		.thumbnail{
-    			display: block;
-    			width: 130%;
-    			margin-left: -15%;
-    			position: absolute;
-    			bottom: 75px;
-    			height: auto;
+				display: block;
+				width: 130%;
+				margin-left: -15%;
+				position: absolute;
+				bottom: 75px;
+				height: auto;
+			}
 
-
-    			.round{
-    				border: solid 1px $grey2;
-    				box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
-    			}
-    			
-    		}
+    		
 
     		.place{
     			display: block;
@@ -200,9 +215,7 @@
     			font-size:1.2em;
     			line-height: 0.8em;
     		}
-		}
-
-		
+		}		
 	}
 	
 
@@ -218,11 +231,9 @@
 			.thumbnail{
     			display: block;
     			width: 160%;
-    			margin-left: -30%;
-    			
+    			margin-left: -30%;    			
     		}	
-		}
-		
+		}		
 	}
 
 	.podium-2{
@@ -233,7 +244,6 @@
 				background-color:$color12;
 				
 			}
-
 		}
 	}
 
@@ -248,6 +258,33 @@
 			
 		}
 	}
+
+
+}
+
+.walloffame {
+
+	.wof-wrapper {
+		width:100%;
+	}
+
+	.wof-item {
+		max-width:150px;
+	} 
+
+	h4 {
+		line-height:1.1em;
+		word-wrap:break-word;
+	}
+
+
+   	strong {
+   		display: block;
+    	line-height: 1em;
+   		font-size:0.8em;
+   	}
+
+
 
 }
 
@@ -269,14 +306,86 @@
 	.button{
 		color:$grey5;
 	}
+
+	.square {
+		border:solid 1px $grey2;
+	}
+}
+
+.col-articles{
+	background:rgba(208,201,201,1);
+	flex: 1 1 auto;
+	padding:0;
+	/*background:url('../images/playlist/playlist-bg.jpg');*/
+	.more-articles-content{
+		background-color:red;
+	}
+	
+
+	.article-wrapper{
+		padding:5px;
+
+		&:first-child{
+			width:100%;
+		}
+
+		.article-inner-wrapper{
+			/*margin: 5px;*/
+			background: white;
+		}
+
+
+		
+
+
+		.article-titre{
+			font-size:1.4em;
+			text-align:left;
+		}
+
+		.article-date{
+			color:$grey3;
+			display:block;
+			text-align:left;
+			font-style:italic;
+		}
+
+		.content{
+			width:100%;
+
+			iframe, img{
+				width:100%;
+			}
+		}
+	}
+}
+
+
+
+
+
+.col-themes{
+	flex: 1 1 auto;
+	background-color:$color11;
+
+	.vignette-item{
+		width:100%;
+	}
+
+	.square{
+		border-radius:0;
+		border:none;
+	}
 }
 
 .col-liens{
-	background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-image:url('../images/bg-marbre.jpg');
+	color:$grey6;
+	/*background-image:url('../images/bg-marathonchanteurs.jpg');
 	background-size:cover;
 	background-repeat:repeat-y;
-	color:$grey6;
-	flex: 1 1 auto;
+	*/
+	flex: 0 0 auto;
 
 	.form-website{
 		display:none;

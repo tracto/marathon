@@ -1,4 +1,4 @@
-{% macro header() %}
+{% macro header(saison) %}
 	<div id="header" class="main-header">
 
 			<input id="mobile-nav" type="checkbox" class="nav-toggler" />
@@ -12,12 +12,16 @@
 			<nav class="navbar-header">
 			 
 					<ul class="unstyled">
+						{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+		            		<li><a href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
+		            	{% endif %}
+
 						<li><a  href="{{ path('tds_home') }}">Accueil</a></li>
 						<li><a href="{{ path('tds_marathon_theme_home') }}">Themes</a></li>
 						<li><a  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
 
 						{% if is_granted("ROLE_SUPER_ADMIN") %}
-		            		<li><a href="{{ path('tds_admin_home') }}">utilisateurs</a></li>           		
+		            		<li><a href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
 		            	{% endif %}
 
 		            	<li class="user" aria-label="user">
@@ -43,24 +47,30 @@
 				        </li>
 					</ul>
 
-					<div class="beta align-center">
+					{# <div class="beta align-center">
 						<div class="inner-beta pas">
 							<h3 class="sub-sub-title pan man">Version Beta</h3>
 							<a target="_blank" href="https://docs.google.com/document/d/1GTL6brkuObv2_A48yWqceZnjcQFlOpCC0y8HI3XMuSo/">
 								<span>Un bug? Ce serait chouette de le signaler ici.</span>
 							</a>
 						</div>
-					</div>
+					</div> #}
 
 				</nav>
 
 				
 
-	
+			
 
 				
 			<div class="container-fluid">
 				<img class="main-logo" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
+
+				{# {% if saison is defined and saison.activate is not null %} #}
+					<div class="flex-item-center saison-title align-center man">
+      					<h1 class="man">{{ saisonService.getSaison() }}</h1>
+      				</div> 
+				{# {% endif %} #}
 			</div>
 	 </div>
  {% endmacro %}

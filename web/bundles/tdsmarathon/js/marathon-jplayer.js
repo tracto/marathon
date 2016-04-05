@@ -19,7 +19,7 @@ $(document).ready(function(){
               var musicTitleThumb=$(this).data('thumb');
               var musicTitleItem={title:musicTitleTitre, artist:musicTitleArtiste, mp3:musicTitlePath, thumb:musicTitleThumb};
               musicTitlesArray.push(musicTitleItem);
-              
+              console.log(musicTitlesArray);
           });
 
           $(this).find('.jp-jplayer').attr('id','jp-jplayer_'+i);

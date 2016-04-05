@@ -7,7 +7,7 @@ html {
 }
 
 body{
-	background-color:lightgrey;
+	background-color:$grey5;
 	font-family: 'Pontano Sans', sans-serif;
 }
 
@@ -53,6 +53,10 @@ a {
 
 }
 
+*:focus{
+	outline:none;
+}
+
 .thumbnail{
 	padding:0;
 	background-color: transparent;
@@ -64,7 +68,25 @@ a {
 
 
 
+.wrapper{
+	.container-border-left{
+		background-color:$color6;
+		background-image:url('../images/motif-border-g.png');
+		background-repeat:repeat-y;
+		background-position-x: right;
+	}
 
+	.container-border-right{
+		background-color:$color3;
+		background-image:url('../images/motif-border-d.png');
+		background-repeat:repeat-y;
+	}
+
+	.container-center{
+		margin:0;
+		padding:0;
+	}
+} 
 
 .main-content{
 	background-color:rgba(255,255,255,0.5);

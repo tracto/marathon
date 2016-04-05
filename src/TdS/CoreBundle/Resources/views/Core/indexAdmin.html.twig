@@ -13,11 +13,10 @@
 
 	    {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
 	        
-	        <div class='tableau-bord row'>
+	        <div class='tableau-bord'>
 	        <div class="col col-xs-12 col-sm-4 col-sm-push-8 col-lg-4 tableau-bord_col-gauche">
 	        	
-			        <div class="panneau-infos row">
-			        	
+			        <div class="panneau-infos row">			        	
 
 							<h2 class="sub-title man pan">
 								<span>Panneau d'information</span>
@@ -387,7 +386,7 @@
 			        		{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}	
 						{% else %}
 			        		<div>
-			        			<h3>Pas de thème en cours</h3>
+			        			<h3 class="align-center">Il n'y a pas de thème en cours</h3>
 			        		</div>
 			        	{% endif %}
 			        {% else %} 
@@ -397,28 +396,7 @@
 		        	{% endif %}       		
 	        		</div>
 
-
-
-	        		<div class="row pas pbxxl align-center col-liens">
-	        			<h2 class="sub-title">Pas loin</h2>
-						<ul class="unstyled ptm">
-						{% for website in websites %}
-							<li><a href="{{ website.url }}">{{ website.name }}</a></li>
-						{% endfor %}						
-						</ul>
-
-						{% if is_granted("ROLE_SUPER_ADMIN")  %}
-							<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
-			  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-			  					<span class="btn__label">Ajouter un lien</span>
-							</a>
-
-							<div class="form-website pts mts">
-    							{{ include('TdSMarathonBundle:Website:form.html.twig') }}
-							</div>
-							<div id="anchorLiens"></div>
-						{% endif %}
-	        		</div>
+	        		
 	        	</div>
 
 	   
@@ -427,7 +405,7 @@
 		    {% endif %} 
 			</div>
 	      </div>
-	   	</div>
+	  
 {% endblock %}
 
 

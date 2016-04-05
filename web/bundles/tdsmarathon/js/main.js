@@ -35,20 +35,18 @@ $(function() {
     }); 
 
     $(".btn-becky").each(function(){
-       if($(this).data("random")=="1"){
+      if($(this).data("random")=="1"){
         $('#becky-content').show();
-          $.ajax({
-            type: "GET",
-            url: Routing.generate('tds_becky_infos'),
-            data:'',
-            cache: false,
-            success: function(data){
-               $('#becky-content').find(".becky-text").html(data);     
-            },
-            complete: function () {
-            }
+        $.ajax({
+          type: "GET",
+          url: Routing.generate('tds_becky_infos'),
+          data:'',
+          cache: false,
+          success: function(data){
+             $('#becky-content').find(".becky-text").html(data);     
+          },
         });
-       }
+      }
     });
 
     $("[data-close-becky]").on("click",function(){
@@ -60,8 +58,24 @@ $(function() {
 
 
 $(".btn-becky").on('click',function(){
-  console.log($(this).data('id'));
   $('#becky-content').show();
   $('#becky-content').find(".becky-text").html($(this).data('info'));
+});
+
+
+$("[data-action='credits']").on('click',function(){ 
+  
+  $.ajax({
+    type: "GET",
+    url: Routing.generate('tds_credits'),
+    data:'',
+    cache: false,
+    success: function(data){
+       $("[data-credits]").html(data);
+       $("[data-credits]").show();
+       $("html, body").animate({ scrollTop: $(document).height() }, 500);    
+    },
+  });
+
 });
 

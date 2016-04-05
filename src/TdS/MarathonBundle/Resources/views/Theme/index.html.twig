@@ -28,7 +28,7 @@
 		    		<h4 class="sub-sub-title align-center pan man">(en cours)</h4>
 		    	{% endif %}
 	    	</div>
-		    <div class='row list pbm sep--dashed pas'>	
+		    <div class='row list pbm pas'>	
 			     {% for theme in saison.themes %}
 
 			     	{% if theme.draftmode is null or theme.draftmode == 0 or (is_granted("ROLE_SUPER_ADMIN","ROLE_USER") and theme.draftmode == 1 and theme.joggeur == app.user.joggeur ) %}
@@ -57,12 +57,11 @@
 					    			{% endif %}
 
 								    <div class='inner-item-text'>
-								    	<div class="bg-vignette"></div>
-								    	<div class="inner-item-text-content">
+								    	<div class="relative">
 									    	<h3 class="man pbs">{{ theme.titre }}</h3>				
 									    	<div class="musictitle-count">
 									    		<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-									    		<span class="number">{{ theme.musicTitles|length  }}</span>
+									    		<span>{{ theme.musicTitles|length  }}</span>
 									    	</div>
 
 									    	<div class="comment-count">
