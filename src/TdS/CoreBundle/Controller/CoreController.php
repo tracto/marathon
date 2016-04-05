@@ -86,7 +86,15 @@ class CoreController extends Controller{
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
 
-			
+
+
+		    // $wof_jogEgoiste=$tdsScoring->getIdJogMostTakenPoints($listeJoggeursScore);
+		    // $wof_jogDonJuan=$tdsScoring->getIdJogMostHeartPoints($listeJoggeursScore);
+
+		    $wof_jogEgoiste=$tdsScoring->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');
+		    $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
+		    $wof_jogPetitGros=$tdsScoring->getIdJogFame($listeJoggeursScore,'Fastpoints','asort');
+		    $wof_jogLfdy=$tdsScoring->getIdJogFame($listeJoggeursScore,'Fastpoints','arsort');
 
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'saison'=>$saison,
@@ -96,6 +104,10 @@ class CoreController extends Controller{
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
+					'wof_jogEgoiste'=>$wof_jogEgoiste,
+					'wof_jogDonJuan'=>$wof_jogDonJuan,
+					'wof_jogPetitGros'=>$wof_jogPetitGros,
+					'wof_jogLfdy'=>$wof_jogLfdy,
 					"websites"=>$websites,
 					"musicTitles"=>$musicTitles,
 					'formWebsite'=>$formWebsite->createView()			

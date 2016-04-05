@@ -47,13 +47,7 @@
 		        		</div>
 	        		
 
-		        		<div class="col col-md-4 col-themes man pan">
-
-	      				{# {% if theme is defined and theme is not null %}	    				
-		  					{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}
-		  				{% elseif themePost is defined and themePost is not null %}
-		  					{{ playlistWrapperModule.pl_theme(themePost,null,null,false) }}	
-						{% endif %} #}
+		        		<div class="col col-md-4 col-themes man pan">		
 							{% if theme is defined and theme is not null %}
 								<div class='list-item vignette-item man pan'>
 									<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
@@ -111,9 +105,10 @@
 
 			<div class="flex-container-h">
 				<div class='col col-xs-12 col-md-7 col-md-push-5 pbxxl col-droite'>
-					<div class="row col-classement pam">
+					<div class="row col-classement align-center pam">
 						<h2 class="sub-title">Classement</h2>
 						<div class="bg-op--white-5 pam">
+							<h3>Podium</h3>
 							<div class="row">
 								{% for joggeurScore in listeJoggeursScore %}
 									<div class="podium-wrapper mbl">
@@ -177,8 +172,73 @@
 												<span>{{ joggeurScore.total }}</span>
 											</div>
 										{% endif %}	
-									</div>							
+									</div>	
+						
 								{% endfor %}
+							</div>
+						</div>
+
+						<div class="walloffame bg-op--white-5 align-center pam mtm">
+							<h3>Wall of Fame</h3>
+							<div class="wof-wrapper flex-container-h flex-justify">
+								<div class="wof-item wof_jogEgoiste flex-item list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
+										<div class="round">
+												{% if wof_jogEgoiste.image is not null %}
+													<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+										<h4 class="mts mbn sub-sub-title">L'égoïste</h4>
+										<strong>Celui qui n'aime pas donner de points bisous</strong> 
+									 	<div>{{ wof_jogEgoiste.pseudo }}</div>
+									</div> 
+								</div>
+
+								<div class="wof-item wof_jogDonJuan flex-item list-item pas">
+									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
+										<div class="round">
+												{% if wof_jogDonJuan.image is not null %}
+													<img class="" src="{{ wof_jogDonJuan.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogDonJuan.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+										<h4 class="mts mbn sub-sub-title">Le mononucléose</h4>
+										<strong>Celui qui a récolté le plus de points bisous</strong>
+									 	<div>{{ wof_jogDonJuan.pseudo }}</div>
+									</div> 
+								</div>
+
+								<div class="wof-item wof_jogPetitGros flex-item list-item pas">
+									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogPetitGros.id}) }}">								
+										<div class="round">
+												{% if wof_jogPetitGros.image is not null %}
+													<img class="" src="{{ wof_jogPetitGros.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogPetitGros.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+									 	<h4 class="mts mbn sub-sub-title">Le petit gros à la traîne</h4>
+									 	<strong>Celui qui possède le moins de points vitesse</strong>
+									 	<div>{{ wof_jogPetitGros.pseudo }}</div>
+									 </div> 
+								</div>
+
+								<div class="wof-item wof_jogLfdy flex-item list-item pas">
+									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogLfdy.id}) }}">								
+										<div class="round">
+												{% if wof_jogLfdy.image is not null %}
+													<img class="" src="{{ wof_jogLfdy.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogLfdy.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+										<h4 class="mts mbn sub-sub-title">Le Live fast die Young</h4>
+										<strong>Celui qui possède le plus de points vitesse</strong>
+									 	<div>{{ wof_jogLfdy.pseudo }}</div>
+									</div> 
+								</div>
 							</div>
 						</div>
 					</div>				
@@ -244,8 +304,8 @@
 					</div>				
 				</div>
 			</div>
-		</div>
-    </div>
+		
+    
 
     {% if is_granted("ROLE_SUPER_ADMIN") %}
 		<div class='popup-delete-confirmation' data-popupdelete>
@@ -256,4 +316,5 @@
 	        </div>
 	    </div>
     {% endif %}
+
 {% endblock %}

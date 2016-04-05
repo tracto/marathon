@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="container-fluid main-content-page pbxl">
+	<div class="container-fluid main-content-page pbxxl">
 
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
-			<div class="pull-right mtm mrl">
-				<a class="button btn btn-action" href="{{ path('tds_marathon_joggeur_add') }}" >
+			<div class="mtm mrm mbn clearfix">
+				<a class="button btn btn-action pull-right" href="{{ path('tds_marathon_joggeur_add') }}" >
 					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
 					<span>Ajouter un joggeur</span>
 				</a>
@@ -19,7 +19,7 @@
 		<h1 class="main-title align-center mas">joggeurs</h1>
 			
 			    
-	    <div class="row list pas">
+	    <div class="list">
 		    {% for joggeur in listeJoggeurs %}
 		    	{% if joggeur is not null %}
 			    	{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}

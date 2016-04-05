@@ -38,15 +38,17 @@ class ThemeController extends Controller{
     public function viewAction(Request $request, Theme $theme, $id, $autoplay="false"){
     	$em = $this->getDoctrine()->getManager();
 
-    	$listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
-    					 ->findAll();
+    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
+    					 ->findAll(); 
+
 
         $tabIdTheme=array();
-    	foreach($listeThemes as $itemTheme){
-    		$tabIdTheme[]=$itemTheme->getId();
-    	}
-
-
+        foreach ($listeSaisons as $saison){
+        	foreach($saison->getThemes() as $itemTheme){
+    			$tabIdTheme[]=$itemTheme->getId();
+    		}
+        }
+    	
 	    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
 	      'tabIdTheme'=>$tabIdTheme,
 	      'theme' => $theme,     
@@ -236,7 +238,7 @@ class ThemeController extends Controller{
          	 }
 
         	
-        	$joggeurScore->setPointstogive(6);
+        	$joggeurScore->setPointstogive(10);
 
         	$score= new Score;
         	$score->setJoggeurScore($joggeurScore);
