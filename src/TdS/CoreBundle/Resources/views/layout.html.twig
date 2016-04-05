@@ -293,10 +293,10 @@
 			      	
 			{{ headernavModule.header() }} 
 
-			<div class="container">
-
-				{% block body %} {% endblock %}
-
+			<div class="wrapper flex-container">
+				<div class="container-border-left flex-item-fluid"></div>
+				<div class="container-center container flex-item">{% block body %} {% endblock %}</div>
+				<div class="container-border-right flex-item-fluid"></div>
 			</div>
 		</div>
 
