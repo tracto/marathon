@@ -13,15 +13,15 @@
 	        	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
 	        </span>
 		</h1>
-	<div class="align-center sep">
-	    <h2 class="sub-title pbn mbn">theme : {{ themePostActivate.titre }}</h2>
-	    <div class="pbm">
-	    	<strong>nombre de points disponibles :</strong>
-	    	<span><span class='joggeurDonneur-points'>{{ scoreJoggeurParTheme.pointstogive }}</span>
-	    	 / 
-	    	<span class='joggeurDonneur-pointsInit'>{{ scoreJoggeurParTheme.pointstogive }}</span></span>
+		<div class="align-center sep">
+		    <h2 class="sub-title pbn mbn">theme : {{ themePostActivate.titre }}</h2>
+		    <div class="pbm">
+		    	<strong>nombre de points disponibles :</strong>
+		    	<span><span class='joggeurDonneur-points'>{{ scoreJoggeurParTheme.pointstogive }}</span>
+		    	 / 
+		    	<span class='joggeurDonneur-pointsInit'>{{ scoreJoggeurParTheme.pointstogive }}</span></span>
+			</div>
 		</div>
-	</div>
 
 	<div class='row'>
 		{% for musicTitle in themePostActivate.musicTitles %}
@@ -48,51 +48,51 @@
 					</div>
 				{% endif %}
 
-				{% else %}
-					<div>Shocking! personne n'a participé à ce thème!</div>
-				{% endif %}
-			
-		{% endfor %}
-	</div>
-
-<div id="popup" data-id="0">
-	<div class="popup-wrapper">
-		<div class='inner-popup'>
-			<btn class="button btn-action btn btn-default pull-right popup-close">
-				<svg class="icon icon-cancel" ><use xlink:href="#icon-cancel"></use></svg>
-			</btn>
-			<div class="message">Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.</div>
+					{% else %}
+						<div>Shocking! personne n'a participé à ce thème!</div>
+					{% endif %}
+				
+			{% endfor %}
 		</div>
+
+		<div id="popup" data-id="0">
+			<div class="popup-wrapper">
+				<div class='inner-popup'>
+					<btn class="button btn-action btn btn-default pull-right popup-close">
+						<svg class="icon icon-cancel" ><use xlink:href="#icon-cancel"></use></svg>
+					</btn>
+					<div class="message">Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row addPoints-form'>
+			{{ form_start(form) }}
+			    {{ form_row(form.remainingPoints, {'attr': {'value': scoreJoggeurParTheme.pointstogive}}) }}
+			    <ul class="tags score-tags">
+			        {% for tag in form.tags %}
+			            <li class="form-joggeur-item">
+			            	{{ form_widget(tag.idJoggeur, {'attr': {'class': 'tag-idJoggeur'}}) }}
+			            	{{ form_widget(tag.heartPoints, {'attr': {'class': 'tag-heartPoints'}}) }}
+			            </li>
+			        {% endfor %}
+			    </ul>
+
+			    <div class="align-center mts">
+		        <div class="button btn btn-action">
+		          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+		           {{ form_widget(form.valider, {'attr': {'value': 'valider'}}) }}
+		        </div>
+
+		        <a class="button btn btn-actualiser" href="">
+					<svg class="icon icon--s icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
+					<span>réactualiser</span>
+				</a>
+		      </div>
+			
+			
+			{{ form_end(form) }}
+		</div>	
 	</div>
-</div>
-
-<div class='row addPoints-form'>
-	{{ form_start(form) }}
-	    {{ form_row(form.remainingPoints, {'attr': {'value': scoreJoggeurParTheme.pointstogive}}) }}
-	    <ul class="tags score-tags">
-	        {% for tag in form.tags %}
-	            <li class="form-joggeur-item">
-	            	{{ form_widget(tag.idJoggeur, {'attr': {'class': 'tag-idJoggeur'}}) }}
-	            	{{ form_widget(tag.heartPoints, {'attr': {'class': 'tag-heartPoints'}}) }}
-	            </li>
-	        {% endfor %}
-	    </ul>
-
-	    <div class="align-center mts">
-        <div class="button btn btn-action">
-          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
-           {{ form_widget(form.valider, {'attr': {'value': 'valider'}}) }}
-        </div>
-
-        <a class="button btn btn-actualiser" href="">
-			<svg class="icon icon--s icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
-			<span>réactualiser</span>
-		</a>
-      </div>
-	
-	
-	{{ form_end(form) }}
-	
-</div>
 
 {% endblock %}
