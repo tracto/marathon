@@ -30,11 +30,11 @@
 			<div id="jp-container_index" class="jp-container_index jp-audio" role="application" aria-label="media player">
 				<div class="jp-type-playlist">
 					<div class="jp-gui jp-interface ">
-						<div class="jp-controls-holder row">
-							<div class="jp-thumb-theme col col-xs-2 col-sm-2 col-lg-1">
+						<div class="jp-controls-holder flex-container-h">
+							<div class="jp-thumb-theme flex-item">
 							</div>
 
-							<div class="jp-timeline col col-xs-10 col-sm-7">
+							<div class="jp-timeline flex-item-fluid">
 								<div class="jp-infos-title" data-infostitle></div>
 								<div class="jp-progress">
 									<div class="jp-seek-bar">
@@ -45,9 +45,9 @@
 
 							
 
-							<div class="col col-xs-12 col-sm-3 pull-right">
-								<div class="jp-controls row">
-									<div class="col col-xs-7 col-sm-12 pull-right align-right"> 
+							<div class="jp-controls-wrapper flex-item pull-right">
+								<div class="jp-controls flex-container mbm clearfix">
+									<div class="flex-item pull-right align-right"> 
 										<button class="jp-previous" role="button" tabindex="0">
 											<svg class="icon icon-alone icon--s icon-first"><use xlink:href="#icon-first"></use></svg>
 										</button>
@@ -65,7 +65,7 @@
 										</button>
 									</div>
 
-									<div class="jp-volume-toggles col col-xs-5 col-sm-9 pull-right align-right"> 
+									<div class="jp-volume-toggles flex-item-fluid pull-right align-right"> 
 										<div class="jp-volume-controls">
 											<div class="block clearfix">
 												<button class="jp-mute btn btn-default pull-left" role="button" tabindex="0">

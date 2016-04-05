@@ -58,16 +58,13 @@ class JoggeurController extends Controller{
                       ->findJoggeurBySaison($saison, $joggeur);
 
         if($joggeurScore){
-          $joggeurScore=$joggeurScore[0];  
+          $joggeurScore=$joggeurScore[0];         
+          $joggeur->setJoggeurScore($joggeurScore);
         }
-        
-        $joggeur->setJoggeurScore($joggeurScore);
-
 
 	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
           'tabIdJoggeur'=>$tabIdJoggeur,
 	        'joggeur' => $joggeur,
-            // 'joggeurScore' => $joggeurScore,
 	    ));
 	} 
 
