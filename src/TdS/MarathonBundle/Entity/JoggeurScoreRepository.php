@@ -28,9 +28,9 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
         	->setParameter('theme', $themesId);
  
 
-		return $queryBuilder
-     		->getQuery()
-     		->getResult();
+  		return $queryBuilder
+       		->getQuery()
+       		->getResult();
 
     }
 
@@ -50,9 +50,9 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
         	;
  
 
-		return $queryBuilder
-     		->getQuery()
-     		->getResult();
+  		return $queryBuilder
+       		->getQuery()
+       		->getResult();
 
     }
 
@@ -67,11 +67,13 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
         	;
  
 
-		return $queryBuilder
-     		->getQuery()
-     		->getResult();
+  		return $queryBuilder
+       		->getQuery()
+       		->getResult();
 
     }
+
+
 
 }
 
