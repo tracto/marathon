@@ -4,14 +4,24 @@ footer{
     margin-top: -60px;  
     position:relative;
     bottom: 0px;
+    font-size: 0.8em;
+
+    @media $medium{
+    	font-size: 1em;
+    }
 }
 
 .kilometrage-wrapper{
 	text-align:center;
 	position: absolute;
-    top: -108px;
+    top: -77px;
     width: 100%;
     pointer-events:none;
+
+    @media $medium{
+    	position: absolute;
+    	top: -87px;
+    }
 }
 
 .total-km{
@@ -134,13 +144,16 @@ footer{
 }
 
 .btn-footer{
-	/*padding:20px;
-	display:inline-block;
-	margin:0 10px;*/
+	width: 100px;
+	display: block;
+	word-wrap: break-word;
+	text-align: center;
 	background-color:black;
 	color:$grey5;
-	/*border:solid 1px $grey2;*/
-	/*border-radius:0px;*/
+
+	@media $medium{
+		width:auto;
+	}
 }
 .btn-footer:hover{
 	background-color:$grey2;
@@ -156,8 +169,13 @@ footer{
 	font-size:12px;
 	z-index:4;
 	width: 100%;
-	height:25px;
+	height: 55px;
+	padding-top: 30px;
 
+	@media $medium{
+		height:25px;
+	    padding-top:0px;
+	}
 
 	.btn-credits{
 		cursor:pointer;

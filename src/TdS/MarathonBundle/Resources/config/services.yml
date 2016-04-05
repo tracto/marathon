@@ -21,5 +21,6 @@ services:
 
     tds_marathon.scoring:
         class:  TdS\MarathonBundle\Scoring\TdSScoring
+        arguments: [ @doctrine.orm.entity_manager ]
         
 

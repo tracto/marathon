@@ -98,11 +98,9 @@
 }
 
 .playlist-nav-prec{
-	/*background-image:url('../images/playlist/playlist-arrow-prev.svg');*/
 	left: 0;	
 }
 .playlist-nav-suiv{
-	/*background-image:url('../images/playlist/playlist-arrow-suiv.svg');*/
 	right: 0;
 }
 
@@ -123,7 +121,6 @@
 
 .playlist-body{
 	position:relative;
-	/*top:-5px;*/
 	
 
 	@media $medium{
@@ -167,19 +164,6 @@
 				color:$grey2;
 			}
 		}
-	}
-
-	.glyphicon{
-		width:30px;
-		height:33px;
-
-		span{
-			background-image:url('../images/icons/chronique-icon.svg');
-			background-size:cover;
-			width:100%;
-			height:100%;
-		}
-
 	}
 }
 
@@ -259,7 +243,7 @@
 	width:100%;
 	text-align:center;
 	position:relative;
-	top:-20px;
+	top:10px;
 
 	@media $medium{
 		padding-top:10px;
@@ -287,32 +271,6 @@
 			margin:0;
 		}
 	}
-
-
-	/*.jp-play{
-		
-	}
-
-	.jp-stop{
-		span{			
-			background-image:url('../images/playlist/playlist-btns/playlist-btn-stop.svg');
-			background-size:cover;
-		}
-	}
-
-	.jp-previous{
-		span{			
-			background-image:url('../images/playlist/playlist-btns/playlist-btn-prev.svg');
-			background-size:cover;
-		}
-	}
-
-	.jp-next{
-		span{			
-			background-image:url('../images/playlist/playlist-btns/playlist-btn-next.svg');
-			background-size:cover;
-		}
-	}*/
 }
 
 
@@ -370,15 +328,12 @@ div.jp-seeking-bg {
 .jp-video .jp-duration {
 }
 
-.jp-volume-toggles{
 
-	position:relative;
-	margin:30px auto 20px auto
+.jp-sub-toggles{
+	width:100%;
 }
 
-
 .jp-volume-controls{
-	width:100%;
 }
 
 
@@ -400,45 +355,8 @@ div.jp-seeking-bg {
 	}
 }
 
-	/*.jp-mute{
-		span{
-			background-image:url('../images/playlist/playlist-btns/playlist-btn-volume-min.svg');
-			background-size:cover;
-		}
-	}
-
-	.jp-volume-max{
-		span{
-			background-image:url('../images/playlist/playlist-btns/playlist-btn-volume-max.svg');
-			background-size:cover;
-		}
-	}*/ 
-
-
-
-
-/*.jp-volume-controls .jp-mute {
-  }
-
-.jp-volume-controls .jp-mute:focus {
- }
-
-.jp-state-muted .jp-volume-controls .jp-mute {
-  }
-
-.jp-state-muted .jp-volume-controls .jp-mute:focus {
-  }
-
-.jp-volume-controls .jp-volume-max {
-  }
-
-.jp-volume-controls .jp-volume-max:focus {
-  }*/
-
-
 
 .jp-volume-bar{
-	/*width:100%;*/
 	height:5px;
 	background-color:darkgrey;
 	cursor:pointer;
@@ -447,46 +365,23 @@ div.jp-seeking-bg {
 .jp-volume-bar-value {
 	background-color:black;
 	height:5px;
-  /*background: url("../image/jplayer.pink.flag.jpg") 0px -320px repeat-x;*/
   }
 
 .jp-toggles{
-	text-align: right;
-	/*position:absolute;*/
+
 
 	button{
 		background-color:$color4;
-		width:30px;
-		height:30px;
+
 		padding:3px;
 		border:outset 1px white;
 		cursor:pointer;
-		display:inline-block;
-
-		span{
-			display:inline-block;
-			width:100%;
-			height:100%;
-			margin:0;
-		}
+		
 	}
 
 }
 
-.jp-repeat{
-	span{
-		background-image:url('../images/playlist/playlist-btns/playlist-btn-loop.svg');
-		background-size:cover;
-	}
-}
 
-.jp-shuffle{
-	span{
-		background-image:url('../images/playlist/playlist-btns/playlist-btn-shuffle.svg');
-		background-size:cover;
-		margin:0 0 0 4px;
-	}
-}
 
 
 .jp-playlist{
@@ -564,7 +459,6 @@ div.jp-seeking-bg {
 }
 
 .playlist-index-body{
-	height:150px;
 	width:100%;
 	display:flex;
 	position:relative;
@@ -573,9 +467,6 @@ div.jp-seeking-bg {
     background-size: cover;
 	z-index:1;
 
-	@media $medium{
-		height:100px;
-	}
 
 
 	.musicTitlesListe{
@@ -586,27 +477,59 @@ div.jp-seeking-bg {
 		width:100%;
 	}
 
+
+
 	.jp-container_index{
-		height:100px;
 		width:100%;
 		
 		.jp-interface{
 			background-color:transparent;
-			padding:0 20px 20px 20px;
+			padding:0px;
+		}
+
+		.jp-thumb-theme{
+			height: 95px;
+		    overflow: hidden;
+		    padding: 0;
+		    margin: 5px;
+
+	    	img {
+	    		height:100%;
+	    	}
+		}
+	
+
+		.jp-controls-wrapper{
+			width:100%;
+
+			@media $medium{
+				width:auto;
+				padding:0 20px 0 20px;
+			}
+		}
+
+		.jp-timeline{
+			margin-right:5px;
+			width:100%;
+
+			@media $medium{
+				width:auto;
+			}
 		}
 		
 		.jp-controls{
 			text-align:left;
-			top:10px;
+
 
 			button{
-				background-color:$grey5;
-				width:30px;
-				height:30px;
+				background-image:none;
+				background-color:rgba(222,222,222,0.5);
 				padding:0px;
 				margin:3px;
 				border:outset 1px white;
 				cursor:pointer;
+
+
 
 				&:hover{
 					border:inset 1px white;
@@ -614,13 +537,22 @@ div.jp-seeking-bg {
 			}
 		}
 
-		.jp-volume-controls{
-			padding-left:10px;
+		.jp-controls-buttons{
+			@media $medium{
+				width:100%;
+			}
 		}
 
-		.jp-volume-toggles{
+		.jp-volume-controls {
+
+		}
+
+		.jp-volume-toggles {
 			margin:0 auto;
-			/*width:50%;*/
+
+			@media $medium{
+				width:100%;
+			}
 
 			.btn {
 				width:20px;
@@ -659,16 +591,7 @@ div.jp-seeking-bg {
 		}	
 	}
 
-	.jp-thumb-theme{
-		height: 95px;
-	    overflow: hidden;
-	    padding: 0;
-	    margin-top: 5px;
 
-    	img {
-    		height:100%;
-    	}
-	}
 
 }
 
