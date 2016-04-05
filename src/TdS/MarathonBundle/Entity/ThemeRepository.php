@@ -1,7 +1,7 @@
 <?php
-
-use TdS\MarathonBundle\Entity\Saison;
 namespace TdS\MarathonBundle\Entity;
+use TdS\MarathonBundle\Entity\Saison;
+
 
 /**
  * ThemeRepository
