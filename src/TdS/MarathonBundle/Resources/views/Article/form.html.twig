@@ -1,0 +1,41 @@
+<div class="form-wrapper bg-op--white bd--light pam">
+   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_errors(form) }}
+    <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />
+    
+    <div class="form-group row mll mrl ptm">
+      {{ form_label(form.titre, "titre", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-xs-12 col-sm-6">
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group row mll mrl ptm pbm sep--dashed">
+        {{ form_label(form.image, "Ajouter une image", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+        {{ form_errors(form.image) }}
+        <div class='col-xs-12 col-sm-6'>
+          {{ form_widget(form.image,{'attr':{'class':''}}) }}
+        </div>
+    </div>
+
+    <div class="form-group row mll mrl ptm pbm">
+      {{ form_label(form.contenu, "contenu", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+      {{ form_errors(form.contenu) }}
+      <div class="col-xs-12 col-sm-6">
+        {{ form_widget(form.contenu) }}
+      </div>
+    </div>
+
+    
+    <div class="align-center">
+        <div class="button btn btn-action mts">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary','value':'valider'}}) }}
+        </div>
+    </div>
+   
+
+  {{ form_end(form) }} 
+</div>

@@ -8,7 +8,7 @@
 	<div id="content" class="bg--lightgrey pam pbxxl">
 		<h1 class="main-title man pan align-center">
 			<svg class="icon icon--m icon-heart"><use xlink:href="#icon-heart"></use></svg>
-			<span>Attribuer des points coeurs</span>
+			<span>Attribuer des points bisous</span>
 			<span class="button btn btn-default btn-becky" data-info="C'est ici que tu répartis tes points coeurs, tu as une semaine pour le faire.<br/>Prends ton temps et sinon, c'est en faisant des erreurs qu'on apprend.<br/>Par contre, si tu as oublié de les dépenser ils seront retirés de ton score et un mail sera directement envoyé à la CAF de ta région pour un rendez-vous de contrôle.">
 	        	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
 	        </span>
@@ -28,20 +28,20 @@
 			
 				{% if musicTitle is not null %}
 					{% if musicTitle.joggeur != app.user.joggeur %}
-					<div class='col-addPoints-joggeurTitle col col-xs-12 col-md-4 pas sep--dashed'>
-						<div class="col col-xs-5 col-md-6">
+					<div class='col-addPoints-joggeurTitle col col-xs-12 col-md-6 pas sep--dashed'>
+						<div class="col col-xs-5 col-md-5">
 							<h3 class="sub-sub-title man pan">{{ musicTitle.joggeur.pseudo }}</h3>
 							<strong class="block">titre : {{ musicTitle.titre }}</strong>
 						</div>
 
 						
-						<div class='col col-xs-7 col-md-6 heartPoints-icons clearfix' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
-								{% for i in 6..1  %}
+						<div class='col col-xs-7 col-md-7 heartPoints-icons clearfix' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
+								{% for i in 10..1  %}
 									<span class="heartPoints-icon" data-heart='{{ i }}'>
 										<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
 									</span>
 								{% endfor %}
-								<span class="heartPoints-icon heart-empty" data-heart='0'>
+								<span class="heartPoints-icon heart-empty prs" data-heart='0'>
 									<svg class="icon icon--s icon-none"><use xlink:href="#icon-none"></use></svg>
 								</span>
 						</div>						

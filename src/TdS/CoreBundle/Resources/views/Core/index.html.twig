@@ -4,35 +4,111 @@
 {% block body %}
    
 
-     
- 
-      <div id="content" class="">
-      	<div class="index row">
+        <div class="playlist-body-wrapper">
+ 	  		{{ playlistIndexModule.playlist(musicTitles) }}
+ 	  	</div>
+      
 
-      		<div class=''>
-      			{% if saison is defined and saison.activate is not null %}
-      				<div class="saison-title align-center man">
-      					<h1 class="man">{{ saison.titre }}</h1>
-      				</div>
-      				{% if theme is defined and theme is not null %}	    				
-	  					{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}
-	  				{% elseif themePost is defined and themePost is not null %}
-	  					{{ playlistWrapperModule.pl_theme(themePost,null,null,false) }}	
-					{% endif %}
+
+      	<div class=''>
+      			 {% if saison is defined and saison.activate is not null %}
+      				<div class="row man flex-container">
+	      				<div class="col col-md-8 col-articles">
+	      					
+		        			{% if listeArticles is defined and listeArticles is not null %}
+		        				<div class="articles-liste">
+			        				{% for article in listeArticles %}
+				        				{{ articleWrapperModule.article(article) }}
+			        				{% endfor %}
+		        				</div>
+
+		        				{# <div class="more-articles-content"></div> #}
+
+		        				<div class="clearfix"></div>
+
+		        				<button href="" class="button btn-more btn pull-left mas" data-action="show-more-articles" data-offset="4">
+			        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+					  				<span class="btn__label">Plus d'articles</span>
+			        			</button>
+		        			{% else %}
+		        				<div>
+		        					<h3>Il n'y a aucun article pour l'instant</h3>	        		
+		        				</div>
+		        			{% endif %}
+
+		        			
+
+		        			{% if is_granted("ROLE_SUPER_ADMIN")  %}
+			        			<a href="{{ path('tds_marathon_article_add') }}" class="button btn pull-right btn-action mas">
+			        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+					  				<span class="btn__label">Ajouter un Article</span>
+			        			</a>
+	        				{% endif %}
+		        		</div>
+	        		
+
+		        		<div class="col col-md-4 col-themes man pan">		
+							{% if theme is defined and theme is not null %}
+								<div class='list-item vignette-item man pan'>
+									<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+
+							    		<div class="square">
+
+							    			{% if theme.activate == 1 %}
+												<div class="ribbon">
+													<div class="line flex-container-h align-center">							
+														<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
+														<span class="flex-item-fluid mls">Thème en cours</strong></span>
+													</div>
+												</div>
+											{% endif %}
+
+										    {% if theme.image is not null %}
+									  			<img class="" src="{{ theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ theme.image.alt }}">
+											{% endif %}											
+											
+										    <div class='inner-item-text'>
+										    	<div class="relative">
+											    	<h3 class="man pbs">{{ theme.titre }}</h3>				
+											    	<div class="musictitle-count">
+											    		<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
+											    		<span>{{ theme.musicTitles|length  }}</span>
+											    	</div>
+
+											    	<div class="comment-count">
+													    <svg class="icon icon--m icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
+													    {% if theme.thread is defined and theme.thread is not null %}
+														    <span>{{ theme.thread.numComments }}</span>
+														{% else %}
+														    <span>0</span>
+													    {% endif %}										
+													</div>
+										    	</div>
+										    </div>	
+										</div>					    		
+						    		</a>
+					    		</div>
+					    	{% endif %}
+					    	{{ loisModule.lois() }}
+					    	
+						</div>
+					</div>
+
+
 				{% else %}
 					<div class="saison-closed">
 						<h1 class="man">La saison est finie!</h1>
 					</div>
-      			{% endif %}
-	  				
+      			{% endif %}	  				
 			</div>		
 
 
 			<div class="flex-container-h">
-				<div class='col col-xs-12 col-md-6 col-md-push-6 col-droite'>
-					<div class="row col-classement pam">
+				<div class='col col-xs-12 col-md-7 col-md-push-5 pbxxl col-droite'>
+					<div class="row col-classement align-center pam">
 						<h2 class="sub-title">Classement</h2>
 						<div class="bg-op--white-5 pam">
+							<h3>Podium</h3>
 							<div class="row">
 								{% for joggeurScore in listeJoggeursScore %}
 									<div class="podium-wrapper mbl">
@@ -96,62 +172,100 @@
 												<span>{{ joggeurScore.total }}</span>
 											</div>
 										{% endif %}	
-									</div>							
+									</div>	
+						
 								{% endfor %}
 							</div>
 						</div>
-					</div>
 
-					<div class="row col-regles pas pbxxl-screen">
-						<h2 class="sub-title">Les lois du Marathon</h2>
-						<div class="sep--dashed">
-							<span>Un morceau (poème, chanson, cri, blabla, instrumental, recette, solo, hymne...) a composer dans la semaine, en rapport avec le thème.</span>
-							<ol>
-								<li>1 - Le premier a poster gagne un max de points, mais chronique les morceaux de la semaine passée</li>
-								<li>2 - Il ne peut pas être premier 2 fois de suite</li>
-								<li>3 - Le 10ème a poster choisit le thème de la semaine suivante
-								Il n'est pas obligatoire de poster toutes les semaines. Mais les points n'augmentent évidement pas, pardi.</li>
-							</ol>
-						</div>
+						<div class="walloffame bg-op--white-5 align-center pam mtm">
+							<h3>Wall of Fame</h3>
+							<div class="wof-wrapper flex-container-h flex-justify">
+								<div class="wof-item wof_jogEgoiste flex-item list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
+										<div class="round">
+												{% if wof_jogEgoiste.image is not null %}
+													<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+										<h4 class="mts mbn sub-sub-title">L'égoïste</h4>
+										<strong>Celui qui n'aime pas donner de points bisous</strong> 
+									 	<div>{{ wof_jogEgoiste.pseudo }}</div>
+									</div> 
+								</div>
 
-						<h2 class="sub-title">Système de points</h2>
-						<div>
-							<span>
-							Le premier a poster son morceau gagne x points, x étant le nombre de participants.Le deuxième x-1, le troisième x-2, etc...Jusqu'au dernier, qui gagne 1 point.Mais attention !!! chaque participant donne 6 points ♥ a qui il veut (repartis ou pas)<br/>
-							*nouvelle règle : s'il donne pas ses points a temps, ils lui sont retirés de son score ! bzbzzbaam!*.<br/>
-							Ainsi, même le dernier, s'il a composé un méga-tube ultra raccord avec le thème, peut rafler la mise...
-							SIMPLE COMME SAUCISSE!
-							...Et si je gagne j'aurai un cadeau.
-							Lemarathondelasemaine@gmail.com
-							</span>
+								<div class="wof-item wof_jogDonJuan flex-item list-item pas">
+									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
+										<div class="round">
+												{% if wof_jogDonJuan.image is not null %}
+													<img class="" src="{{ wof_jogDonJuan.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogDonJuan.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+										<h4 class="mts mbn sub-sub-title">Le mononucléose</h4>
+										<strong>Celui qui a récolté le plus de points bisous</strong>
+									 	<div>{{ wof_jogDonJuan.pseudo }}</div>
+									</div> 
+								</div>
+
+								<div class="wof-item wof_jogPetitGros flex-item list-item pas">
+									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogPetitGros.id}) }}">								
+										<div class="round">
+												{% if wof_jogPetitGros.image is not null %}
+													<img class="" src="{{ wof_jogPetitGros.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogPetitGros.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+									 	<h4 class="mts mbn sub-sub-title">Le petit gros à la traîne</h4>
+									 	<strong>Celui qui possède le moins de points vitesse</strong>
+									 	<div>{{ wof_jogPetitGros.pseudo }}</div>
+									 </div> 
+								</div>
+
+								<div class="wof-item wof_jogLfdy flex-item list-item pas">
+									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogLfdy.id}) }}">								
+										<div class="round">
+												{% if wof_jogLfdy.image is not null %}
+													<img class="" src="{{ wof_jogLfdy.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogLfdy.image.alt }}">
+												{% endif %}
+										</div>
+									</a>
+									<div>
+										<h4 class="mts mbn sub-sub-title">Le Live fast die Young</h4>
+										<strong>Celui qui possède le plus de points vitesse</strong>
+									 	<div>{{ wof_jogLfdy.pseudo }}</div>
+									</div> 
+								</div>
+							</div>
 						</div>
 					</div>				
 				</div>
 
 
-				<div class='col col-xs-12 col-md-6 col-md-pull-6  col-gauche'>
+				<div class='col col-xs-12 col-md-5 col-md-pull-7  col-gauche'>
 					<div class="row list col-joggeurs pas">
 						<h2 class="sub-title">Les joggeurs</h2>
-						<div class="block align-center clearfix">
+						<div class="block clearfix">
 						    {% for joggeur in listeJoggeurs %}
 						    	{% if joggeur is not null %}
 						    		{% if loop.index <= 9 %}
-							    		<div class='col col-xs-6 col-sm-4 col-lg-3 list-item vignette-item man pan'>
+							    		<div class='col col-xs-6 col-sm-4 col-lg-4 list-item vignette-item man pan'>
 								    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 										    	<div class="square">
 												    {% if joggeur.image is not null %}
 											  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
-													{% endif %}
-												
+													{% endif %}										
 
 												    <div class='inner-item-text'>
-												    	<div class="bg-vignette"></div>
-												    	<div class="inner-item-text-content">
-													    	<h3>{{ joggeur.pseudo }}</h3>				
+												    	<div class="relative">
+													    	<h3 class="man pls prs">{{ joggeur.pseudo }}</h3>				
 													    	<div class="musictitle-count">
-													    		<span class="glyphicon"></span>
-													    		<span class="number">12</span>
-													    	</div>
+														    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
+														    	<span>{{ joggeur.musicTitles|length  }}</span>
+														    </div>
 												    	</div>
 												    </div>	
 												</div>					    		
@@ -175,12 +289,32 @@
 								<li><a href="{{ website.url }}">{{ website.name }}</a></li>
 							{% endfor %}						
 						</ul>
+
+						{% if is_granted("ROLE_SUPER_ADMIN")  %}
+							<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
+			  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+			  					<span class="btn__label">Ajouter un lien</span>
+							</a>
+
+							<div class="form-website pts mts">
+    							{{ include('TdSMarathonBundle:Website:form.html.twig') }}
+							</div>
+							<div id="anchorLiens"></div>
+						{% endif %}
 					</div>				
 				</div>
 			</div>
+		
+    
 
-		</div>
-
-      </div>
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+		<div class='popup-delete-confirmation' data-popupdelete>
+	        <div>
+	            <p></p>
+	            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+	            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+	        </div>
+	    </div>
+    {% endif %}
 
 {% endblock %}

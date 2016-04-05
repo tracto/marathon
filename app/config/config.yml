@@ -43,6 +43,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         scoreService: "@tds_marathon.scoring"
+        saisonService: "@tds_marathon.saison"
     
 
 # Assetic Configuration

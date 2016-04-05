@@ -42,24 +42,26 @@
 		<div id="" class="jp-container jp-audio" role="application" aria-label="media player">
 			<div class="jp-type-playlist">
 				<div class="jp-gui jp-interface row">
-					<div class="jp-controls-holder col col-xs-12">
+					<div class="jp-controls-holder pas">
 						<div class="jp-controls">
 							<button class="jp-previous" role="button" tabindex="0">
-								<span class=""></span>
+								<svg class="icon icon-alone icon--s icon-first"><use xlink:href="#icon-first"></use></svg>
 							</button>
 							<button class="jp-play" role="button" tabindex="0">
-								<span class="">
-								</span>
+								<svg class="icon icon-alone icon--s icon-play"><use xlink:href="#icon-play"></use></svg>
+							</button>
+							<button class="jp-pause">
+								<svg class="icon icon-alone icon--s icon-pause"><use xlink:href="#icon-pause"></use></svg>
 							</button>
 							<button class="jp-stop" role="button" tabindex="0">
-								<span class=""></span>
+								<svg class="icon icon-alone icon--s icon-stop"><use xlink:href="#icon-stop"></use></svg>
 							</button>
 							<button class="jp-next" role="button" tabindex="0">
-								<span class=""></span>
+								<svg class="icon icon-alone icon--s icon-last"><use xlink:href="#icon-last"></use></svg>
 							</button>
 						</div>
 
-						<div class="jp-timeline col col-xs-12">
+						<div class="jp-timeline">
 							<div class="jp-title"></div>
 							<div class="jp-progress">
 								<div class="jp-seek-bar">
@@ -70,29 +72,27 @@
 							<div class="jp-current-time pull-right" role="timer" aria-label="time">&nbsp;</div>
 						</div>
 						
-						<div class="jp-volume-toggles"> 
-							<div class="col col-xs-4 jp-volume-controls">
+						<div class="jp-sub-toggles flex-container pts"> 
+							<div class="flex-item-fluid jp-volume-controls">
 								<button class="jp-mute btn btn-default" role="button" tabindex="0">
-									<span class=""></span>
+									<svg class="icon icon-alone icon--s icon-volume-off"><use xlink:href="#icon-volume-off"></use></svg>
 								</button>
 								<button class="jp-volume-max btn btn-default pull-right" role="button" tabindex="0">
-									<span class=""></span>
+									<svg class="icon icon-alone icon--s icon-volume-up"><use xlink:href="#icon-volume-up"></use></svg>
 								</button>
 								<div class="jp-volume-bar">
 									<div class="jp-volume-bar-value"></div>
 								</div>
 							</div>
 
-							<div class="col col-xs-3 pull-right jp-toggles">
-								<button class="jp-repeat btn btn-default" role="button" tabindex="0">
-									<span class=""></span>
+							<div class="flex-item-fluid jp-toggles clearfix">
+								<button class="jp-repeat btn btn-default pull-right" role="button" tabindex="0">
+									<svg class="icon icon-alone icon--s icon-repeat"><use xlink:href="#icon-repeat"></use></svg>
 								</button>
-								<button class="jp-shuffle btn btn-default" role="button" tabindex="0">
-									<span class=""></span>
+								<button class="jp-shuffle btn btn-default pull-right" role="button" tabindex="0">
+									<svg class="icon icon-alone icon--s icon-shuffle"><use xlink:href="#icon-shuffle"></use></svg>
 								</button>
-							</div> 
-
-							
+							</div> 							
 						</div>
 					</div>
 					

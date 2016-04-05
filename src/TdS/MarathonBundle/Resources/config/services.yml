@@ -4,7 +4,23 @@ services:
     #     tags:
     #         - { name: form.type, alias: ckeditor }
 
+    # tds_marathon.saison.html:
+    #     class: TdS\MarathonBundle\Saison\SaisonHTML
+
+    # oc_platform.beta.listener:
+    #     class: OC\PlatformBundle\Beta\BetaListener
+    #     arguments: [@oc_platform.beta.html, "2013-10-20"]
+    #     tags:
+    #         - { name: kernel.event_listener, event: kernel.response, method: processSaison }
+
+    tds_marathon.saison:
+        class:  TdS\MarathonBundle\Saison\TdSSaison
+        arguments: 
+            entityManager: "@doctrine.orm.entity_manager"
+
+
     tds_marathon.scoring:
         class:  TdS\MarathonBundle\Scoring\TdSScoring
+        arguments: [ @doctrine.orm.entity_manager ]
         
 
