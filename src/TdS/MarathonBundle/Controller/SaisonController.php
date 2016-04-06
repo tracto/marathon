@@ -31,8 +31,9 @@ public function disactiveValidationAction(Request $request){
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findOneBy(array('activate' => 1));  	
 
-    	    
-		$saisonActive->setActivate(0);
+    	if($saisonActive){    
+			$saisonActive->setActivate(0);
+		}
 
 		$themeActive = $em
 	      		->getRepository('TdSMarathonBundle:Theme')
@@ -44,8 +45,11 @@ public function disactiveValidationAction(Request $request){
 	      		->getRepository('TdSMarathonBundle:Theme')
 	      		->findOneBy(array('postActivate' => 1));
 
-	    $scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
+	    if($themePost){
+	    	$scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
 	    					->findBy(array('theme' => $themePost));
+	    }
+	    
 	    
 
 	    $listeJoggeursScore = $em
@@ -53,31 +57,35 @@ public function disactiveValidationAction(Request $request){
 				->findAll();
 
 		
-			if(empty($scoresPostTheme)){
+		if(empty($scoresPostTheme)){
+			$joggeursPostTheme= new ArrayCollection();
+
+			if($themePost && $themePost->getMusicTitles()){
 				$musicTitlesDuTheme=$themePost->getMusicTitles();
-		    	$joggeursPostTheme= new ArrayCollection();
-		    	if(!empty($musicTitlesDuTheme)){
-		        	foreach($musicTitlesDuTheme as $musicTitleDuTheme){
-			            if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
-			                $joggeursPostTheme->add($musicTitleDuTheme->getJoggeur());
-			            }
-		        	}
+			}
+	    	
+	    	if(!empty($musicTitlesDuTheme)){
+	        	foreach($musicTitlesDuTheme as $musicTitleDuTheme){
+		            if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
+		                $joggeursPostTheme->add($musicTitleDuTheme->getJoggeur());
+		            }
 	        	}
-				if(!empty($joggeursPostTheme)){
-		        	foreach($joggeursPostTheme as $joggeurPostTheme){
-						$scorePostTheme= new Score;
-						$scorePostTheme->setJoggeurScore($joggeurPostTheme);
-						$scorePostTheme->setTheme($themePost);
-						$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
-						$em->persist($scorePostTheme);
-					}
-				}
-			}else{
-				foreach($scoresPostTheme as $scorePostTheme){
+        	}
+			if(!empty($joggeursPostTheme)){
+	        	foreach($joggeursPostTheme as $joggeurPostTheme){
+					$scorePostTheme= new Score;
+					$scorePostTheme->setJoggeurScore($joggeurPostTheme);
+					$scorePostTheme->setTheme($themePost);
 					$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
 					$em->persist($scorePostTheme);
 				}
 			}
+		}else{
+			foreach($scoresPostTheme as $scorePostTheme){
+				$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
+				$em->persist($scorePostTheme);
+			}
+		}
 
 
 		foreach($listeJoggeursScore as $joggeurScore){			
@@ -85,20 +93,23 @@ public function disactiveValidationAction(Request $request){
         	$em->persist($joggeurScore);
         	
 		}
-		if(!empty($themeActive)){
+		if($themeActive){
 			$themeActive->setActivate(0);
 			$em->persist($themeActive);
 		}
 		
-		$themePost->setPostActivate(0);
+		if($themePost){
+			$themePost->setPostActivate(0);
+			$em->persist($themePost);
+		}
 		
-		$em->persist($themePost);
+		
 		$em->persist($saisonActive);
 		
 
 				
 		$em->flush();
-		$this->redirect($referer);
+		return $this->redirect($referer);
 
     }
 

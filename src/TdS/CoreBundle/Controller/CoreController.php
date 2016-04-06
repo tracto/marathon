@@ -29,8 +29,10 @@ class CoreController extends Controller{
 	      	$lastSaison=$em
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findLastOne();
-	      	$lastSaison=$lastSaison[0];		
-	      	// var_dump($lastSaison);
+	      	$lastSaison=$lastSaison[0];
+
+
+
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -78,6 +80,10 @@ class CoreController extends Controller{
 			      			->getRepository('TdSMarathonBundle:Joggeur')
 			      			->findAll();
 
+			if(!$saison){
+	      	 	$saison=$lastSaison;
+	      	}
+
 			$listeJoggeursScore = $em
 		          ->getRepository('TdSMarathonBundle:JoggeurScore')
 		          ->findAllBySaison($saison);
@@ -87,9 +93,6 @@ class CoreController extends Controller{
 	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
 
 
-
-		    // $wof_jogEgoiste=$tdsScoring->getIdJogMostTakenPoints($listeJoggeursScore);
-		    // $wof_jogDonJuan=$tdsScoring->getIdJogMostHeartPoints($listeJoggeursScore);
 
 		    $wof_jogEgoiste=$tdsScoring->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');
 		    $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
@@ -129,7 +132,8 @@ class CoreController extends Controller{
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findLastOne();
 	      	$lastSaison=$lastSaison[0];		
-	      	// var_dump($lastSaison);
+	      	
+	      	
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -245,7 +249,6 @@ class CoreController extends Controller{
             				<p>".$data['content']."</p>
             			 </div>";
 
-            // $contenuMail="yo";
 
             $message = \Swift_Message::newInstance()
                 ->setContentType('text/html')

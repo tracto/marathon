@@ -269,7 +269,8 @@ class ThemeController extends Controller{
 		
 
 		if($currentTheme){
-			$currentTheme->setPostActivate(1); 
+			$currentTheme->setPostActivate(1);
+			$em->persist($currentTheme); 
 		}
 
 		$em->flush();
