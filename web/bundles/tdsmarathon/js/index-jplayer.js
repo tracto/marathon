@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var playlistIndexBody=$('.playlist-index-body');
     var musicTitlesArray = [];
     var titleCurrent=0;
+    var list="";
 
     playlistIndexBody.find('.musicTitleItem').each(function(){
               var musicTitleTitre=$(this).data('titre'); 
@@ -90,7 +91,6 @@ $(document).ready(function(){
              ready: function(){
                 var self = this;
                 $('[data-infostitle]').empty();
-                var list="";
                 list=createTitleItem(musicTitlesArray[0]);
                 $('[data-infostitle]').append(list);
 
@@ -98,19 +98,12 @@ $(document).ready(function(){
 
              play : function(){                
                 $('[data-infostitle]').empty();
-                var list="";
                 titleCurrent=playlistIndex.current;
                 list=createTitleItem(musicTitlesArray[titleCurrent]);
                 $('[data-infostitle]').append(list);
-
              },
 
              ended: function() {
-                // if(typeof idPlaylistRedirect !== 'undefined' && idPlaylistRedirect != 0){
-                //   if(titleCurrent == (Object.keys(myPlaylist.playlist).length)-1){
-                //       window.open(Routing.generate('tds_marathon_'+playlistType+'_view_js', { 'id': idPlaylistRedirect }), "_self");
-                //   }
-                // }
              },
             
              errorAlerts: false,
