@@ -77,7 +77,8 @@ $(document).ready(function(){
                 noSolution: '.jp-no-solution'
              },
              playlistOptions: {
-                autoPlay: autoplay,
+                autoplay: false,
+                // autoPlay: autoplay,
              },
              ready: function(){
                 var self = this;
@@ -98,11 +99,11 @@ $(document).ready(function(){
              },
 
              ended: function() {
-                if(typeof idPlaylistRedirect !== 'undefined' && idPlaylistRedirect != 0){
-                  if(titleCurrent == (Object.keys(myPlaylist.playlist).length)-1){
-                      window.open(Routing.generate('tds_marathon_'+playlistType+'_view_js', { 'id': idPlaylistRedirect }), "_self");
-                  }
-                }
+                // if(typeof idPlaylistRedirect !== 'undefined' && idPlaylistRedirect != 0){
+                //   if(titleCurrent == (Object.keys(myPlaylist.playlist).length)-1){
+                //       window.open(Routing.generate('tds_marathon_'+playlistType+'_view_js', { 'id': idPlaylistRedirect }), "_self");
+                //   }
+                // }
              },
             
              errorAlerts: false,
