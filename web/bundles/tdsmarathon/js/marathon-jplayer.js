@@ -12,12 +12,13 @@ $(document).ready(function(){
           var musicTitlesArray = [];
           var autoplay=$("[data-autoplay]").data('autoplay');
 
-          $(this).find('.musicTitleItem').each(function(){
+          $(this).find('.musicTitleItem').each(function(index){
+              var musicTitleIndex=index+1;
               var musicTitleTitre=$(this).data('titre');
               var musicTitleArtiste=$(this).data('artiste');
               var musicTitlePath=$(this).data('path');
               var musicTitleThumb=$(this).data('thumb');
-              var musicTitleItem={title:musicTitleTitre, artist:musicTitleArtiste, mp3:musicTitlePath, thumb:musicTitleThumb};
+              var musicTitleItem={index:musicTitleIndex, title:musicTitleTitre, artist:musicTitleArtiste, mp3:musicTitlePath, thumb:musicTitleThumb};
               musicTitlesArray.push(musicTitleItem);
               console.log(musicTitlesArray);
           });
@@ -26,13 +27,14 @@ $(document).ready(function(){
           $(this).find('.jp-container').attr('id','jp-container_'+i);
 
           var playlistType=$('.playlist-wrapper').data('type');
+
           createListItem=function(media){
                 var self = this;
 
                 // Wrap the <li> contents in a <div>
                 var listItem = "<li class='playlist-item'><span>"
                 // Create remove control
-                listItem += "<a href='javascript:;' class='" + myPlaylist.options.playlistOptions.itemClass + "' tabindex='1'><span class='jp-thumb'><img src='"+media.thumb+"'/></span><span class='jp-title-artist'><span class='jp-title'>" + media.title + "</span>" + (media.artist ?
+                listItem += "<a href='javascript:;' class='" + myPlaylist.options.playlistOptions.itemClass + "' tabindex='1'><span class='jp-thumb'><img src='"+media.thumb+"'/></span><span class='jp-title-artist'><span class='jp-title'>"+media.index + "-" + media.title + "</span>" + (media.artist ?
                 " <span class='jp-artist'>" + media.artist + "</span></span>" : "") + "</a>";
                 listItem += "</span></li>";
                 return listItem;

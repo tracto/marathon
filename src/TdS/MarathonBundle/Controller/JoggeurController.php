@@ -11,6 +11,7 @@ use TdS\MarathonBundle\Entity\JoggeurScore;
 use TdS\MarathonBundle\Entity\Score;
 use TdS\MarathonBundle\Entity\Theme;
 use TdS\MarathonBundle\Entity\Saison;
+use TdS\UserBundle\Entity\User;
 use TdS\MarathonBundle\Entity\MusicTitle;
 use TdS\MarathonBundle\Form\JoggeurType;
 use TdS\MarathonBundle\Form\JoggeurEditType;
@@ -29,8 +30,9 @@ class JoggeurController extends Controller{
     public function indexAction(){
     	$em=$this->getDoctrine()->getManager();
     	$listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
-    					   ->findAll();
-        return $this->render('TdSMarathonBundle:Joggeur:index.html.twig', array(
+    					   ->findAllSortByLastLogin();
+
+      return $this->render('TdSMarathonBundle:Joggeur:index.html.twig', array(
         						'listeJoggeurs'=>$listeJoggeurs));
     }
 
