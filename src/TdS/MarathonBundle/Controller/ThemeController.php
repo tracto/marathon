@@ -28,7 +28,7 @@ class ThemeController extends Controller{
 	public function indexAction(){
     	$em=$this->getDoctrine()->getManager();
     	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-    					 ->findAll();   	
+    					 ->findAll(array(),array('id'=>'desc'));   	
     	
         return $this->render('TdSMarathonBundle:Theme:index.html.twig', array(
         						'listeSaisons'=>$listeSaisons));

@@ -78,7 +78,7 @@ class CoreController extends Controller{
 
 			$listeJoggeurs=$em
 			      			->getRepository('TdSMarathonBundle:Joggeur')
-			      			->findAll();
+			      			->findAllSortByLastLogin();
 
 			if(!$saison){
 	      	 	$saison=$lastSaison;
