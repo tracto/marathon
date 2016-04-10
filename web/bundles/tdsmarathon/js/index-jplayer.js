@@ -52,13 +52,12 @@ $(document).ready(function(){
             jPlayer: '#jp-jplayer_index',
             cssSelectorAncestor: '#jp-container_index',
             
-          }, musicTitlesArray, 
+          }, musicTitlesArray,
           {
              swfPath: '../dist/jplayer',
              solution: 'html, flash',
              // supplied: 'mp3',
              preload: 'metadata',
-
              volume: 0.8,
              muted: false,
              backgroundColor: '#000000',

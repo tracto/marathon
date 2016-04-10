@@ -10,10 +10,10 @@
       
 
 
-      	<div class=''>
+      	<div class='flex-container-h'>
       			 {% if saison is defined and saison.activate is not null %}
-      				<div class="row man flex-container">
-	      				<div class="col col-md-8 col-articles">
+      				{# <div class="man"> #}
+	      				<div class="col col-xs-12 col-sm-8 col-articles">
 	      					
 		        			{% if listeArticles is defined and listeArticles is not null %}
 		        				<div class="articles-liste">
@@ -25,11 +25,12 @@
 		        				{# <div class="more-articles-content"></div> #}
 
 		        				<div class="clearfix"></div>
-
-		        				<button href="" class="button btn-more btn pull-left mas" data-action="show-more-articles" data-offset="4">
-			        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-					  				<span class="btn__label">Plus d'articles</span>
-			        			</button>
+		        				{% if listeArticles|length > 4 %}
+			        				<button href="" class="button btn-more btn pull-left mas" data-action="show-more-articles" data-offset="4">
+				        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+						  				<span class="btn__label">Plus d'articles</span>
+				        			</button>
+			        			{% endif %}
 		        			{% else %}
 		        				<div>
 		        					<h3>Il n'y a aucun article pour l'instant</h3>	        		
@@ -47,7 +48,7 @@
 		        		</div>
 	        		
 
-		        		<div class="col col-md-4 col-themes man pan">		
+		        		<div class="col col-xs-12 col-sm-4 col-themes man pan">		
 							{% if theme is defined and theme is not null %}
 								<div class='list-item vignette-item man pan'>
 									<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
@@ -56,9 +57,8 @@
 
 							    			{% if theme.activate == 1 %}
 												<div class="ribbon">
-													<div class="line flex-container-h align-center">							
-														<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
-														<span class="flex-item-fluid mls">Thème en cours</strong></span>
+													<div class="line flex-container-h align-center">				<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
+														<span class="flex-item-fluid mls">Thème en cours</span>
 													</div>
 												</div>
 											{% endif %}
@@ -92,7 +92,7 @@
 					    	{{ loisModule.lois() }}
 					    	
 						</div>
-					</div>
+					{# </div> #}
 
 
 				{% else %}
@@ -104,148 +104,150 @@
 
 
 			<div class="flex-container-h">
-				<div class='col col-xs-12 col-md-7 col-md-push-5 pbxxl col-droite'>
+				<div class='col col-xs-12 col-sm-7 col-sm-push-5 pbxxl col-droite'>
 					<div class="row col-classement align-center pam">
-						<h2 class="sub-title">Classement</h2>
-						<div class="bg-op--white-5 pam">
-							<h3>Podium</h3>
-							<div class="row">
-								{% for joggeurScore in listeJoggeursScore %}
-									<div class="podium-wrapper mbl">
-									{% if loop.index == 1 %}										
-											<div class="podium podium-1 list-item col col-xs-4 col-xs-push-4">
-												<div class="inner-podium">
-													<div class="colonne">
-														<strong class="place">{{ loop.index }}</strong>
-														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-															<div class="round">
-															    {% if joggeurScore.joggeur.image is not null %}
-														  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-																{% endif %}
-															</div>
-														</a>
-														<span class="score">{{ joggeurScore.total }}</span>
-														<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+						{% if listeJoggeursScore|length > 3 %} 
+							<h2 class="sub-title">Classement</h2>
+							<div class="bg-op--white-5 pam">
+								<h3>Podium</h3>
+								<div class="row">
+									{% for joggeurScore in listeJoggeursScore %}
+										<div class="podium-wrapper mbl">
+										{% if loop.index == 1 %}										
+												<div class="podium podium-1 list-item col col-xs-4 col-xs-push-4">
+													<div class="inner-podium">
+														<div class="colonne">
+															<strong class="place">{{ loop.index }}</strong>
+															<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
+																<div class="round">
+																    {% if joggeurScore.joggeur.image is not null %}
+															  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+																	{% endif %}
+																</div>
+															</a>
+															<span class="score">{{ joggeurScore.total }}</span>
+															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+														</div>
 													</div>
 												</div>
-											</div>
-										{% elseif loop.index == 2 %}
-											<div class="podium podium-2 list-item col col-xs-4 col-xs-pull-4">
-												<div class="inner-podium">
-													<div class="colonne">
-														<strong class="place">{{ loop.index }}</strong>
-														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-															<div class="round">
-															    {% if joggeurScore.joggeur.image is not null %}
-														  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-																{% endif %}
-															</div>
-														</a>
-														<span class="score">{{ joggeurScore.total }}</span>
-														<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+											{% elseif loop.index == 2 %}
+												<div class="podium podium-2 list-item col col-xs-4 col-xs-pull-4">
+													<div class="inner-podium">
+														<div class="colonne">
+															<strong class="place">{{ loop.index }}</strong>
+															<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
+																<div class="round">
+																    {% if joggeurScore.joggeur.image is not null %}
+															  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+																	{% endif %}
+																</div>
+															</a>
+															<span class="score">{{ joggeurScore.total }}</span>
+															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+														</div>
 													</div>
 												</div>
-											</div>
-										{% elseif loop.index == 3 %}
-											<div class="podium podium-3 list-item col col-xs-4 mbl">
-												<div class="inner-podium">
-													<div class="colonne">
-														<strong class="place">{{ loop.index }}</strong>
-														<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-															<div class="round">
-															    {% if joggeurScore.joggeur.image is not null %}
-														  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-																{% endif %}
-															</div>
-														</a>
-														<span class="score">{{ joggeurScore.total }}</span>
-														<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+											{% elseif loop.index == 3 %}
+												<div class="podium podium-3 list-item col col-xs-4 mbl">
+													<div class="inner-podium">
+														<div class="colonne">
+															<strong class="place">{{ loop.index }}</strong>
+															<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
+																<div class="round">
+																    {% if joggeurScore.joggeur.image is not null %}
+															  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+																	{% endif %}
+																</div>
+															</a>
+															<span class="score">{{ joggeurScore.total }}</span>
+															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+														</div>
 													</div>
 												</div>
-											</div>
-											
+												
 
-										{% else %}
-											<div class="list-item plm prm">
-												<strong>{{ loop.index }}</strong>
-												<span>{{ joggeurScore.joggeur.pseudo }}</span>
-												<span>{{ joggeurScore.total }}</span>
-											</div>
-										{% endif %}	
-									</div>	
-						
-								{% endfor %}
-							</div>
-						</div>
-
-						<div class="walloffame bg-op--white-5 align-center pam mtm">
-							<h3>Wall of Fame</h3>
-							<div class="wof-wrapper flex-container-h flex-justify">
-								<div class="wof-item wof_jogEgoiste flex-item list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
-										<div class="round">
-												{% if wof_jogEgoiste.image is not null %}
-													<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}">
-												{% endif %}
-										</div>
-									</a>
-									<div>
-										<h4 class="mts mbn sub-sub-title">L'égoïste</h4>
-										<strong>Celui qui n'aime pas donner de points bisous</strong> 
-									 	<div>{{ wof_jogEgoiste.pseudo }}</div>
-									</div> 
-								</div>
-
-								<div class="wof-item wof_jogDonJuan flex-item list-item pas">
-									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
-										<div class="round">
-												{% if wof_jogDonJuan.image is not null %}
-													<img class="" src="{{ wof_jogDonJuan.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogDonJuan.image.alt }}">
-												{% endif %}
-										</div>
-									</a>
-									<div>
-										<h4 class="mts mbn sub-sub-title">Le mononucléose</h4>
-										<strong>Celui qui a récolté le plus de points bisous</strong>
-									 	<div>{{ wof_jogDonJuan.pseudo }}</div>
-									</div> 
-								</div>
-
-								<div class="wof-item wof_jogPetitGros flex-item list-item pas">
-									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogPetitGros.id}) }}">								
-										<div class="round">
-												{% if wof_jogPetitGros.image is not null %}
-													<img class="" src="{{ wof_jogPetitGros.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogPetitGros.image.alt }}">
-												{% endif %}
-										</div>
-									</a>
-									<div>
-									 	<h4 class="mts mbn sub-sub-title">Le petit gros à la traîne</h4>
-									 	<strong>Celui qui possède le moins de points vitesse</strong>
-									 	<div>{{ wof_jogPetitGros.pseudo }}</div>
-									 </div> 
-								</div>
-
-								<div class="wof-item wof_jogLfdy flex-item list-item pas">
-									<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogLfdy.id}) }}">								
-										<div class="round">
-												{% if wof_jogLfdy.image is not null %}
-													<img class="" src="{{ wof_jogLfdy.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogLfdy.image.alt }}">
-												{% endif %}
-										</div>
-									</a>
-									<div>
-										<h4 class="mts mbn sub-sub-title">Le Live fast die Young</h4>
-										<strong>Celui qui possède le plus de points vitesse</strong>
-									 	<div>{{ wof_jogLfdy.pseudo }}</div>
-									</div> 
+											{% else %}
+												<div class="list-item plm prm">
+													<strong>{{ loop.index }}</strong>
+													<span>{{ joggeurScore.joggeur.pseudo }}</span>
+													<span>{{ joggeurScore.total }}</span>
+												</div>
+											{% endif %}	
+										</div>	
+							
+									{% endfor %}
 								</div>
 							</div>
-						</div>
+
+							<div class="walloffame bg-op--white-5 align-center pam mtm">
+								<h3>Wall of Fame</h3>
+								<div class="wof-wrapper flex-container-h flex-justify">
+									<div class="wof-item wof_jogEgoiste flex-item list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
+											<div class="round">
+													{% if wof_jogEgoiste.image is not null %}
+														<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}">
+													{% endif %}
+											</div>
+										</a>
+										<div>
+											<h4 class="mts mbn sub-sub-title">L'égoïste</h4>
+											<strong>Celui qui n'aime pas donner de points bisous</strong> 
+										 	<div>{{ wof_jogEgoiste.pseudo }}</div>
+										</div> 
+									</div>
+
+									<div class="wof-item wof_jogDonJuan flex-item list-item pas">
+										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
+											<div class="round">
+													{% if wof_jogDonJuan.image is not null %}
+														<img class="" src="{{ wof_jogDonJuan.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogDonJuan.image.alt }}">
+													{% endif %}
+											</div>
+										</a>
+										<div>
+											<h4 class="mts mbn sub-sub-title">Le mononucléose</h4>
+											<strong>Celui qui a récolté le plus de points bisous</strong>
+										 	<div>{{ wof_jogDonJuan.pseudo }}</div>
+										</div> 
+									</div>
+
+									<div class="wof-item wof_jogPetitGros flex-item list-item pas">
+										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogPetitGros.id}) }}">								
+											<div class="round">
+													{% if wof_jogPetitGros.image is not null %}
+														<img class="" src="{{ wof_jogPetitGros.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogPetitGros.image.alt }}">
+													{% endif %}
+											</div>
+										</a>
+										<div>
+										 	<h4 class="mts mbn sub-sub-title">Le petit gros à la traîne</h4>
+										 	<strong>Celui qui possède le moins de points vitesse</strong>
+										 	<div>{{ wof_jogPetitGros.pseudo }}</div>
+										 </div> 
+									</div>
+
+									<div class="wof-item wof_jogLfdy flex-item list-item pas">
+										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogLfdy.id}) }}">								
+											<div class="round">
+													{% if wof_jogLfdy.image is not null %}
+														<img class="" src="{{ wof_jogLfdy.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogLfdy.image.alt }}">
+													{% endif %}
+											</div>
+										</a>
+										<div>
+											<h4 class="mts mbn sub-sub-title">Le Live fast die Young</h4>
+											<strong>Celui qui possède le plus de points vitesse</strong>
+										 	<div>{{ wof_jogLfdy.pseudo }}</div>
+										</div> 
+									</div>
+								</div>
+							</div>
+						{% endif %}
 					</div>				
 				</div>
 
 
-				<div class='col col-xs-12 col-md-5 col-md-pull-7  col-gauche'>
+				<div class='col col-xs-12 col-sm-5 col-sm-pull-7  col-gauche'>
 					<div class="row list col-joggeurs pas">
 						<h2 class="sub-title">Les joggeurs</h2>
 						<div class="block clearfix">
