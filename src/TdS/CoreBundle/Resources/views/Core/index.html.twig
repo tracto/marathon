@@ -166,12 +166,7 @@
 												</div>
 												
 
-											{% else %}
-												<div class="list-item plm prm">
-													<strong>{{ loop.index }}</strong>
-													<span>{{ joggeurScore.joggeur.pseudo }}</span>
-													<span>{{ joggeurScore.total }}</span>
-												</div>
+											
 											{% endif %}	
 										</div>	
 							
@@ -242,6 +237,18 @@
 									</div>
 								</div>
 							</div>
+						
+						<div class="latotale bg-op--white-5 align-center pam mtm">
+							<h3>La totale</h3>
+							{% for joggeurScore in listeJoggeursScore %}
+								<div class="list-item pts plm prm">
+									<strong>{{ loop.index }} - </strong>
+									<span>{{ joggeurScore.joggeur.pseudo }} </span>
+									<svg class="icon icon--xs icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
+									<span>{{ joggeurScore.total }} pts</span>
+								</div>
+							{% endfor %}
+						</div>
 						{% endif %}
 					</div>				
 				</div>
