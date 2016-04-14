@@ -212,7 +212,7 @@ class ThemeController extends Controller{
 
          foreach($allJoggeurs as $joggeur){
         	$joggeurScore=$joggeur->getJoggeurScore();
-        	$joggeurScore->setPointstogive(0);
+        	// $joggeurScore->setPointstogive(0);
     	}
 
 	    $musicTitlesDuTheme=$currentTheme->getMusicTitles();
