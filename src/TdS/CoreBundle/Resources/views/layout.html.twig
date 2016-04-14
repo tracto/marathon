@@ -298,9 +298,9 @@
 			{{ headernavModule.header() }} 
 
 
-			<div class="flashbag pas align-center">
+			<div class="flashbag align-center">
 	      		{% for message in app.session.flashbag.get('notice') %}
-	        		<span>Info : {{ message }}</span>
+	        		<span class="block pas">Info : {{ message }}</span>
 	      		{% endfor %}
 	    	</div>
 
