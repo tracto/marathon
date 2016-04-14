@@ -36,9 +36,22 @@ security:
             remember_me:
                 key: %secret%
 
+
     access_control:
         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/dashboard, roles: ROLE_ADMIN }
+        - { path: ^/joggeur/add, roles: ROLE_ADMIN } 
+        - { path: ^/joggeur/edit/, roles: ROLE_ADMIN }
+        - { path: ^/joggeur/addpoints/, roles: ROLE_ADMIN }
+        - { path: ^/joggeur/delete/, roles: ROLE_ADMIN }
+        - { path: ^/theme/add, roles: ROLE_ADMIN }
+        - { path: ^/theme/edit/, roles: ROLE_ADMIN }
+        - { path: ^/theme/delete/, roles: ROLE_ADMIN }
+        - { path: ^/theme/switch, roles: ROLE_SUPER_ADMIN } 
+        - { path: ^/joggeurs/classement/, roles: ROLE_ADMIN }
+        - { path: ^/saisons, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/saison/switch, roles: ROLE_SUPER_ADMIN }
 
 
