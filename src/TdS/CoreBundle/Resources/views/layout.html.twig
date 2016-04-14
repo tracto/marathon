@@ -280,6 +280,7 @@
 </svg>
 
 	<body>
+		
 		<div class="main-wrapper">
 
 			<div id="becky-content">
@@ -296,7 +297,15 @@
 			      	
 			{{ headernavModule.header() }} 
 
-			<div class="wrapper flex-container">
+
+			<div class="flashbag pas align-center">
+	      		{% for message in app.session.flashbag.get('notice') %}
+	        		<span>Info : {{ message }}</span>
+	      		{% endfor %}
+	    	</div>
+
+
+			<div class="wrapper flex-container">		    	
 				<div class="container-border-left flex-item-fluid"></div>
 				<div class="container-center container flex-item">{% block body %} {% endblock %}</div>
 				<div class="container-border-right flex-item-fluid"></div>
