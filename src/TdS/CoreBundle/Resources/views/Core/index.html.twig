@@ -176,7 +176,7 @@
 
 							<div class="walloffame bg-op--white-5 align-center pam mtm">
 								<h3>Wall of Fame</h3>
-								<div class="wof-wrapper flex-container-h flex-justify">
+								<div class="wof-wrapper flex-container-fluid flex-justify">
 									<div class="wof-item wof_jogEgoiste flex-item list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
 											<div class="round">
 													{% if wof_jogEgoiste.image is not null %}
@@ -238,23 +238,34 @@
 								</div>
 							</div>
 						
-						<div class="latotale bg-op--white-5 align-center pam mtm">
-							<h3>La totale</h3>
-							{% for joggeurScore in listeJoggeursScore %}
-								<div class="list-item pts plm prm">
-									<strong>{{ loop.index }} - </strong>
-									<span>{{ joggeurScore.joggeur.pseudo }} </span>
-									<svg class="icon icon--xs icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-									<span>{{ joggeurScore.total }} pts</span>
+						<div class="latotale bg-op--white-5 pam mtm">
+							<h3 class="align-center">La totale</h3>
+							<div class="flex-container-h">
+								<div class="flex-item-fluid align-left">
+									{% for joggeurScore in listeJoggeursScore %}
+										{% if loop.index == moitieJoggeurs %}
+											</div>
+											<div class="flex-item-fluid align-left">
+										{% endif %}
+
+										<div class="list-item  plm prm">
+											<strong>{{ loop.index }} - </strong>
+											<span>{{ joggeurScore.joggeur.pseudo }} </span>
+											<svg class="icon icon--xs icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
+											<span>{{ joggeurScore.total }} pts</span>
+										</div>
+									{% endfor %}
 								</div>
-							{% endfor %}
+							</div>
 						</div>
+
 						{% endif %}
 					</div>				
 				</div>
 
 
-				<div class='col col-xs-12 col-sm-5 col-sm-pull-7  col-gauche'>
+
+				<div class='col col-xs-12 col-sm-5 col-sm-pull-7 pbxxl  col-gauche'>
 					<div class="row list col-joggeurs pas">
 						<h2 class="sub-title">Les joggeurs</h2>
 						<div class="block clearfix">

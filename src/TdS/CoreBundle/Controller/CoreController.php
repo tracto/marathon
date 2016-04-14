@@ -92,7 +92,9 @@ class CoreController extends Controller{
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
 
-
+	        if($listeJoggeursScore){
+	        	$moitieJoggeurs=ceil((sizeof($listeJoggeursScore))/2)+1;
+	        }
 
 		    $wof_jogEgoiste=$tdsScoring->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');
 		    $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
@@ -107,6 +109,7 @@ class CoreController extends Controller{
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
+					'moitieJoggeurs'=>$moitieJoggeurs,
 					'wof_jogEgoiste'=>$wof_jogEgoiste,
 					'wof_jogDonJuan'=>$wof_jogDonJuan,
 					'wof_jogPetitGros'=>$wof_jogPetitGros,

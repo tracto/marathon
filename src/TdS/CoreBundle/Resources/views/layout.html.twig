@@ -5,6 +5,8 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	  <title>{% block title %}Le Marathon de la Semaine{% endblock %}</title>
+	  <meta name="description" content="Un morceau (poème, chanson, cri, blabla, instrumental, recette, râle, solo...) à composer en une semaine en fonction du thème. Parce ce que la musique, c'est un sport. Ad Vitam Mp3" />
+	  
 	  <link href='https://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
 	  
    	  <link href="{{ asset('bundles/tdsmarathon/css/styles.css') }}" rel='stylesheet' type='text/css'>   
@@ -311,7 +313,7 @@
 	  	
 
 	  	<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-	  	<script src="{{ asset('bundles/tdsmarathon/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+	  	
 
 	  	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
       	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
@@ -320,15 +322,20 @@
 	   	<script src="{{ asset('js/jquery.jplayer.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('js/jplayer.playlist.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>
-	   	<script src="{{ asset('bundles/tdsmarathon/js/form.js') }}" type="text/javascript"></script>
+	   	
 	   	<script src="{{ asset('bundles/tdsmarathon/js/marathon-jplayer.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/index-jplayer.js') }}" type="text/javascript"></script>
-	   	
 	   	<script src="{{ asset('bundles/tdsmarathon/js/index.js') }}" type="text/javascript"></script>
-	   	<script src="{{ asset('bundles/tdsmarathon/js/indexAdmin.js') }}" type="text/javascript"></script>
-	   	<script src="{{ asset('bundles/tdsmarathon/js/classement.js') }}" type="text/javascript"></script>
-	   	<script src="{{ asset('bundles/tdsmarathon/js/form-addpoints.js') }}" type="text/javascript"></script>
-	   	<script src="{{ asset('bundles/tdsbecky/js/liste.js') }}" type="text/javascript"></script>
+	   	
+
+	   	{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+		   	<script src="{{ asset('bundles/tdsmarathon/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+		   	<script src="{{ asset('bundles/tdsmarathon/js/form.js') }}" type="text/javascript"></script>		   	
+		   	<script src="{{ asset('bundles/tdsmarathon/js/indexAdmin.js') }}" type="text/javascript"></script>
+		   	<script src="{{ asset('bundles/tdsmarathon/js/classement.js') }}" type="text/javascript"></script>
+		   	<script src="{{ asset('bundles/tdsmarathon/js/form-addpoints.js') }}" type="text/javascript"></script>
+		   	<script src="{{ asset('bundles/tdsbecky/js/liste.js') }}" type="text/javascript"></script>
+	   {% endif %}
 	    
 	     
 	     
