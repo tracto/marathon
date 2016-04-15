@@ -63,7 +63,7 @@ class MusicTitleController extends Controller{
 				$em->persist($musicTitle);
 				$em->flush();
 				
-				$request->getSession()->getFlashBag()->add('notice','joggeur bien enregistré.');
+				$request->getSession()->getFlashBag()->add('notice','morceau bien uploadé.');
 				return $this->redirect($url);
 			}
 
