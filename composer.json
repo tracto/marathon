@@ -1,5 +1,5 @@
 {
-    "name": "chocoranch/symfony",
+    "name": "marathon/symfony",
     "license": "proprietary",
     "type": "project",
     "autoload": {
