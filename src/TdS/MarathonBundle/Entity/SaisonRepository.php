@@ -11,7 +11,7 @@ namespace TdS\MarathonBundle\Entity;
 class SaisonRepository extends \Doctrine\ORM\EntityRepository{
 	public function findAll()
     {
-        return $this->findBy(array(), array('titre' => 'DESC'));
+        return $this->findBy(array(), array('id' => 'DESC'));
     }
 
     // public function findLastOne(){
