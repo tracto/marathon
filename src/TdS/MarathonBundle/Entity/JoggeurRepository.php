@@ -2,6 +2,8 @@
 
 namespace TdS\MarathonBundle\Entity;
 
+use TdS\UserBundle\Entity\User;
+
 /**
  * JoggeurRepository
  *
@@ -11,5 +13,16 @@ namespace TdS\MarathonBundle\Entity;
 class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
 	public function findAll(){
         return $this->findBy(array(), array('pseudo' => 'ASC'));
+    }
+
+    public function findAllSortByLastLogin(){
+    	$queryBuilder = $this->createQueryBuilder('c')
+        	->addSelect('m')
+        	->leftJoin('c.user', 'm')
+        	->orderBy('m.lastLogin', 'DESC');
+
+        return $queryBuilder
+     		->getQuery()
+     		->getResult();
     }
 }

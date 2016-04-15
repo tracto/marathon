@@ -57,13 +57,19 @@ class TdSScoring {
     		$jogFameArray[$joggeurScore->getJoggeur()->getId()]=$totalFame;   		
     	}
 
-    	$sort($jogFameArray);
+    	if($jogFameArray){
+	    	$sort($jogFameArray);
+	 		$tabIdJoggeur=array_keys($jogFameArray);
+		    $idJoggeur=$tabIdJoggeur[0];
+		}
 
-	    $idJoggeur=array_keys($jogFameArray)[0];
-	    $wof_jogFame = $this->em
-		          ->getRepository('TdSMarathonBundle:Joggeur')
-		          ->findOneBy(array('id'=>$idJoggeur));
-
+	    if(!isset($idJoggeur)){
+	    	$idJoggeur=1;
+	    }
+		$wof_jogFame = $this->em
+			          ->getRepository('TdSMarathonBundle:Joggeur')
+			          ->findOneBy(array('id'=>$idJoggeur));
+		
     	return $wof_jogFame;
     }
 

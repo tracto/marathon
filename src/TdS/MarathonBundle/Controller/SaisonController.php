@@ -21,41 +21,50 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SaisonController extends Controller{
 
-public function disactiveValidationAction(Request $request){
-    	$referer = $this->getRequest()->headers->get('referer');
-    	$em=$this->getDoctrine()->getManager(); 
+	public function disactiveValidationAction(Request $request){
+		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+	    	$referer = $this->getRequest()->headers->get('referer');
+	    	$em=$this->getDoctrine()->getManager(); 
 
 
 
-	    $saisonActive = $em
-	      			->getRepository('TdSMarathonBundle:Saison')
-	      			->findOneBy(array('activate' => 1));  	
+		    $saisonActive = $em
+		      			->getRepository('TdSMarathonBundle:Saison')
+		      			->findOneBy(array('activate' => 1));  	
 
-    	    
-		$saisonActive->setActivate(0);
+	    	if($saisonActive){    
+				$saisonActive->setActivate(0);
+			}
 
-		$themeActive = $em
-	      		->getRepository('TdSMarathonBundle:Theme')
-	      		->findOneBy(array('activate' => 1));
-	    
+			$themeActive = $em
+		      		->getRepository('TdSMarathonBundle:Theme')
+		      		->findOneBy(array('activate' => 1));
+		    
 
 
-	   	$themePost = $em
-	      		->getRepository('TdSMarathonBundle:Theme')
-	      		->findOneBy(array('postActivate' => 1));
+		   	$themePost = $em
+		      		->getRepository('TdSMarathonBundle:Theme')
+		      		->findOneBy(array('postActivate' => 1));
 
-	    $scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
-	    					->findBy(array('theme' => $themePost));
-	    
+		    if($themePost){
+		    	$scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
+		    					->findBy(array('theme' => $themePost));
+		    }
+		    
+		    
 
-	    $listeJoggeursScore = $em
-				->getRepository('TdSMarathonBundle:JoggeurScore')
-				->findAll();
+		    $listeJoggeursScore = $em
+					->getRepository('TdSMarathonBundle:JoggeurScore')
+					->findAll();
 
-		
+			
 			if(empty($scoresPostTheme)){
-				$musicTitlesDuTheme=$themePost->getMusicTitles();
-		    	$joggeursPostTheme= new ArrayCollection();
+				$joggeursPostTheme= new ArrayCollection();
+
+				if($themePost && $themePost->getMusicTitles()){
+					$musicTitlesDuTheme=$themePost->getMusicTitles();
+				}
+		    	
 		    	if(!empty($musicTitlesDuTheme)){
 		        	foreach($musicTitlesDuTheme as $musicTitleDuTheme){
 			            if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
@@ -80,47 +89,60 @@ public function disactiveValidationAction(Request $request){
 			}
 
 
-		foreach($listeJoggeursScore as $joggeurScore){			
-        	$joggeurScore->setPointstogive(0);
-        	$em->persist($joggeurScore);
-        	
-		}
-		if(!empty($themeActive)){
-			$themeActive->setActivate(0);
-			$em->persist($themeActive);
-		}
-		
-		$themePost->setPostActivate(0);
-		
-		$em->persist($themePost);
-		$em->persist($saisonActive);
-		
+			foreach($listeJoggeursScore as $joggeurScore){			
+	        	$joggeurScore->setPointstogive(0);
+	        	$em->persist($joggeurScore);
+	        	
+			}
+			if($themeActive){
+				$themeActive->setActivate(0);
+				$em->persist($themeActive);
+			}
+			
+			if($themePost){
+				$themePost->setPostActivate(0);
+				$em->persist($themePost);
+			}
+			
+			
+			$em->persist($saisonActive);
+			
 
-				
-		$em->flush();
-		$this->redirect($referer);
+					
+			$em->flush();
+			return $this->redirect($referer);
+
+		}else{
+		    	$request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    	return $this->redirectToRoute('tds_dashboard');
+		}
 
     }
 
 
     public function addSaisonAction(Request $request){
- 
-		$saison=new Saison();
-		$form=$this->get('form.factory')->create(new SaisonType(), $saison); 
-		$form->handleRequest($request);
+ 		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+			$saison=new Saison();
+			$form=$this->get('form.factory')->create(new SaisonType(), $saison); 
+			$form->handleRequest($request);
 
-		if($form->isValid()){
-			$em=$this->getDoctrine()->getManager();
-			$saison->setActivate(1);
-			$em->persist($saison);
-			$em->flush();
+			if($form->isValid()){
+				$em=$this->getDoctrine()->getManager();
+				$saison->setActivate(1);
+				$em->persist($saison);
+				$em->flush();
 
-			$request->getSession()->getFlashBag()->add('notice','theme bien enregistré.');
-			
-			return $this->redirect($this->generateUrl('tds_marathon_theme_home'));
+				$request->getSession()->getFlashBag()->add('notice','theme bien enregistré.');
+				
+				return $this->redirect($this->generateUrl('tds_marathon_theme_home'));
+			}
+
+	        return $this->render('TdSMarathonBundle:Saison:add.html.twig', array('form'=>$form->createView()));
+
+        }else{
+		    	$request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    	return $this->redirectToRoute('tds_dashboard');
 		}
-
-        return $this->render('TdSMarathonBundle:Saison:add.html.twig', array('form'=>$form->createView()));
 	}
 }
 

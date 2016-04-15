@@ -1,3 +1,4 @@
+
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
@@ -86,6 +87,8 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
+    
+    
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"

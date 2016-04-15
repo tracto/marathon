@@ -3,7 +3,8 @@
 	position: relative;
 	/*background-color:rgba(0,0,0,0.3);*/
 	color:white;
-	background: url("../images/bg-header-layers/bg.png") repeat-x 50% 10%;
+	background: url("../images/bg-header-layers/bgFull.png") no-repeat;
+	background-position:50% 40px;
 	background-size:cover;
 	width:100%;
 	
@@ -14,6 +15,8 @@
     margin: 0 auto;
     display: block;
     max-width: 500px;
+    position: relative;
+    top: 30px;
 }
 
 .saison-title{
@@ -23,7 +26,7 @@
     text-shadow: #000 0px 0px 10px;
     text-transform: uppercase;
     position: relative;
-    bottom: 65px;
+    bottom: 30px;
 }
 
 
@@ -108,7 +111,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index:1;
+    z-index:20;
     width: 40px;
     height: 40px;
     fill:$grey6;
@@ -142,11 +145,14 @@
 	width: 100%;
 	background-color:$color1;
 	min-height:40px;
+	position:absolute;
 	color:$grey6;
+	box-shadow: 2px 0 5px #000;
+	z-index: 10;
 
 	@media $medium{
 		position: fixed;
-    	z-index: 20;
+    	height: 50px;    	
 	}
 }
 
@@ -209,6 +215,15 @@
 .beta {
 	width:100%;
 	position:absolute;
+	top:40px;
+	z-index:5;
+	font-size:0.8em;
+
+	@media $medium{
+		position:fixed;
+		top:47px;
+		font-size:1em;
+	}
 
 	.inner-beta {
 		background-color:rgba(255,255,0,0.8);

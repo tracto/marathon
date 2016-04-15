@@ -378,9 +378,6 @@
 		        <div class="col col-xs-12 col-sm-8 col-md-pull-4 col-lg-8 tableau-bord_col-droite pbxxl-mobile">
 	        		<div class='row'>
       				{% if saison is defined and saison is not null %}
-      					<div class="saison-title align-center man">
-	      					<h1 class="man">{{ saison.titre }}</h1>
-	      				</div>
 
 			        	{% if theme is defined and theme is not null %}
 			        		{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}	
