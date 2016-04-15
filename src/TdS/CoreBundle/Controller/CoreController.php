@@ -94,6 +94,8 @@ class CoreController extends Controller{
 
 	        if($listeJoggeursScore){
 	        	$moitieJoggeurs=ceil((sizeof($listeJoggeursScore))/2)+1;
+	        }else{
+	        	$moitieJoggeurs=0;
 	        }
 
 		    $wof_jogEgoiste=$tdsScoring->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');

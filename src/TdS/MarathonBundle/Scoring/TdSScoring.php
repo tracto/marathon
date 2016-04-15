@@ -56,11 +56,14 @@ class TdSScoring {
     		}
     		$jogFameArray[$joggeurScore->getJoggeur()->getId()]=$totalFame;   		
     	}
-    	$sort($jogFameArray);
- 		$tabIdJoggeur=array_keys($jogFameArray);
-	    $idJoggeur=$tabIdJoggeur[0];
 
-	    if(!$idJoggeur){
+    	if($jogFameArray){
+	    	$sort($jogFameArray);
+	 		$tabIdJoggeur=array_keys($jogFameArray);
+		    $idJoggeur=$tabIdJoggeur[0];
+		}
+
+	    if(!isset($idJoggeur)){
 	    	$idJoggeur=1;
 	    }
 		$wof_jogFame = $this->em
