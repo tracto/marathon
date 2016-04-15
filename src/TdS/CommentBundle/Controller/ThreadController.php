@@ -380,7 +380,6 @@ class ThreadController extends Controller
      * @param string  $id      Id of the thread
      *
      * @return View
-     * @todo Add support page/pagesize/sorting/tree-depth parameters
      */
     public function getThreadCommentsAction(Request $request, $id)
     {
@@ -477,7 +476,6 @@ class ThreadController extends Controller
      * @param string  $id      The id of the thread
      *
      * @return View
-     * @todo Add support for comment parent (in form?)
      */
     public function postThreadCommentsAction(Request $request, $id)
     {
@@ -690,7 +688,6 @@ class ThreadController extends Controller
      * @param mixed         $commentId Id of the comment
      *
      * @return View
-     * @todo Think about what to show. For now the new score of the comment.
      */
     protected function onCreateVoteSuccess(FormInterface $form, $id, $commentId)
     {
