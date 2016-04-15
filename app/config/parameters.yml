@@ -7,6 +7,6 @@ parameters:
     database_password: root
     mailer_transport: mail
     mailer_host: localhost
-    mailer_user: contact@tiretdusix.net
-    mailer_password: chevreuil
+    mailer_user: hop@hop.net
+    mailer_password: hop
     secret: 4e89c8b80da27409d1ebb0673e1fadacd818f2cc

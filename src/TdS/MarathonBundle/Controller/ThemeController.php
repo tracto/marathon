@@ -30,31 +30,43 @@ class ThemeController extends Controller{
 	public function indexAction(){
     	$em=$this->getDoctrine()->getManager();
     	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-    					 ->findAll(array(),array('id'=>'desc'));   	
-    	
+    					 ->findAll();   	
         return $this->render('TdSMarathonBundle:Theme:index.html.twig', array(
         						'listeSaisons'=>$listeSaisons));
     }
 
 
     public function viewAction(Request $request, Theme $theme, $id, $autoplay="false"){
-    	$em = $this->getDoctrine()->getManager();
+    	if ($theme->getDraftmode() == 0 || ($theme->getDraftmode() == 1 && $this->getUser() == $theme->getJoggeur()->getUser() )){
+	    	$em = $this->getDoctrine()->getManager();
 
-    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-    					 ->findAll(); 
+	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
+	    					 ->findAll(); 
 
 
-        $tabIdTheme=array();
-        foreach ($listeSaisons as $saison){
-        	foreach($saison->getThemes() as $itemTheme){
-    			$tabIdTheme[]=$itemTheme->getId();
-    		}
-        }
-    	
-	    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
-	      'tabIdTheme'=>$tabIdTheme,
-	      'theme' => $theme,     
-	    ));
+	        $tabIdTheme=array();
+	        foreach ($listeSaisons as $saison){
+	        	foreach($saison->getThemes() as $itemTheme){
+	        		if($itemTheme->getDraftmode() == 0){
+	        			$tabIdTheme[]=$itemTheme->getId();
+	        		
+	        		
+	        		}elseif($itemTheme->getDraftmode() == 1 && $itemTheme->getId() == $theme->getId()){
+	        			$tabIdTheme[]=$itemTheme->getId();
+	        		}
+	    			
+	    		}
+	        }
+	    	
+		    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
+		      'tabIdTheme'=>$tabIdTheme,
+		      'theme' => $theme,     
+		    ));
+
+	    }else{
+		    	$request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    	return $this->redirectToRoute('tds_home');
+		}
 	}
 
 
