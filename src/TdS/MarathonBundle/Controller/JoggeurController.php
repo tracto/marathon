@@ -110,61 +110,67 @@ class JoggeurController extends Controller{
 
 
     public function addAction(Request $request){
-    	$joggeur=new Joggeur();
+      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+        	$joggeur=new Joggeur();
 
-		$form=$this->get('form.factory')->create(new JoggeurType(), $joggeur); 
-		$form->handleRequest($request);
+      		$form=$this->get('form.factory')->create(new JoggeurType(), $joggeur); 
+      		$form->handleRequest($request);
 
-		if($form->isValid()){
-            $targetPath = $request->request->get('_target_path');
+      		if($form->isValid()){
+                  $targetPath = $request->request->get('_target_path');
 
-			$em=$this->getDoctrine()->getManager();
-			$em->persist($joggeur);
-			$em->flush();
+      			$em=$this->getDoctrine()->getManager();
+      			$em->persist($joggeur);
+      			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('notice','joggeur bien enregistré.');
-            if($targetPath != null){
-                return $this->redirect($targetPath);
-            }else{
-                return $this->redirect($this->generateUrl('tds_marathon_joggeur_view',array('id'=>$joggeur->getId()))); 
-            }			
-		}
+      			$request->getSession()->getFlashBag()->add('notice','joggeur bien enregistré.');
+                  if($targetPath != null){
+                      return $this->redirect($targetPath);
+                  }else{
+                      return $this->redirect($this->generateUrl('tds_marathon_joggeur_view',array('id'=>$joggeur->getId()))); 
+                  }			
+      		}
 
-        return $this->render('TdSMarathonBundle:Joggeur:add.html.twig', array('form'=>$form->createView()));
+              return $this->render('TdSMarathonBundle:Joggeur:add.html.twig', array('form'=>$form->createView()));
+
+          }else{
+            $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+            return $this->redirectToRoute('tds_dashboard');
+          }
     }
 
     
 
     public function editAction(Joggeur $joggeur, $id, Request $request){
+      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
+      	$em=$this->getDoctrine()->getManager();	
+      	$form = $this->createForm(new JoggeurEditType(), $joggeur);
 
-    	$em=$this->getDoctrine()->getManager();	
-    	$form = $this->createForm(new JoggeurEditType(), $joggeur);
-
-    	$form->handleRequest($request);
-	  	if ($form->isSubmitted() && $form->isValid()) {	
-              $em->persist($joggeur); 		
-	  		  $em->flush();
-	  		  return $this->redirect($this->generateUrl('tds_marathon_joggeur_view',array('id'=>$joggeur->getId())));
-	  	}else{
-	  	
-	  	return $this->render('TdSMarathonBundle:Joggeur:edit.html.twig',array(
-	  		'form'=>$form->createView(),
-	  		'joggeur'=>$joggeur,
-	  		));
-	  	}
+      	$form->handleRequest($request);
+  	  	if ($form->isSubmitted() && $form->isValid()) {	
+                $em->persist($joggeur); 		
+  	  		  $em->flush();
+  	  		  return $this->redirect($this->generateUrl('tds_marathon_joggeur_view',array('id'=>$joggeur->getId())));
+  	  	}else{
+  	  	
+  	  	return $this->render('TdSMarathonBundle:Joggeur:edit.html.twig',array(
+  	  		'form'=>$form->createView(),
+  	  		'joggeur'=>$joggeur,
+  	  		));
+  	  	}
+      }else{
+          $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+          return $this->redirectToRoute('tds_dashboard');
+      }
 	  	
     }
 
 
     public function deleteAction(Joggeur $joggeur, $id, Request $request){
+      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
         $em=$this->getDoctrine()->getManager();
         $joggeur = $em->getRepository('TdSMarathonBundle:Joggeur')
                     ->findOneBy(array('id' => $id));
-
-        // $username=$joggeur->getUser()->getUsername();
-        // echo "<h2>".$username."</h2>";
-
-         // $user = $em->getRepository('TdSUserBundle:User')->find($id);
 
         if($joggeur!=null){
             $userAttached=$joggeur->getUser();
@@ -183,94 +189,101 @@ class JoggeurController extends Controller{
 
         return $this->render('TdSMarathonBundle:Joggeur:index.html.twig', array(
                                 'listeJoggeurs'=>$listeJoggeurs));
+      }else{
+        $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+        return $this->redirectToRoute('tds_dashboard');
+      }
     }
 
 
     public function addpointsAction(Joggeur $joggeur, $id, Request $request){
-    	$em=$this->getDoctrine()->getManager();
+      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
+      	$em=$this->getDoctrine()->getManager();
 
-        $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
-                           ->findOneBy(array('id' => $id));
+          $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
+                             ->findOneBy(array('id' => $id));
 
-        $saison=$em->getRepository('TdSMarathonBundle:Saison')
-                    ->findOneBy(array('activate' => 1));
+          $saison=$em->getRepository('TdSMarathonBundle:Saison')
+                      ->findOneBy(array('activate' => 1));
 
-    	  $themePostActivate=$em->getRepository('TdSMarathonBundle:Theme')
-    					   ->findOneBy(array('postActivate' => 1));
+      	  $themePostActivate=$em->getRepository('TdSMarathonBundle:Theme')
+      					   ->findOneBy(array('postActivate' => 1));
 
-        $joggeursDuTheme= new ArrayCollection();
+          $joggeursDuTheme= new ArrayCollection();
 
-        if($themePostActivate){
-          $musicTitlesDuTheme=$themePostActivate->getMusicTitles();
-          
+          if($themePostActivate){
+            $musicTitlesDuTheme=$themePostActivate->getMusicTitles();
+            
 
-          $scoreJoggeurParTheme=$em->getRepository('TdSMarathonBundle:JoggeurScore')
-                           ->findJoggeurParTheme($joggeur,$themePostActivate);
-          if(!empty($scoreJoggeurParTheme)){
-              $scoreJoggeurParTheme=$scoreJoggeurParTheme[0];
-          }
-          
+            $scoreJoggeurParTheme=$em->getRepository('TdSMarathonBundle:JoggeurScore')
+                             ->findJoggeurParTheme($joggeur,$themePostActivate);
+            if(!empty($scoreJoggeurParTheme)){
+                $scoreJoggeurParTheme=$scoreJoggeurParTheme[0];
+            }
+            
 
-          foreach($musicTitlesDuTheme as $musicTitleDuTheme){
-              if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
-                  $joggeursDuTheme->add($musicTitleDuTheme->getJoggeur());
-              }
-          }
-
-          $task=new Task();
-        
-          foreach($joggeursDuTheme as $joggeurDuTheme){            
-                  $tag=new Tag();
-                  $tag->idJoggeur=$joggeurDuTheme->getId();
-                  $tag->heartPoints=0;
-                  $task->getTags()->add($tag);            
-          }
-          
-          $form=$this->createForm(new TaskType(),$task);
-           
-          $form->handleRequest($request);
-
-          if ($form->isSubmitted() && $form->isValid()) {
-                $joggeur->getJoggeurScore()->setPointstogive($task->getRemainingPoints()); 
-                $em->persist($joggeur);
-                
-                $tags=$form->get('tags')->getData();
-                foreach($tags as $tag){
-                          $idJoggeur=$tag->idJoggeur;
-                          $joggeurHeart=$em->getRepository('TdSMarathonBundle:Joggeur')
-                             ->findOneBy(array('id' => $idJoggeur));
-                          $scoreJoggeurHeart=$em->getRepository('TdSMarathonBundle:JoggeurScore')
-                             ->findJoggeurParTheme($joggeurHeart,$themePostActivate);
-                          $scoreJoggeurHeart=$scoreJoggeurHeart[0];
-                          $scoresHeart=$scoreJoggeurHeart->getScores();
-                          foreach($scoresHeart as $scoreHeart){
-                             $scoreHeart->setHeartpoints($tag->heartPoints+$scoreHeart->getHeartpoints());
-                             $scoreJoggeurHeart->setScore($scoreHeart);
-                             $em->persist($scoreJoggeurHeart); 
-                          }                                        
+            foreach($musicTitlesDuTheme as $musicTitleDuTheme){
+                if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
+                    $joggeursDuTheme->add($musicTitleDuTheme->getJoggeur());
                 }
-                
-                $em->flush();
-                return $this->redirect($this->generateUrl('tds_marathon_joggeur_classement',array('saisonid'=>$saison->getId())));
-          }
+            }
 
-          $form=$form->createView();
+            $task=new Task();
+          
+            foreach($joggeursDuTheme as $joggeurDuTheme){            
+                    $tag=new Tag();
+                    $tag->idJoggeur=$joggeurDuTheme->getId();
+                    $tag->heartPoints=0;
+                    $task->getTags()->add($tag);            
+            }
+            
+            $form=$this->createForm(new TaskType(),$task);
+             
+            $form->handleRequest($request);
 
-        }else{
-          $scoreJoggeurParTheme="";
-          $form="";
-        }
+            if ($form->isSubmitted() && $form->isValid()) {
+                  $joggeur->getJoggeurScore()->setPointstogive($task->getRemainingPoints()); 
+                  $em->persist($joggeur);
+                  
+                  $tags=$form->get('tags')->getData();
+                  foreach($tags as $tag){
+                            $idJoggeur=$tag->idJoggeur;
+                            $joggeurHeart=$em->getRepository('TdSMarathonBundle:Joggeur')
+                               ->findOneBy(array('id' => $idJoggeur));
+                            $scoreJoggeurHeart=$em->getRepository('TdSMarathonBundle:JoggeurScore')
+                               ->findJoggeurParTheme($joggeurHeart,$themePostActivate);
+                            $scoreJoggeurHeart=$scoreJoggeurHeart[0];
+                            $scoresHeart=$scoreJoggeurHeart->getScores();
+                            foreach($scoresHeart as $scoreHeart){
+                               $scoreHeart->setHeartpoints($tag->heartPoints+$scoreHeart->getHeartpoints());
+                               $scoreJoggeurHeart->setScore($scoreHeart);
+                               $em->persist($scoreJoggeurHeart); 
+                            }                                        
+                  }
+                  
+                  $em->flush();
+                  return $this->redirect($this->generateUrl('tds_marathon_joggeur_classement',array('saisonid'=>$saison->getId())));
+            }
 
-        
-        
+            $form=$form->createView();
 
-    	return $this->render('TdSMarathonBundle:Joggeur:addpoints.html.twig',array(
-      	  		'joggeur'=>$joggeur,
-              'joggeursDuTheme'=>$joggeursDuTheme,
-      	  		'themePostActivate'=>$themePostActivate,
-              'scoreJoggeurParTheme'=>$scoreJoggeurParTheme,
-              'form'=>$form
-	  		));
+          }else{
+            $scoreJoggeurParTheme="";
+            $form="";
+          }         
+
+      	return $this->render('TdSMarathonBundle:Joggeur:addpoints.html.twig',array(
+        	  		'joggeur'=>$joggeur,
+                'joggeursDuTheme'=>$joggeursDuTheme,
+        	  		'themePostActivate'=>$themePostActivate,
+                'scoreJoggeurParTheme'=>$scoreJoggeurParTheme,
+                'form'=>$form
+  	  		));
+
+      }else{
+        $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+        return $this->redirectToRoute('tds_dashboard');
+      }
     }
 }
 
