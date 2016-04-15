@@ -254,15 +254,34 @@
 		        					{% set i=0 %}
 		        					<div>
 		        						{% for theme in allThemes %}
-		        							{% if theme.chronique is null and theme.draftmode == 0 %}		
-		        								{% for musicTitle in theme.musicTitles %}
+		        							{% if (theme.chronique is empty or theme.chronique is null) and theme.draftmode == 0 %}
+		        								{% if app.user.joggeur == theme.joggeurChronique %}
+		        									{% set i=i+1 %}
+		        								{% endif %}
+		        							{% endif %}
+		        						{% endfor %}
+
+		        						{% if i != 0 %}
+		        							<div data-action="show-chronique" class='btn btn-caret'>
+			        							<span>tu as {{ i }} chronique(s) à écrire</span>
+			        							<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+			        						</div>
+		        						{% else %}
+			        						<div>Zut de flûte, tu n'as aucune chronique à écrire</div>
+		        						{% endif %}
+
+
+
+		        						{% for theme in allThemes %}
+		        							{% if (theme.chronique is empty or theme.chronique is null) and theme.draftmode == 0 %}
+		        								{% if app.user.joggeur == theme.joggeurChronique %}
+		        									
+			        									
+		        								{# {% for musicTitle in theme.musicTitles %}
 			        								{% if loop.index == 1 %}
 			        									{% if app.user.joggeur == musicTitle.joggeur %}
-			        										{% set i=i+1 %}
-			        										<div data-action="show-chronique" class='btn btn-caret'>
-		        												<span>tu as {{ i }} chronique(s) à écrire</span>
-		        												<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
-		        											</div>
+			        										{% set i=i+1 %} #}
+			        										
 			        										<div class='chroniques-list mtm'>
 				        										<div class="flex-container-h pas sep--dashed">
 				        											<div class="flex-item-fluid">	
@@ -274,15 +293,14 @@
 						        									</a>
 						        								</div>
 					        								</div>
-			        									{% endif %}
+			        									{# {% endif %}
 			        								{% endif %}
-			        							{% endfor %}		        			
+			        							{% endfor %} #}
+			        							{% endif %}		        			
 			        						{% endif %}
 		        						{% endfor %}
 
-		        						{% if i==0 %}
-			        						<div>Zut de flûte, tu n'as aucune chronique à écrire</div>
-			        					{% endif %}	
+		        						
 		        					</div>
 		        				{% endif %}		        					
 	        				</div>

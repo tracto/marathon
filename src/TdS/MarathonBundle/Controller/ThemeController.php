@@ -259,6 +259,11 @@ class ThemeController extends Controller{
 	        }
 	        $i=$joggeursDuTheme->count();
 
+	        if($joggeursDuTheme[0] && $currentTheme){
+	        	$currentTheme->setJoggeurChronique($joggeursDuTheme[0]);
+	        	
+	    	}
+
 	        foreach($joggeursDuTheme as $joggeurDuTheme){
 	        	$joggeurScore=$joggeurDuTheme->getJoggeurScore();
 
