@@ -18,7 +18,11 @@ class TdSSaison {
 		$saison=$this->em
 	      	->getRepository('TdSMarathonBundle:Saison')
 	      	->findOneBy(array('activate' => 1));
-
-		return $saison->getTitre();
+	    if($saison){
+	    	$saisonTitre=$saison->getTitre();
+	    }else{
+	    	$saisonTitre="";
+	    }
+		return $saisonTitre;
 	}
 }
