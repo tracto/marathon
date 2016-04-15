@@ -36,9 +36,29 @@ security:
             remember_me:
                 key: %secret%
 
+
     access_control:
         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/dashboard, roles: ROLE_USER }
+        - { path: ^/joggeur/add, roles: ROLE_USER } 
+        - { path: ^/joggeur/edit/, roles: ROLE_USER }
+        - { path: ^/joggeur/addpoints/, roles: ROLE_USER }
+        - { path: ^/joggeur/delete/, roles: ROLE_ADMIN }
+        - { path: ^/theme/add, roles: ROLE_USER }
+        - { path: ^/theme/edit/, roles: ROLE_USER }
+        - { path: ^/theme/delete/, roles: ROLE_ADMIN }
+        - { path: ^/theme/switch, roles: ROLE_ADMIN }
+        - { path: ^/theme/addchronique/, roles: ROLE_USER }
+        - { path: ^/theme/editchronique/, roles: ROLE_USER }  
+        - { path: ^/joggeurs/classement/, roles: ROLE_USER }
+        - { path: ^/saisons, roles: ROLE_ADMIN }
+        - { path: ^/saison/switch, roles: ROLE_ADMIN }
+        - { path: ^/becky/liste, roles: ROLE_ADMIN }
+        - { path: ^/article/add, roles: ROLE_ADMIN }
+        - { path: ^/article/edit/, roles: ROLE_ADMIN }
+        - { path: ^/article/delete/, roles: ROLE_ADMIN }
+        - { path: ^/musictitle/, roles: ROLE_USER }
 
 

@@ -29,8 +29,10 @@ class CoreController extends Controller{
 	      	$lastSaison=$em
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findLastOne();
-	      	$lastSaison=$lastSaison[0];		
-	      	// var_dump($lastSaison);
+	      	$lastSaison=$lastSaison[0];
+
+
+
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -76,7 +78,11 @@ class CoreController extends Controller{
 
 			$listeJoggeurs=$em
 			      			->getRepository('TdSMarathonBundle:Joggeur')
-			      			->findAll();
+			      			->findAllSortByLastLogin();
+
+			if(!$saison){
+	      	 	$saison=$lastSaison;
+	      	}
 
 			$listeJoggeursScore = $em
 		          ->getRepository('TdSMarathonBundle:JoggeurScore')
@@ -86,10 +92,11 @@ class CoreController extends Controller{
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
 
-
-
-		    // $wof_jogEgoiste=$tdsScoring->getIdJogMostTakenPoints($listeJoggeursScore);
-		    // $wof_jogDonJuan=$tdsScoring->getIdJogMostHeartPoints($listeJoggeursScore);
+	        if($listeJoggeursScore){
+	        	$moitieJoggeurs=ceil((sizeof($listeJoggeursScore))/2)+1;
+	        }else{
+	        	$moitieJoggeurs=0;
+	        }
 
 		    $wof_jogEgoiste=$tdsScoring->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');
 		    $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
@@ -104,6 +111,7 @@ class CoreController extends Controller{
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
+					'moitieJoggeurs'=>$moitieJoggeurs,
 					'wof_jogEgoiste'=>$wof_jogEgoiste,
 					'wof_jogDonJuan'=>$wof_jogDonJuan,
 					'wof_jogPetitGros'=>$wof_jogPetitGros,
@@ -129,7 +137,8 @@ class CoreController extends Controller{
 	      			->getRepository('TdSMarathonBundle:Saison')
 	      			->findLastOne();
 	      	$lastSaison=$lastSaison[0];		
-	      	// var_dump($lastSaison);
+	      	
+	      	
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -237,24 +246,30 @@ class CoreController extends Controller{
 			$form->handleRequest($request);
             $data = $form->getData();
 
-            $contenuMail="<div>
-            				<h2>“".$data['pseudo']."“ veut devenir joggeur !</h2>
-            				<h3>Mail : </h3>
-            				<span>".$data['email']."</span>
-            				<h3>Candidature :</h3>
-            				<p>".$data['content']."</p>
-            			 </div>";
+            // $contenuMail="<div>
+            // 				<h2>“".$data['pseudo']."“ veut devenir joggeur !</h2>
+            // 				<h3>Mail : </h3>
+            // 				<span>".$data['email']."</span>
+            // 				<h3>Candidature :</h3>
+            // 				<p>".$data['content']."</p>
+            // 			 </div>";
 
-            // $contenuMail="yo";
+           $contenuMail="yo";
 
             $message = \Swift_Message::newInstance()
-                ->setContentType('text/html')
+            // $message = \Swift_Message::newInstance('SSL0.OVH.NET:contact@tiretdusix.net',25)
+                // ->setContentType('text/html')
                 ->setSubject("Marathon de la Semaine : demande d'inscription")
                 ->setFrom($data['email'])
-                ->setTo('contact@tiretdusix.net')
+                ->setTo('kl6yranne@yahoo.fr')
                 ->setBody($contenuMail);
 
-            $this->get('mailer')->send($message);
+            $mailer=$this->get('mailer');
+
+            $mailer->send($message);
+
+   //          $spool = $mailer->getTransport()->getSpool();
+			// $transport = $this->get('swiftmailer.transport.real');
 
             return $this->render('TdSCoreBundle:Core:participate-validation.html.twig',array('data'=>$data));
         }
