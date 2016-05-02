@@ -128,11 +128,13 @@
 														<div class="score">{{ joggeurScore.total }} pts</div>
 							      						<span class="points align-center">
 							      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-							      							<span class="mrs">{{ score.fastpoints }}</span> 
+							      							<span class="">{{ score.fastpoints }}</span> 
 								      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
 								      						<span class="">{{ score.heartpoints }}</span>
-								      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      						<span class="">{{ score.takenpoints }}</span>
+								      						{% if score.takenpoints != 0 %}
+									      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+									      						<span class="">{{ score.takenpoints }}</span>
+								      						{% endif %}
 							      						</span>
 							      					</div>
 						      					{% endif %}
@@ -161,11 +163,13 @@
 												
 					      						<span class="points align-center">
 					      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-					      							<span class="mrs">{{ score.fastpoints }}</span> 
+					      							<span class="">{{ score.fastpoints }}</span> 
 						      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
 						      						<span class="">{{ score.heartpoints }}</span>
-						      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      				<span class="">{{ score.takenpoints }}</span>
+						      						{% if score.takenpoints != 0 %}
+						      							<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+								      					<span class="">{{ score.takenpoints }}</span>
+								      				{% endif %}
 					      						</span>
 					      						
 					      					</div>
@@ -194,11 +198,13 @@
 														<div class="score">{{ joggeurScore.total }} pts</div>		
 							      						<span class="points align-center">
 							      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-							      							<span class="mrs">{{ score.fastpoints }}</span> 
+							      							<span class="">{{ score.fastpoints }}</span> 
 								      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
 								      						<span class="">{{ score.heartpoints }}</span>
-								      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      						<span class="">{{ score.takenpoints }}</span>	
+								      						{% if score.takenpoints != 0 %}
+								      							<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+								      							<span class="">{{ score.takenpoints }}</span>
+								      						{% endif %}	
 								      					</span>
 							      					</div>
 						      					{% endif %}
@@ -213,7 +219,8 @@
 							<div class="legende align-center pas pbn mbn ">
 								Légende [
 								<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
-								<svg class="icon icon--s icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>=points vitesse ]
+								<svg class="icon icon--s icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>=points vitesse
+								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
 							</div>
 						</div>
 					</div>
@@ -330,7 +337,7 @@
 			</div>					
 		</div>
 
-		<div class="playlist-comments ptl pbxl pbxxl-mobile">	
+		<div class="playlist-comments ptl">	
 			{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': theme.id } %}
 		</div>	
 
