@@ -1,5 +1,51 @@
 .playlist-wrapper{
 	background-image:url('../images/playlist/playlist-bg.jpg');
+
+	.flex-container-h {
+		flex-flow: row wrap;
+		align-items:flex-start;
+		/*align-items:center;
+		justify-content: center;*/
+
+		@media $medium{
+  			/*justify-content: space-between;
+  			align-items:right;*/
+  		}
+
+		&:after {
+		  content: "";
+		  flex: auto;
+		}
+
+	}
+}
+
+
+.col-playlist-gauche{
+	flex:0 1 100%;
+	background-color:$color9;
+
+	@media $medium{
+		flex:1 1 50%;
+	}
+}
+
+.col-playlist-droite{
+	flex:0 1 100%;
+	/*padding-bottom:85px;*/
+	/*background-color:rgba(255,255,255,0.4);*/
+
+	@media $medium{
+		flex:1 1 50%;
+		overflow-y: auto;
+    	min-height: 0px
+	}
+}
+
+.playlist-comments{
+	/*display:none;*/
+	/*background-color:#D4DACE;*/
+	background-color:#CCD4CA;
 }
 
 
@@ -88,7 +134,8 @@
 .playlist-nav-suiv {
 	position: absolute;
 	top: -30px;
-	background-color:$color5;
+	/*background-color:$color5;*/
+	background-color:$color17;
 	color:$grey5;
 	z-index: 2;
 
@@ -126,6 +173,44 @@
 	@media $medium{
    		overflow-x:hidden;
    }
+}
+
+
+.playlist-scores{
+	background-color:$color11;
+
+	.wof-wrapper{
+
+		.wof-item{
+			flex:1;
+
+			
+			strong {
+				opacity:0.8;
+			}
+			
+
+			.score{
+				font-size:1.4em;
+				/*border-top:solid 1px $grey3;*/
+			}
+
+			.points{
+				
+
+				svg {
+					margin-right:0.2em;
+				}
+			}
+		}
+
+		.legende{
+			width:100%;
+			opacity:0.7;
+			border:none;
+			font-size:0.8em;
+		}
+	}
 }
 
 .playlist-chronique{
@@ -191,6 +276,10 @@
 		margin:0;
 		padding:0;
 	}
+
+	img{
+		width:100%;
+	}
 }
 
 
@@ -227,8 +316,6 @@
 
 
 .jp-interface{
-	/*padding:20px;*/
-	background-color:$grey5;
 	padding:0 20px 20px 20px;
 }
 
@@ -336,7 +423,7 @@ div.jp-seeking-bg {
 .jp-volume-controls{
 	display:none;
 
-	@media $medium{
+	@media $large{
 		display:block;
 	}
 }
@@ -391,41 +478,42 @@ div.jp-seeking-bg {
 
 .jp-playlist{
 	background-image:url('../images/playlist/playlist-bg.jpg');
+	padding:1rem;
 
 	@media $medium{
 		overflow-y:auto;
 		-webkit-overflow-scrolling: touch;
-		max-height:700px;
+		height:auto;
+		max-height:110vh;
+		padding:2rem;
 	}
 }
 
 
 .jp-playlist li{
-	border-bottom:solid 1px darkgrey;
-	padding:10px;
-	background-color:rgba(252,254,255,0.75);
-
+	border-bottom:solid 1px rgba(223, 227, 222, 1);
+	padding:3px;
+	background: linear-gradient(to bottom,rgba(255, 255, 255, 0.9) -18%,rgba(223, 227, 222, 0.9) 12%,rgba(223, 227, 222, 0.4) 181%);
 }
 
 .jp-playlist li a{
-	color:black;
-	display:flex;
+	color:$grey0;
 }
 
 .jp-playlist li a:hover{
 	text-decoration:none;
 }
 
-.jp-playlist li.jp-playlist-current{
-	border:solid 1px $grey3;
-	background-color:$color2;
-	color:white;
+.jp-playlist li a:focus{
+	outline:none;
 }
 
-.playlist-item{
-	border-bottom:solid 1px $grey3;
-	padding:10px;
+.jp-playlist li.jp-playlist-current{
+	background: linear-gradient(to bottom,rgba(29,19,31,.9) -18%,rgba(6, 152, 91, 0.48) 12%,#CFD1D4 181%);
 }
+
+
+
 
 
 .playlist-item .jp-title{
@@ -434,10 +522,20 @@ div.jp-seeking-bg {
 
 .playlist-item{	
 	font-size:1em;
+	border-bottom:solid 1px $grey3;
+	/*background: linear-gradient(top,rgba(224, 228, 223, 0.6),rgba(255,255,255,0));*/
 
-	.jp-thumb, .jp-artist, .jp-theme{
+	.jp-title-artist{
 		display:inline-block;
 		vertical-align:middle;
+		text-align:left;
+		line-height:1em;
+	}
+
+	.jp-thumb, .jp-artist, .jp-theme{
+		
+		/*display:inline-block;
+		vertical-align:middle;*/
 	}
 
 	.jp-title{
@@ -450,12 +548,15 @@ div.jp-seeking-bg {
 	}
 
 	.jp-thumb{
+		display:inline-block;
+		vertical-align:middle;
 		width:50px;
 		height:50px;
 		overflow:hidden;
-		margin-right:7px;
+		margin-right:10px;
 		border:solid 1px $grey4;
 		flex-shrink: 0;
+		border-radius:3px;
 
 		img{
 			width:100%;
@@ -549,11 +650,11 @@ div.jp-seeking-bg {
 		}
 
 		.jp-volume-controls {
-
+			padding:3px;
 		}
 
 		.jp-volume-toggles {
-			margin:0 auto;
+			
 
 			@media $medium{
 				width:100%;
@@ -587,7 +688,7 @@ div.jp-seeking-bg {
 
 			.jp-thumb-artiste{
 				display:inline-block;
-				margin-right:0px;
+				margin-left:0px;
 			}
 		}
 
@@ -596,9 +697,22 @@ div.jp-seeking-bg {
 		}	
 	}
 
-
-
 }
+
+
+.playlist-wrapper{
+	.creativec-lien{
+		text-align: right;
+	    padding: 1rem;
+
+	    img {
+	    	width:80px;
+	    }
+	}
+}
+
+
+
 
 
 

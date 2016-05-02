@@ -2,92 +2,117 @@
    
 }
 
-.index-wrapper [class*="col-"]{
+/*.index-wrapper [class*="col-"]{
   margin-bottom: -99999px;
   padding-bottom: 99999px;
-}
+}*/
 
 
 
 
 .tableau-bord{
-	background-color:$grey1;
-	
+	/*background-color:$grey1;*/
+	display:flex;
+	flex-flow: row wrap;
+  	justify-content: space-between;
+  	align-items:stretch;
+
+
+
+	.tableau-bord_col-gauche{
+		color:$grey1;
+		
+	}
+
+	.tableau-bord_col-droite{
+		
+		
+	}
 
 	.sub-title{
 		text-align:center;
 		margin:0;
 		padding: 10px 0;
-	}
+	}	
+
 
 }
 
 
-.tableau-bord_col-gauche{
-	color:$grey6;
 
-	>.row{
-		padding:20px;
-	}
-	
-}
 
 
 
 .panneau-infos{
 	padding-bottom:20px;
 	background-color:$color9;
+	flex:1 1 100%;
+	order:1;
+
+	@media $medium{
+		flex:1 1 30%;
+		order:2;
+	}
+
 }
 
 
 .chroniques div.chroniques-list{
 	display:none;
-	/*padding-top:10px;
-	border-top:#333 1px dashed;
-	margin-top:10px;*/
 }
 
-.tableau-bord div.chroniques div.chroniques-list .col{
-	/*background-color:transparent;
-	margin-bottom:10px;
-	padding-bottom:10px;
-	border:solid #333;
-	border-width:0 1px 1px 0;*/
 
-}
 
 
 .col-score{
 	padding-bottom:20px;
 	background-color:$color11;
+	flex:1 1 100%;
+	order:1;
+
+	@media $medium{
+			flex:1 1 40%;
+			
+	}
 }
 
 .col-profil{
 	padding-bottom:20px;
 	background-color:$color5;
+	flex:1 1 100%;
+	order:2;
+	
+	@media $medium{
+			flex:1 1 60%;
+			
+	}
+
+	.flex-container-h{
+		align-items: center;
+    	justify-content: center;
+	}
+
+	.flex-item{
+		text-align:center;
+
+		@media $medium{
+			text-align:left;
+		}
+	}
 }
 
 
+.col-playlist{
+	background-image:url('../images/playlist/playlist-bg.jpg');
+	flex:1 1 100%;
+		order:2;
 
-
-
-
-
-
-
-
-
-
-
-.tableau-bord .row{
-  overflow: hidden;
-
+		@media $medium{
+			flex:1 1 70%;
+			order:1;
+	}
 }
 
-.tableau-bord .row [class*="col-"]{
-  /*margin-bottom: -99999px;
-  padding-bottom: 99999px;*/
-}
 
 
 #closeSaison-brief{
@@ -103,6 +128,9 @@
 .activeTheme-wrapper .activeTheme-brief{
 	display:none;
 }
+
+
+
 
 
 
@@ -129,7 +157,13 @@
 	background-image:url('../images/bg-marathonchanteurs.jpg');
 	background-size:cover;
 	background-repeat:repeat-y;
-	display: flex;
+	flex: 1 1 100%;
+	order:1;
+
+	@media $medium{
+		flex: 1 1 55%;
+		order:2;
+	}
 }
 
 .col-classement{
@@ -153,14 +187,15 @@
     
 
 	.podium-wrapper{
-		position:relative;
-		top:0;
+		/*position:relative;
+		top:0;*/
 	}
 
 	.podium {
-		position: relative;
+		flex:1 1 33%;
+		/*position: relative;*/
     	height: 350px;
-    	top: 0;
+    	/*top: 0;*/
 
 		.inner-podium {
 			height: 350px;
@@ -182,8 +217,12 @@
 				width: 130%;
 				margin-left: -15%;
 				position: absolute;
-				bottom: 75px;
+				bottom: 150px;
 				height: auto;
+
+				@media $medium{
+					bottom: 85px;
+				}
 			}
 
     		
@@ -194,13 +233,44 @@
     			font-size: 2.5em;
     		}
 
-    		.score{
+    		.score-wrapper{
     			display: block;
     			text-align: center;
-    			font-size: 1.5em;
+    			
     			position: absolute;
-    			bottom: 30px;
+    			bottom: 50px;
     			width: 100%;
+
+    			@media $medium{
+					bottom: 15px;
+				}
+
+    			.score{
+					font-size:1.4em;
+					
+				}
+
+				.points{
+					display:flex;
+					display: flex;
+				    flex-direction: row;
+				    flex-wrap: wrap;
+					font-size:0.8em;
+
+					.points-item{
+						flex:1 1 100%;
+
+						@media $medium{
+							flex:1 1 30%;
+						}
+					}
+
+					svg {
+						margin-right:0.2em;
+					}
+				}
+
+
     		}
 
     		.joggeur-name{
@@ -212,12 +282,19 @@
     			font-size:1.2em;
     			line-height: 0.8em;
     		}
+
+    		strong {
+				opacity:0.8;
+			}
+			
+
 		}		
 	}
 	
 
 	.podium-1{
 		z-index:6;
+		order:2;
 
 		.inner-podium {
 			.colonne {
@@ -234,6 +311,8 @@
 	}
 
 	.podium-2{
+		order:3;
+
 		.inner-podium {
 			height: 330px;
 
@@ -245,6 +324,7 @@
 	}
 
 	.podium-3{
+		order:1;
 		.inner-podium{
 			height: 310px;
 
@@ -257,38 +337,108 @@
 	}
 
 
+	.legende{
+		opacity:0.7;
+		border:none;
+		font-size:0.8em;
+	}
+
+
 }
 
 .walloffame {
 
 	.wof-wrapper {
 		width:100%;
-	}
+	
 
-	.wof-item {
-		max-width:50%;
+		.wof-item {
+			max-width:50%;
 
-		@media $medium{
-			width:25%;
+			@media $medium{
+				width:25%;
+				
+			}
+
+				
 			
+			
+
+			
+		
+		} 
+
+		h4 {
+			line-height:1.1em;
+			word-wrap:break-word;
 		}
-	} 
 
-	h4 {
-		line-height:1.1em;
-		word-wrap:break-word;
+
+	   	strong {
+	   		display: block;
+	    	line-height: 1em;
+	   		font-size:0.8em;
+	   	}
+
+	   	
 	}
-
-
-   	strong {
-   		display: block;
-    	line-height: 1em;
-   		font-size:0.8em;
-   	}
 }
 
 
 .latotale{
+
+	.flex-item-fluid{
+		flex:1 1 100%;
+
+		@media $medium-intermediate {
+			flex:1 1 50%;
+		}
+
+	}
+
+	.list-item{
+	    text-align: center;
+
+	    @media $medium-intermediate {
+			text-align: left;
+		}
+	}
+
+	h4 {
+		font-size:1.2em;
+		font-weight:bold;
+
+
+		&:after{
+			content:'';
+			display:inline-block;
+			vertical-align:middle;
+			border-top:solid 3px $grey2;
+			background-color:red;
+		}
+	}
+
+	.scoreTotal{
+		font-size:1.1em;
+		font-weight:bold;
+		color:grey0;
+	}
+
+	.points{
+		padding-left:0;
+
+		@media $medium{
+			padding-left:1rem;
+			display:block;
+		}
+
+		@media $large{
+			display:inline;
+		}
+	}
+
+
+
 
 }
 
@@ -298,10 +448,16 @@
 }
 
 .col-gauche{
-    display: flex;
-    flex: 1 1 auto;
-	flex-direction:column;
+    flex: 1 1 100%;
+    order:2;
+	/*flex-direction:column;*/
 	background-image: url("../images/bg-marbre.jpg");
+
+
+	@media $medium{
+		flex: 1 1 45%;
+		order:1;
+	}
 }
 
 
@@ -319,25 +475,33 @@
 }
 
 .col-articles{
-	background:rgba(208,201,201,1);
-	flex: 1 1 auto;
-	padding:0;
+	background:#BDBDBD;
+	flex: 1 1 70%;
+	padding:3px;
+
 	/*background:url('../images/playlist/playlist-bg.jpg');*/
 	.more-articles-content{
-		background-color:red;
+		
+	}
+
+	.articles-liste{
+
+    	@media $medium{
+    		column-count: 2;
+   			column-gap: 0;
+    	}
+   		
 	}
 	
 
 	.article-wrapper{
-		padding:5px;
-
-		&:first-child{
-			width:100%;
-		}
+		display: inline-block;
+		padding: 3px;
+    	width: 100%;
 
 		.article-inner-wrapper{
 			/*margin: 5px;*/
-			background: white;
+			background: #D4DACE;
 		}
 
 
@@ -371,7 +535,7 @@
 
 
 .col-themes{
-	flex: 1 1 auto;
+	flex: 1 1 30%;
 	background-color:$color11;
 
 	.vignette-item{
@@ -387,11 +551,19 @@
 .col-liens{
 	background-image:url('../images/bg-marbre.jpg');
 	color:$grey6;
-	/*background-image:url('../images/bg-marathonchanteurs.jpg');
-	background-size:cover;
-	background-repeat:repeat-y;
-	*/
 	flex: 0 0 auto;
+
+	ul{
+		color:$grey0;
+	}
+
+	li{
+		a{
+			background-color:rgba(255,255,255,0.6);
+			padding:3px 10px;
+		}
+		
+	}
 
 	.form-website{
 		display:none;

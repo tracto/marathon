@@ -5,6 +5,18 @@ $(document).ready(function(){
       var titleCurrent=0;
 
 
+      var is_medium = false;
+      if( $('#device').css('display')=='none') {
+          is_medium= true;       
+      }
+
+      if(is_medium){
+        var refHeight=$(".col-playlist-gauche").height()-235;
+        $(".jp-playlist").css({"max-height":refHeight+"px"});
+        console.log($(".col-playlist-gauche").height());
+      }
+
+
       playlistBody.each(function(){
           var $btnPlaylistPrecedent=$(".playlist-nav-prec");
           var idPlaylistRedirect=$btnPlaylistPrecedent.data('id');
@@ -20,7 +32,6 @@ $(document).ready(function(){
               var musicTitleThumb=$(this).data('thumb');
               var musicTitleItem={index:musicTitleIndex, title:musicTitleTitre, artist:musicTitleArtiste, mp3:musicTitlePath, thumb:musicTitleThumb};
               musicTitlesArray.push(musicTitleItem);
-              console.log(musicTitlesArray);
           });
 
           $(this).find('.jp-jplayer').attr('id','jp-jplayer_'+i);
@@ -30,13 +41,11 @@ $(document).ready(function(){
 
           createListItem=function(media){
                 var self = this;
+                var listItem = "<li class='playlist-item'><div>";
 
-                // Wrap the <li> contents in a <div>
-                var listItem = "<li class='playlist-item'><span>"
-                // Create remove control
-                listItem += "<a href='javascript:;' class='" + myPlaylist.options.playlistOptions.itemClass + "' tabindex='1'><span class='jp-thumb'><img src='"+media.thumb+"'/></span><span class='jp-title-artist'><span class='jp-title'>"+media.index + "-" + media.title + "</span>" + (media.artist ?
+                listItem += "<a href='javascript:;' class='" + myPlaylist.options.playlistOptions.itemClass + "' data-tabindex='"+media.index+"'><span class='jp-thumb'><img src='"+media.thumb+"'/></span><span class='jp-title-artist'><span class='jp-title'>"+media.index + "-" + media.title + "</span>" + (media.artist ?
                 " <span class='jp-artist'>" + media.artist + "</span></span>" : "") + "</a>";
-                listItem += "</span></li>";
+                listItem += "</div></li>";             
                 return listItem;
           };
 
@@ -94,10 +103,14 @@ $(document).ready(function(){
 
                 $(".jp-playlist-inner ul").append(listItem);
 
+                $("[data-tabindex='1']").parent().parent().addClass("jp-playlist-current");
+
              },
 
              play : function(){
                 titleCurrent=myPlaylist.current;
+                console.log(titleCurrent.options);
+                // myPlaylist.options.playlistOptions.itemClass 
              },
 
              ended: function() {
