@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
@@ -31,6 +32,16 @@ class JoggeurController extends Controller{
     	$em=$this->getDoctrine()->getManager();
     	$listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
     					   ->findAllSortByLastLogin();
+
+      $image=$em
+              ->getRepository('TdSMarathonBundle:Image')
+              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
+
+     foreach($listeJoggeurs as $joggeur){
+            if(!$joggeur->getImage()){
+              $joggeur->setImage($image);
+            }
+      }
 
       return $this->render('TdSMarathonBundle:Joggeur:index.html.twig', array(
         						'listeJoggeurs'=>$listeJoggeurs));
@@ -45,15 +56,20 @@ class JoggeurController extends Controller{
         $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
                          ->findAll();
 
+        $image=$em
+              ->getRepository('TdSMarathonBundle:Image')
+              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
+     
+
         $tabIdJoggeur=array();
         foreach($listeJoggeurs as $itemJoggeur){
             $tabIdJoggeur[]=$itemJoggeur->getId();
         }
 
-    	$listeMusicTitles = $em
-      			->getRepository('TdSMarathonBundle:MusicTitle')
-      			->findBy(array('joggeur' => $joggeur))
-   		;
+        if(!$joggeur->getImage()){
+              $joggeur->setImage($image);
+        }
+
 
         $joggeurScore = $em
                       ->getRepository('TdSMarathonBundle:JoggeurScore')
@@ -150,6 +166,7 @@ class JoggeurController extends Controller{
   	  	if ($form->isSubmitted() && $form->isValid()) {	
                 $em->persist($joggeur); 		
   	  		  $em->flush();
+            $request->getSession()->getFlashBag()->add('notice',"Joggeur modifié avec succès");
   	  		  return $this->redirect($this->generateUrl('tds_marathon_joggeur_view',array('id'=>$joggeur->getId())));
   	  	}else{
   	  	
@@ -181,6 +198,7 @@ class JoggeurController extends Controller{
             }
              $em->remove($joggeur);
              $em->flush();
+             $request->getSession()->getFlashBag()->add('notice',"Joggeur supprimé");
         }
 
         
@@ -262,6 +280,7 @@ class JoggeurController extends Controller{
                   }
                   
                   $em->flush();
+                  $request->getSession()->getFlashBag()->add('notice',"Points bisous attribués avec succès");
                   return $this->redirect($this->generateUrl('tds_marathon_joggeur_classement',array('saisonid'=>$saison->getId())));
             }
 

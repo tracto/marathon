@@ -13,8 +13,8 @@
       	<div class='flex-container-h'>
       			 {% if saison is defined and saison.activate is not null %}
       				{# <div class="man"> #}
-	      				<div class="col col-xs-12 col-sm-8 col-articles">
-	      					
+	      				{# <div class="col col-xs-12 col-sm-8 col-articles"> #}
+	      				<div class="flex-item col-articles">	
 		        			{% if listeArticles is defined and listeArticles is not null %}
 		        				<div class="articles-liste">
 			        				{% for article in listeArticles %}
@@ -22,20 +22,23 @@
 			        				{% endfor %}
 		        				</div>
 
-		        				{# <div class="more-articles-content"></div> #}
+		        				<div class="more-articles-content"></div>
 
-		        				<div class="clearfix"></div>
-		        				{% if listeArticles|length > 4 %}
-			        				<button href="" class="button btn-more btn pull-left mas" data-action="show-more-articles" data-offset="4">
-				        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-						  				<span class="btn__label">Plus d'articles</span>
-				        			</button>
-			        			{% endif %}
+			        			{% if listeArticles|length > 5 %} 
+					        		<button href="" class="button btn-more btn pull-right mas" data-action="show-more-articles" data-offset="5">
+						        		<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+								  		<span class="btn__label">Plus d'articles</span>
+						        	</button>
+				        		{% endif %}
+		        				
 		        			{% else %}
 		        				<div>
 		        					<h3>Il n'y a aucun article pour l'instant</h3>	        		
 		        				</div>
 		        			{% endif %}
+
+		        			{# <div class="clearfix"></div> #}
+		        				
 
 		        			
 
@@ -46,9 +49,12 @@
 			        			</a>
 	        				{% endif %}
 		        		</div>
+
+		        		
 	        		
 
-		        		<div class="col col-xs-12 col-sm-4 col-themes man pan">		
+		        		{# <div class="col col-xs-12 col-sm-4 col-themes man pan"> #}	
+		        		<div class="flex-item col-themes man pan">	
 							{% if theme is defined and theme is not null %}
 								<div class='list-item vignette-item man pan'>
 									<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
@@ -104,17 +110,16 @@
 
 
 			<div class="flex-container-h">
-				<div class='col col-xs-12 col-sm-7 col-sm-push-5 pbxxl col-droite'>
-					<div class="row col-classement align-center pam">
+				<div class='pbxxl col-droite flex-item'>
+					<div class="col-classement align-center pam ">
 						{% if listeJoggeursScore|length > 3 %} 
 							<h2 class="sub-title">Classement</h2>
-							<div class="bg-op--white-5 pam">
+							<div class="bg-op--white-5 pam pbn">
 								<h3>Podium</h3>
-								<div class="row">
+								<div class="flex-container podium-wrapper mbl">
 									{% for joggeurScore in listeJoggeursScore %}
-										<div class="podium-wrapper mbl">
-										{% if loop.index == 1 %}										
-												<div class="podium podium-1 list-item col col-xs-4 col-xs-push-4">
+											{% if loop.index <= 3 %}
+													<div class="podium podium-{{ loop.index }} list-item">
 													<div class="inner-podium">
 														<div class="colonne">
 															<strong class="place">{{ loop.index }}</strong>
@@ -125,62 +130,58 @@
 																	{% endif %}
 																</div>
 															</a>
-															<span class="score">{{ joggeurScore.total }}</span>
-															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
-														</div>
-													</div>
-												</div>
-											{% elseif loop.index == 2 %}
-												<div class="podium podium-2 list-item col col-xs-4 col-xs-pull-4">
-													<div class="inner-podium">
-														<div class="colonne">
-															<strong class="place">{{ loop.index }}</strong>
-															<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-																<div class="round">
-																    {% if joggeurScore.joggeur.image is not null %}
-															  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-																	{% endif %}
-																</div>
-															</a>
-															<span class="score">{{ joggeurScore.total }}</span>
-															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
-														</div>
-													</div>
-												</div>
-											{% elseif loop.index == 3 %}
-												<div class="podium podium-3 list-item col col-xs-4 mbl">
-													<div class="inner-podium">
-														<div class="colonne">
-															<strong class="place">{{ loop.index }}</strong>
-															<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-																<div class="round">
-																    {% if joggeurScore.joggeur.image is not null %}
-															  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-																	{% endif %}
-																</div>
-															</a>
-															<span class="score">{{ joggeurScore.total }}</span>
-															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
-														</div>
-													</div>
-												</div>
-												
 
-											
-											{% endif %}	
-										</div>	
-							
+															<div class="pbs score-wrapper flex-align">
+																<span class="mrm score block">{{ joggeurScore.total }} pts</span>
+																
+																{% set totalFastpoints = 0 %}
+																{% set totalHeartpoints = 0 %}
+																{% set totalTakenpoints = 0 %}	
+																{% for score in joggeurScore.scores %}
+																	{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
+																	{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
+																	{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
+																{% endfor %}
+									      						<span class="points align-center">
+									      							<span class="points-item">
+										      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
+										      							<span class="">{{ totalFastpoints }}</span> 
+									      							</span>
+									      							<span class="points-item">
+											      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
+											      						<span class="">{{ totalHeartpoints }}</span>
+										      						</span>
+										      						<span class="points-item">
+											      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+											      						<span class="">{{ totalTakenpoints }}</span>
+										      						</span>	
+										      					</span>
+									      						
+									      					</div>
+															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+														</div>
+													</div>
+												</div>												
+										{% endif %}									 
 									{% endfor %}
+								</div>
+
+								<div class="legende align-center  pbn mbn ">
+									Légende [
+									<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse 
+									<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
+									<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
+
 								</div>
 							</div>
 
 							<div class="walloffame bg-op--white-5 align-center pam mtm">
 								<h3>Wall of Fame</h3>
 								<div class="wof-wrapper flex-container-fluid flex-justify">
-									<div class="wof-item wof_jogEgoiste flex-item list-item pas">					<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
+									<div class="wof-item wof_jogEgoiste flex-item list-item pas">				<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
 											<div class="round">
 													{% if wof_jogEgoiste.image is not null %}
-														<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}">
+														<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}"/>
 													{% endif %}
 											</div>
 										</a>
@@ -238,24 +239,56 @@
 								</div>
 							</div>
 						
-						<div class="latotale bg-op--white-5 pam mtm">
+						<div class="latotale bg-op--white-5 pam pbn mtm">
 							<h3 class="align-center">La totale</h3>
 							<div class="flex-container-h">
 								<div class="flex-item-fluid align-left">
 									{% for joggeurScore in listeJoggeursScore %}
+										{% set totalFastpoints = 0 %}
+											{% set totalHeartpoints = 0 %}
+											{% set totalTakenpoints = 0 %}	
+											{% for score in joggeurScore.scores %}
+												{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
+												{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
+												{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
+										{% endfor %}
 										{% if loop.index == moitieJoggeurs %}
 											</div>
 											<div class="flex-item-fluid align-left">
 										{% endif %}
 
-										<div class="list-item  plm prm">
-											<strong>{{ loop.index }} - </strong>
-											<span>{{ joggeurScore.joggeur.pseudo }} </span>
+										<div class="list-item  plm prm pbs">
+											<h4 class="man pan"><strong>{{ loop.index }} - </strong>
+											<span>{{ joggeurScore.joggeur.pseudo }}</span>
+											</h4>
+											
+											<span class="scoreTotal plm prs ">{{ joggeurScore.total }} pts</span>
 											<svg class="icon icon--xs icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-											<span>{{ joggeurScore.total }} pts</span>
+											<span class="points align-center pls">
+
+				      							<span class="points-item mrs">
+					      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
+					      							<span class="">{{ totalFastpoints }}</span> 
+				      							</span>
+				      							<span class="points-item mrs">
+						      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
+						      						<span class="">{{ totalHeartpoints }}</span>
+					      						</span>
+					      						<span class="points-item mrs">
+						      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+						      						<span class="">{{ totalTakenpoints }}</span>
+					      						</span>	
+					      					</span>
 										</div>
 									{% endfor %}
 								</div>
+							</div>
+							<div class="legende align-center pas pbn mbn ">
+								Légende [
+								<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse 
+								<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
+								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
+
 							</div>
 						</div>
 
@@ -265,9 +298,10 @@
 
 
 
-				<div class='col col-xs-12 col-sm-5 col-sm-pull-7 pbxxl  col-gauche'>
-					<div class="row list col-joggeurs pas">
-						<h2 class="sub-title">Les joggeurs</h2>
+
+				<div class='pbxxl  col-gauche flex-item'>
+					<div class="list col-joggeurs pas">
+						<h2 class="sub-title align-center">Les joggeurs</h2>
 						<div class="block clearfix">
 						    {% for joggeur in listeJoggeurs %}
 						    	{% if joggeur is not null %}
@@ -302,11 +336,11 @@
 						</div>
 					</div>
 
-					<div class="row pas pbxxl align-center col-liens">
+					<div class="pal pbxxl align-center col-liens">
 						<h2 class="sub-title">Pas loin</h2>
 						<ul class="unstyled">
 							{% for website in websites %}
-								<li><a href="{{ website.url }}">{{ website.name }}</a></li>
+								<li class="mts"><a href="{{ website.url }}">{{ website.name }}</a></li>
 							{% endfor %}						
 						</ul>
 

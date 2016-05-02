@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class MusicTitleController extends Controller{
 
@@ -105,6 +106,7 @@ class MusicTitleController extends Controller{
         if($musicTitle!=null){
              $em->remove($musicTitle);
              $em->flush();
+             $request->getSession()->getFlashBag()->add('notice',"Morceau supprimé");
         }
 
         return $this->redirect($referer);

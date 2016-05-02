@@ -2,6 +2,7 @@
 
 namespace TdS\MarathonBundle\Entity;
 
+use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\Theme;
 use Doctrine\ORM\EntityRepository;
 
@@ -45,6 +46,5 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
     		->getQuery()
     		->getResult();
 	}
-
 
 }

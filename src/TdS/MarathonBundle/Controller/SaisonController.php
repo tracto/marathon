@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
@@ -110,6 +111,7 @@ class SaisonController extends Controller{
 
 					
 			$em->flush();
+			$request->getSession()->getFlashBag()->add('notice',"Saison fermée");
 			return $this->redirect($referer);
 
 		}else{
@@ -132,7 +134,7 @@ class SaisonController extends Controller{
 				$em->persist($saison);
 				$em->flush();
 
-				$request->getSession()->getFlashBag()->add('notice','theme bien enregistré.');
+				$request->getSession()->getFlashBag()->add('notice','Nouvelle saison activée.');
 				
 				return $this->redirect($this->generateUrl('tds_marathon_theme_home'));
 			}

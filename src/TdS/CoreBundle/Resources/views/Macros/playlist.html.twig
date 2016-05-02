@@ -1,5 +1,5 @@
 {% macro playlist(theme,joggeur) %}
-<div class='playlist-body row'>
+<div class='playlist-body'>
 	<div class='hidden'>
 		{% if theme is not null %}
 			{% if theme.musicTitles is not null %}		
@@ -41,7 +41,7 @@
 	<div id="" class="jp-jplayer"></div>
 		<div id="" class="jp-container jp-audio" role="application" aria-label="media player">
 			<div class="jp-type-playlist">
-				<div class="jp-gui jp-interface row">
+				<div class="jp-gui jp-interface">
 					<div class="jp-controls-holder pas">
 						<div class="jp-controls">
 							<button class="jp-previous" role="button" tabindex="0">
@@ -68,8 +68,8 @@
 									<div class="jp-play-bar"></div>
 								</div>
 							</div>
-							<div class="jp-duration pull-left" role="timer" aria-label="duration">&nbsp;</div>
-							<div class="jp-current-time pull-right" role="timer" aria-label="time">&nbsp;</div>
+							<div class="jp-duration pull-right" role="timer" aria-label="duration">&nbsp;</div>
+							<div class="jp-current-time pull-left" role="timer" aria-label="time">&nbsp;</div>
 						</div>
 						
 						<div class="jp-sub-toggles flex-container pts"> 
