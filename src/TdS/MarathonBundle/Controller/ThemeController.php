@@ -43,7 +43,11 @@ class ThemeController extends Controller{
 	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
 	    					 ->findAll(); 
 
+	    	$image=$em
+              ->getRepository('TdSMarathonBundle:Image')
+              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
 
+              
 	        $tabIdTheme=array();
 	        foreach ($listeSaisons as $saison){
 	        	foreach($saison->getThemes() as $itemTheme){
@@ -61,6 +65,13 @@ class ThemeController extends Controller{
 	        $listeJoggeursScore = $em
 		          ->getRepository('TdSMarathonBundle:JoggeurScore')
 		          ->findAllParTheme($theme);
+
+		    foreach($listeJoggeursScore as $joggeurScore){
+		    	if(!$joggeurScore->getJoggeur()->getImage()){
+              		$joggeurScore->getJoggeur()->setImage($image);
+        		}
+		    }
+		     
 
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');

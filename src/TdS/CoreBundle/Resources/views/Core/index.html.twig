@@ -147,14 +147,16 @@
 										      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
 										      							<span class="">{{ totalFastpoints }}</span> 
 									      							</span>
-									      							<span class="points-item">
+									      							<span class="points-item points-item-heart ">
 											      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
 											      						<span class="">{{ totalHeartpoints }}</span>
 										      						</span>
-										      						<span class="points-item">
-											      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-											      						<span class="">{{ totalTakenpoints }}</span>
-										      						</span>	
+										      						{% if totalTakenpoints != 0 %}
+											      						<span class="points-item points-item-taken">
+												      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+												      						<span class="">{{ totalTakenpoints }}</span>
+											      						</span>	
+										      						{% endif %}
 										      					</span>
 									      						
 									      					</div>
@@ -270,11 +272,11 @@
 					      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
 					      							<span class="">{{ totalFastpoints }}</span> 
 				      							</span>
-				      							<span class="points-item mrs">
+				      							<span class="points-item points-item-heart mrs">
 						      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
 						      						<span class="">{{ totalHeartpoints }}</span>
 					      						</span>
-					      						<span class="points-item mrs">
+					      						<span class="points-item points-item-taken mrs">
 						      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
 						      						<span class="">{{ totalTakenpoints }}</span>
 					      						</span>	
