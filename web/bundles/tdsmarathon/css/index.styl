@@ -194,7 +194,7 @@
 	.podium {
 		flex:1 1 33%;
 		/*position: relative;*/
-    	height: 350px;
+    	height: 400px;
     	/*top: 0;*/
 
 		.inner-podium {
@@ -217,12 +217,18 @@
 				width: 130%;
 				margin-left: -15%;
 				position: absolute;
-				bottom: 150px;
+				bottom: 190px;
 				height: auto;
 
 				@media $medium{
-					bottom: 85px;
+					bottom: 155px;
 				}
+
+				@media $large{
+					bottom: 115px;
+				}
+
+
 			}
 
     		
@@ -238,12 +244,18 @@
     			text-align: center;
     			
     			position: absolute;
-    			bottom: 50px;
+    			bottom: 30px;
     			width: 100%;
 
     			@media $medium{
+					bottom: 25px;
+				}
+
+				@media $large{
 					bottom: 15px;
 				}
+
+
 
     			.score{
 					font-size:1.4em;
@@ -252,21 +264,43 @@
 
 				.points{
 					display:flex;
-					display: flex;
 				    flex-direction: row;
 				    flex-wrap: wrap;
+				    align-items:stretch;
 					font-size:0.8em;
+					margin:0 2px 0 2px;
 
 					.points-item{
 						flex:1 1 100%;
+						text-align:center;
+						margin: 2px;
+						padding:2px;
+    					background-color: rgba(0, 0, 0, 0.15);
 
 						@media $medium{
 							flex:1 1 30%;
+						}						
+					}
+
+					.points-item-heart, .points-item-taken{
+						padding-top:4px;
+
+						span{
+							margin-top:3px;
+						}
+					}
+
+					span{
+
+						@media $medium{
+							display:block;
 						}
 					}
 
 					svg {
-						margin-right:0.2em;
+						text-align:center;
+						
+						/*margin-right:0.2em;*/
 					}
 				}
 
@@ -297,6 +331,8 @@
 		order:2;
 
 		.inner-podium {
+			height:400px;
+
 			.colonne {
 				background-color:$color11;
 			}
@@ -314,7 +350,7 @@
 		order:3;
 
 		.inner-podium {
-			height: 330px;
+			height: 370px;
 
 			.colonne {
 				background-color:$color12;
@@ -326,7 +362,7 @@
 	.podium-3{
 		order:1;
 		.inner-podium{
-			height: 310px;
+			height: 340px;
 
 			.colonne{
 				background-color:$color13;
