@@ -3,7 +3,8 @@
 
 	.flex-container-h {
 		flex-flow: row wrap;
-		align-items:flex-start;
+		/*align-items:flex-start;*/
+		align-items:stretch;
 		/*align-items:center;
 		justify-content: center;*/
 
@@ -70,11 +71,71 @@
   	height:100%;
 } 
 
+.playlist-header-links{
+	width:100%;
+	height:40px;
+	display:flex;
+	position:relative;
+	top:-20px;
+
+	.playlist-header-mail,
+	.playlist-header-website{
+		background-color:$grey0;
+		color:$color12;
+		cursor:pointer;
+		max-width:46px;
+		overflow:hidden;
+		transition:max-width 200ms;
+
+		a {
+			display:flex;
+
+		}
+
+		span {
+			overflow:hidden;
+			flex:0 0 0%;
+			margin: auto;
+		}
+
+		svg{
+			flex:0 0 40px;
+			margin:5px;
+		}
+
+		&:hover{
+			max-width:50%;
+
+			span {
+				flex:1 1 auto;
+			}
+
+		}
+	}
+
+	.playlist-header-mail{
+		flex:1 1 50%;
+		text-align:right;
+
+		a {
+			align-items:flex-end;
+		}
+	}
+
+	.playlist-header-website{
+		flex:1 1 50%;
+		margin-left: auto;
+		color:$color6;
+
+		a {
+			align-items:flex-start;
+		}
+	}
+}
+
 .playlist-header-saison,
 .playlist-header-date,
-.playlist-header-score,
-.playlist-header-website,
-.playlist-header-mail{
+{
 	position: absolute;
 	top: -20px;
 	padding: 10px;
@@ -93,46 +154,9 @@
 	right: 0;
 }
 
-.playlist-header-website {
-	top: 30px;
-}
 
 
-.playlist-header-mail{
-	background-color:$color6;
-	color:black;
-	width:40px;
-	height:40px;
-	overflow:hidden;
-    padding: 5px;
-    font-size: 0.9em;
-    right:0;   
-    cursor:pointer;
-    transition: width 200ms;
 
-    .mail-text{
-    	width:0;
-    	overflow:hidden;
-    	display:inline-block;
-    }
-
-    &:hover{
-    	
-    	width: 220px;
-
-    	.mail-text{
-    		width:auto;
-    	}
-    }
-
-    
-}
-
-.playlist-header-score{
-	background-color:$color11;
-	color:black;	
-	left: 0;
-}
 
 
 .playlist-nav-prec,
@@ -163,13 +187,23 @@
 	h1{
 		font-size: 2em;
     	margin: 0 0 10px 0;
-    	border-bottom:solid 1px $grey;
+    	
 	}
 
 	.author{
 		font-size: 1.2em;    	
 	}
+
+	.author-name {
+		i {
+			color:$grey2;
+			font-size: 0.9em; 
+		}
+	}
 }
+
+
+
 
 .playlist-body{
 	position:relative;
@@ -214,13 +248,15 @@
 			}
 		}
 
-		.legende{
-			width:100%;
-			opacity:0.7;
-			border:none;
-			font-size:0.8em;
-		}
 	}
+
+	.legende{
+		width:100%;
+		opacity:0.7;
+		border:none;
+		font-size:0.8em;
+	}
+	
 }
 
 .playlist-chronique{
@@ -289,6 +325,35 @@
 
 	img{
 		width:100%;
+	}
+}
+
+
+.playlist-joggeur-score{
+	padding:0.5rem;
+
+	@media $large{
+		padding:1rem;
+	}
+
+	.wof-wrapper {
+		.score-item-theme{
+			flex:0 1 33%;
+			font-size:0.8em;
+
+			/*@media $medium{
+				
+			}*/
+
+			@media $large{
+				flex:0 1 30%;
+			}
+		}
+	}
+
+	h5 {
+		font-size:1.2em;
+		line-height:1em;
 	}
 }
 
@@ -522,6 +587,10 @@ div.jp-seeking-bg {
 
 .jp-playlist li.jp-playlist-current{
 	background: linear-gradient(to bottom,rgba(29,19,31,.9) -18%,rgba(6, 152, 91, 0.48) 12%,#CFD1D4 181%);
+
+	.jp-artist{
+		color:$grey1;
+	}
 }
 
 
@@ -546,7 +615,8 @@ div.jp-seeking-bg {
 		display:inline-block;
 		vertical-align:middle;
 		text-align:left;
-		line-height:1em;
+		line-height:1.1em;
+		margin: auto 0;
 	}
 
 	.jp-thumb, .jp-artist, .jp-theme{
@@ -562,6 +632,7 @@ div.jp-seeking-bg {
 
 	.jp-artist{
 		color:$grey3;
+		font-size:0.9em;
 	}
 
 	.jp-thumb{
@@ -720,7 +791,7 @@ div.jp-seeking-bg {
 .playlist-wrapper{
 	.creativec-lien{
 		text-align: right;
-	    padding: 1rem;
+	    padding: 1rem 0 0 0;
 
 	    img {
 	    	width:80px;

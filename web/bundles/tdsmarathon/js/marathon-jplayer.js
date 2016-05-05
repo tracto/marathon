@@ -13,7 +13,6 @@ $(document).ready(function(){
       if(is_medium){
         var refHeight=$(".col-playlist-gauche").height()-235;
         $(".jp-playlist").css({"max-height":refHeight+"px"});
-        console.log($(".col-playlist-gauche").height());
       }
 
 
@@ -39,6 +38,19 @@ $(document).ready(function(){
 
           var playlistType=$('.playlist-wrapper').data('type');
 
+
+          createTitle=function(media){
+              var self = this;
+
+              var listItem = "<div class='playlist-title align-center'>";
+              listItem +="<span class='jp-title'>" + media.title + "</span>";
+              listItem +="<span class='jp-artist'> ( " + media.artist  + " ) </span>";        
+              listItem += "</div>";
+
+              
+              return listItem;
+          };
+
           createListItem=function(media){
                 var self = this;
                 var listItem = "<li class='playlist-item'><div>";
@@ -48,6 +60,9 @@ $(document).ready(function(){
                 listItem += "</div></li>";             
                 return listItem;
           };
+
+
+
 
           
           var myPlaylist=new jPlayerPlaylist({
@@ -95,22 +110,24 @@ $(document).ready(function(){
                 var self = this;
                 $(".jp-playlist-inner ul").empty();
                 var listItem="";
-
                 $.each(musicTitlesArray, function (i,musicTitle){
                   var list=createListItem(musicTitle);
                   listItem += list;
                 });                
-
                 $(".jp-playlist-inner ul").append(listItem);
-
                 $("[data-tabindex='1']").parent().parent().addClass("jp-playlist-current");
+
+                $('[data-infostitle]').empty();
+                title=createTitle(musicTitlesArray[0]);
+                $('[data-infostitle]').append(title);
 
              },
 
              play : function(){
                 titleCurrent=myPlaylist.current;
-                console.log(titleCurrent.options);
-                // myPlaylist.options.playlistOptions.itemClass 
+                $('[data-infostitle]').empty();
+                title=createTitle(musicTitlesArray[titleCurrent]);
+                $('[data-infostitle]').append(title);
              },
 
              ended: function() {

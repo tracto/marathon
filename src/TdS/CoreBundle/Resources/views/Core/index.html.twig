@@ -243,7 +243,7 @@
 						
 						<div class="latotale bg-op--white-5 pam pbn mtm">
 							<h3 class="align-center">La totale</h3>
-							<div class="flex-container-h">
+							<div class="latotale-wrapper flex-container-h">
 								<div class="flex-item-fluid align-left">
 									{% for joggeurScore in listeJoggeursScore %}
 										{% set totalFastpoints = 0 %}
@@ -254,33 +254,40 @@
 												{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
 												{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
 										{% endfor %}
-										{% if loop.index == moitieJoggeurs %}
-											</div>
-											<div class="flex-item-fluid align-left">
-										{% endif %}
+										
 
-										<div class="list-item  plm prm pbs">
-											<h4 class="man pan"><strong>{{ loop.index }} - </strong>
-											<span>{{ joggeurScore.joggeur.pseudo }}</span>
-											</h4>
-											
-											<span class="scoreTotal plm prs ">{{ joggeurScore.total }} pts</span>
-											<svg class="icon icon--xs icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-											<span class="points align-center pls">
+										<div class="thumb-line list-item  plm prm pbs">
+												<a class="flex-container-h" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
+												<span class="author-thumb mrs">
+													{% if joggeurScore.joggeur.image is not null %}
+														<img class='thumbnail' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
+													{% endif %} 
+												</span>
 
-				      							<span class="points-item mrs">
-					      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-					      							<span class="">{{ totalFastpoints }}</span> 
-				      							</span>
-				      							<span class="points-item points-item-heart mrs">
-						      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-						      						<span class="">{{ totalHeartpoints }}</span>
-					      						</span>
-					      						<span class="points-item points-item-taken mrs">
-						      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-						      						<span class="">{{ totalTakenpoints }}</span>
-					      						</span>	
-					      					</span>
+												<div class="author-name">
+													<h4 class="man pan">
+														<span>{{ loop.index }} - {{ joggeurScore.joggeur.pseudo }}</span>
+														<span class="scoreTotal">({{ joggeurScore.total }} pts)</span>
+													</h4>
+												</div>	
+													
+												<div class="points align-right pls">
+					      							<span class="points-item  mrs">
+						      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
+						      							<span class="">{{ totalFastpoints }}</span> 
+					      							</span>
+					      							<span class="points-item points-item-heart mrs">
+							      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
+							      						<span class="">{{ totalHeartpoints }}</span>
+						      						</span>
+						      						{% if totalTakenpoints != 0 %}
+							      						<span class="points-item points-item-taken mrs">
+								      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
+								      						<span class="">{{ totalTakenpoints }}</span>
+							      						</span>	
+						      						{% endif %}
+							      				</div>
+					      					</a>
 										</div>
 									{% endfor %}
 								</div>

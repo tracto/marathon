@@ -422,26 +422,38 @@
 
 
 .latotale{
+	.latotale-wrapper{
+		font-size:0.9em;
 
-	.flex-item-fluid{
-		flex:1 1 100%;
-
-		@media $medium-intermediate {
-			flex:1 1 50%;
+		a {
+			border-bottom:solid 1px $grey3;
 		}
 
 	}
 
-	.list-item{
-	    text-align: center;
 
-	    @media $medium-intermediate {
-			text-align: left;
-		}
+
+	.author-thumb{
+		flex: 0 1 auto;
+	    width: 30px;
+	    height: 30px;
 	}
+
+	.author-name{
+		flex:1;
+		margin:auto;
+		font-size:0.8em;
+	}
+
+	.points{
+		flex: 0 1 auto;
+		margin:auto;		
+	}
+
+	
 
 	h4 {
-		font-size:1.2em;
+		font-size:1.3em;
 		font-weight:bold;
 
 
@@ -455,23 +467,12 @@
 	}
 
 	.scoreTotal{
-		font-size:1.1em;
+		font-size:1em;
 		font-weight:bold;
 		color:grey0;
 	}
 
-	.points{
-		padding-left:0;
-
-		@media $medium{
-			padding-left:1rem;
-			display:block;
-		}
-
-		@media $large{
-			display:inline;
-		}
-	}
+	
 
 
 
