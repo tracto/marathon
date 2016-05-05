@@ -81,6 +81,7 @@ class JoggeurController extends Controller{
         }
 
 	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
+          'saison'=>$saison,
           'tabIdJoggeur'=>$tabIdJoggeur,
 	        'joggeur' => $joggeur,
 	    ));
