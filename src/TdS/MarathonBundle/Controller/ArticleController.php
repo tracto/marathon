@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
@@ -80,7 +81,6 @@ class ArticleController extends Controller{
 	  		if($targetPath != null){
                 return $this->redirect($targetPath);
             }
-	  		//return $this->redirect($this->generateUrl('tds_marathon_theme_view',array('id'=>$theme->getId())));
 
 	  	}else{
 

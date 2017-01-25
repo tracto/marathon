@@ -43,7 +43,11 @@ class ThemeController extends Controller{
 	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
 	    					 ->findAll(); 
 
+	    	$image=$em
+              ->getRepository('TdSMarathonBundle:Image')
+              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
 
+              
 	        $tabIdTheme=array();
 	        foreach ($listeSaisons as $saison){
 	        	foreach($saison->getThemes() as $itemTheme){
@@ -57,8 +61,26 @@ class ThemeController extends Controller{
 	    			
 	    		}
 	        }
+
+	        $listeJoggeursScore = $em
+		          ->getRepository('TdSMarathonBundle:JoggeurScore')
+		          ->findAllParTheme($theme);
+
+		    foreach($listeJoggeursScore as $joggeurScore){
+		    	if(!$joggeurScore->getJoggeur()->getImage()){
+              		$joggeurScore->getJoggeur()->setImage($image);
+        		}
+		    }
+		     
+
+
+	        $tdsScoring = $this->container->get('tds_marathon.scoring');
+	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
+	        $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
 	    	
 		    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
+		      'listeJoggeursScore'=>$listeJoggeursScore,
+		      'wof_jogDonJuan'=>$wof_jogDonJuan,
 		      'tabIdTheme'=>$tabIdTheme,
 		      'theme' => $theme,     
 		    ));
@@ -153,6 +175,7 @@ class ThemeController extends Controller{
 			if($theme!=null){
 				$em->remove($theme);
 	        	$em->flush();
+	        	$request->getSession()->getFlashBag()->add('notice','Thème supprimé.');
 			}
 
 			
@@ -259,6 +282,11 @@ class ThemeController extends Controller{
 	        }
 	        $i=$joggeursDuTheme->count();
 
+	        if($joggeursDuTheme[0] && $currentTheme){
+	        	$currentTheme->setJoggeurChronique($joggeursDuTheme[0]);
+	        	
+	    	}
+
 	        foreach($joggeursDuTheme as $joggeurDuTheme){
 	        	$joggeurScore=$joggeurDuTheme->getJoggeurScore();
 
@@ -309,6 +337,7 @@ class ThemeController extends Controller{
 			}
 
 			$em->flush();
+			$request->getSession()->getFlashBag()->add('notice','Changement de thème effectué avec succès.');
 			return $this->redirect($referer);
 
 		}else{
@@ -339,6 +368,7 @@ class ThemeController extends Controller{
 
 					
 			$em->flush();
+			$request->getSession()->getFlashBag()->add('notice',"thème d'attente activé avec succès.");
 			return $this->redirect($referer);
 
 		}else{
@@ -409,7 +439,7 @@ class ThemeController extends Controller{
 				$theme->setJoggeurChronique($joggeurChronique);			
 				$em->flush();
 
-				$request->getSession()->getFlashBag()->add('notice','chronique bien enregistrée.');
+				$request->getSession()->getFlashBag()->add('notice','chronique bien modifiée.');
 
 				return $this->redirect($this->generateUrl('tds_marathon_theme_view',array('id'=>$theme->getId())));
 			}

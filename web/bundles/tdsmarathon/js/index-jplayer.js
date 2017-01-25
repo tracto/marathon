@@ -43,7 +43,6 @@ $(document).ready(function(){
                 listItem += "</div>";
 
                 playlistIndexBody.find('.jp-thumb-theme').html("<img src='"+media.thumbtheme+"'/>");
-                // playlistIndexBody.css({'background-image':'url("'+media.thumbtheme+'")'});
                 return listItem;
     };
 

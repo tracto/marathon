@@ -33,13 +33,13 @@
 						{% if musicTitle is not null %}
 							{% if musicTitle.joggeur != app.user.joggeur %}
 								<div class='col-addPoints-joggeurTitle col col-xs-12 col-md-6 pas sep--dashed'>
-									<div class="col col-xs-5 col-md-5">
+									<div class="col col-xs-12 col-md-5">
 										<h3 class="sub-sub-title man pan">{{ musicTitle.joggeur.pseudo }}</h3>
 										<strong class="block">titre : {{ musicTitle.titre }}</strong>
 									</div>
 
 									
-									<div class='col col-xs-7 col-md-7 heartPoints-icons clearfix' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
+									<div class='col col-xs-12 col-md-7 heartPoints-icons clearfix' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
 											{% for i in 10..1  %}
 												<span class="heartPoints-icon" data-heart='{{ i }}'>
 													<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
