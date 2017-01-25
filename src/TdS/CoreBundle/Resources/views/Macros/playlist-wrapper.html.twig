@@ -105,7 +105,7 @@
 
 					<div class="playlist-scores walloffame bg-op--white-5 align-center pam pbn">
 						<h3 class="ptn mtn">Wall of Fame du thème</h3>
-						<div class="wof-wrapper flex-container-fluid flex-justify">
+						<div class="wof-wrapper flex-container flex-start  flex-justify">
 
 							{% for joggeurScore in listeJoggeursScore %}
 								
@@ -437,7 +437,7 @@
 							<h5 class="sub-sub-title man pan align-center">{{ saison.titre }} : {{ joggeur.joggeurScore.total }} pts</h5>
 							<div class="score-total "></div>
 							{% if joggeur.joggeurScore.scores is defined and joggeur.joggeurScore.scores is not null and joggeur.joggeurScore.scores is not empty %}
-								<div class="wof-wrapper flex-container-fluid flex-justify align-center">
+								<div class="wof-wrapper flex-container flex-start flex-justify align-center">
 									{% for score in joggeur.joggeurScore.scores %}
 										<div class="score-item-theme wof-item flex-item list-item pas">
 											
