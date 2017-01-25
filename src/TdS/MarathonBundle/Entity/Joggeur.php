@@ -59,7 +59,7 @@ class Joggeur
 
     /**
      * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\MusicTitle", cascade={"persist","remove"},mappedBy="joggeur")
-     * @ORM\OrderBy({"dateUpload" = "ASC"})
+     * @ORM\OrderBy({"dateUpload" = "DESC"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $musicTitles;

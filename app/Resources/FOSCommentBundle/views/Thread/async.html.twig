@@ -10,20 +10,31 @@
 #}
 
 <div id="fos_comment_thread_wrapper">
-	<div class="">
-		<button class="btn fos_comments_close" data-action="hide-comments">
-			<svg class="icon icon--s icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-		</button>
-
-		<button class="btn fos_comments_reload" data-action="reload-comments">
-			<svg class="icon icon--s icon-alone icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
-		</button>
-	</div>
+	<div class="inner-wrapper">
+		<h2 class="sub-title align-center pan man">Commentaires</h2>
 
 
-	<h2 class="sub-title align-center">Commentaires</h2>
+		<div class="align-center fos-comment-header-buttons">
+			<div class="comment-show-button">
+				<a href="#fos_comment_thread_wrapper" class="button btn comment-btn-count" data-action="show-comments">
+			            <svg class="icon icon-alone icon--l icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
+			            <span>...</span>
+			    </a>									
+			</div>
+			<div class="comment-action-buttons">
+				<button class="btn fos_comments_close" data-action="hide-comments">
+					<svg class="icon icon--xs icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+				</button>
 
-	<div id="fos_comment_thread">
+				<button class="btn fos_comments_reload" data-action="reload-comments">
+					<svg class="icon icon--xs icon-alone icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
+				</button>
+			</div>
+		</div>
+
+
+		<div id="fos_comment_thread">
+		</div>
 	</div>
 </div>
     {# {% javascripts %} #}
@@ -39,8 +50,9 @@
 			var $root = $('html, body');
 
 			$("[data-action='show-comments']").on('click',function(){
-					$("#fos_comment_thread_wrapper").css({'height':'auto'});
-					$("#fos_comment_thread_wrapper").show();
+					$(this).hide();
+					$(".comment-action-buttons").show();
+					$("#fos_comment_thread").show();
 					$root.animate({
 				        scrollTop: $( $.attr(this, 'href') ).offset().top
 				    }, 500);			    
@@ -48,8 +60,9 @@
 			});
 			
 			$("[data-action='hide-comments']").on('click',function(){
-					// $("#fos_comment_thread_wrapper").css({'height':'auto'});
-					$("#fos_comment_thread_wrapper").hide();
+					$("[data-action='show-comments']").show();
+					$(".comment-action-buttons").hide();
+					$("#fos_comment_thread").hide();
 					
 			});
 

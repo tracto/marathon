@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="pbxxl bg--marbre">
+
+	
+	<div class="bg--marbre">
 		{% set autoplay = "true" %}
-		{{ playlistWrapperModule.pl_theme(theme,null,tabIdTheme,theme.activate,autoplay) }}
+		{{ playlistWrapperModule.pl_theme(theme,null,tabIdTheme,theme.activate,autoplay,listeJoggeursScore,wof_jogDonJuan) }}
 	</div>
 {% endblock %}

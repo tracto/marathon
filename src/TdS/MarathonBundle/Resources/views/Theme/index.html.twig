@@ -22,13 +22,13 @@
 	    <h1 class="main-title align-center mas">Thèmes</h1>
 
 	    {% for saison in listeSaisons %}
-	    	<div class="mas">
+	    	<div class="man mtl ptl sep--dashed">
 		    	<h2 class="sub-title align-center pan man">{{ saison.titre }}</h2>
 		    	{% if saison.activate is defined and saison.activate == 1 %}
 		    		<h4 class="sub-sub-title align-center pan man">(en cours)</h4>
 		    	{% endif %}
 	    	</div>
-		    <div class='row list pbm pas'>	
+		    <div class='row list pbm pal'>	
 			     {% for theme in saison.themes %}
 
 			     	{% if theme.draftmode is null or theme.draftmode == 0 or (is_granted("ROLE_SUPER_ADMIN","ROLE_USER") and theme.draftmode == 1 and theme.joggeur == app.user.joggeur ) %}
@@ -58,7 +58,9 @@
 
 								    <div class='inner-item-text'>
 								    	<div class="relative">
-									    	<h3 class="man pbs">{{ theme.titre }}</h3>				
+
+									    	<h3 class="man">{{ theme.titre }}</h3>
+
 									    	<div class="musictitle-count">
 									    		<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
 									    		<span>{{ theme.musicTitles|length  }}</span>
@@ -72,6 +74,12 @@
 												    <span>0</span>
 											    {% endif %}										
 											</div>
+											{% if theme.chronique is defined and theme.chronique is not null %}
+												<div class="has-chronique align-right pull-right">
+													<svg class="icon icon--m icon-newspaper"><use xlink:href="#icon-newspaper"></use></svg>
+												</div>
+											{% endif %}
+											
 								    	</div>
 								    </div>	
 								</div>					    		

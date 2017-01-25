@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CoreController extends Controller{
 
@@ -54,7 +55,7 @@ class CoreController extends Controller{
 	      	shuffle($musicTitles);
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
-	      					  ->findSeveral(4,0);
+	      					  ->findSeveral(6,0);
 
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
@@ -79,6 +80,16 @@ class CoreController extends Controller{
 			$listeJoggeurs=$em
 			      			->getRepository('TdSMarathonBundle:Joggeur')
 			      			->findAllSortByLastLogin();
+
+			$image=$em
+			      	->getRepository('TdSMarathonBundle:Image')
+			      	->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
+
+			foreach($listeJoggeurs as $joggeur){
+				if(!$joggeur->getImage()){
+					$joggeur->setImage($image);
+				}
+			}
 
 			if(!$saison){
 	      	 	$saison=$lastSaison;

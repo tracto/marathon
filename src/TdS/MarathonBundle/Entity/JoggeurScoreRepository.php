@@ -56,6 +56,21 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
 
     }
 
+    public function findAllParTheme(Theme $theme){
+      $queryBuilder = $this->createQueryBuilder('c')
+          ->addSelect('m')
+          ->leftJoin('c.scores', 'm')
+          ->where('m.theme = :theme')
+          ->setParameter('theme', $theme)
+          ;
+ 
+
+      return $queryBuilder
+          ->getQuery()
+          ->getResult();
+
+    }
+
     public function findJoggeurParTheme(Joggeur $joggeur, Theme $theme){
     	$queryBuilder = $this->createQueryBuilder('c')
         	->addSelect('m')
@@ -72,6 +87,9 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
        		->getResult();
 
     }
+
+
+
 
 
 
