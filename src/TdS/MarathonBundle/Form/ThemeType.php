@@ -45,7 +45,7 @@ class ThemeType extends AbstractType
                     )                     
                 )
             ->add('image',new ImageType(),array('required'=>false))
-            ->add('save','submit');
+            ->add('valider','submit');
 
             if($options['draftmode'] == null){
                  $builder->add('activate','checkbox',array('required'=>false))

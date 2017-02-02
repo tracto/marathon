@@ -23,6 +23,7 @@
 		border-radius:5px;
 	    position:relative;
 	    width:100%;
+	    height:100%;
 	    overflow:hidden;
 	    padding-bottom:100%;
 
@@ -30,17 +31,18 @@
 	    	position:absolute;
 	    	left: 0;
     		width: 100%;
+    		height:100%;
 		}
 	}
 
 	.round{
+
 		border-radius:50%;
 		overflow:hidden;
 		width:100%;
+		height:100%;
 
 		img {
-	    	
-	    	left: 0;
     		width: 100%;
 		}
 	}
@@ -54,16 +56,16 @@
 	bottom:0;
 	margin:0 auto;
 	width:100%;
-    background-color:$color5;
 						
 	&::before {
 		content: '';
-		background-image:url("../../tdsmarathon/images/bg-vignette.png");
+		background-image:url("../../tdsmarathon/images/bg-vignette-joggeur.png");
 		background-repeat:repeat-x;
-		height:95px;
-		width:100%;
-		position:absolute;
-		top: -50px;
+		opacity: .8;
+	    height: 385px;
+	    width: 100%;
+	    position: absolute;
+	    bottom: 0;
 	}
 
 	h3{
@@ -77,7 +79,8 @@
 
 
 .comment-count,
-.musictitle-count {
+.musictitle-count,
+.has-chronique{
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 12px;
@@ -87,6 +90,14 @@
 
 	span {
 		transform: translateX(-3px);
+	}
+}
+
+.has-chronique{
+	padding: 0 3px 3px 0px;
+
+	.icon {
+		padding:5px;
 	}
 }
 
