@@ -15,9 +15,9 @@
     
 
             <div class="fos_comment_comment_body_wrapper">
-                 <div class="fos_comment_comment_metas">
+                 <div class="fos_comment_comment_metas flex-container">
                     {% block fos_comment_comment_metas %}
-                        <div class="col col-xs-1">
+                       
                             {% if comment.author.joggeur is defined %}
                                 {% if comment.author.joggeur.image is not null %}
                                     <div class="fos_comment_comment_authorImage">
@@ -29,44 +29,62 @@
                                         <img class="img-responsive" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="anonymous img">
                                     </div>               
                             {% endif %}
-                        </div>
-                    <div class="col col-xs-7">
+                        
+                    <div class="flex-item-fluid">
                         {% block fos_comment_comment_metas_authorline %}
-                            <div class="fos_comment_comment_metas_authorline"> 
-                                <span class="fos_comment_comment_authorname">
-                                    {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
-                                {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
-                                    {% else %}
-                                        {% if comment.author.joggeur is defined %}
-                                            <a href="{{ path('tds_marathon_joggeur_view', {'id': comment.author.joggeur.id}) }}">
-                                            {{ comment.author.joggeur.pseudo }}
-                                            </a>
-                                        {% else %} 
-                                            {{ comment.authorName }}
-                                        {% endif %}                                
-                                    {% endif %}
-                                </span> 
-                                <span class="fos_comment_comment_date">
-                                    {{ comment.createdAt | localizeddate('full', 'none', null, null, "cccc d MMMM yyyy à HH'h'mm") }}
-                                </span>
-                            </div>
-                        {% endblock fos_comment_comment_metas_authorline %}
+                            <div class="fos_comment_comment_bulle">
+                               {#  <svg class="icon icon-alone icon--s icon-triangle"><use xlink:href="#icon-play"></use></svg> #}
 
-                        <div id="fos_comment_comment_body_{{ comment.id }}" class="fos_comment_comment_body">
-                            {% block fos_comment_comment_body %}
+                                <div class="fos_comment_comment_inner-bulle">
+                                    <div class="fos_comment_comment_metas_authorline"> 
+                                        <span class="fos_comment_comment_authorname">
+                                            {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                                        {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                                            {% else %}
+                                                {% if comment.author.joggeur is defined %}
+                                                    <a href="{{ path('tds_marathon_joggeur_view', {'id': comment.author.joggeur.id}) }}">
+                                                    {{ comment.author.joggeur.pseudo }}
+                                                    </a>
+                                                {% else %} 
+                                                    {{ comment.authorName }}
+                                                {% endif %}                                
+                                            {% endif %}
+                                        </span> 
+                                        <span class="fos_comment_comment_date">
+                                            {{ comment.createdAt | localizeddate('full', 'none', null, null, "cccc d MMMM yyyy à HH'h'mm") }}
+                                        </span>
+
+
+
+                                    </div>
                                 
-                                {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
-                                    {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
-                                {% else %}
-                                    {% if comment is fos_comment_raw %}
-                                        {{ comment.rawBody | raw }}
-                                    {% else %}
-                                        {{ comment.body | nl2br }}
-                                    {% endif %}
-                                {% endif %}
-                            {% endblock fos_comment_comment_body %}
+                                {% endblock fos_comment_comment_metas_authorline %}
+
+                                <div id="fos_comment_comment_body_{{ comment.id }}" class="fos_comment_comment_body">
+                                    {% block fos_comment_comment_body %}
+                                        
+                                        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                                            {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                                        {% else %}
+                                            {% if comment is fos_comment_raw %}
+                                                {{ comment.rawBody | raw }}
+                                            {% else %}
+                                                {{ comment.body | nl2br }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endblock fos_comment_comment_body %}
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    {% block fos_comment_comment_reply %}                    
+                        <div data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="fos_comment_comment_reply_show_form pull-right">
+                            <button class="">
+                                <svg class="icon icon--s icon-comment-reply"><use xlink:href="#icon-comment-reply"></use></svg>
+                            </button>
+                        </div>
+                    {% endblock fos_comment_comment_reply %}
 
                     {% block fos_comment_comment_metas_edit %}
                         {% if fos_comment_can_edit_comment(comment) %}
@@ -104,14 +122,10 @@
                 {% if fos_comment_can_comment(comment) %}
 
                                               
-                            {% block fos_comment_comment_reply %}
-                                
-                                    <div data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="btn fos_comment_comment_reply_show_form"><button class="">répondre</button></div>
-
-                            {% endblock fos_comment_comment_reply %}
+                            
 
 
-                            <div class="fos_comment_comment_reply">
+                            {# <div class="fos_comment_comment_reply">
                             {% set repliesCount = 0 %}
                             {% if children is defined %}
                                 {% for child in children %}
@@ -123,7 +137,7 @@
                                     </span> 
                                 {% endif %}
                             {% endif %}
-                            </div>
+                            </div> #}
                         
                 {% endif %}
 

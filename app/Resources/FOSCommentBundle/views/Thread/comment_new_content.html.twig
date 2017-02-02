@@ -42,19 +42,26 @@
                         </div>
 
                         {{ form_widget(form.body) }}
+
+                        <div class="fos_comment_submit align-right">
+                            {% block fos_comment_form_submit %}
+                                <button class='button btn' type="submit" class="button btn fos_comment_comment_validate">
+                                    <svg class="icon icon--s icon-alone icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
+                                </button>
+                                
+                                {% if parent is not null %}
+                                    <button type="button"  class="button btn fos_comment_comment_reply_cancel">
+                                        <svg class="icon icon--s icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                                    </button>
+                                {% endif %}                               
+                            {% endblock %}
+                        </div>
                     </div>
 
                     {{ form_rest(form) }}
                 {% endblock %}
 
-                <div class="fos_comment_submit">
-                    {% block fos_comment_form_submit %}
-                        {% if parent is not null %}
-                            <input type="button" value="annuler" class="fos_comment_comment_reply_cancel pull-right" />
-                        {% endif %}
-                        <input class="fos_comment_comment_validate pull-right" type="submit" value="commenter" />
-                    {% endblock %}
-                </div>
+                
 
             </form>
         {% endblock fos_comment_comment_new_form %}

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="pbxxl bg--marbre">
+	<div class="bg--marbre">
 		{% set autoplay = "true" %}
-		{{ playlistWrapperModule.pl_joggeur(null,joggeur,tabIdJoggeur, autoplay) }}
+		{{ playlistWrapperModule.pl_joggeur(null,joggeur,tabIdJoggeur, autoplay,saison) }}
 	</div>	
 {% endblock %}
