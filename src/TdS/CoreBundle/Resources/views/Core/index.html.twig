@@ -63,7 +63,8 @@
 
 							    			{% if theme.activate == 1 %}
 												<div class="ribbon">
-													<div class="line flex-container-h align-center">				<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
+													<div class="line flex-container-h align-center">				
+														<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
 														<span class="flex-item-fluid mls">Thème en cours</span>
 													</div>
 												</div>
@@ -179,7 +180,7 @@
 
 							<div class="walloffame bg-op--white-5 align-center pam mtm">
 								<h3>Wall of Fame</h3>
-								<div class="wof-wrapper flex-container-fluid flex-justify">
+								<div class="wof-wrapper  flex-container flex-start flex-justify">
 									<div class="wof-item wof_jogEgoiste flex-item list-item pas">				<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
 											<div class="round">
 													{% if wof_jogEgoiste.image is not null %}
