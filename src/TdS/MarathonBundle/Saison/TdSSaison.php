@@ -2,22 +2,66 @@
 namespace TdS\MarathonBundle\Saison;
 
 use TdS\MarathonBundle\Entity\Saison;
+use TdS\MarathonBundle\Entity\Theme;
 use Doctrine\ORM\EntityManager;
+
 // use Symfony\Component\HttpFoundation\Request;
 // use Symfony\Component\HttpFoundation\Response;
 
 
 class TdSSaison {
 
-	public function __construct(EntityManager $entityManager){
-    	$this->em = $entityManager;
+	private $em;
+
+	/**
+	 * @InjectParams({
+	 *    "em" = @Inject("doctrine.orm.entity_manager")
+	 * })
+	 */
+	public function __construct(EntityManager $em)
+	{
+	    $this->em = $em;
 	}
+
+
+	public function allSaison(){
+	 	$saisonListe=$this->em
+	      	->getRepository('TdSMarathonBundle:Saison')
+	      	->findAll();
+
+	      	 return array (
+              "saisonListe" => $saisonListe,
+      		);
+	}
+
+
+
+	public function getCurrSaison(){
+		$saison=$this->em
+	      	->getRepository('TdSMarathonBundle:Saison')
+	      	->findOneBy(array('statut' => 1));
+
+
+	    if(!$saison){
+	    	$saison=$this->em
+	      	->getRepository('TdSMarathonBundle:Saison')
+	    	->findLastOne();
+	    }
+	    return $saison;	    	
+	}
+
+
+	public function getSaisonOfTheme(Theme $theme){
+	    $saison=$theme->getSaison();
+	    return $saison;
+	}
+
 
 
 	public function getSaison(){
 		$saison=$this->em
 	      	->getRepository('TdSMarathonBundle:Saison')
-	      	->findOneBy(array('activate' => 1));
+	      	->findOneBy(array('statut' => 1));
 	    if($saison){
 	    	$saisonTitre=$saison->getTitre();
 	    }else{

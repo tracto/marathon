@@ -25,7 +25,7 @@
 					<div class="saison sep clearfix">
 						<h3 class="sub-sub-title">Saison</h3>
 						<div class="flex-container-h pbm">
-							{% if saison is defined and saison is not null %}
+							{% if saison is defined and saison is not null and saison.statut == 1 %}
 								<div>Saison en cours : {{ saison.titre }}</div>
 								{% if is_granted("ROLE_SUPER_ADMIN") %}
 									<div class='closeSaison-wrapper ptm'>
@@ -44,7 +44,7 @@
 					        			</div>
 					        		</div>
 				        		{% endif %}
-							{% else %}
+							{% else %} 
 								<div>Il n'y a pas de saison en cours.</div>
 								{% if is_granted("ROLE_SUPER_ADMIN") %}
 									<div class="block">
@@ -312,7 +312,7 @@
 				        	{% endif %}
 				        {% else %} 
 				        	<div class="saison-title align-center man saison-closed">
-								<h1 class="man">La saison est finie!</h1>
+								<h1 class="man align-center">La saison est finie!</h1>
 							</div>
 			        	{% endif %}       		        		
 	        		</div>
@@ -339,7 +339,7 @@
 	        			</div>
 
 	        			<div class="flex-container-h line mts mbs">
-		        			<a class="button btn btn-view  flex-item-center align-center" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : lastSaison.id }) }}">
+		        			<a class="button btn btn-view  flex-item-center align-center" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saison.id }) }}">
 		        				<svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>
 		        				<span>classement</span>
 		        			</a>

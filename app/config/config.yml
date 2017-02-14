@@ -37,6 +37,10 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    # validation:
+    #    cache: validator.mapping.cache.apc
+    # serializer:
+    #    cache: serializer.mapping.cache.apc
 
 # Twig Configuration
 twig:
@@ -84,6 +88,9 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        # metadata_cache_driver: apc
+        # query_cache_driver: apc
+        # result_cache_driver: apc
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -138,6 +145,12 @@ liip_imagine:
             filters:
                 upscale: { min: [700, 700] }
                 thumbnail: { size: [700, 700], mode: outbound }
+
+        header_image:
+            quality: 100
+            filters:
+                upscale: { min: [1920, 620] }
+                
 
 # assetic:
 #     bundles: [ "FOSCommentBundle" ]

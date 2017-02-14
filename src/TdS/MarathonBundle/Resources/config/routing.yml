@@ -2,6 +2,40 @@
 #     path:     /
 #     defaults: { _controller: TdSMarathonBundle:Theme:index }
 
+tds_marathon_saison_view:
+    path:     /saison/view/{id}
+    defaults:  { _controller:  TdSMarathonBundle:Saison:view }      
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+
+tds_marathon_saison_add:
+    path:     /Saison/add
+    defaults: { _controller: TdSMarathonBundle:Saison:add }
+
+
+
+tds_marathon_saison_edit:
+    path:     /Saison/edit/{id}
+    defaults: { _controller: TdSMarathonBundle:Saison:edit }
+    requirements:
+        id: \d+
+
+
+
+tds_marathon_saison_disactive_validation:
+    path: /saison/active/validation
+    defaults: { _controller: TdSMarathonBundle:Saison:disactiveValidation }
+
+
+
+
+
+
+
+
 
 tds_marathon_theme_home:
     path:     /themes
@@ -147,15 +181,7 @@ tds_marathon_article_more:
 
 
 
-tds_marathon_saison_add:
-    path:     /saisons
-    defaults: { _controller: TdSMarathonBundle:Saison:addSaison }
 
-
-
-tds_marathon_saison_disactive_validation:
-    path: /saison/active/validation
-    defaults: { _controller: TdSMarathonBundle:Saison:disactiveValidation }
 
 
 

@@ -3,6 +3,7 @@
 namespace TdS\MarathonBundle\Entity;
 
 use TdS\UserBundle\Entity\User;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * JoggeurRepository
@@ -17,9 +18,15 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findAllSortByLastLogin(){
     	$queryBuilder = $this->createQueryBuilder('c')
-        	->addSelect('m')
+        	->addSelect('c','m','partial mt.{id}','i')
         	->leftJoin('c.user', 'm')
+            ->leftJoin('c.image', 'i')
+            ->leftJoin('c.musicTitles','mt')
         	->orderBy('m.lastLogin', 'DESC');
+            // ->setMaxResults(9)
+            // ->setFirstResult(1);
+            // $results = new Paginator($queryBuilder, $fetchJoin = true);
+            // ;
 
         return $queryBuilder
      		->getQuery()

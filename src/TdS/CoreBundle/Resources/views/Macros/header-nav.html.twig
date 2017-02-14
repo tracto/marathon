@@ -1,5 +1,16 @@
 {% macro header(saison) %}
-	<div id="header" class="main-header">
+
+	
+	{% if saison is not defined or saison is  null %}
+      	{% set saison = saisonService.getCurrSaison() %}
+	{% endif %}
+
+	{% set cssbg = "" %}
+	{% if saison.image is defined and saison.image is not null and saison.image is not empty %}
+		{% set cssbg =  saison.image.webPath | imagine_filter('header_image') %}
+	{% endif %}
+
+	<div id="header" class="main-header" style="background-image: url('{{ cssbg }}');" >
 
 			<input id="mobile-nav" type="checkbox" class="nav-toggler" />
 				<label for="mobile-nav" class="nav-toggler__label button">
@@ -11,14 +22,29 @@
 
 			<nav class="navbar-header">
 			 
-					<ul class="unstyled">
+					<ul class="navbar-first unstyled">
 						{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
 		            		<li><a href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
 		            	{% endif %}
 
 						<li><a  href="{{ path('tds_home') }}">Accueil</a></li>
-						<li><a href="{{ path('tds_marathon_theme_home') }}">Themes</a></li>
 						<li><a  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+						
+						{# Récupération du service saison #}
+						<li class="navbar-second"><span>Saisons</span>
+							<ul class="unstyled">
+								{% for saisonListe in saisonService.allSaison() %}
+									{% for saisonItem in saisonListe %}
+										{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
+										<li><a  href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+							</ul>
+						</li>
+						
+						
+						
 
 						{% if is_granted("ROLE_SUPER_ADMIN") %}
 		            		<li><a href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
@@ -66,11 +92,20 @@
 			<div class="container-fluid">
 				<img class="main-logo" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
 
-				{# {% if saison is defined and saison.activate is not null %} #}
-					<div class="flex-item-center saison-title align-center man">
-      					<h1 class="man">{{ saisonService.getSaison() }}</h1>
-      				</div> 
-				{# {% endif %} #}
+				
+
+				<div class="flex-item-center saison-title align-center man">
+  					<h1 class="man pan">{{ saison.titre }}</h1>
+  					{% if saison.statut == 0 %}
+  						{% set statut = "pas encore activée" %}
+  					{% elseif saison.statut == 1 %}
+  						{% set statut = "en cours" %}
+  					{% elseif saison.statut == 2 %}
+  						{% set statut = "terminée" %}
+  					{% endif %}
+  					<h3 class="man pan">{{ statut }}</h3>
+  				</div> 
+
 			</div>
 	 </div>
  {% endmacro %}

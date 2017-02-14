@@ -23,16 +23,10 @@ class CoreController extends Controller{
 	public function IndexAction(Request $request){
 			$em = $this->getDoctrine()->getManager();
 
-			$saison=$em
-	      			->getRepository('TdSMarathonBundle:Saison')
-	      			->findOneBy(array('activate' => 1));
-
-	      	$lastSaison=$em
-	      			->getRepository('TdSMarathonBundle:Saison')
-	      			->findLastOne();
-	      	$lastSaison=$lastSaison[0];
 
 
+			$tdsSaison = $this->container->get('tds_marathon.saison');
+	        $saison=$tdsSaison->getCurrSaison();
 
 			
 	    	$theme = $em
@@ -45,12 +39,8 @@ class CoreController extends Controller{
 	      			->findOneBy(array('postActivate' => 1));
 
 
-	      	$allThemes=$em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findAll();
-
 	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
-	      			->findAll();
+	      			->findAllBySaison($saison);
 
 	      	shuffle($musicTitles);
 
@@ -81,52 +71,30 @@ class CoreController extends Controller{
 			      			->getRepository('TdSMarathonBundle:Joggeur')
 			      			->findAllSortByLastLogin();
 
-			$image=$em
-			      	->getRepository('TdSMarathonBundle:Image')
-			      	->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
+			// $image=$em
+			//       	->getRepository('TdSMarathonBundle:Image')
+			//       	->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
 
-			foreach($listeJoggeurs as $joggeur){
-				if(!$joggeur->getImage()){
-					$joggeur->setImage($image);
-				}
-			}
+			// foreach($listeJoggeurs as $joggeur){
+			// 	if(!$joggeur->getImage()){
+			// 		$joggeur->setImage($image);
+			// 	}
+			// }
 
-			if(!$saison){
-	      	 	$saison=$lastSaison;
-	      	}
-
-			$listeJoggeursScore = $em
-		          ->getRepository('TdSMarathonBundle:JoggeurScore')
-		          ->findAllBySaison($saison);
 
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
-	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
+	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
+	        
 
-	        if($listeJoggeursScore){
-	        	$moitieJoggeurs=ceil((sizeof($listeJoggeursScore))/2)+1;
-	        }else{
-	        	$moitieJoggeurs=0;
-	        }
-
-		    $wof_jogEgoiste=$tdsScoring->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');
-		    $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
-		    $wof_jogPetitGros=$tdsScoring->getIdJogFame($listeJoggeursScore,'Fastpoints','asort');
-		    $wof_jogLfdy=$tdsScoring->getIdJogFame($listeJoggeursScore,'Fastpoints','arsort');
 
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'saison'=>$saison,
-					'theme'=>$theme,							
-					'allThemes'=>$allThemes,							
+					'theme'=>$theme,										
 					'themePost'=>$themePost,
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
-					'moitieJoggeurs'=>$moitieJoggeurs,
-					'wof_jogEgoiste'=>$wof_jogEgoiste,
-					'wof_jogDonJuan'=>$wof_jogDonJuan,
-					'wof_jogPetitGros'=>$wof_jogPetitGros,
-					'wof_jogLfdy'=>$wof_jogLfdy,
 					"websites"=>$websites,
 					"musicTitles"=>$musicTitles,
 					'formWebsite'=>$formWebsite->createView()			
@@ -140,14 +108,8 @@ class CoreController extends Controller{
 		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || $this->get('security.context')->isGranted('ROLE_USER')) {
 			$em = $this->getDoctrine()->getManager();
 
-			$saison=$em
-	      			->getRepository('TdSMarathonBundle:Saison')
-	      			->findOneBy(array('activate' => 1));
-
-	      	$lastSaison=$em
-	      			->getRepository('TdSMarathonBundle:Saison')
-	      			->findLastOne();
-	      	$lastSaison=$lastSaison[0];		
+			$tdsSaison = $this->container->get('tds_marathon.saison');
+	        $saison=$tdsSaison->getCurrSaison();		
 	      	
 	      	
 			
@@ -233,7 +195,6 @@ class CoreController extends Controller{
 				      
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
 					'saison'=>$saison,
-					'lastSaison'=>$lastSaison,
 					'theme'=>$theme,
 					'listeArticles'=>$listeArticles,
 					'timeGap'=>$timeGap,

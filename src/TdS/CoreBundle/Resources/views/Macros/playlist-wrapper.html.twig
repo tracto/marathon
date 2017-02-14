@@ -1,5 +1,6 @@
-{% macro pl_theme(theme,joggeur,tabIdTheme,enCours,autoplay,listeJoggeursScore,wof_jogDonJuan) %}
-	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
+{% macro pl_theme(theme,joggeur,tabIdTheme,enCours,autoplay,listeJoggeursScore) %}
+	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %}
+	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %} 
 
 	{% if tabIdTheme is not null %}
 		{% set keyThemePrec ='' %}
@@ -74,8 +75,8 @@
 					
 
 					<div class="playlist-header pam">
-						{% if theme.saison is defined and theme.saison is not  null %}
-							<span class="playlist-header-saison">{{ theme.saison.titre }}</span>
+						{% if saison is defined and saison is not  null %}
+							<span class="playlist-header-saison">{{ saison.titre }}</span>
 						{% endif %}
 
 						<div class="playlist-header-date">
@@ -106,122 +107,13 @@
 					<div class="playlist-scores walloffame bg-op--white-5 align-center pam pbn">
 						<h3 class="ptn mtn">Wall of Fame du thème</h3>
 						<div class="wof-wrapper flex-container flex-start  flex-justify">
+							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogDonJuan(listeJoggeursScore),"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
 
-							{% for joggeurScore in listeJoggeursScore %}
-								
-								{% if loop.index == 1 %}
-									<div class="wof-item wof_totalWinner flex-item list-item ">
-										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">								
-											<div class="round">
-													{% if joggeurScore.joggeur.image is not null %}
-														<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-													{% endif %}
-											</div>
-										</a>
-										<div>
-											<h4 class="mts mbn sub-sub-title">Le Total Winner</h4>
-											<strong>Celui qui a gagné ce thème</strong>
-										 	<div class="sep--dashed">{{ joggeurScore.joggeur.pseudo }}</div>
-										 	{% for score in joggeurScore.scores  %}
-										 		{% if loop.index == 1 %}
-										 			<div class="pbs flex-align ">
-														<div class="score">{{ joggeurScore.total }} pts</div>
-							      						<span class="points align-center">
-							      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-							      							<span class="">{{ score.fastpoints }}</span> 
-								      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-								      						<span class="">{{ score.heartpoints }}</span>
-								      						{% if score.takenpoints != 0 %}
-									      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-									      						<span class="">{{ score.takenpoints }}</span>
-								      						{% endif %}
-							      						</span>
-							      					</div>
-						      					{% endif %}
-											{% endfor %}
-										</div> 
-									</div>
-								{% endif %}
-							{% endfor %}
+							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogWinner(listeJoggeursScore),"Le Total Winner","Celui qui a gagné ce thème","wof_jogWinner") }}
 
-							<div class="wof-item wof_jogDonJuan flex-item list-item mrl mll">
-								<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
-									<div class="round">
-											{% if wof_jogDonJuan.image is not null %}
-												<img class="" src="{{ wof_jogDonJuan.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogDonJuan.image.alt }}">
-											{% endif %}
-									</div>
-								</a>
-								<div>
-									<h4 class="mts mbn sub-sub-title">Le mono nucléose</h4>
-									<strong>Celui qui a récolté le plus de points bisous</strong>
-								 	<div class="sep--dashed">{{ wof_jogDonJuan.pseudo }}</div>
-								 	{% for score in wof_jogDonJuan.joggeurScore.scores  %}
-								 		{% if loop.index == 1 %}
-								 			<div class="pbs flex-align ">
-												<div class="score">{{ wof_jogDonJuan.joggeurScore.total }} pts</div>
-												
-					      						<span class="points align-center">
-					      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-					      							<span class="">{{ score.fastpoints }}</span> 
-						      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-						      						<span class="">{{ score.heartpoints }}</span>
-						      						{% if score.takenpoints != 0 %}
-						      							<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      					<span class="">{{ score.takenpoints }}</span>
-								      				{% endif %}
-					      						</span>
-					      						
-					      					</div>
-				      					{% endif %}	
-									{% endfor %}
-								</div> 
-							</div>
+							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogLoser(listeJoggeursScore),"Le Total Loser","Celui qui a pas compris","wof_jogLoser") }}
 
-							{% for joggeurScore in listeJoggeursScore %}
-								{% if loop.index == listeJoggeursScore | length %}
-									<div class="wof-item wof_totalLoser flex-item list-item">
-										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">								
-											<div class="round">
-													{% if joggeurScore.joggeur.image is not null %}
-														<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-													{% endif %}
-											</div>
-										</a>
-										<div>
-											<h4 class="mts mbn sub-sub-title">Le Total Loser</h4>
-											<strong>Celui qui a pas compris</strong>
-										 	<div class="sep--dashed">{{ joggeurScore.joggeur.pseudo }}</div>
-										 	{% for score in joggeurScore.scores  %}
-										 		{% if loop.index == 1 %}
-										 			<div class="pbs flex-align ">
-														<div class="score">{{ joggeurScore.total }} pts</div>		
-							      						<span class="points align-center">
-							      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-							      							<span class="">{{ score.fastpoints }}</span> 
-								      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-								      						<span class="">{{ score.heartpoints }}</span>
-								      						{% if score.takenpoints != 0 %}
-								      							<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      							<span class="">{{ score.takenpoints }}</span>
-								      						{% endif %}	
-								      					</span>
-							      					</div>
-						      					{% endif %}
-											{% endfor %}
-										</div> 
-									</div>
-								{% endif %}
-							{% endfor %}
-						
-
-
-							<div class="legende align-center pas pbn mbn ">
-								Légende [
-								<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse
-								<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
-								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
-							</div>
+							{{ scoresElementsModule.scores_legende() }}
 						</div>
 					</div>
 				{% endif %}
@@ -350,6 +242,7 @@
 
 {% macro pl_joggeur(theme,joggeur,tabIdJoggeur,autoplay,saison) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
+	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
 	{% if tabIdJoggeur is not null %}
 		{% set keyJoggeurPrec ='' %}
@@ -439,48 +332,11 @@
 							{% if joggeur.joggeurScore.scores is defined and joggeur.joggeurScore.scores is not null and joggeur.joggeurScore.scores is not empty %}
 								<div class="wof-wrapper flex-container flex-start flex-justify align-center">
 									{% for score in joggeur.joggeurScore.scores %}
-										<div class="score-item-theme wof-item flex-item list-item pas">
-											
-												<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
-													<div class="round">
-													    {% if score.theme.image is not null %}
-												  			<img class="" src="{{ score.theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ score.theme.image.alt }}"/>
-												  		{% else %}
-												  			<img class="" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt=""/>
-														{% endif %}
-													</div>
-												</a>
-						      					<h5 class="pas man sep--dashed">{{ score.theme.titre }}</h5> 
-						      					<div class='score'>{{ score.totalTheme }} pts</div>
-						      					<div class='points'>
-					      							<span class="points-item points-item-fast">
-							      						<svg class="icon icon--s icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>
-							      						<span>{{ score.fastpoints }}</span>
-						      						</span>
-
-					      							<span class="points-item points-item-heart ">
-							      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-							      						<span>{{ score.heartpoints }}</span>
-						      						</span>
-						      						{% if score.takenpoints != 0 %}
-							      						<span class="points-item points-item-taken">
-								      						<svg class="icon icon--s icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      						<span>{{ score.takenpoints }}</span>
-							      						</span>
-						      						{% endif %}
-						      					</div>					      					
-											
-										</div>
+										{{ scoresElementsModule.theme_medaillon(score) }}
 									{% endfor %}
-								</div>
+								</div> 
 							{% endif %}
-							<div class="legende align-center pas pbn mbn ">
-								Légende [
-								
-								<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse
-								<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
-								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
-							</div>
+							{{ scoresElementsModule.scores_legende() }}
 						</div>
 					{% endif %}
 				{% endif %}

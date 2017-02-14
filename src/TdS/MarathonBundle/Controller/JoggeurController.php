@@ -47,38 +47,29 @@ class JoggeurController extends Controller{
         						'listeJoggeurs'=>$listeJoggeurs));
     }
 
-    public function viewAction(Joggeur $joggeur, $id){
-    	$em = $this->getDoctrine()->getManager();
 
-        $saison=$em->getRepository('TdSMarathonBundle:Saison')
-                    ->findOneBy(array('activate' => 1));
+
+
+    public function viewAction(Joggeur $joggeur, $id){
+    	  $em = $this->getDoctrine()->getManager();
+
+
+        $tdsSaison = $this->container->get('tds_marathon.saison');
+        $saison=$tdsSaison->getCurrSaison();
+
 
         $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
                          ->findAll();
 
-        $image=$em
-              ->getRepository('TdSMarathonBundle:Image')
-              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
-     
 
         $tabIdJoggeur=array();
         foreach($listeJoggeurs as $itemJoggeur){
             $tabIdJoggeur[]=$itemJoggeur->getId();
         }
 
-        if(!$joggeur->getImage()){
-              $joggeur->setImage($image);
-        }
 
-
-        $joggeurScore = $em
-                      ->getRepository('TdSMarathonBundle:JoggeurScore')
-                      ->findJoggeurBySaison($saison, $joggeur);
-
-        if($joggeurScore){
-          $joggeurScore=$joggeurScore[0];         
-          $joggeur->setJoggeurScore($joggeurScore);
-        }
+        $tdsScoring = $this->container->get('tds_marathon.scoring');
+        $joggeur=$tdsScoring->getAllSaisonScoresOfJoggeur($saison, $joggeur);
 
 	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
           'saison'=>$saison,
@@ -86,6 +77,10 @@ class JoggeurController extends Controller{
 	        'joggeur' => $joggeur,
 	    ));
 	} 
+
+
+
+
 
 
 	public function classementAction($saisonid, Request $request){
@@ -102,15 +97,10 @@ class JoggeurController extends Controller{
         $saison=$em->getRepository('TdSMarathonBundle:Saison')
                       ->findOneBy(array('id' => $saisonid));
 
-        
-
-        $listeJoggeursScore = $em
-          ->getRepository('TdSMarathonBundle:JoggeurScore')
-          ->findAllBySaison($saison);
 
 
         $tdsScoring = $this->container->get('tds_marathon.scoring');
-        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
+        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 
      
 
@@ -222,8 +212,8 @@ class JoggeurController extends Controller{
           $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
                              ->findOneBy(array('id' => $id));
 
-          $saison=$em->getRepository('TdSMarathonBundle:Saison')
-                      ->findOneBy(array('activate' => 1));
+          $tdsSaison = $this->container->get('tds_marathon.saison');
+          $saison=$tdsSaison->getCurrSaison();
 
       	  $themePostActivate=$em->getRepository('TdSMarathonBundle:Theme')
       					   ->findOneBy(array('postActivate' => 1));

@@ -1,13 +1,14 @@
 
 .main-header{
 	position: relative;
-	/*background-color:rgba(0,0,0,0.3);*/
+	/*top:40px;*/
 	color:white;
-	background: url("../images/bg-header-layers/bgFull.png") no-repeat;
-	background-position:50% 40px;
+	background-repeat:no-repeat;
+	background-color:$color9;
+	background-position:50% 50%;
 	background-size:cover;
 	width:100%;
-	
+	min-height:620px;
 }
 
 .main-logo{
@@ -20,13 +21,15 @@
 }
 
 .saison-title{
-	color: #F351BE;
+	color: #ccc50c;
     width: 30%;
-    font-size: 0.8em;
-    text-shadow: #000 0px 0px 10px;
+    font-size: 1em;
+    text-shadow: #000 0 2px 5px;
     text-transform: uppercase;
     position: relative;
     bottom: 30px;
+    line-height: 1.8em;
+
 }
 
 
@@ -158,36 +161,73 @@
 
 
 
-.navbar-header ul{
+.navbar-first{
 	display:none;
 	margin: 0;
 	margin-left: -40px;
 
 	@media $medium{
 		display:block;
-		padding-top:0 !important;
+		padding-top:0 ;
 		margin: 0;
 
 	}
 }
 
-.navbar-header li {
+.navbar-first > li {
 	display:block;
 	line-height: 50px;
 	color:$grey6;
 
+
 	@media $medium{
 		display:inline-block;
-		padding: 0 30px;
+		vertical-align: top;
+		text-align: center;
+    	min-width: 150px;
+    	cursor:pointer;
+	}	
+}
+
+.navbar-first > li:hover{
+	background-color:$color18;
+}
+
+.navbar-second{	
+	display:block;
+	background-color:$color1 !important;
+	cursor:pointer;
+
+}
+
+.navbar-second ul{
+	display:none;
+	padding:0;
+	margin:0;
+
+	li:hover{
+		background-color:$color18;
+		width:100%;
 	}
 }
 
-.navbar-header li.active{
+.navbar-second:hover{
+	background-color:$color1 !important;
+
+	> ul{
+		display:block;
+	}
+
+	
+	
+}
+
+.navbar-first li.active{
 	background-color:$color18;
 }
 
 
-.navbar-header .user {
+.navbar-first .user {
 	border-top:solid 1px $grey5;
 
 	@media $medium{
