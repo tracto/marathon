@@ -79,7 +79,8 @@ class Joggeur
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="TdS\UserBundle\Entity\User", mappedBy="joggeur")     
+     * @ORM\OneToOne(targetEntity="TdS\UserBundle\Entity\User", mappedBy="joggeur")
+     * @ORM\JoinColumn(nullable=true)     
      */
     private $user;
 

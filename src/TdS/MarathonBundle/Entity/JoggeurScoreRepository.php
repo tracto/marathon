@@ -20,14 +20,20 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
   		foreach ($saison->getThemes() as $theme) {
       		$themesId[] = $theme->getId();
   		}
+      
 
-  		$queryBuilder = $this->createQueryBuilder('c')
-        	->addSelect('m')
-        	->leftJoin('c.scores', 'm')
-        	->where('m.theme IN (:theme)')
-        	->setParameter('theme', $themesId);
- 
-
+      $queryBuilder = $this->createQueryBuilder('c') 
+          ->addSelect('c','s','j','t','i')
+          ->leftJoin('c.scores', 's') 
+          ->leftJoin('s.theme','t')
+          ->where('t.id IN (:id)')
+          ->setParameter('id', $themesId)       
+          ->leftJoin('c.joggeur', 'j')
+          ->leftJoin('j.image', 'i')
+          // ->leftJoin('j.user', 'u')
+          ;
+                   
+          
   		return $queryBuilder
        		->getQuery()
        		->getResult();
@@ -41,35 +47,41 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
   		}
 
   		$queryBuilder = $this->createQueryBuilder('c')
-        	->addSelect('m')
-        	->leftJoin('c.scores', 'm')
-        	->where('m.theme IN (:theme)')
+        	->addSelect('c','s','t','j','i')
+        	->leftJoin('c.scores', 's')
+          ->leftJoin('s.theme','t')
+          ->where('s.theme IN (:theme)')
         	->setParameter('theme', $themesId)
+          ->leftJoin('c.joggeur','j')
         	->andWhere('c.joggeur = :joggeur')
        		->setParameter('joggeur', $joggeur)
+          ->leftJoin('t.image', 'i')
         	;
  
-
   		return $queryBuilder
        		->getQuery()
        		->getResult();
-
     }
 
-    public function findAllParTheme(Theme $theme){
+
+
+    public function findAllByTheme(Theme $theme){
       $queryBuilder = $this->createQueryBuilder('c')
-          ->addSelect('m')
-          ->leftJoin('c.scores', 'm')
-          ->where('m.theme = :theme')
+          ->addSelect('c','s','t','j','i')
+          ->leftJoin('c.scores', 's')
+          ->leftJoin('s.theme','t')
+          ->where('s.theme IN (:theme)')
           ->setParameter('theme', $theme)
+          ->leftJoin('c.joggeur', 'j')
+          ->leftJoin('j.image', 'i')
           ;
- 
 
       return $queryBuilder
           ->getQuery()
           ->getResult();
-
     }
+
+
 
     public function findJoggeurParTheme(Joggeur $joggeur, Theme $theme){
     	$queryBuilder = $this->createQueryBuilder('c')

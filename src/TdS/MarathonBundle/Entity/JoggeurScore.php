@@ -53,6 +53,17 @@ class JoggeurScore
   }
 
 
+  /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
 
   public function setScore(Score $score){
     $this->score[] = $score;

@@ -36,21 +36,20 @@ class ThemeController extends Controller{
     }
 
 
+
+
+
     public function viewAction(Request $request, Theme $theme, $id, $autoplay="false"){
     	if ($theme->getDraftmode() == 0 || ($theme->getDraftmode() == 1 && $this->getUser() == $theme->getJoggeur()->getUser() )){
 	    	$em = $this->getDoctrine()->getManager();
 
+
 	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
 	    					 ->findAll(); 
-
-	    	$image=$em
-              ->getRepository('TdSMarathonBundle:Image')
-              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
-
-              
+	    	              
 	        $tabIdTheme=array();
-	        foreach ($listeSaisons as $saison){
-	        	foreach($saison->getThemes() as $itemTheme){
+	        foreach ($listeSaisons as $saisonItem){
+	        	foreach($saisonItem->getThemes() as $itemTheme){
 	        		if($itemTheme->getDraftmode() == 0){
 	        			$tabIdTheme[]=$itemTheme->getId();
 	        		
@@ -62,25 +61,15 @@ class ThemeController extends Controller{
 	    		}
 	        }
 
-	        $listeJoggeursScore = $em
-		          ->getRepository('TdSMarathonBundle:JoggeurScore')
-		          ->findAllParTheme($theme);
-
-		    foreach($listeJoggeursScore as $joggeurScore){
-		    	if(!$joggeurScore->getJoggeur()->getImage()){
-              		$joggeurScore->getJoggeur()->setImage($image);
-        		}
-		    }
-		     
-
+			$saison=$theme->getSaison();
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
-	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
-	        $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
+	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfTheme($theme);
+
 	    	
 		    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
+		      'saison' => $saison,
 		      'listeJoggeursScore'=>$listeJoggeursScore,
-		      'wof_jogDonJuan'=>$wof_jogDonJuan,
 		      'tabIdTheme'=>$tabIdTheme,
 		      'theme' => $theme,     
 		    ));
@@ -227,8 +216,8 @@ class ThemeController extends Controller{
 	    	$referer = $this->getRequest()->headers->get('referer');
 	    	$em=$this->getDoctrine()->getManager(); 
 
-	    	$saison=$em->getRepository('TdSMarathonBundle:Saison')
-		      			->findOneBy(array('activate' => 1));
+	    	$tdsSaison = $this->container->get('tds_marathon.saison');
+	        $saison=$tdsSaison->getCurrSaison();
 
 	    	$allThemes = $em
 		      			->getRepository('TdSMarathonBundle:Theme')

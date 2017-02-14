@@ -4,6 +4,7 @@ namespace TdS\MarathonBundle\Entity;
 
 use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\Theme;
+use TdS\MarathonBundle\Entity\Saison;
 use Doctrine\ORM\EntityRepository;
 
 
@@ -29,6 +30,30 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 		return $queryBuilder
     		->getQuery()
     		->getResult();
+	}
+
+
+	public function findAllBySaison(Saison $saison){
+		$themesId = array();
+  		foreach ($saison->getThemes() as $theme) {
+      		$themesId[] = $theme->getId();
+  		}
+      
+
+      $queryBuilder = $this->createQueryBuilder('c') 
+          ->addSelect('c','j','t','it','ij')
+          ->leftJoin('c.theme','t')
+          ->where('t.id IN (:id)')
+          ->setParameter('id', $themesId)
+          ->leftJoin('t.image', 'it')
+          ->leftJoin('c.joggeur', 'j') 
+          ->leftJoin('j.image', 'ij')         
+          ;
+                   
+          
+  		return $queryBuilder
+       		->getQuery()
+       		->getResult();
 	}
 
 	public function getFirst(Theme $theme){

@@ -4,11 +4,9 @@
   Marathon - {{ parent() }}
 {% endblock %}
 
-{% block tdsmarathon_body %}
-
-	
+{% block tdsmarathon_body %}	
 	<div class="bg--marbre">
 		{% set autoplay = "true" %}
-		{{ playlistWrapperModule.pl_theme(theme,null,tabIdTheme,theme.activate,autoplay,listeJoggeursScore,wof_jogDonJuan) }}
+		{{ playlistWrapperModule.pl_theme(theme,null,tabIdTheme,theme.activate,autoplay,listeJoggeursScore) }}
 	</div>
 {% endblock %}

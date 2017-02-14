@@ -15,8 +15,8 @@ services:
 
     tds_marathon.saison:
         class:  TdS\MarathonBundle\Saison\TdSSaison
-        arguments: 
-            entityManager: "@doctrine.orm.entity_manager"
+        arguments: [ @doctrine.orm.entity_manager ] 
+            # entityManager: "@doctrine.orm.entity_manager"
 
 
     tds_marathon.scoring:

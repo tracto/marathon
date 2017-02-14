@@ -1,6 +1,7 @@
 <?php
 
 namespace TdS\MarathonBundle\Entity;
+use TdS\MarathonBundle\Entity\Theme;
 
 /**
  * SaisonRepository
@@ -14,22 +15,38 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
         return $this->findBy(array(), array('id' => 'DESC'));
     }
 
-    // public function findLastOne(){
-    // 	return $this->findBy(array('activate' => 1));
-    // }
+    public function findSaisonWithThemes($id){
+        $results = $this
+            ->createQueryBuilder('n')
+            ->andwhere('n.id = :id')
+            ->addselect('n','t','partial m.{id}','partial th.{id,numComments}')
+            ->leftJoin('n.themes','t')
+            ->leftJoin('t.musicTitles','m')
+            ->leftJoin('t.thread','th')
+            
+            ->setParameter('id',$id)
+            ->getQuery()->getOneOrNullResult();
+ 
+        return $results;
+    }
 
-    public function findLastOne(){
-    	// return $this->findBy(array(), array('id' => 'DESC'));
-    	$queryBuilder=$this->_em->createQueryBuilder()
-			->select('a')
-       		->orderBy('a.id', 'DESC')
-       		->setFirstResult(0)
-   			->setMaxResults(1)
-			->from($this->_entityName,'a');
 
 
-		return $queryBuilder
-    		->getQuery()
-    		->getResult();
+    public function findSaisonByThemes($id){
+
+        $results = $this
+            ->createQueryBuilder('n')
+            ->andwhere('n.id = :id')
+            ->addselect('n','t','partial m.{id}','partial th.{id,numComments}')
+            ->leftJoin('n.themes','t')
+            ->leftJoin('t.musicTitles','m')
+            ->leftJoin('t.thread','th')
+            
+            ->setParameter('id',$id)
+            ->getQuery()->getOneOrNullResult();
+ 
+        return $results;
     }
 }
+
+
