@@ -1,0 +1,35 @@
+{% macro saison(saison) %}
+	<h3 class="sub-sub-title">Saison</h3>
+		<div class="pbm">
+			{% if saison is defined and saison is not null and saison.statut == 1 %}
+				<div>Saison en cours : {{ saison.titre }}</div>
+				{% if is_granted("ROLE_SUPER_ADMIN") %}
+					<div class='closeSaison-wrapper ptm'>
+	        			<a id="closeSaison-grosBouton" data-action="show-brief-saison" class='btn' href="#">
+	        				<svg class="icon icon--xl icon-toggle"><use xlink:href="#icon-toggle"></use></svg>
+	        			</a>
+	        			<span>Gros bouton qui ferme la saison pour toujours</span>
+	        			<div id="closeSaison-brief">
+	        				<span>Es-tu sûr de fermer cette saison?
+	        				Attention toute action liée aux thèmes sera désactivée avant l'activation d'une nouvelle saison.</span>
+	        				<div>
+	        					<a class="button btn btn-action btn-oui" href="{{ path('tds_marathon_saison_disactive_validation') }}">oui</a>
+		        				<a class="button btn btn-action btn-non" href="">non</a>
+		        			</div>
+	        				
+	        			</div>
+	        		</div>
+        		{% endif %}
+			{% else %} 
+				<div>Il n'y a pas de saison en cours.</div>
+				{% if is_granted("ROLE_SUPER_ADMIN") %}
+					<div class="block">
+						<a class="button btn btn-action align-right mbs mts" data-action="" href="{{ path('tds_marathon_saison_add') }}">
+								<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+								<span class="btn__label">Ajouter une saison</span>
+						</a>
+					</div>
+				{% endif %}
+			{% endif %}
+		</div>
+{% endmacro %}

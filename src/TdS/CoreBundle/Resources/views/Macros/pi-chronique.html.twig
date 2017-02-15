@@ -1,0 +1,85 @@
+{% macro chronique(allThemes) %}	
+	<h3 class="sub-sub-title">Chroniques</h3>
+	{% if is_granted("ROLE_SUPER_ADMIN")  %}
+		{% set i=0 %}
+		{% for theme in allThemes %}
+			{% if theme.chronique is null and theme.draftmode == 0 %}
+				{% set i=i+1 %}
+			{% endif %}
+		{% endfor %}
+
+		
+			
+			<div data-action="show-chronique" class='btn btn-caret'>
+				<span>Chroniques à écrire ({{ i }})</span>
+				<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+			</div>
+		
+
+		<div class='chroniques-list mtm'>
+			{% for theme in allThemes %}
+				{% if theme.chronique is null and theme.draftmode == 0 %}
+				<div class="flex-container-h pas sep--dashed">
+					<div class="flex-item-fluid">
+						<strong>{{ theme.titre }}</strong>
+						{% for musicTitle in theme.musicTitles %}
+							{% if loop.index == 1 %}
+								<span>par : {{ musicTitle.joggeur.pseudo }}</span>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
+						<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+						<span class="btn__label">Ecrire</span>
+					</a>
+				</div>
+				
+				{% endif %}
+			{% endfor %}
+		</div>
+
+	{% elseif is_granted("ROLE_USER")  %}
+		{% set i=0 %}
+		<div>
+			{% for theme in allThemes %}
+				{% if (theme.chronique is empty or theme.chronique is null) and theme.draftmode == 0 %}
+					{% if app.user.joggeur == theme.joggeurChronique %}
+						{% set i=i+1 %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+
+			{% if i != 0 %}
+				<div data-action="show-chronique" class='btn btn-caret'>
+					<span>tu as {{ i }} chronique(s) à écrire</span>
+					<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+				</div>
+			{% else %}
+				<div>Zut de flûte, tu n'as aucune chronique à écrire</div>
+			{% endif %}
+
+
+
+			{% for theme in allThemes %}
+				{% if (theme.chronique is empty or theme.chronique is null) and theme.draftmode == 0 %}
+					{% if app.user.joggeur == theme.joggeurChronique %}
+						
+							
+								
+								<div class='chroniques-list mtm'>
+									<div class="flex-container-h pas sep--dashed">
+										<div class="flex-item-fluid">	
+											<strong>{{ theme.titre }}</strong>
+										</div>
+    									<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
+    										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+    										<span class="btn__label">Ecrire</span>
+    									</a>
+    								</div>
+								</div>
+					{% endif %}		        			
+				{% endif %}
+			{% endfor %}			
+		</div>
+	{% endif %}
+{% endmacro %}
