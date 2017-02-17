@@ -71,7 +71,7 @@ tds_marathon_theme_add:
     path:     /theme/add
     defaults: 
         _controller: TdSMarathonBundle:Theme:add 
-        draftmode: null 
+        statut: \d+ 
 
 tds_marathon_theme_edit:
     path:     /theme/edit/{id}
@@ -91,13 +91,13 @@ tds_marathon_theme_add_draftmode:
     path:     /theme/add/draftmode
     defaults:  
         _controller: TdSMarathonBundle:Theme:add 
-        draftmode: 1
+        statut: 0
 
 tds_marathon_theme_edit_draftmode:
     path:     /theme/edit/draftmode/{id}
     defaults:  
         _controller: TdSMarathonBundle:Theme:edit 
-        draftmode: 1
+        statut: 0
         requirements:
             id: \d+
 
@@ -130,11 +130,16 @@ tds_marathon_theme_switch:
 tds_marathon_theme_switch_validation:
     path: /theme/switch/validation
     defaults: { _controller: TdSMarathonBundle:Theme:switchValidation }
+    
+        
 
 
-# tds_marathon_theme_active:
-#     pattern: /theme/active
-#     defaults: { _controller: TdSMarathonBundle:Theme:active }
+# tds_marathon_theme_view_js:
+#     pattern: /theme/view/{id}
+#     defaults: {_controller: TdSMarathonBundle:Theme:view, autoplay: "true" }       
+#     requirements:
+#         id: \d+
+#         autoplay: "true"
 #     options:
 #         expose: true
 

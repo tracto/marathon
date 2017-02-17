@@ -95,28 +95,14 @@ class Theme
      */
     private $joggeurChronique;
     
-     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="draftmode", type="boolean", nullable=true)
-     */
-     private $draftmode;
 
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="activate", type="boolean", nullable=true)
+     * @ORM\Column(name="statut", type="integer", nullable=true)
      */
-    private $activate;
-
-    
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="postActivate", type="boolean", nullable=true)
-     */
-    private $postActivate;
+    private $statut;
 
 
     /**
@@ -376,65 +362,20 @@ class Theme
         return $this->joggeurChronique;
     }
 
+
+
+
+
     /**
-     * Set draftmode
+     * Set statut
      *
-     * @param boolean $draftmode
+     * @param integer $statut
      *
      * @return Theme
      */
-    public function setDraftmode($draftmode)
+    public function setStatut($statut)
     {
-        $this->draftmode = $draftmode;
-
-        return $this;
-    }
-
-    /**
-     * Get draftmode
-     *
-     * @return boolean
-     */
-    public function getDraftmode()
-    {
-        return $this->draftmode;
-    }
-
-
-    /**
-     * Set activate
-     *
-     * @param boolean $activate
-     *
-     * @return Theme
-     */
-    public function setActivate($activate)
-    {
-        $this->activate = $activate;
-
-        return $this;
-    }
-
-    /**
-     * Get activate
-     *
-     * @return boolean
-     */
-    public function getActivate()
-    {
-        return $this->activate;
-    }
-
-    /**
-     * Set postActivate
-     *
-     * @param boolean $postActivate
-     *
-     * @return Theme
-     */
-    public function setPostActivate($postActivate)
-    {
-        $this->postActivate = $postActivate;
+        $this->statut = $statut;
 
         return $this;
     }
@@ -442,12 +383,15 @@ class Theme
     /**
      * Get postActivate
      *
-     * @return boolean
+     * @return integer
      */
-    public function getPostActivate()
+    public function getStatut()
     {
-        return $this->postActivate;
+        return $this->statut;
     }
+
+
+
 
 
     public function getTimeGap($dateFin){

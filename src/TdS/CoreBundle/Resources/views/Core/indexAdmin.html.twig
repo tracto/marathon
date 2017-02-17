@@ -6,6 +6,12 @@
 	{% import "TdSCoreBundle:Macros:pi-theme.html.twig" as PItheme %}
 	{% import "TdSCoreBundle:Macros:pi-chronique.html.twig" as PIchronique %}
 
+	{% set draftmodeTheme =  null %}
+	{% for themeItem in allThemes %}
+		{% if themeItem.statut == 0 %}
+			{% set draftmodeTheme =  themeItem %}
+		{% endif %}
+	{% endfor %}
 
     <span class="btn btn-default btn-becky hidden" data-random="1" data-info="">
 	    <span class="icon-cocktail"></span>
@@ -32,7 +38,11 @@
 
 
 					<div class="pi-themes sep clearfix">
-						{{ PItheme.theme(saison, theme, draftmodeTheme, musicTitle10th) }}
+
+						{# {{ joggeurForDraftmodeTheme.id }} / {{ joggeurForDraftmodeTheme.pseudo }} #}
+						{{ PItheme.theme(saison, theme, draftmodeTheme, joggeurForDraftmodeTheme) }}
+						
+						
 					</div>
 
 					<div class='pi-chroniques sep'>

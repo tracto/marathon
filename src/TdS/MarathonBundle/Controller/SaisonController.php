@@ -44,83 +44,115 @@ class SaisonController extends Controller{
 	    	$referer = $this->getRequest()->headers->get('referer');
 	    	$em=$this->getDoctrine()->getManager(); 
 
-
+	    	$tdsScore = $this->container->get('tds_marathon.scoring');
 
 		    $saisonActive = $em
 		      			->getRepository('TdSMarathonBundle:Saison')
 		      			->findOneBy(array('statut' => 1));  	
 
 	    	if($saisonActive){    
-				$saisonActive->setActivate(0);
+				$saisonActive->setStatut(2);
 			}
 
-			$themeActive = $em
-		      		->getRepository('TdSMarathonBundle:Theme')
-		      		->findOneBy(array('activate' => 1));
+
 		    
+		    $threeThemes = $em->getRepository('TdSMarathonBundle:Theme')
+		    					->find3Themes();
 
 
-		   	$themePost = $em
-		      		->getRepository('TdSMarathonBundle:Theme')
-		      		->findOneBy(array('postActivate' => 1));
-
-		    if($themePost){
-		    	$scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
-		    					->findBy(array('theme' => $themePost));
+		    $draftModeTheme=null;
+		    $currentTheme=null;
+		    $postTheme=null;
+		    
+		    foreach($threeThemes as $themeItem){
+		    	if($themeItem->getStatut()==0){
+		    		$draftModeTheme=$themeItem;
+		    	}elseif($themeItem->getStatut()==1){
+		    		$currentTheme=$themeItem;
+		    	}elseif($themeItem->getStatut()==2){
+		    		$postTheme=$themeItem;
+		    	}
 		    }
-		    
-		    
 
-		    $listeJoggeursScore = $em
-					->getRepository('TdSMarathonBundle:JoggeurScore')
-					->findAll();
+		    if($postTheme){
+		    	$tdsScore->setTakenPointsToJoggeurs($saisonActive,$postTheme);
+		    	$postTheme->setStatut(3);
+			}
+
+
+			if($currentTheme){
+				$joggeursDuTheme=$tdsScore->setFastPointsToJoggeurs($currentTheme);
+				foreach($joggeursDuTheme as $joggeurDuTheme){
+	  				if($joggeursDuTheme[0] && $currentTheme){
+	  					$joggeurScore=$joggeurDuTheme->getJoggeurScore();
+            			$currentTheme->setJoggeurChronique($joggeursDuTheme[0]);           
+        			}
+	  			}
+	  			$currentTheme->setStatut(3);
+	  			$em->persist($currentTheme);
+			}
+
+
+			if($postTheme) {
+		    	$postTheme->setStatut(3);
+		    }
+						
 
 			
-			if(empty($scoresPostTheme)){
-				$joggeursPostTheme= new ArrayCollection();
 
-				if($themePost && $themePost->getMusicTitles()){
-					$musicTitlesDuTheme=$themePost->getMusicTitles();
-				}
+
+
+
+		   //  $listeJoggeursScore = $em
+					// ->getRepository('TdSMarathonBundle:JoggeurScore')
+					// ->findAll();
+
+			
+			// if(empty($scoresPostTheme)){
+			// 	$joggeursPostTheme= new ArrayCollection();
+
+			// 	if($themePost && $themePost->getMusicTitles()){
+			// 		$musicTitlesDuTheme=$themePost->getMusicTitles();
+			// 	}
 		    	
-		    	if(!empty($musicTitlesDuTheme)){
-		        	foreach($musicTitlesDuTheme as $musicTitleDuTheme){
-			            if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
-			                $joggeursPostTheme->add($musicTitleDuTheme->getJoggeur());
-			            }
-		        	}
-	        	}
-				if(!empty($joggeursPostTheme)){
-		        	foreach($joggeursPostTheme as $joggeurPostTheme){
-						$scorePostTheme= new Score;
-						$scorePostTheme->setJoggeurScore($joggeurPostTheme);
-						$scorePostTheme->setTheme($themePost);
-						$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
-						$em->persist($scorePostTheme);
-					}
-				}
-			}else{
-				foreach($scoresPostTheme as $scorePostTheme){
-					$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
-					$em->persist($scorePostTheme);
-				}
-			}
+		 //    	if(!empty($musicTitlesDuTheme)){
+		 //        	foreach($musicTitlesDuTheme as $musicTitleDuTheme){
+			//             if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
+			//                 $joggeursPostTheme->add($musicTitleDuTheme->getJoggeur());
+			//             }
+		 //        	}
+	  //       	}
+			// 	if(!empty($joggeursPostTheme)){
+		 //        	foreach($joggeursPostTheme as $joggeurPostTheme){
+			// 			$scorePostTheme= new Score;
+			// 			$scorePostTheme->setJoggeurScore($joggeurPostTheme);
+			// 			$scorePostTheme->setTheme($themePost);
+			// 			$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
+			// 			$em->persist($scorePostTheme);
+			// 		}
+			// 	}
+			// }else{
+			// 	foreach($scoresPostTheme as $scorePostTheme){
+			// 		$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
+			// 		$em->persist($scorePostTheme);
+			// 	}
+			// }
 
 
-			foreach($listeJoggeursScore as $joggeurScore){			
-	        	$joggeurScore->setPointstogive(0);
-	        	$em->persist($joggeurScore);
+			// foreach($listeJoggeursScore as $joggeurScore){			
+	  //       	$joggeurScore->setPointstogive(0);
+	  //       	$em->persist($joggeurScore);
 	        	
-			}
-			if($themeActive){
-				$themeActive->setActivate(0);
-				$em->persist($themeActive);
-			}
+			// }
+			// if($themeActive){
+			// 	$themeActive->setActivate(0);
+			// 	$em->persist($themeActive);
+			// }
 			
-			if($themePost){
-				$themePost->setPostActivate(0);
-				$em->persist($themePost);
-			}
+			// if($themePost){
+			// 	$themePost->setPostActivate(0);
+			// 	$em->persist($themePost);
+			// }
 			
 			
 			$em->persist($saisonActive);

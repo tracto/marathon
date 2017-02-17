@@ -18,18 +18,17 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function getDixieme(Theme $theme){
 		$queryBuilder=$this->_em->createQueryBuilder()
-			->select('a')
+			->addselect('a','j','ji')
 			->where('a.theme = :theme')
-       			->setParameter('theme', $theme)
+       		->setParameter('theme', $theme)
        		->orderBy('a.dateUpload', 'ASC')
+       		->from($this->_entityName,'a')
+       		->leftjoin('a.joggeur','j')
+       		->leftjoin('j.image','ji')       		
        		->setFirstResult(9)
-   			->setMaxResults(1)
-			->from($this->_entityName,'a');
+   			->setMaxResults(1);
 
-
-		return $queryBuilder
-    		->getQuery()
-    		->getResult();
+		return $queryBuilder->getQuery()->getOneOrNullResult();
 	}
 
 

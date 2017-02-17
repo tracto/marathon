@@ -215,17 +215,17 @@ class JoggeurController extends Controller{
           $tdsSaison = $this->container->get('tds_marathon.saison');
           $saison=$tdsSaison->getCurrSaison();
 
-      	  $themePostActivate=$em->getRepository('TdSMarathonBundle:Theme')
-      					   ->findOneBy(array('postActivate' => 1));
+      	  $themePost=$em->getRepository('TdSMarathonBundle:Theme')
+      					   ->findOneBy(array('statut' => 2));
 
           $joggeursDuTheme= new ArrayCollection();
 
-          if($themePostActivate){
-            $musicTitlesDuTheme=$themePostActivate->getMusicTitles();
+          if($themePost){
+            $musicTitlesDuTheme=$themePost->getMusicTitles();
             
 
             $scoreJoggeurParTheme=$em->getRepository('TdSMarathonBundle:JoggeurScore')
-                             ->findJoggeurParTheme($joggeur,$themePostActivate);
+                             ->findJoggeurParTheme($joggeur,$themePost);
             if(!empty($scoreJoggeurParTheme)){
                 $scoreJoggeurParTheme=$scoreJoggeurParTheme[0];
             }
@@ -260,7 +260,7 @@ class JoggeurController extends Controller{
                             $joggeurHeart=$em->getRepository('TdSMarathonBundle:Joggeur')
                                ->findOneBy(array('id' => $idJoggeur));
                             $scoreJoggeurHeart=$em->getRepository('TdSMarathonBundle:JoggeurScore')
-                               ->findJoggeurParTheme($joggeurHeart,$themePostActivate);
+                               ->findJoggeurParTheme($joggeurHeart,$themePost);
                             $scoreJoggeurHeart=$scoreJoggeurHeart[0];
                             $scoresHeart=$scoreJoggeurHeart->getScores();
                             foreach($scoresHeart as $scoreHeart){
@@ -285,7 +285,7 @@ class JoggeurController extends Controller{
       	return $this->render('TdSMarathonBundle:Joggeur:addpoints.html.twig',array(
         	  		'joggeur'=>$joggeur,
                 'joggeursDuTheme'=>$joggeursDuTheme,
-        	  		'themePostActivate'=>$themePostActivate,
+        	  		'themePost'=>$themePost,
                 'scoreJoggeurParTheme'=>$scoreJoggeurParTheme,
                 'form'=>$form
   	  		));

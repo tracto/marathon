@@ -3,7 +3,7 @@
 	{% if is_granted("ROLE_SUPER_ADMIN")  %}
 		{% set i=0 %}
 		{% for theme in allThemes %}
-			{% if theme.chronique is null and theme.draftmode == 0 %}
+			{% if theme.chronique is null and theme.statut != 0 %}
 				{% set i=i+1 %}
 			{% endif %}
 		{% endfor %}
@@ -18,7 +18,7 @@
 
 		<div class='chroniques-list mtm'>
 			{% for theme in allThemes %}
-				{% if theme.chronique is null and theme.draftmode == 0 %}
+				{% if theme.chronique is null and theme.statut != 0 %}
 				<div class="flex-container-h pas sep--dashed">
 					<div class="flex-item-fluid">
 						<strong>{{ theme.titre }}</strong>
@@ -42,7 +42,7 @@
 		{% set i=0 %}
 		<div>
 			{% for theme in allThemes %}
-				{% if (theme.chronique is empty or theme.chronique is null) and theme.draftmode == 0 %}
+				{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
 					{% if app.user.joggeur == theme.joggeurChronique %}
 						{% set i=i+1 %}
 					{% endif %}
@@ -61,7 +61,7 @@
 
 
 			{% for theme in allThemes %}
-				{% if (theme.chronique is empty or theme.chronique is null) and theme.draftmode == 0 %}
+				{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
 					{% if app.user.joggeur == theme.joggeurChronique %}
 						
 							

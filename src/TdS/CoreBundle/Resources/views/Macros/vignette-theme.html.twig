@@ -1,6 +1,6 @@
 {% macro vignette(theme) %}
-    {% if theme.draftmode is null or theme.draftmode == 0 or (is_granted("ROLE_SUPER_ADMIN","ROLE_USER") and theme.draftmode == 1 and theme.joggeur == app.user.joggeur ) %}
-	    {% if theme.draftmode == 1 and theme.joggeur == app.user.joggeur %}
+    {% if theme.statut is null or theme.statut != 0 or (is_granted("ROLE_SUPER_ADMIN","ROLE_USER") and theme.statut == 0 and theme.joggeur == app.user.joggeur ) %}
+	    {% if theme.statut == 0 and theme.joggeur == app.user.joggeur %}
 	     	<div class='col col-xs-6 col-md-4 col-lg-3 list-item vignette-item col-draftmode-theme man pan'>
 	     					    		
 		{% else %}
@@ -15,7 +15,7 @@
 				  			<img class="" src="{{ theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ theme.image.alt }}">
 						{% endif %}
 						
-						{% if theme.draftmode == 1 and theme.joggeur.id == app.user.joggeur.id %}
+						{% if theme.statut == 0 and theme.joggeur.id == app.user.joggeur.id %}
 		    				<div class="ribbon">
 								<div class="line flex-container-h align-center">							
 									<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>

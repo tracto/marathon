@@ -14,13 +14,18 @@ services:
     #         - { name: kernel.event_listener, event: kernel.response, method: processSaison }
 
     tds_marathon.saison:
-        class:  TdS\MarathonBundle\Saison\TdSSaison
+        class:  TdS\MarathonBundle\Services\TdSSaison
         arguments: [ @doctrine.orm.entity_manager ] 
             # entityManager: "@doctrine.orm.entity_manager"
 
 
     tds_marathon.scoring:
-        class:  TdS\MarathonBundle\Scoring\TdSScoring
+        class:  TdS\MarathonBundle\Services\TdSScoring
+        arguments: [ @doctrine.orm.entity_manager ]
+
+
+    tds_marathon.theme:
+        class:  TdS\MarathonBundle\Services\TdSTheme
         arguments: [ @doctrine.orm.entity_manager ]
         
 

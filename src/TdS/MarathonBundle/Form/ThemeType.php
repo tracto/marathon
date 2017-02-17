@@ -47,8 +47,8 @@ class ThemeType extends AbstractType
             ->add('image',new ImageType(),array('required'=>false))
             ->add('valider','submit');
 
-            if($options['draftmode'] == null){
-                 $builder->add('activate','checkbox',array('required'=>false))
+            if($options['statut'] != 0){
+                 $builder->add('statut','checkbox',array('required'=>false))
                          ->add('joggeur', 'entity', array(
                                 'class'    => 'TdSMarathonBundle:Joggeur',
                                 'property' => 'pseudo',
@@ -65,7 +65,7 @@ class ThemeType extends AbstractType
                                 'required' => false
                             ));
             }else{
-                $builder->remove('activate')
+                $builder->remove('statut')
                         ->remove('joggeur')
                         ->remove('dateDebut')
                         ->remove('dateFin')
@@ -85,8 +85,8 @@ class ThemeType extends AbstractType
 
                 $form = $event->getForm();
                
-                    if($theme->getDraftmode() == 1){
-                            $event->getForm()->remove('activate')
+                    if($theme->getStatut() == 0){
+                            $event->getForm()->remove('statut')
                                 ->remove('joggeur')
                                 ->remove('chronique')
                                 ->remove('dateDebut')
@@ -107,7 +107,7 @@ class ThemeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'TdS\MarathonBundle\Entity\Theme',
-            'draftmode' => null,
+            'statut' => null,
         ));
     }
 
