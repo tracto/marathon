@@ -1,4 +1,4 @@
-{% macro theme(saison, theme, draftmodeTheme, musicTitle10th) %}
+{% macro theme(saison, theme, draftmodeTheme, joggeurForDraftmodeTheme) %}
 	{% if saison is defined and saison is not null %}
 		<div class="theme-attente sep clearfix">
 			<h3 class="sub-sub-title">Thèmes</h3>
@@ -24,27 +24,27 @@
 							
 
 								<a class="button btn btn-action pull-right"  href="{{ path('tds_marathon_theme_add_draftmode') }}">
-											<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-											<span class="btn__label">Ecrire un thème d'attente</span>
+									<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+									<span class="btn__label">Ecrire un thème d'attente</span>
 								</a>
 							</div>
 
 							<div class="ptm pbm sep--dashed clearfix">
-								{% if musicTitle10th is not null %}
+								{% if joggeurForDraftmodeTheme is not null %}
 	        						<strong>Le prochain thème doit être proposé par :</strong>
 	        						<div class='thumb-line author ptm'>
-										<a href="{{ path('tds_marathon_joggeur_view', {'id': musicTitle10th.joggeur.id}) }}">
+										<a href="{{ path('tds_marathon_joggeur_view', {'id': joggeurForDraftmodeTheme.id}) }}">
 											<span class="author-thumb">
-												<img class='thumbnail' src='{{ musicTitle10th.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+												<img class='thumbnail' src='{{ joggeurForDraftmodeTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
 											</span>
 											<span class="author-name">
-												{{ musicTitle10th.joggeur.pseudo }}
+												{{ joggeurForDraftmodeTheme.pseudo }}
 											</span>
 										</a>
 									</div>
 
-									{% if musicTitle10th.joggeur.user is defined and musicTitle10th.joggeur.user is not null %}
-										<a class="btn button btn-action mas pull-right" href="mailto:{{ musicTitle10th.joggeur.user.email }}">
+									{% if joggeurForDraftmodeTheme.user is defined and joggeurForDraftmodeTheme.user is not null %}
+										<a class="btn button btn-action mas pull-right" href="mailto:{{ joggeurForDraftmodeTheme.user.email }}">
 											<svg class="icon icon--s icon-paperplane"><use xlink:href="#icon-paperplane"></use></svg>
 											<span>Lui envoyer un message télépathique</span>
 										</a>
@@ -61,9 +61,9 @@
 
 	    			{% elseif is_granted("ROLE_USER")  %}
 	    				<div class="pbm flex-container-h clearfix">
-	    				{% if musicTitle10th is not null %}
-	        				{% if app.user.joggeur == musicTitle10th.joggeur %}
-	        					{% if draftmodeTheme is not defined or draftmodeTheme.draftmode is null or draftmodeTheme.draftmode == 0 %} 
+	    				{% if joggeurForDraftmodeTheme is not null %}
+	        				{% if app.user.joggeur == joggeurForDraftmodeTheme %}
+	        					{% if draftmodeTheme is not defined or draftmodeTheme.statut is not null or draftmodeTheme.statut != 0 %} 
 	        						<div class="flex-item-fluid"><strong class="text--m">Tu es l'élu !</strong><br/> 
 	        							C'est à toi de proposer le prochain thème.</div>
 	        						<div class="pull-right">
@@ -72,7 +72,7 @@
 												<span class="btn__label">Ecrire un thème d'attente</span>
 										</a>
 									</div>
-								{% elseif draftmodeTheme is defined and draftmodeTheme.draftmode == 1 %}
+								{% elseif draftmodeTheme is defined and draftmodeTheme.statut == 0 %}
 									{% if draftmodeTheme.joggeur == app.user.joggeur %}
 										<div class="flex-item-fluid"><strong class="text--m">Tu es l'élu !</strong><br/>
 

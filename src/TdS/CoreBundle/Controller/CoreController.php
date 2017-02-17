@@ -31,12 +31,8 @@ class CoreController extends Controller{
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('activate' => 1));
+	      			->findOneBy(array('statut' => 1));
 
-
-	      	$themePost = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('postActivate' => 1));
 
 
 	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
@@ -91,7 +87,6 @@ class CoreController extends Controller{
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'saison'=>$saison,
 					'theme'=>$theme,										
-					'themePost'=>$themePost,
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
@@ -115,12 +110,7 @@ class CoreController extends Controller{
 			
 	    	$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('activate' => 1));
-
-
-	      	$themePost = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('postActivate' => 1));
+	      			->findOneThemeByStatut(1);
 
 
 	      	$allThemes=$em
@@ -134,37 +124,43 @@ class CoreController extends Controller{
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
 							->findAll();
 
-		
-	   		$draftmodeTheme = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('draftmode' => 1));
-	      	if(!empty($theme)){
-		   		$musicTitle10th = $em
-		      			->getRepository('TdSMarathonBundle:MusicTitle')
-		      			->getDixieme($theme);
-		      	$timeGap=$theme->getTimeGap($theme->getDateFin());
-	      	}else if(!empty($themePost)){
-	      		$musicTitle10th = $em
-		      			->getRepository('TdSMarathonBundle:MusicTitle')
-		      			->getDixieme($themePost);
-	      		$timeGap=null;
-	      	}else{
-	      		$timeGap=null;
-	      	}
-
-			if(!empty($musicTitle10th)){
-				$musicTitle10th=$musicTitle10th[0];
-			}else{
-				$musicTitle10th=null;
-			}
-
 			$website=new Website();
 			$formWebsite=$this->createForm(new WebsiteType(),$website,array(
 					'method' => 'POST',
     				'action' => '#anchorLiens'
 			));
 
-			
+
+
+			$tdsTheme = $this->container->get('tds_marathon.theme');
+
+			if($theme){
+        		$joggeurForDraftmodeTheme=$tdsTheme->getJoggeurForDraftmodeTheme($theme);
+        	}else{
+        		$joggeurForDraftmodeTheme=null;
+        	}
+
+
+
+			//     	if(!empty($theme)){
+		 //   		$musicTitle10th = $em
+		 //      			->getRepository('TdSMarathonBundle:MusicTitle')
+		 //      			->getDixieme($theme);
+		 //      	$timeGap=$theme->getTimeGap($theme->getDateFin());
+	  //     	}else if(!empty($themePost)){
+	  //     		$musicTitle10th = $em
+		 //      			->getRepository('TdSMarathonBundle:MusicTitle')
+		 //      			->getDixieme($themePost);
+	  //     		$timeGap=null;
+	  //     	}else{
+	  //     		$timeGap=null;
+	  //     	}
+
+			// if(!empty($musicTitle10th)){
+			// 	$musicTitle10th=$musicTitle10th[0];
+			// }else{
+			// 	$musicTitle10th=null;
+			// }
   	
 			if($formWebsite->handleRequest($request)->isValid()){
 				$em=$this->getDoctrine()->getManager();
@@ -197,12 +193,13 @@ class CoreController extends Controller{
 					'saison'=>$saison,
 					'theme'=>$theme,
 					'listeArticles'=>$listeArticles,
-					'timeGap'=>$timeGap,
+					// 'timeGap'=>$timeGap,
 					'joggeurScore'=>$joggeurScore,
-					'draftmodeTheme'=>$draftmodeTheme,
+					// 'draftmodeTheme'=>$draftmodeTheme,
 					'allThemes'=>$allThemes,
-					'musicTitle10th'=>$musicTitle10th,
-					'themePost'=>$themePost,
+					'joggeurForDraftmodeTheme'=>$joggeurForDraftmodeTheme,
+					// 'musicTitle10th'=>$musicTitle10th,
+					// 'themePost'=>$themePost,
 					'websites'=>$websites,
 					'formWebsite'=>$formWebsite->createView()											
 			));

@@ -1,10 +1,13 @@
 <?php
-namespace TdS\MarathonBundle\Scoring;
+namespace TdS\MarathonBundle\Services;
 
 use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\Saison;
-// use TdS\MarathonBundle\Entity\JoggeurScore;
+use TdS\MarathonBundle\Entity\Theme;
+use TdS\MarathonBundle\Entity\JoggeurScore;
+use TdS\MarathonBundle\Entity\Score;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class TdSScoring {
 
@@ -138,5 +141,70 @@ class TdSScoring {
 		
     	return $wof_jogFame;
     }
+
+
+
+
+    // FONCTIONS QUI ATTRIBUENT LES POINTS
+
+    public function setTakenPointsToJoggeurs(Saison $saison,Theme $postTheme){
+        $scoresPostTheme=$this->em->getRepository('TdSMarathonBundle:Score')
+                            ->findBy(array('theme' => $postTheme));
+        if(!empty($scoresPostTheme)){
+            foreach($scoresPostTheme as $scorePostTheme){
+                $joggeurScore=$scorePostTheme->getJoggeurScore();
+                if($postTheme->getSaison()==$saison){
+                    $scorePostTheme->setTakenpoints($joggeurScore->getPointstogive());
+                }
+                $joggeurScore->setPointstogive(0);    
+            }
+        }
+        return $scoresPostTheme; 
+    }
+
+
+    public function setFastPointsToJoggeurs(Theme $currentTheme){
+        $musicTitlesDuTheme=$currentTheme->getMusicTitles();
+        $joggeursDuTheme= new ArrayCollection();
+        foreach($musicTitlesDuTheme as $musicTitleDuTheme){
+            if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
+                $joggeursDuTheme->add($musicTitleDuTheme->getJoggeur());
+            }
+        }
+        $i=$joggeursDuTheme->count();
+
+
+        foreach($joggeursDuTheme as $joggeurDuTheme){
+            $joggeurScore=$joggeurDuTheme->getJoggeurScore();
+
+            if(empty($joggeurDuTheme->getJoggeurScore())){
+                $joggeurScore= new JoggeurScore;
+                $joggeurDuTheme->setJoggeurScore($joggeurScore); 
+                $em->persist($joggeurDuTheme);              
+            }
+
+             if(empty($joggeurScore->getJoggeur())){
+                $joggeurScore->setJoggeur($joggeurDuTheme);             
+             }
+
+            $score= new Score;
+            $score->setJoggeurScore($joggeurScore);
+            $score->setTheme($currentTheme);
+            $score->setFastpoints($i);
+
+            $joggeurScore->addScore($score);
+
+            $this->em->persist($score);
+            $this->em->persist($joggeurScore);
+            $this->em->persist($joggeurDuTheme); 
+            
+            $i--;
+        }
+
+        return $joggeursDuTheme;
+    }
+    
+
+
 
 }

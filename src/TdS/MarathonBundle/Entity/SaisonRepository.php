@@ -15,6 +15,18 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
         return $this->findBy(array(), array('id' => 'DESC'));
     }
 
+
+    public function findLastOne(){
+        $results = $this
+            ->createQueryBuilder('n')
+            ->orderBy('n.id', 'DESC')
+            ->andwhere('n.statut = :statut')
+            ->setParameter('statut',2)
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
+        return $results;
+    }
+
     public function findSaisonWithThemes($id){
         $results = $this
             ->createQueryBuilder('n')
@@ -29,6 +41,8 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
  
         return $results;
     }
+
+
 
 
 

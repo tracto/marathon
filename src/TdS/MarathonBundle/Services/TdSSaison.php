@@ -1,5 +1,5 @@
 <?php
-namespace TdS\MarathonBundle\Saison;
+namespace TdS\MarathonBundle\Services;
 
 use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\Theme;

@@ -56,7 +56,7 @@
 					</div>
 				{% endif %}
 
-				{% if theme.draftmode == 1 and theme.joggeur.id == app.user.joggeur.id %}
+				{% if theme.statut == 0 and theme.joggeur.id == app.user.joggeur.id %}
     				<div class="ribbon">
 						<div class="line flex-container-h align-center">							
 							<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
@@ -216,7 +216,7 @@
 					
 
 					
-				{% elseif is_granted("ROLE_USER") and theme.draftmode == 1 and theme.joggeur == app.user.joggeur %} 
+				{% elseif is_granted("ROLE_USER") and theme.statut == 0 and theme.joggeur == app.user.joggeur %} 
 					<a class="button btn btn-action pull-right mtm" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': theme.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 		  				<span class="btn__label">Modifier le thème d'attente</span>
