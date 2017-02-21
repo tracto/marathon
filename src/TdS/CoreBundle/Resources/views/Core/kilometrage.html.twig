@@ -4,12 +4,16 @@
 
 		<div class="total-km-content flex-item-center">
 			<div class="borne-km-icon"></div>
-			<span>{{ kilometrage }} km </span>	
+			{# <span>{{ kilometrage }} km </span> #}	
 		</div>	  
 	</div>
 	<div class="total-temps">
-		<span>temps total :</span> 
-		<span>{{ formatDuration }}</span>
+		<span>temps total :</span>
+		{# {% for duration in formatDuration %} #} 
+			<span>{{ duree.kilometrage }}</span>
+			<span>{{ duree.temps }}</span>
+
+		{# {% endfor %} #}
 	</div>
 
 	{# <div class="joggeurs-group">

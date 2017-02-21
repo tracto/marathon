@@ -1,6 +1,7 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_host: 127.0.0.1
+    database_host: localhost
+    
     database_port: 8889
     database_name: marathon-branch-devsaison
     database_user: root
