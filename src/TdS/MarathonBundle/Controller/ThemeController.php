@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Session\Session;
+// use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
@@ -42,12 +42,13 @@ class ThemeController extends Controller{
     public function viewAction(Request $request, Theme $theme, $id, $autoplay="false"){
     	if ($theme->getStatut() != 0 || ($theme->getStatut() == 0 && $this->getUser() == $theme->getJoggeur()->getUser())){
 	    	$em = $this->getDoctrine()->getManager();
-
-	    	// echo $this->getUser()->getId()." - ".$theme->getJoggeur()->getUser()->getId();
 	    	
 
 	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-	    					 ->findAll(); 
+	    					 ->findAll();
+
+	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    			->findOneThemeById($id); 
 	    	              
 	        $tabIdTheme=array();
 	        foreach ($listeSaisons as $saisonItem){

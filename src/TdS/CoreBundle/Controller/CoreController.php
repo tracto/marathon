@@ -9,14 +9,14 @@ use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\Website;
 use TdS\MarathonBundle\Form\WebsiteType;
 use TdS\MarathonBundle\Entity\MusicTitle;
-use TdS\MarathonBundle\MP3File\TdSMP3File;
+// use TdS\MarathonBundle\MP3File\TdSMP3File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use TdS\CoreBundle\Form\ParticipateType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\Session\Session;
+//use Symfony\Component\HttpFoundation\Session\Session;
 
 class CoreController extends Controller{
 
@@ -93,10 +93,11 @@ class CoreController extends Controller{
 					"websites"=>$websites,
 					"musicTitles"=>$musicTitles,
 					'formWebsite'=>$formWebsite->createView()			
-			));
-			
-			 
+			));			 
 	}
+
+
+
 
 
 	public function DashboardAction(Request $request){
@@ -140,27 +141,6 @@ class CoreController extends Controller{
         		$joggeurForDraftmodeTheme=null;
         	}
 
-
-
-			//     	if(!empty($theme)){
-		 //   		$musicTitle10th = $em
-		 //      			->getRepository('TdSMarathonBundle:MusicTitle')
-		 //      			->getDixieme($theme);
-		 //      	$timeGap=$theme->getTimeGap($theme->getDateFin());
-	  //     	}else if(!empty($themePost)){
-	  //     		$musicTitle10th = $em
-		 //      			->getRepository('TdSMarathonBundle:MusicTitle')
-		 //      			->getDixieme($themePost);
-	  //     		$timeGap=null;
-	  //     	}else{
-	  //     		$timeGap=null;
-	  //     	}
-
-			// if(!empty($musicTitle10th)){
-			// 	$musicTitle10th=$musicTitle10th[0];
-			// }else{
-			// 	$musicTitle10th=null;
-			// }
   	
 			if($formWebsite->handleRequest($request)->isValid()){
 				$em=$this->getDoctrine()->getManager();
@@ -193,13 +173,9 @@ class CoreController extends Controller{
 					'saison'=>$saison,
 					'theme'=>$theme,
 					'listeArticles'=>$listeArticles,
-					// 'timeGap'=>$timeGap,
 					'joggeurScore'=>$joggeurScore,
-					// 'draftmodeTheme'=>$draftmodeTheme,
 					'allThemes'=>$allThemes,
 					'joggeurForDraftmodeTheme'=>$joggeurForDraftmodeTheme,
-					// 'musicTitle10th'=>$musicTitle10th,
-					// 'themePost'=>$themePost,
 					'websites'=>$websites,
 					'formWebsite'=>$formWebsite->createView()											
 			));
@@ -237,8 +213,6 @@ class CoreController extends Controller{
 
             $mailer->send($message);
 
-   //          $spool = $mailer->getTransport()->getSpool();
-			// $transport = $this->get('swiftmailer.transport.real');
 
             return $this->render('TdSCoreBundle:Core:participate-validation.html.twig',array('data'=>$data));
         }
@@ -254,24 +228,26 @@ class CoreController extends Controller{
 
 	public function kilometrageAction(){
 		$em = $this->getDoctrine()->getManager();
-		$allMusicTitles=$em
+		$duree=$em
 	      			->getRepository('TdSMarathonBundle:MusicTitle')
-	      			->findAll();
+	      			->findAllDurations();
 
-	    $allDurations=0; 			
-	    foreach($allMusicTitles as $musicTitle){
-	    	if($musicTitle->getDuration()!=null){
-	    		$allDurations=$allDurations+$musicTitle->getDuration();
-	    	}
-	    }
+	    // $allDurations=0; 			
+	    // foreach($allMusicTitles as $musicTitle){
+	    // 	if($musicTitle->getDuration()!=null){
+	    // 		$allDurations=$allDurations+$musicTitle->getDuration();
+	    // 	}
+	    // }
 
-	    $mp3File=new TdSMP3File(0);
-	    $kilometrage=round(($allDurations*10)/3600,2);
-	    $formatDuration=$mp3File->formatTime($allDurations);
+	    // $mp3File=new TdSMP3File(0);
+	    // $kilometrage=round(($allDurations*10)/3600,2);
+	    // $formatDuration=$mp3File->formatTime($allDurations);
 
-		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array(
-			'kilometrage'=>$kilometrage,
-			'formatDuration'=>$formatDuration
-			));
+
+// array(
+// 			'kilometrage'=>$kilometrage,
+// 			'formatDuration'=>$formatDuration
+// 			)
+		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array("duree"=>$duree));
 	}	
 }

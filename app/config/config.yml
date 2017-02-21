@@ -37,10 +37,10 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
-    # validation:
-    #    cache: validator.mapping.cache.apc
-    # serializer:
-    #    cache: serializer.mapping.cache.apc
+    validation:
+       cache: validator.mapping.cache.apc
+    serializer:
+       cache: serializer.mapping.cache.apc
 
 # Twig Configuration
 twig:

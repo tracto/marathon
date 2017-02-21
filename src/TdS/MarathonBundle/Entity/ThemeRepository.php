@@ -28,6 +28,26 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
     		->getResult();
     }
 
+    public function findOneThemeById($id){
+      $queryBuilder=$this->_em->createQueryBuilder('a')
+        ->addselect('a','i','j','ji','jc','jci','m','mj','th')
+        ->andwhere('a.id = :id')
+
+        ->setParameter('id', $id)
+        ->from($this->_entityName,'a')
+        ->leftJoin('a.image','i')
+        ->leftJoin('a.joggeur','j')
+        ->leftJoin('j.image','ji')
+        ->leftJoin('a.joggeurChronique','jc')
+        ->leftJoin('jc.image','jci')         
+        ->leftJoin('a.musicTitles','m')
+        ->leftJoin('m.joggeur','mj')
+        ->leftJoin('a.thread','th')        
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
 
     public function findOneThemeByStatut($statut){
       $queryBuilder=$this->_em->createQueryBuilder('a')

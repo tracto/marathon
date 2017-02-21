@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Session\Session;
+// use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
@@ -96,64 +96,7 @@ class SaisonController extends Controller{
 			if($postTheme) {
 		    	$postTheme->setStatut(3);
 		    }
-						
-
-			
-
-
-
-
-		   //  $listeJoggeursScore = $em
-					// ->getRepository('TdSMarathonBundle:JoggeurScore')
-					// ->findAll();
-
-			
-			// if(empty($scoresPostTheme)){
-			// 	$joggeursPostTheme= new ArrayCollection();
-
-			// 	if($themePost && $themePost->getMusicTitles()){
-			// 		$musicTitlesDuTheme=$themePost->getMusicTitles();
-			// 	}
-		    	
-		 //    	if(!empty($musicTitlesDuTheme)){
-		 //        	foreach($musicTitlesDuTheme as $musicTitleDuTheme){
-			//             if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
-			//                 $joggeursPostTheme->add($musicTitleDuTheme->getJoggeur());
-			//             }
-		 //        	}
-	  //       	}
-			// 	if(!empty($joggeursPostTheme)){
-		 //        	foreach($joggeursPostTheme as $joggeurPostTheme){
-			// 			$scorePostTheme= new Score;
-			// 			$scorePostTheme->setJoggeurScore($joggeurPostTheme);
-			// 			$scorePostTheme->setTheme($themePost);
-			// 			$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
-			// 			$em->persist($scorePostTheme);
-			// 		}
-			// 	}
-			// }else{
-			// 	foreach($scoresPostTheme as $scorePostTheme){
-			// 		$scorePostTheme->setTakenpoints($scorePostTheme->getJoggeurScore()->getPointstogive());
-			// 		$em->persist($scorePostTheme);
-			// 	}
-			// }
-
-
-			// foreach($listeJoggeursScore as $joggeurScore){			
-	  //       	$joggeurScore->setPointstogive(0);
-	  //       	$em->persist($joggeurScore);
-	        	
-			// }
-			// if($themeActive){
-			// 	$themeActive->setActivate(0);
-			// 	$em->persist($themeActive);
-			// }
-			
-			// if($themePost){
-			// 	$themePost->setPostActivate(0);
-			// 	$em->persist($themePost);
-			// }
-			
+									
 			
 			$em->persist($saisonActive);
 			
