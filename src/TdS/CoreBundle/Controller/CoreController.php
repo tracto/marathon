@@ -9,14 +9,14 @@ use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\Website;
 use TdS\MarathonBundle\Form\WebsiteType;
 use TdS\MarathonBundle\Entity\MusicTitle;
-// use TdS\MarathonBundle\MP3File\TdSMP3File;
+use TdS\MarathonBundle\MP3File\TdSMP3File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use TdS\CoreBundle\Form\ParticipateType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Doctrine\Common\Collections\ArrayCollection;
-//use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CoreController extends Controller{
 
@@ -25,13 +25,16 @@ class CoreController extends Controller{
 
 
 
+			$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
+						->findAllSaisonsWithThemes();
+
+
 			$tdsSaison = $this->container->get('tds_marathon.saison');
 	        $saison=$tdsSaison->getCurrSaison();
 
-			
-	    	$theme = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneBy(array('statut' => 1));
+
+	        $saison=$em->getRepository('TdSMarathonBundle:Saison')
+                   ->findSaisonWithThemes($saison->getId());
 
 
 
@@ -41,7 +44,7 @@ class CoreController extends Controller{
 	      	shuffle($musicTitles);
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
-	      					  ->findSeveral(6,0);
+	      					  ->findSeveral(3,0);
 
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
@@ -85,8 +88,8 @@ class CoreController extends Controller{
 
 
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
-					'saison'=>$saison,
-					'theme'=>$theme,										
+					'listeSaisons'=>$listeSaisons,
+					'saison'=>$saison,									
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
@@ -108,11 +111,6 @@ class CoreController extends Controller{
 	        $saison=$tdsSaison->getCurrSaison();		
 	      	
 	      	
-			
-	    	$theme = $em
-	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findOneThemeByStatut(1);
-
 
 	      	$allThemes=$em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -134,6 +132,10 @@ class CoreController extends Controller{
 
 
 			$tdsTheme = $this->container->get('tds_marathon.theme');
+			
+			$theme = $em
+	      			->getRepository('TdSMarathonBundle:Theme')
+	      			->findOneThemeByStatut(1);
 
 			if($theme){
         		$joggeurForDraftmodeTheme=$tdsTheme->getJoggeurForDraftmodeTheme($theme);

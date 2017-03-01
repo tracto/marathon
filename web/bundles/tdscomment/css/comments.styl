@@ -1,17 +1,15 @@
 #fos_comment_thread_wrapper{
-	
+	/*display:none;*/
+	background-color:#e8ece7;
 	position:relative;
-	margin:0 1rem 0 1rem;	
-	/*background-image:url("../images/playlist/playlist-bg.jpg");
-	border:solid 1px $grey4bis;*/
+	margin:0 auto;
+	width:90%;
+	max-width:1000px;
+	padding-top:2rem;	
+	border-radius:5px;
+	border:solid 1px #d0d6ce;
 
-	@media $medium{
-		margin:0 5rem 0 5rem;	
-	}
-
-	@media $large{
-		margin:0 10rem 0 10rem;	
-	}
+	
 
 	
 	.inner-wrapper{
@@ -31,13 +29,14 @@
 
 
 #fos_comment_thread{
-	display:none;
+	
 }
 
 
 .comment-show-button{
-	position: relative;
-    top: -25px;
+	position: absolute;
+    right: 20px;
+    bottom: 20px;
 
 }
 
@@ -46,14 +45,16 @@
 	z-index: 3;
 	position: relative;
     vertical-align: top;
-    color:$color6;
 
+    
     svg {
     	fill:$grey1;
     }
 
 	&:hover{
-		color:$grey1;
+		span {
+			color:$grey1;
+		}
 
 		svg {
 			fill:$color6;
@@ -66,7 +67,7 @@
  		top:0;
  		left:0;
  		width:100%;
-		/*color:$color6;*/
+		color:$color6;
 	    font-size: 1.3em;
 	    display: block;
 	    margin: 0 auto;
@@ -166,8 +167,8 @@
 	display: flex;
 	/*margin-bottom:30px;*/
   	flex-wrap: wrap;
-  	overflow:hidden;
-  	height:50px;
+  	/*overflow:hidden;*/
+  	/*height:50px;*/
   	border:solid 1px $grey4;
   	border-radius:5px;
 
@@ -185,10 +186,16 @@
 	textarea{
 		background-color:rgba(255,255,255,0.5);
 		border:none;
-		height:50px;
+		height:auto;
 		font-size:12px;
 		flex-grow: 1;
     	min-width: 25%;
+    	width:auto;
+	}
+
+	.cke_editor_fos_comment_comment_body{
+		flex-grow: 1;
+		min-width: 25%;
     	width:auto;
 	}
 
@@ -345,9 +352,52 @@
 	}	
 }
 
-.fos_comment_comment_metas_authorline{
-	/*border:solid 1px $grey4bis;*/
+
+.fos_comment_comment_body{
+	width:100%;
+
+	img{
+		display:block;
+		width:100%;
+
+	}
+
+	a{
+		display:block;
+		text-decoration:underline;
+		width: 100%;
+		word-break: break-all;
+  		white-space: pre-wrap;
+  		overflow: hidden;
+	}
+
+	iframe{
+		display:block;
+		width:100%;
+	}
+
+	.video-container {
+	    position: relative;
+	    width: 100%;
+	    height: 0;
+	    padding-bottom: 56.25%;
+	}
+
+	.embedded-video {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+
 	
+}
+
+
+
+
+.fos_comment_comment_metas_authorline{
 	font-size:0.9em;
 }
 
@@ -419,6 +469,12 @@
 			fill:$grey1;
 		}		
 	}
+}
+
+
+.fos_comment_infos{
+	color:$grey4;
+	font-size:0.8em;
 }
 
 

@@ -38,11 +38,7 @@
 
 
 					<div class="pi-themes sep clearfix">
-
-						{# {{ joggeurForDraftmodeTheme.id }} / {{ joggeurForDraftmodeTheme.pseudo }} #}
-						{{ PItheme.theme(saison, theme, draftmodeTheme, joggeurForDraftmodeTheme) }}
-						
-						
+						{{ PItheme.theme(saison, theme, draftmodeTheme, joggeurForDraftmodeTheme) }}			
 					</div>
 
 					<div class='pi-chroniques sep'>
@@ -53,7 +49,7 @@
 				<div class="tableau-bord_col-gauche col-playlist">		        		
       				{% if saison is defined and saison is not null %}
 			        	{% if theme is defined and theme is not null %}
-			        		{{ playlistWrapperModule.pl_theme(theme,null,null,true) }}	
+			        		{{ playlistWrapperModule.pl_theme(theme,null,null,true,false,null,1) }}
 						{% else %}
 			        		<div>
 			        			<h3 class="align-center">Il n'y a pas de thème en cours</h3>

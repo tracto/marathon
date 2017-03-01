@@ -1,14 +1,18 @@
 
 .main-header{
 	position: relative;
-	/*top:40px;*/
 	color:white;
 	background-repeat:no-repeat;
 	background-color:$color9;
 	background-position:50% 50%;
 	background-size:cover;
 	width:100%;
-	min-height:620px;
+	min-height:400px;
+
+
+	@media $medium{
+		min-height:620px;
+	}
 }
 
 .main-logo{
@@ -22,13 +26,17 @@
 
 .saison-title{
 	color: #ccc50c;
-    width: 30%;
+    width: 80%;
     font-size: 1em;
     text-shadow: #000 0 2px 5px;
     text-transform: uppercase;
     position: relative;
     bottom: 30px;
     line-height: 1.8em;
+
+    @media $medium{
+		width: 30%;
+	}
 
 }
 

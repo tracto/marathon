@@ -16,6 +16,7 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
     }
 
 
+
     public function findLastOne(){
         $results = $this
             ->createQueryBuilder('n')
@@ -27,12 +28,27 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
         return $results;
     }
 
+
+    public function findAllSaisonsWithThemes(){
+        $results = $this
+            ->createQueryBuilder('n')
+            ->addselect('n','t','i','it')
+            ->leftJoin('n.image','i')
+            ->leftJoin('n.themes','t')
+            ->leftJoin('t.image','it')
+            ->getQuery()->getResult();
+ 
+        return $results;
+    }
+
     public function findSaisonWithThemes($id){
         $results = $this
             ->createQueryBuilder('n')
             ->andwhere('n.id = :id')
-            ->addselect('n','t','partial m.{id}','partial th.{id,numComments}')
+            ->addselect('n','t','m','partial th.{id,numComments}','i','it')
+            ->leftJoin('n.image','i')
             ->leftJoin('n.themes','t')
+            ->leftJoin('t.image','it')
             ->leftJoin('t.musicTitles','m')
             ->leftJoin('t.thread','th')
             
@@ -46,21 +62,21 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
 
 
 
-    public function findSaisonByThemes($id){
+    // public function findSaisonByThemes($id){
 
-        $results = $this
-            ->createQueryBuilder('n')
-            ->andwhere('n.id = :id')
-            ->addselect('n','t','partial m.{id}','partial th.{id,numComments}')
-            ->leftJoin('n.themes','t')
-            ->leftJoin('t.musicTitles','m')
-            ->leftJoin('t.thread','th')
+    //     $results = $this
+    //         ->createQueryBuilder('n')
+    //         ->andwhere('n.id = :id')
+    //         ->addselect('n','t','partial m.{id}','partial th.{id,numComments}')
+    //         ->leftJoin('n.themes','t')
+    //         ->leftJoin('t.musicTitles','m')
+    //         ->leftJoin('t.thread','th')
             
-            ->setParameter('id',$id)
-            ->getQuery()->getOneOrNullResult();
+    //         ->setParameter('id',$id)
+    //         ->getQuery()->getOneOrNullResult();
  
-        return $results;
-    }
+    //     return $results;
+    // }
 }
 
 

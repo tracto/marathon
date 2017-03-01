@@ -131,11 +131,7 @@ $(document).ready(function(){
              },
 
              ended: function() {
-                // if(typeof idPlaylistRedirect !== 'undefined' && idPlaylistRedirect != 0){
-                //   if(titleCurrent == (Object.keys(myPlaylist.playlist).length)-1){
-                //       window.open(Routing.generate('tds_marathon_'+playlistType+'_view_js', { 'id': idPlaylistRedirect }), "_self");
-                //   }
-                // }
+                
              },
             
              errorAlerts: false,
