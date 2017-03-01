@@ -23,10 +23,6 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
             ->leftJoin('c.image', 'i')
             ->leftJoin('c.musicTitles','mt')
         	->orderBy('m.lastLogin', 'DESC');
-            // ->setMaxResults(9)
-            // ->setFirstResult(1);
-            // $results = new Paginator($queryBuilder, $fetchJoin = true);
-            // ;
 
         return $queryBuilder
      		->getQuery()

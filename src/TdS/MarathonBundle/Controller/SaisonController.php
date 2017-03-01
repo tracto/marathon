@@ -31,6 +31,9 @@ class SaisonController extends Controller{
         $tdsScoring = $this->container->get('tds_marathon.scoring');
         $joggeursScoresOfSaison=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 
+         
+	      	
+
 
         return $this->render('TdSMarathonBundle:saison:view.html.twig', array(
         						'saison'=>$saison,

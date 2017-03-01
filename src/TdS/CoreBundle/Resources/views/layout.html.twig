@@ -66,10 +66,10 @@
 	    	</div>
 
 
-			<div class="wrapper flex-container relative">		    	
-				<div class="container-border-left flex-item-fluid"></div>
+			<div class="wrapper flex-container relative bg--marbre">
+				{# <div class="container-border-left"></div> #}		    	
 				<div class="container-center container flex-item">{% block body %} {% endblock %}</div>
-				<div class="container-border-right flex-item-fluid"></div>
+				{# <div class="container-border-right"></div> #}
 			</div>
 		</div>
 
@@ -88,7 +88,7 @@
 	  	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 	  	 
-	   	<script src="{{ asset('bundles/tdscomment/js/comments.js') }}"></script>
+	   	
 	   	<script src="{{ asset('js/jquery.jplayer.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('js/jplayer.playlist.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>
@@ -96,6 +96,7 @@
 	   	<script src="{{ asset('bundles/tdsmarathon/js/marathon-jplayer.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/index-jplayer.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/index.js') }}" type="text/javascript"></script>
+	   	
 	   	
 	   	
 

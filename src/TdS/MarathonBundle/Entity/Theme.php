@@ -74,6 +74,8 @@ class Theme
      */
     private $musicTitles;
 
+
+
     /**
      * @var string
      *
@@ -271,7 +273,7 @@ class Theme
     }
 
 
-    public function addMusicTitle(MusicTitle $musicTitle)
+     public function addMusicTitle(MusicTitle $musicTitle)
     {
         $this->musicTitles[] = $musicTitle;
 

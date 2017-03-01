@@ -1,4 +1,4 @@
-{% macro pl_theme(theme,joggeur,tabIdTheme,enCours,autoplay,listeJoggeursScore) %}
+{% macro pl_theme(theme,joggeur,tabIdTheme,enCours,autoplay,listeJoggeursScore,minify) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %} 
 
@@ -25,6 +25,10 @@
 		{% endfor %}
 	{% endif %}
 	
+	{% set pbxxl="" %}
+	{% if minify is not defined or minify == 0 %}
+		{% set pbxxl="pbxxl" %}
+	{% endif %} 
 
 
 	{% if autoplay is null or autoplay is not defined %}
@@ -69,7 +73,7 @@
 				<div class="relative">
 					<div class="playlist-header-image">
 						{% if theme.image is not null %}
-							<img class="img-responsive" src="{{ theme.image.webPath  | imagine_filter('big_image') }}" alt="{{ theme.image.alt }}">
+							<img class="img-aspect-ratio" src="{{ theme.image.webPath  | imagine_filter('big_image') }}" alt="{{ theme.image.alt }}">
 						{% endif %}
 					</div>
 					
@@ -95,7 +99,17 @@
 							</a>
 						</div>
 
-						
+
+						<div class="comment-show-button">
+							<a href="#fos_comment_thread_wrapper" class="button btn comment-btn-count" data-action="show-comments">
+						            <svg class="icon icon-alone icon--l icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
+						            {% if theme.thread.numComments is defined and theme.thread.numComments is not null and theme.thread.numComments is not empty %} 
+						            	<span>{{ theme.thread.numComments }}</span>
+						            {% else %}
+						            	<span>0</span>
+						        	{% endif %}
+						    </a>									
+						</div>						
 					</div>
 				</div>
 
@@ -165,8 +179,8 @@
 
 			
 			<div class="flex-item col-playlist-droite">
-			{# <div class="playlist-body-wrapper col col-xs-12 col-md-5">	 #}
-				{{ playlistModule.playlist(theme) }}
+				
+				{{ playlistModule.playlist(theme,null) }}
 
 				{% set joggeurInMusicList = null %}
 				{% if app.user.joggeur is defined %}
@@ -226,9 +240,35 @@
 			</div>					
 		</div>
 
-		<div class="playlist-comments ptl">	
+
+		<div class="align-center fos-comment-header-buttons">
+			{# <div class="comment-show-button">
+				<a href="#fos_comment_thread_wrapper" class="button btn comment-btn-count" data-action="show-comments">
+			            <svg class="icon icon-alone icon--l icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
+			            {% if theme.thread.numComments is defined and theme.thread.numComments is not null and theme.thread.numComments is not empty %} 
+			            	<span>{{ theme.thread.numComments }}</span>
+			            {% else %}
+			            	<span>0</span>
+			        	{% endif %}
+			    </a>									
+			</div> #}
+			<div class="comment-action-buttons">
+				<button class="btn fos_comments_close" data-action="hide-comments">
+					<svg class="icon icon--xs icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+				</button>
+
+				<button class="btn fos_comments_reload" data-action="reload-comments">
+					<svg class="icon icon--xs icon-alone icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
+				</button>
+			</div>
+		</div>
+
+		
+		<div id="playlist-comments" class="playlist-comments ptl pbl {{ pbxxl }}">
+
 			{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': theme.id } %}
-		</div>	
+		</div>
+			
 
 	</div>
 {% endmacro %}

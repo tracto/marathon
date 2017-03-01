@@ -1,11 +1,53 @@
 .index-wrapper {
-   
+	
+	
+
+   .col-themes{
+   		flex:1 1 60%;
+   		overflow:hidden;
+   }
+
+   .col-podium-wof{
+   		flex:1 1 40%;
+   }
+
+   .col-lois-totale{
+   		flex:1 1 40%;
+   }
+   .col-regles{
+		background-color:$color11;
+	}
+
+   		
+	.col-articles{
+		flex:1 1 60%;
+	}
+
+
+	.col-joggeurs-liens{
+	    flex: 1 1 100%;
+	    order:2;
+	    background-color:$grey1;
+
+		@media $medium{
+			flex: 1 1 40%;
+			order:1;
+		}
+	}
+
+
+	.col-saisons{	
+		flex: 1 1 100%;
+		order:1;
+
+		@media $medium{
+			flex: 1 1 60%;
+			order:2;
+		}
+	}
 }
 
-/*.index-wrapper [class*="col-"]{
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
-}*/
+
 
 
 
@@ -113,7 +155,7 @@
 
 
 .col-playlist{
-	background-image:url('../images/playlist/playlist-bg.jpg');
+	/*background-image:url('../images/playlist/playlist-bg.jpg');*/
 	flex:1 1 100%;
 		order:2;
 
@@ -143,7 +185,33 @@
 
 
 
+.col-themes{
+	/*background-color:$color9;*/
 
+	.col-other-themes{
+		/*background-color:$grey1;*/
+   		color:$grey6;
+   		padding:1rem;
+
+   		@media $medium{
+			padding:2rem;
+		}
+   	} 
+
+	.vignette-item{
+		width:100%;
+
+
+		@media $medium{
+			width:33%;
+		}
+	}
+
+	.square{
+		border-radius:0;
+		border:none;
+	}
+}
 
 
 
@@ -163,20 +231,19 @@
 
 
 
-.col-droite{
-	
-	flex: 1 1 100%;
-	order:1;
+
+
+.col-podium-wof{
+	color:$grey5;
+	padding:1em;
 
 	@media $medium{
-		flex: 1 1 55%;
-		order:2;
+		padding:0.8em;
 	}
-}
 
-.col-classement{
-	color:$grey5;
-	/*width:100%;*/
+	@media $large{
+		padding:1em;
+	}
 
 
 	>div{
@@ -381,13 +448,15 @@
 	}
 
 
-	.legende{
-		opacity:0.7;
-		border:none;
-		font-size:0.8em;
-	}
+	
 
 
+}
+
+.legende{
+	opacity:0.7;
+	border:none;
+	font-size:0.8em;
 }
 
 .walloffame {
@@ -415,6 +484,7 @@
 		h4 {
 			line-height:1.1em;
 			word-wrap:break-word;
+			font-size: 1.3em;
 		}
 
 
@@ -425,6 +495,20 @@
 	   	}
 
 	   	
+	}
+}
+
+
+.col-classement{
+	min-height:100%;
+	padding:1rem;
+
+	@medium $medium{
+		padding:2rem;
+	}
+
+	h2{
+		color:$grey6;
 	}
 }
 
@@ -480,73 +564,53 @@
 		color:grey0;
 	}
 
-	
-
-
-
-
 }
 
 
-.col-regles{
-	background-color:$color11;
-}
-
-.col-gauche{
-    flex: 1 1 100%;
-    order:2;
-	/*flex-direction:column;*/
-	background-image: url("../images/bg-marbre.jpg");
 
 
-	@media $medium{
-		flex: 1 1 45%;
-		order:1;
-	}
-}
 
-
-.col-joggeurs{
-	background-color:$color16;
-	color:$grey5;
-
-	.button{
-		color:$grey5;
-	}
-
-	.square {
-		border:solid 1px $grey2;
-	}
-}
 
 .col-articles{
-	background:#BDBDBD;
+	padding:0;
 	flex: 1 1 70%;
-	padding:3px;
+	border-top:solid 1px $grey3;
 
-	/*background:url('../images/playlist/playlist-bg.jpg');*/
+	@medium $large{
+		padding:1em;
+	}
+
 	.more-articles-content{
 		
 	}
 
 	.articles-liste{
 
-    	@media $medium{
+    	/*@media $medium{
     		column-count: 2;
    			column-gap: 0;
-    	}
+    	}*/
    		
 	}
 	
 
 	.article-wrapper{
 		display: inline-block;
-		padding: 3px;
+		padding: 1rem;
     	width: 100%;
 
+    	@medium $large{
+			padding:2rem;
+		}
+
 		.article-inner-wrapper{
-			/*margin: 5px;*/
-			background: #D4DACE;
+			background: rgba(255, 255, 255, 0.81);
+		    max-width: 750px;
+		    margin: 0 auto;
+
+			@medium $large{
+				padding:3rem;
+			}
 		}
 
 
@@ -569,7 +633,11 @@
 			width:100%;
 
 			iframe, img{
-				width:100%;
+				display:block;
+				width:100%!important;
+				height:100%!important;
+				max-width: 350px;
+    			margin: 0 auto;
 			}
 		}
 	}
@@ -579,24 +647,109 @@
 
 
 
-.col-themes{
-	flex: 1 1 30%;
-	background-color:$color11;
 
-	.vignette-item{
-		width:100%;
+
+
+
+.col-saisons{
+	background-color:$color9;
+	padding:0;
+
+
+	@media $medium{
+		padding:1em;
 	}
 
-	.square{
-		border-radius:0;
-		border:none;
+	.saison-vignette{
+		background-color:rgba(255,255,255,0.3);
+		position:relative;
+		min-height:100%;
+		
+
+		.saison-vignette-inner {
+			position:relative;
+			margin:0 0 1em 0;
+
+
+			@media $medium{
+				margin:0;
+			}
+			
+			/*width:100%;*/
+		}
+
+
+		h3{
+			background-color:$grey1;
+			color:$color9;
+			position: absolute;
+			width:100%;
+			z-index:1;
+
+			
+		}
+
+		.saison-img{
+			position:relative;
+			width:100%;
+			min-height:100%;
+			padding-top:100%;
+			overflow:hidden;
+
+			img{
+				display:block;
+				position:absolute;
+				height:100%;
+				top:0;
+				left:0;
+				right:0;
+				bottom:0;
+			}
+
+		}
+
+		.saison-theme-vignette{
+			background-color:rgba(255,255,255,0.3);
+			margin:0 0 0.5em 0;
+			
+			@media $medium{				
+				margin:0 0 0.5em 0.5em;
+			}
+		}
+
+		.saison-theme-vignette:last-child {
+		    
+
+		    @media $medium{				
+				margin:0 0 0 0.5em;
+			}
+		}
+
+		
 	}
 }
 
-.col-liens{
-	
+
+
+.col-joggeurs{
+	background-color:$color16;
+	color:$grey5;
+
+	.button{
+		color:$grey5;
+	}
+
+	.square {
+		border:solid 1px $grey2;
+	}
+}
+
+
+
+.col-liens{	
 	color:$grey6;
 	flex: 0 0 auto;
+	
 
 	ul{
 		color:$grey0;

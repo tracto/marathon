@@ -17,6 +17,7 @@
 {% endif %}
 
 {% block fos_comment_comment_form_holder %}
+
     <div class="fos_comment_comment_form_holder">
         {% block fos_comment_form_title %}
         {% endblock %}
@@ -59,11 +60,15 @@
                     </div>
 
                     {{ form_rest(form) }}
+
+
                 {% endblock %}
 
                 
 
             </form>
+
+            
         {% endblock fos_comment_comment_new_form %}
 
     </div>
