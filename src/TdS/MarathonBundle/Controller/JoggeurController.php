@@ -59,7 +59,7 @@ class JoggeurController extends Controller{
 
 
         $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
-                         ->findAll();
+                         ->findAllOnlyId();
 
 
         $tabIdJoggeur=array();
@@ -69,14 +69,39 @@ class JoggeurController extends Controller{
 
 
         $tdsScoring = $this->container->get('tds_marathon.scoring');
-        $joggeur=$tdsScoring->getAllSaisonScoresOfJoggeur($saison, $joggeur);
+        $joggeurScoreCurrSais=$tdsScoring->getAllSaisonScoresOfJoggeurScore($saison, $joggeur);
+
+        $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
+                    ->findJoggeurById($id);
 
 	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
           'saison'=>$saison,
           'tabIdJoggeur'=>$tabIdJoggeur,
 	        'joggeur' => $joggeur,
+          'joggeurScoreCurrSais'=>$joggeurScoreCurrSais,
 	    ));
-	} 
+	}
+
+
+
+  public function morescoresAction(Joggeur $joggeur, $id){
+    $em = $this->getDoctrine()->getManager();
+
+    $tdsSaison = $this->container->get('tds_marathon.saison');
+    $saison=$tdsSaison->getCurrSaison();
+    $currSaisId=$saison->getId();
+
+
+    $idjoggeurscore= $joggeur->getJoggeurScore()->getId();
+
+    $joggeurScore=$em->getRepository('TdSMarathonBundle:JoggeurScore')
+                      ->findJoggeurScoreForAllSaisons($idjoggeurscore, $currSaisId);
+
+
+     return $this->render('TdSMarathonBundle:Joggeur:morescores.html.twig',array(
+                 'joggeurScore'=>$joggeurScore));
+
+  } 
 
 
 

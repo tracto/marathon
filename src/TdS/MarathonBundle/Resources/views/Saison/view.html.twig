@@ -10,7 +10,7 @@
 
 		
 		<div class="flex-container-h">
-			<div class="flex-item w-100 w-40-ns col-bilan">
+			<div class="flex-item w-100 w-50-ns col-themes">
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
 					<div class="button-wrapper w-100">
 						<a class="button btn btn-action pam pull-right " href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
@@ -19,17 +19,20 @@
 						</a>
 					</div>
 				{% endif %}
-				{# {% if saison.statut == "2" %} #}
-					<div class="pam">
 
-						<h2>Bilan</h2>
-						<div>{{ saison.bilan|raw }}</div>
+				<div class="pas">
+					<h2 class="sub-title align-center">Liste des thèmes</h2>
+					<div class=''>	
+					    {% for theme in saison.themes %}
+					      	{{ vignetteModule.vignette(theme) }}
+					    {% endfor %} 
 					</div>
-				{# {% endif %} #}
+				</div>
+
 			</div>
 
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
-				<div class="flex-item col-podium-wof bg--marathonchanteurs w-100 w-60-ns  align-center pam ">
+				<div class="flex-item col-podium-wof bg--marathonchanteurs w-100 w-50-ns  align-center pam ">
 					{% if joggeursScoresOfSaison|length > 3 %} 
 						<h2 class="sub-title">Classement</h2>
 						<div class="bg-op--white-5 pam pbn">
@@ -65,14 +68,13 @@
 		</div>
 
 		<div class="flex-container-h ">
-			<div class="flex-item w-100 w-60-ns pas col-themes pbxxl">
-				<h2>Liste des thèmes</h2>
-				<div class=''>	
-				    {% for theme in saison.themes %}
-				      	{{ vignetteModule.vignette(theme) }}
-				    {% endfor %} 
+			
+			{% if saison.bilan is defined and saison.bilan is not empty and saison.bilan is not null %} 
+				<div class="flex-item pam w-100 w-60-ns col-bilan pbxxl">
+					<h2>Bilan</h2>
+					<div>{{ saison.bilan|raw }}</div>
 				</div>
-			</div>
+			{% endif %}
 			
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
 				<div class="flex-item w-100 w-40-ns pas col-scores bg--marbredark pbxxl">		

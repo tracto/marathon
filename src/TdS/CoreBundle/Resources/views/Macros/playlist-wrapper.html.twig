@@ -34,7 +34,7 @@
 	{% if autoplay is null or autoplay is not defined %}
 		{% set autoplay = "false" %}
 	{% endif %}
-	<div class='playlist-wrapper relative' data-type="theme" data-autoplay={{ autoplay }}>
+	<div class='playlist-wrapper relative {{ pbxxl }}' data-type="theme" data-autoplay={{ autoplay }}>
 
 		{% if tabIdTheme is not null %}
 			<a class="btn playlist-nav-prec pas" data-id="{{ tabIdTheme[keyThemePrec] }}" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemePrec]}) }}">
@@ -51,7 +51,7 @@
 		<div class="flex-container-h">
 			<div class="flex-item col-playlist-gauche">
 
-				{% if enCours == true %}
+				{% if theme.statut == 1 %}
 					<div class="ribbon">
 						<div class="line flex-container-h align-center">							
 							<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
@@ -242,16 +242,6 @@
 
 
 		<div class="align-center fos-comment-header-buttons">
-			{# <div class="comment-show-button">
-				<a href="#fos_comment_thread_wrapper" class="button btn comment-btn-count" data-action="show-comments">
-			            <svg class="icon icon-alone icon--l icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
-			            {% if theme.thread.numComments is defined and theme.thread.numComments is not null and theme.thread.numComments is not empty %} 
-			            	<span>{{ theme.thread.numComments }}</span>
-			            {% else %}
-			            	<span>0</span>
-			        	{% endif %}
-			    </a>									
-			</div> #}
 			<div class="comment-action-buttons">
 				<button class="btn fos_comments_close" data-action="hide-comments">
 					<svg class="icon icon--xs icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
@@ -280,7 +270,7 @@
 
 
 
-{% macro pl_joggeur(theme,joggeur,tabIdJoggeur,autoplay,saison) %}
+{% macro pl_joggeur(theme,joggeur,tabIdJoggeur,autoplay,saison,joggeurScoreCurrSais) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
@@ -311,7 +301,7 @@
 		{% set autoplay = "false" %}
 	{% endif %}
 
-	<div class='playlist-wrapper relative' data-type="joggeur" data-autoplay={{ autoplay }}>
+	<div class='playlist-wrapper relative pbxxl' data-type="joggeur" data-autoplay={{ autoplay }}>
 		{% if tabIdJoggeur is not null %}
 			<a class="button btn playlist-nav-prec pas" data-id="{{ tabIdJoggeur[keyJoggeurPrec] }}" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurPrec]}) }}">
 				<svg class="icon icon-alone icon--l icon-playlist-arrow-prev"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
@@ -323,11 +313,11 @@
 
 
 		<div class="flex-container-h">
-			<div class="playlist-header-wrapper col-playlist-gauche {# pbxxl-screen #}">
+			<div class="playlist-header-wrapper col-playlist-gauche">
 				<div class="relative">
 					<div class="playlist-header-image">
 						{% if joggeur.image is not null %}
-							<img class="img-responsive" src="{{ joggeur.image.webPath  | imagine_filter('big_image') }}" alt="{{ joggeur.image.alt }}">
+							<img class="img-aspect-ratio" src="{{ joggeur.image.webPath  | imagine_filter('big_image') }}" alt="{{ joggeur.image.alt }}">
 						{% endif %}
 					</div>
 			
@@ -362,53 +352,45 @@
 
 				
 
-
-				{% if joggeur.joggeurScore is defined and joggeur.joggeurScore is not null %}
-					{% if joggeur.joggeurScore.total is defined %}
+				{% if joggeurScoreCurrSais is defined and joggeurScoreCurrSais is not null %}
+					{% if joggeurScoreCurrSais.total is defined %}
+						<h4 class="sub-title man pan ptm align-center">Score</h4>
 						<div class="playlist-scores playlist-joggeur-score walloffame pbn">
-							<h4 class="sub-sub-title man pan align-center">Score</h4>
-							<h5 class="sub-sub-title man pan align-center">{{ saison.titre }} : {{ joggeur.joggeurScore.total }} pts</h5>
-							<div class="score-total "></div>
-							{% if joggeur.joggeurScore.scores is defined and joggeur.joggeurScore.scores is not null and joggeur.joggeurScore.scores is not empty %}
-								<div class="wof-wrapper flex-container flex-start flex-justify align-center">
-									{% for score in joggeur.joggeurScore.scores %}
+							<div class="playlist-scores-header pbm ptm mbm w-70-l">				<h5 class="sub-sub-title man pan align-center">{{ saison.titre }} : {{ joggeurScoreCurrSais.total }} pts</h5>
+							</div>
+							
+							{% if joggeurScoreCurrSais.scores is defined and joggeurScoreCurrSais.scores is not null and joggeurScoreCurrSais.scores is not empty %}
+								<div class="wof-wrapper flex-container flex-start flex-justify align-center pbm">
+									{% for score in joggeurScoreCurrSais.scores %}
 										{{ scoresElementsModule.theme_medaillon(score) }}
 									{% endfor %}
 								</div> 
 							{% endif %}
 							{{ scoresElementsModule.scores_legende() }}
+							<div class="align-center mtm">
+								<div class="pas sep">
+									
+									<btn class="button btn btn-more btn-caret pbs" data-action="playlist-scores-more" data-id="{{ joggeur.id }}">
+										<svg class="icon icon--s icon-arrow-right" ><use xlink:href="#icon-arrow-left"></use></svg>
+										<span class="pts">Scores des autres saisons</span>													
+									</btn>
+									
+								</div>
+								
+							</div>
+
+							<div id="playlist-scores-more" class="playlist-scores-more">
+								<div id="loading">
+							  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
+								</div>
+							</div>
 						</div>
 					{% endif %}
-				{% endif %}
-
-				{% if joggeur.presentation is not null %}
-					<div class="playlist-presentation pam pbxxl">
-						<h4 class="sub-sub-title man pan">Présentation</h4>
-			  			<div class="man pan">{{ joggeur.presentation | raw }}</div>
-			  		</div>
-				{% endif %}
-
-
-				
-				{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo) %}
-					<div class="pam pbxxl-screen">
-						<a class="button btn btn-action pull-right mtm" href="{{ path('tds_marathon_joggeur_edit', {'id': joggeur.id}) }}">
-			  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-
-			  				{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
-			  					<span class="btn__label">Modifier mon profil</span>
-			  				{% elseif is_granted("ROLE_SUPER_ADMIN") and joggeur.pseudo != app.user.joggeur.pseudo %}
-			  					<span class="btn__label">Modifier le joggeur</span>
-			  				{% endif %}		  				
-						</a>
-					</div>
-				{% endif %}
-
-				
+				{% endif %}			
 			</div>
 
 
-			<div class="playlist-body-wrapper col-playlist-droite pbxxl">				
+			<div class="playlist-body-wrapper col-playlist-droite">				
 				{{ playlistModule.playlist(null,joggeur) }}
 
 
@@ -423,9 +405,31 @@
 							<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
 							<span class="btn__label">ajouter un morceau</span>
 						</a>
-
 					</div>
 				{% endif %}
+
+				{% if joggeur.presentation is not null %}
+					<div class="playlist-presentation ">
+						<div class="playlist-presentation-inner pam">
+							<h4 class="sub-title man pan align-center">Présentation</h4>
+			  				<div class="man pan">{{ joggeur.presentation | raw }}</div>
+			  			</div>
+			  		</div>
+				{% endif %}
+
+				{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo) %}
+					<div class="pam ">
+						<a class="button btn btn-action pull-right mtn" href="{{ path('tds_marathon_joggeur_edit', {'id': joggeur.id}) }}">
+			  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+
+			  				{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
+			  					<span class="btn__label">Modifier mon profil</span>
+			  				{% elseif is_granted("ROLE_SUPER_ADMIN") and joggeur.pseudo != app.user.joggeur.pseudo %}
+			  					<span class="btn__label">Modifier le joggeur</span>
+			  				{% endif %}		  				
+						</a>
+					</div>
+				{% endif %}	
 				 		
 			</div>
 		</div>
