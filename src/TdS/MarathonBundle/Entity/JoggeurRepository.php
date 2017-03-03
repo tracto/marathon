@@ -16,6 +16,17 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
         return $this->findBy(array(), array('pseudo' => 'ASC'));
     }
 
+
+    public function findAllOnlyId(){
+        $queryBuilder = $this->createQueryBuilder('j')
+            ->addSelect('partial j.{id}')
+            ->orderBy('j.pseudo', 'DESC');
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllSortByLastLogin(){
     	$queryBuilder = $this->createQueryBuilder('c')
         	->addSelect('c','m','partial mt.{id}','i')
@@ -27,5 +38,24 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
         return $queryBuilder
      		->getQuery()
      		->getResult();
+    }
+
+
+    public function findJoggeurById($id){
+
+        $results = $this->createQueryBuilder('j')
+          ->addSelect('j','i','m','mt','mti','u','js','jss')
+          ->leftJoin('j.image','i')
+          ->leftJoin('j.musicTitles','m')
+          ->leftJoin('m.theme','mt')
+          ->leftJoin('mt.image','mti')
+          ->leftJoin('j.user','u')
+          ->leftJoin('j.joggeurScore','js')
+          ->leftJoin('js.scores','jss')
+          ->where('j.id = :id')
+          ->setParameter('id', $id)
+          ->getQuery()->getOneOrNullResult();
+ 
+        return $results;
     }
 }

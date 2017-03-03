@@ -17,7 +17,7 @@ $(function() {
 
   $('nav.navbar-header a[href="'+ url +'"]').parent().addClass('active');
 
-
+  
 
 
 	$.ajax({
@@ -76,6 +76,8 @@ $("[data-action='credits']").on('click',function(){
        $("html, body").animate({ scrollTop: $(document).height() }, 500);    
     },
   });
+
+
 
 });
 

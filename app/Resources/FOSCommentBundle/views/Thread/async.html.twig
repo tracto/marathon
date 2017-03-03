@@ -21,6 +21,11 @@
 	        </i>
 	    </div>
 	{% endif %}
+
+	<div id="loading">
+  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
+	</div>
+
 	<div class="inner-wrapper">
 		<div id="fos_comment_thread">
 		</div>
@@ -47,9 +52,12 @@
 				$("#playlist-comments").show();
 				$root.animate({
 			        scrollTop: $( $.attr(this, 'href') ).offset().top
-			    }, 500);			    
+			    }, 500);
+			    			    
 				return false;
 		});
+
+
 		
 		$("[data-action='hide-comments']").on('click',function(){
 				$(".comment-action-buttons").hide();
@@ -97,6 +105,11 @@
 
 		    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
 
+		    $(document).ajaxStart(function(){
+			    $('#loading').show();
+			 }).ajaxStop(function(){
+			    $('#loading').hide();
+			 });
 		    
 		};
 

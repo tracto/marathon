@@ -5,8 +5,15 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="bg--marbre">
+	<div class="">
 		{% set autoplay = "true" %}
-		{{ playlistWrapperModule.pl_joggeur(null,joggeur,tabIdJoggeur, autoplay,saison) }}
-	</div>	
+		{{ playlistWrapperModule.pl_joggeur(null,joggeur,tabIdJoggeur, autoplay,saison,joggeurScoreCurrSais) }}
+	</div>
+
+	<script src="{{ asset('bundles/tdsmarathon/js/playlist-joggeur.js') }}" type="text/javascript"></script>	
 {% endblock %}
+
+
+{# {% block javascripts %} 
+	<script src="{{ asset('bundles/tdsmarathon/js/playlist-joggeur.js') }}" type="text/javascript"></script>
+{% endblock %} #}

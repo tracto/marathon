@@ -18,7 +18,7 @@
 
 .col-playlist-gauche{
 	flex:0 1 100%;
-	background-color:$color9;
+	background-color:$color11;
 
 	@media $medium{
 		flex:1 1 50%;
@@ -31,7 +31,10 @@
 	@media $medium{
 		flex:1 1 50%;
 		overflow-y: auto;
-    	min-height: 0px
+    	min-height: 0px;
+    	display:flex;
+    	overflow-x: hidden;
+    	flex-flow: wrap column;
 	}
 }
 
@@ -198,6 +201,7 @@
 
 .playlist-body{
 	position:relative;
+	width:100%;
 	
 
 	@media $medium{
@@ -307,7 +311,13 @@
 
 
 .playlist-presentation{
-	background-color:$color9;
+	
+	padding:1rem 1rem 0 
+	width:100%;
+	
+	.playlist-presentation-inner{
+		background-color:$color9;
+	}
 
 	p{
 		margin:0;
@@ -327,6 +337,8 @@
 		padding:1rem;
 	}
 
+
+
 	.wof-wrapper {
 		.score-item-theme{
 			flex:0 1 33%;
@@ -342,6 +354,15 @@
 		}
 	}
 
+	
+}
+
+.playlist-scores-header{
+	/*border-bottom:dashed 1px $grey3;*/
+	background-color:$grey1;
+	color:$color2;
+	margin:0 auto;
+
 	h5 {
 		font-size:1.2em;
 		line-height:1em;
@@ -349,6 +370,15 @@
 }
 
 
+.playlist-scores{
+	.btn-more{
+		width: 100%;
+    	background: rgba(0, 0, 0, 0);
+    	border: solid $grey2;
+    	border-width:0 0 1px 0;
+	}
+	
+}
 
 
 

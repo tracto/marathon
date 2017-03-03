@@ -40,6 +40,36 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
 
     }
 
+
+    public function findJoggeurScoreForAllSaisons($id, $currSaisonId){
+      $qb  = $this->_em->createQueryBuilder();
+      $sub = $qb;
+
+      $sub = $qb
+          ->select('d')
+          ->from('TdSMarathonBundle:Saison', 'd')
+          ->where($qb->expr()->eq('d.id',$currSaisonId));
+      
+      $queryBuilder = $this->createQueryBuilder('c')
+          ->addSelect('c','s','t','ti','partial ts.{id,titre}','j','ji')
+          ->leftJoin('c.scores', 's')
+          ->leftJoin('s.theme','t')          
+          ->leftJoin('t.image','ti')
+          ->leftJoin('t.saison','ts')
+          ->orderBy('ts.titre', 'DESC')
+          ->leftJoin('c.joggeur','j')
+          ->leftJoin('j.image','ji')
+          ->where('c.id = :id')
+          ->andWhere($qb->expr()->notIn('ts.id',  $sub->getDQL()))
+          ->setParameter('id', $id)
+
+          ->getQuery()->getOneOrNullResult();
+ 
+        return $queryBuilder;
+
+    }
+
+
     public function findJoggeurBySaison(Saison $saison, Joggeur $joggeur){
     	$themesId = array();
   		foreach ($saison->getThemes() as $theme) {
@@ -47,20 +77,25 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
   		}
 
   		$queryBuilder = $this->createQueryBuilder('c')
-        	->addSelect('c','s','t','j','i')
+        	->addSelect('c','s','t','ti','j','ji','jm','ju')
         	->leftJoin('c.scores', 's')
           ->leftJoin('s.theme','t')
+          ->leftJoin('t.image','ti')
           ->where('s.theme IN (:theme)')
         	->setParameter('theme', $themesId)
           ->leftJoin('c.joggeur','j')
+          ->leftJoin('j.image','ji')
+          ->leftJoin('j.musicTitles','jm')
+          ->leftJoin('j.user','ju')
         	->andWhere('c.joggeur = :joggeur')
        		->setParameter('joggeur', $joggeur)
-          ->leftJoin('t.image', 'i')
-        	;
+        	->getQuery()->getOneOrNullResult();
  
-  		return $queryBuilder
-       		->getQuery()
-       		->getResult();
+        return $queryBuilder;
+ 
+  		// return $queryBuilder
+    //    		->getQuery()
+    //    		->getResult();
     }
 
 

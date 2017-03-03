@@ -52,6 +52,7 @@ tds_marathon_theme_view:
         id: \d+
     options:
         expose: true
+
     
 
 
@@ -134,25 +135,9 @@ tds_marathon_theme_switch_validation:
         
 
 
-# tds_marathon_theme_view_js:
-#     pattern: /theme/view/{id}
-#     defaults: {_controller: TdSMarathonBundle:Theme:view, autoplay: "true" }       
-#     requirements:
-#         id: \d+
-#         autoplay: "true"
-#     options:
-#         expose: true
-
 tds_marathon_theme_active_validation:
     path: /theme/active/validation
     defaults: { _controller: TdSMarathonBundle:Theme:activeValidation }
-
-# tds_marathon_theme_edit_draftmode:
-#     path:     /theme/edit/draftmode/{id}
-#     defaults:  
-#         _controller: TdSMarathonBundle:Theme:edit
-#         draftmode: 1
-#         id: \d+
 
 
 
@@ -224,6 +209,15 @@ tds_marathon_joggeur_view_js:
     defaults:  
         _controller: TdSMarathonBundle:Joggeur:view
         autoplay:    true
+    options:
+        expose: true
+
+
+tds_marathon_joggeur_morescores_js:
+    pattern: /joggeur/scores/{id}
+    defaults: {_controller: TdSMarathonBundle:Joggeur:morescores } 
+    requirements:
+        id: \d+      
     options:
         expose: true
 
