@@ -106,25 +106,27 @@
 						{% endif %}
 					</div>
 
-	        		<div class="tableau-bord_col-droite col-profil pas pbxxl">
+	        		
+
+		        	<div class="tableau-bord_col-droite col-profil pas pbxxl">
 		        		<h2 class="sub-title">Mon profil</h2>
-							<div class="flex-container-h flex-item-center">
+							<div class="flex-container-h">
 								<div class="flex-item mrm">
-									{% if app.user.joggeur.image is not null %}
+									{% if joggeur.image is defined or joggeur.image is not null or joggeur.image is not empty %}
 								  		<span class="">
-											<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>  
+											<img class='thumbnail' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>  
 										</span>
 									{% endif %}
 								</div>
 
 								<div class="flex-item">
-								{% if app.user.joggeur.presentation is not null %}
-							  		<div class="line block">{{ app.user.joggeur.presentation | raw }}</div>
+								{% if joggeur.presentation is not null %}
+							  		<div class="line block">{{ joggeur.presentation | raw }}</div>
 								{% endif %}
 							
 
 								<div class="line block">
-									<a class="button btn btn-view flex-item-center" href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
+									<a class="button btn btn-view flex-item-center" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 										<svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>
 				        				<span>Voir mon profil</span>								
 									</a>

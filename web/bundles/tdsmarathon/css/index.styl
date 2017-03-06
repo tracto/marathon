@@ -45,6 +45,27 @@
 			order:2;
 		}
 	}
+
+
+	.col-index-flex{
+		display:flex;
+		flex-wrap: wrap;
+		flex-direction:row;
+
+		.col-curr-theme{
+			flex:1 1 60%;
+		}
+
+		.col-other-themes{
+			flex:1 1 40%;
+
+			.vignette-item{
+				max-width:50%;
+			}
+		}
+
+
+	}
 }
 
 
@@ -109,7 +130,7 @@
 }
 
 
-.chroniques div.chroniques-list{
+div.chroniques-list{
 	display:none;
 }
 
@@ -131,6 +152,7 @@
 .col-profil{
 	padding-bottom:20px;
 	background-color:$color5;
+	color:$grey5;
 	flex:1 1 100%;
 	order:2;
 	
@@ -140,7 +162,6 @@
 	}
 
 	.flex-container-h{
-		align-items: center;
     	justify-content: center;
 	}
 
@@ -155,7 +176,6 @@
 
 
 .col-playlist{
-	/*background-image:url('../images/playlist/playlist-bg.jpg');*/
 	flex:1 1 100%;
 		order:2;
 
@@ -186,10 +206,10 @@
 
 
 .col-themes{
-	/*background-color:$color9;*/
+	
 
 	.col-other-themes{
-		/*background-color:$grey1;*/
+		background-color:$color9;
    		color:$grey6;
    		padding:1rem;
 
@@ -203,13 +223,22 @@
 
 
 		@media $medium{
-			width:33%;
+			max-width:25%;
 		}
 	}
 
 	.square{
 		border-radius:0;
 		border:none;
+	}
+}
+
+
+.col-large{
+	.vignette-item{
+		@media $medium{
+			max-width:20%;
+		}
 	}
 }
 
@@ -652,7 +681,7 @@
 
 
 .col-saisons{
-	background-color:$color9;
+	background-color:$color2;
 	padding:0;
 
 

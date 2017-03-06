@@ -31,14 +31,17 @@ class SaisonController extends Controller{
         $tdsScoring = $this->container->get('tds_marathon.scoring');
         $joggeursScoresOfSaison=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 
-         
-	      	
+
+        $musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
+	      			->findAllBySaison($saison);
+	    shuffle($musicTitles);
 
 
         return $this->render('TdSMarathonBundle:saison:view.html.twig', array(
-        						'saison'=>$saison,
-        						'joggeursScoresOfSaison'=>$joggeursScoresOfSaison       						
-        					));		
+        					'saison'=>$saison,
+        					'musicTitles'=>$musicTitles,
+        					'joggeursScoresOfSaison'=>$joggeursScoresOfSaison       						
+        ));		
 	}
 
 

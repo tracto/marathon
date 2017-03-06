@@ -42,7 +42,6 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
 
 
     public function findJoggeurById($id){
-
         $results = $this->createQueryBuilder('j')
           ->addSelect('j','i','m','mt','mti','u','js','jss')
           ->leftJoin('j.image','i')
@@ -54,6 +53,26 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
           ->leftJoin('js.scores','jss')
           ->where('j.id = :id')
           ->setParameter('id', $id)
+          ->getQuery()->getOneOrNullResult();
+ 
+        return $results;
+    }
+
+
+    public function findJoggeurByUser(User $user){
+        $userid=$user->getId();
+
+        $results = $this->createQueryBuilder('j')
+          ->addSelect('j','i','u','js','jss')
+          ->leftJoin('j.image','i')
+          // ->leftJoin('j.musicTitles','m')
+          // ->leftJoin('m.theme','mt')
+          // ->leftJoin('mt.image','mti')
+          ->leftJoin('j.user','u')
+          ->leftJoin('j.joggeurScore','js')
+          ->leftJoin('js.scores','jss')
+          ->where('u.id = :id')
+          ->setParameter('id', $userid)
           ->getQuery()->getOneOrNullResult();
  
         return $results;

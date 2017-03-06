@@ -166,7 +166,7 @@
 				{% endif %}
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<div class="pam pbxxl-screen">
+					<div class="pam {{ pbxxl }}">
 						<a class="button btn btn-action mtm" href="{{ path('tds_marathon_theme_edit', {'id': theme.id}) }}">
 				  			<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 				  			<span class="btn__label">Modifier le thème</span>
@@ -367,26 +367,28 @@
 								</div> 
 							{% endif %}
 							{{ scoresElementsModule.scores_legende() }}
-							<div class="align-center mtm">
-								<div class="pas sep">
-									
-									<btn class="button btn btn-more btn-caret pbs" data-action="playlist-scores-more" data-id="{{ joggeur.id }}">
-										<svg class="icon icon--s icon-arrow-right" ><use xlink:href="#icon-arrow-left"></use></svg>
-										<span class="pts">Scores des autres saisons</span>													
-									</btn>
-									
-								</div>
-								
-							</div>
-
-							<div id="playlist-scores-more" class="playlist-scores-more">
-								<div id="loading">
-							  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
-								</div>
-							</div>
 						</div>
 					{% endif %}
-				{% endif %}			
+				{% endif %}
+
+				<div class="align-center mtm">
+					<div class="pas sep">
+						
+						<btn class="button btn btn-more btn-caret pbs" data-action="playlist-scores-more" data-id="{{ joggeur.id }}">
+							<svg class="icon icon--s icon-arrow-right" ><use xlink:href="#icon-arrow-left"></use></svg>
+							<span class="pts">Scores des autres saisons</span>													
+						</btn>
+						
+					</div>
+					
+				</div>
+
+				<div id="playlist-scores-more" class="playlist-scores-more">
+					<div id="loading">
+				  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
+					</div>
+				</div>
+													
 			</div>
 
 

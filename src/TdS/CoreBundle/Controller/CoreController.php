@@ -36,6 +36,8 @@ class CoreController extends Controller{
 	        $saison=$em->getRepository('TdSMarathonBundle:Saison')
                    ->findSaisonWithThemes($saison->getId());
 
+            $listeDernThemes=$em->getRepository('TdSMarathonBundle:Theme')
+            					->findDerniersThemes(5);
 
 
 	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
@@ -89,7 +91,8 @@ class CoreController extends Controller{
 
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'listeSaisons'=>$listeSaisons,
-					'saison'=>$saison,									
+					'saison'=>$saison,
+					'listeDernThemes'=>$listeDernThemes,									
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
@@ -114,7 +117,7 @@ class CoreController extends Controller{
 
 	      	$allThemes=$em
 	      			->getRepository('TdSMarathonBundle:Theme')
-	      			->findAll();
+	      			->findAllThemes();
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
 	      					  ->findSeveral(4,0);
@@ -152,7 +155,10 @@ class CoreController extends Controller{
 			}
 
 			$user=$this->getUser();
-			$joggeur=$user->getJoggeur();
+			// $joggeurUser=$user->getJoggeur();
+			$joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
+					->findJoggeurByUser($user);
+
 
 			if(!empty($saison)){
 				$joggeurScore = $em
@@ -160,7 +166,7 @@ class CoreController extends Controller{
 		          ->findJoggeurBySaison($saison, $joggeur);
 
 		        if(!empty($joggeurScore)){
-					$joggeurScore=$joggeurScore[0];
+					// $joggeurScore=$joggeurScore[0];
 				}else{
 					$joggeurScore=new JoggeurScore;
 				}
@@ -174,6 +180,7 @@ class CoreController extends Controller{
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
 					'saison'=>$saison,
 					'theme'=>$theme,
+					'joggeur'=>$joggeur,
 					'listeArticles'=>$listeArticles,
 					'joggeurScore'=>$joggeurScore,
 					'allThemes'=>$allThemes,
