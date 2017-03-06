@@ -4,11 +4,18 @@
 {% block body %}
 
 {% set currentTheme = null %}
+{% set classColFlex = null %}
+{% set classColThemeLarge = "col-large" %}
 {% set detectDerniersThemes = null %}
 {% for theme in saison.themes %}	        		      				
 	{% if theme is defined and theme is not null %}
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
+			{% set classColThemeLarge = "" %}
+			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}
+				
+				{% set classColFlex = "col-index-flex" %}
+			{% endif %}
 		{% else %}
 			{% set detectDerniersThemes = 1 %}
 		{% endif %}
@@ -18,8 +25,8 @@
 <div class="index-wrapper">
 	{% if currentTheme is not defined or currentTheme is null %}
 		{% if musicTitles is defined and musicTitles is not null and musicTitles is not empty %}
-		    <div class="playlist-body-wrapper relative">
-			  		{{ playlistIndexModule.playlist(musicTitles) }}
+		    <div class="playlist-body-wrapper playlist-index-wrapper">
+			  	{{ playlistIndexModule.playlist(musicTitles) }}
 			</div>
 		{% endif %}
 	{% endif %}
@@ -28,18 +35,23 @@
   	<div class='flex-container-h'>
   		{% if saison is defined and saison.statut is not null %}
       					
-			<div class="flex-item col-themes man pan">
+			<div class="flex-item col-themes man pan {{ classColFlex }}">
 				{% if currentTheme is defined and currentTheme is not null %}
-					<div class="">								        		      						        {{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}	
-			        </div>
+					<div class="col-curr-theme">
+						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}
+					</div>	
         		{% endif %}	
 
 
-        		{% if saison.themes is defined and saison.themes is not null and saison.themes is not empty and detectDerniersThemes == 1 %}
-	        		<div class="col-other-themes">
+
+        		
+        			
+        		
+        		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
+	        		<div class="col-other-themes {{ classColThemeLarge }}">
 						<h2 class="align-center">Les derniers thèmes</h2>
 						<div class='flex-container-h'>	
-						    {% for theme in saison.themes %}
+						    {% for theme in listeDernThemes %}
 						    	{% if theme is defined and theme is not null and theme != currentTheme %}
 						      		{{ vignetteModule.vignette(theme) }}
 						      	{% endif %}
@@ -50,7 +62,7 @@
 		    </div>
 
 
-		    {% if listeJoggeursScore.scores is defined and listeJoggeursScore.scores is not empty %} 
+		    {% if listeJoggeursScore is defined and listeJoggeursScore is not empty %} 
 		    	<div class="col-podium-wof bg--marathonchanteurs">
 			    	
 					<div class="bg-op--white-5 pbn">

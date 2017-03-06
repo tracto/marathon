@@ -8,6 +8,12 @@
 	
 	<div class="main-content-saison relative min-h-100">
 
+		{% if musicTitles is defined and musicTitles is not null and musicTitles is not empty %}
+		    <div class="playlist-body-wrapper playlist-index-wrapper">
+			  	{{ playlistIndexModule.playlist(musicTitles) }}
+			</div>
+		{% endif %}
+	
 		
 		<div class="flex-container-h">
 			<div class="flex-item w-100 w-50-ns col-themes">
@@ -70,7 +76,7 @@
 		<div class="flex-container-h ">
 			
 			{% if saison.bilan is defined and saison.bilan is not empty and saison.bilan is not null %} 
-				<div class="flex-item pam w-100 w-60-ns col-bilan pbxxl">
+				<div class="flex-item pal w-100 w-60-ns col-bilan pbxxl">
 					<h2>Bilan</h2>
 					<div>{{ saison.bilan|raw }}</div>
 				</div>

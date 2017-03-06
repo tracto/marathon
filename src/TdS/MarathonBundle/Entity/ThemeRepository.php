@@ -14,18 +14,41 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
         return $this->findBy(array(), array('dateFin' => 'DESC'));
     }
 
-    public function findThemesBySaison(Saison $saison){
+    public function findAllThemes(){
         	$queryBuilder=$this->_em->createQueryBuilder()
-			->select('a')
-			->where('a.saison = :saison')
-       			->setParameter('saison', $saison)
-       		->orderBy('a.dateDebut', 'ASC')
-			->from($this->_entityName,'a');
+			->select('a','i','jc','m')
+			->from($this->_entityName,'a')
+            ->leftJoin('a.image','i')
+            ->leftJoin('a.joggeurChronique','jc') 
+            ->leftJoin('a.musicTitles','m')
+       		->orderBy('a.dateFin','DESC')
+            ;
+			
 
 
 		return $queryBuilder
     		->getQuery()
     		->getResult();
+    }
+
+    public function findDerniersThemes($limit){
+        $queryBuilder=$this->_em->createQueryBuilder('a')
+        ->addselect('a','i','partial m.{id}','partial th.{id,numComments}')
+        ->from($this->_entityName,'a')
+                
+        ->leftJoin('a.image','i')        
+        ->leftJoin('a.musicTitles','m')
+        ->leftJoin('a.thread','th')
+        ->orderBy('a.id', 'DESC')
+        ->groupBy('a.id')
+        ->setFirstResult(0)
+        ->setMaxResults($limit)     
+        ;
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+
     }
 
     public function findOneThemeById($id){
