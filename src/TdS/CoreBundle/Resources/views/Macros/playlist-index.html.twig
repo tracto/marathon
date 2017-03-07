@@ -11,7 +11,7 @@
 					{% endif %}
 					{# big_image #}
 					{% if musicTitle.joggeur.image is null %}
-						{% set imageJoggeurPlaylist = "" %}
+						{% set imageJoggeurPlaylist = "uploads/img/anonymous.jpg"|imagine_filter('tiny_thumb') %}
 					{% else %}
 						{% set imageJoggeurPlaylist = musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') %}
 					{% endif %}

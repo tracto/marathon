@@ -113,7 +113,7 @@
 								{% endfor %}
 							</div>
 						</div>
-						{# <div class="latotale-wrapper"> #}
+						
 						{{ scoresElementsModule.scores_legende() }}
 					</div>
 
@@ -204,12 +204,17 @@
 				<div class="block clearfix">
 				    {% for joggeur in listeJoggeurs %}
 				    	{% if joggeur is not null %}
+				    		{% set jogimage = joggeur.image %}
+				    		{% if joggeur.image is not defined or joggeur.image is null %}
+				    			{% set jogimage = imageJogDefault %}
+				    		{% endif %}
+
 				    		{% if loop.index <= 9 %}
 					    		<div class='col col-xs-6 col-sm-4 col-lg-4 list-item vignette-item man pan'>
 						    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 								    	<div class="square">
-										    {% if joggeur.image is not null %}
-									  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+										    {% if jogimage is not null %}
+									  			<img class="" src="{{ jogimage.webPath | imagine_filter('medium_thumb') }}" alt="{{ jogimage.alt }}">
 											{% endif %}										
 
 										    <div class='inner-item-text'>

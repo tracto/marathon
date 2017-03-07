@@ -4,6 +4,7 @@ namespace TdS\MarathonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use TdS\MarathonBundle\Entity\Image as Image;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
@@ -94,6 +95,7 @@ class Joggeur
 
     public function __construct(){    
         // $this->musicTitles = new ArrayCollection();
+        
        
     }
     /**
@@ -174,7 +176,9 @@ class Joggeur
      */
     public function getImage()
     {
+        
         return $this->image;
+        
     }
 
 

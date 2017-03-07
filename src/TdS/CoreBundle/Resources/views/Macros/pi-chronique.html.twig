@@ -72,7 +72,7 @@
 										<div class="flex-item-fluid">	
 											<strong>{{ theme.titre }}</strong>
 										</div>
-    									<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
+    									<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': theme.joggeurChronique.id}) }}">
     										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
     										<span class="btn__label">Ecrire</span>
     									</a>

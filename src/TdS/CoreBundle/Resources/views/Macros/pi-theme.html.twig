@@ -35,7 +35,11 @@
 	        						<div class='thumb-line author ptm'>
 										<a href="{{ path('tds_marathon_joggeur_view', {'id': joggeurForDraftmodeTheme.id}) }}">
 											<span class="author-thumb">
-												<img class='thumbnail' src='{{ joggeurForDraftmodeTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+												{% if joggeurForDraftmodeTheme.image is defined or joggeurForDraftmodeTheme.image is not null or joggeurForDraftmodeTheme.image is not empty %}
+													<img class='thumbnail' src='{{ joggeurForDraftmodeTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+												{% else %}
+										  			<img class='thumbnail' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+												{% endif %} 
 											</span>
 											<span class="author-name">
 												{{ joggeurForDraftmodeTheme.pseudo }}

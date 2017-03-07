@@ -807,8 +807,13 @@ div.jp-seeking-bg {
 			}
 		}
 
-		.playlist-item{	
-			padding:0;
+		.playlist-item{
+			.flex-item{
+				@media $medium{
+					/*width:70%;*/
+				}
+			}	
+			
 
 			.jp-title{
 				text-align:left;
@@ -816,17 +821,25 @@ div.jp-seeking-bg {
 			}
 
 			.jp-playlist-item{
-				display:block;
+				
 			}
 
 			.jp-artist{
 				color:$grey1;
-				display:inline-block;
+				flex:1;
+
+				span {
+					display:block;
+					width:100%;
+					/*word-break: break-all;*/
+				}
 			}
 
 			.jp-thumb-artiste{
-				display:inline-block;
+				/*display:inline-block;*/
 				margin:0;
+
+				
 			}
 		}
 

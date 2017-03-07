@@ -32,16 +32,7 @@ class JoggeurController extends Controller{
     	$em=$this->getDoctrine()->getManager();
     	$listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
     					   ->findAllSortByLastLogin();
-
-      $image=$em
-              ->getRepository('TdSMarathonBundle:Image')
-              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
-
-     foreach($listeJoggeurs as $joggeur){
-            if(!$joggeur->getImage()){
-              $joggeur->setImage($image);
-            }
-      }
+ 
 
       return $this->render('TdSMarathonBundle:Joggeur:index.html.twig', array(
         						'listeJoggeurs'=>$listeJoggeurs));

@@ -16,7 +16,9 @@
 				<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
 					<div class="round">
 					    {% if joggeurScore.joggeur.image is not null %}
-				  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+				  			<img src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+				  		{% else %}
+				  			<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 						{% endif %}
 					</div>
 				</a>
@@ -68,6 +70,8 @@
 			<div class="round">
 					{% if wof_joggeur.image is not null %}
 						<img class="" src="{{ wof_joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_joggeur.image.alt }}">
+					{% else %}
+				  		<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 					{% endif %}
 			</div>
 		</a>
@@ -105,9 +109,7 @@
 		<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
 			<div class="round">
 			    {% if score.theme.image is not null %}
-		  			<img class="" src="{{ score.theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ score.theme.image.alt }}"/>
-		  		{% else %}
-		  			<img class="" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt=""/>
+		  			<img class="" src="{{ score.theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ score.theme.image.alt }}"/>	
 				{% endif %}
 			</div>
 		</a>
@@ -150,7 +152,9 @@
 			<span class="author-thumb mrs">
 				{% if joggeurScore.joggeur.image is not null %}
 					<img class='thumbnail' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
-				{% endif %} 
+				{% else %}
+				  	<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+				{% endif %}
 			</span>
 
 			<div class="author-name">

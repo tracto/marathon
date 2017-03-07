@@ -119,7 +119,10 @@ class Image{
 
 
     public function getWebPath(){
-        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
+       
+        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();  
+        
+        
     }
 
 
@@ -164,8 +167,8 @@ class Image{
      */
     public function setAlt($alt)
     {
+        
         $this->alt = $alt;
-
         return $this;
     }
 
@@ -177,6 +180,7 @@ class Image{
     public function getAlt()
     {
         return $this->alt;
+        
     }
   
 }
