@@ -318,6 +318,8 @@
 					<div class="playlist-header-image">
 						{% if joggeur.image is not null %}
 							<img class="img-aspect-ratio" src="{{ joggeur.image.webPath  | imagine_filter('big_image') }}" alt="{{ joggeur.image.alt }}">
+						{% else %}
+						  	<img class="img-aspect-ratio" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('big_image') }}" alt="">		
 						{% endif %}
 					</div>
 			

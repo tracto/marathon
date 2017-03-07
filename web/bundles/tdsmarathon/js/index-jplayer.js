@@ -24,18 +24,18 @@ $(document).ready(function(){
                 var self = this;
 
                 var listItem = "<div class='playlist-item clearfix'>";
-                listItem += "<a href='javascript:;' class='mbs row " + playlistIndex.options.playlistOptions.itemClass + "' tabindex='1'>";
+                listItem += "<a href='javascript:;' class='mbs flex-container-h " + playlistIndex.options.playlistOptions.itemClass + "' tabindex='1'>";
                 
-                listItem +="<div class='col col-sm-8 pull-left'>";
+                listItem +="<div class='flex-item w-70 man'>";
                 listItem +="<div class='jp-title'>" + media.title + "</div>";
                 listItem +="<div class='jp-theme'>Theme :" + media.theme + "</div>";
                 listItem +="</div>";
 
                 
                 
-                listItem +="<div class='col col-md-4 pull-right align-right'>";
-				listItem +="<span class='jp-artist prs'><h5 class='pan man'>Joggeur</h5>" + media.artist + "</span>";
-				listItem +="<span class='jp-thumb jp-thumb-artiste'><img src='"+media.thumbartiste+"'/></span>";
+                listItem +="<div class='flex-item w-30 align-right flex-container-h man'>";
+				listItem +="<div class='jp-artist prs'><h5 class='pan man'>Joggeur</h5><span>" + media.artist + "</span></div>";
+				listItem +="<div class='jp-thumb jp-thumb-artiste'><img src='"+media.thumbartiste+"'/></div>";
 				listItem +="</div>";
 
 				listItem += "</a>";

@@ -122,6 +122,7 @@ fos_comment:
 #     intercept_redirects: false
 
 liip_imagine:
+    default_image: ../uploads/img/anonymous.jpg
     resolvers:
         default:
             web_path: ~

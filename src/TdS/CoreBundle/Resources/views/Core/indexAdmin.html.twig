@@ -112,11 +112,13 @@
 		        		<h2 class="sub-title">Mon profil</h2>
 							<div class="flex-container-h">
 								<div class="flex-item mrm">
-									{% if joggeur.image is defined or joggeur.image is not null or joggeur.image is not empty %}
-								  		<span class="">
-											<img class='thumbnail' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>  
-										</span>
-									{% endif %}
+									<span class="">
+										{% if joggeur.image is defined or joggeur.image is not null or joggeur.image is not empty %}
+									  		<img class='thumbnail' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>
+										{% else %}
+					  						<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
+										{% endif %}
+									</span>
 								</div>
 
 								<div class="flex-item">

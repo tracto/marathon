@@ -72,16 +72,9 @@ class CoreController extends Controller{
 			      			->getRepository('TdSMarathonBundle:Joggeur')
 			      			->findAllSortByLastLogin();
 
-			// $image=$em
-			//       	->getRepository('TdSMarathonBundle:Image')
-			//       	->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
-
-			// foreach($listeJoggeurs as $joggeur){
-			// 	if(!$joggeur->getImage()){
-			// 		$joggeur->setImage($image);
-			// 	}
-			// }
-
+			$imageJogDefault=$em
+			      	->getRepository('TdSMarathonBundle:Image')
+			      	->findOneById(array('id' => "64"));
 
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
@@ -92,7 +85,8 @@ class CoreController extends Controller{
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'listeSaisons'=>$listeSaisons,
 					'saison'=>$saison,
-					'listeDernThemes'=>$listeDernThemes,									
+					'listeDernThemes'=>$listeDernThemes,					
+					'imageJogDefault'=>$imageJogDefault,			
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,

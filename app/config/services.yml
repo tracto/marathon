@@ -9,6 +9,13 @@ parameters:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
 services:
+    app.twig.app_extension:
+        public:    false
+        class:     AppBundle\Twig\AppExtension
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+
     tds.cacheimage_listener:
         class: TdS\CoreBundle\Listener\CacheImageListener
         arguments: ["@liip_imagine.cache.manager"]

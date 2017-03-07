@@ -62,7 +62,11 @@
 										</span>
 
 										<span class="author-thumb">
-											<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+											{% if app.user.joggeur.image is not null %}
+												<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+											{% else %}
+										  		<img class='thumbnail' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+											{% endif %}   
 										</span>
 									</div>									
 								</div>
