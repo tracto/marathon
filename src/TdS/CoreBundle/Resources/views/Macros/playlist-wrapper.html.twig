@@ -2,6 +2,7 @@
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %} 
 
+
 	{% if tabIdTheme is not null %}
 		{% set keyThemePrec ='' %}
 		{% set keyThemeCurr='' %}
@@ -118,14 +119,36 @@
 				{% if listeJoggeursScore is defined and listeJoggeursScore is not null and listeJoggeursScore is not empty %}
 					
 
+
+					{% set jogDonJuan = "" %}
+					{% set jogWinner = "" %}
+					{% set jogLoser = "" %}
+
+					
+					{% set idjogDonJuan = scoreService.wof_jogDonJuan(listeJoggeursScore) %}
+					{% set idjogWinner = scoreService.wof_jogWinner(listeJoggeursScore) %}
+					{% set idjogLoser = scoreService.wof_jogLoser(listeJoggeursScore) %}
+
+					{% for joggeurScore in listeJoggeursScore %}
+						{% if joggeurScore.joggeur.id == idjogDonJuan %}
+							{% set jogDonJuan = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogWinner %}
+							{% set jogWinner = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogLoser %}
+							{% set jogLoser = joggeurScore.joggeur %}
+						{% endif %}
+					{% endfor %}
+
 					<div class="playlist-scores walloffame bg-op--white-5 align-center pam pbn">
 						<h3 class="ptn mtn">Wall of Fame du thème</h3>
 						<div class="wof-wrapper flex-container flex-start  flex-justify">
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogDonJuan(listeJoggeursScore),"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
 
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogWinner(listeJoggeursScore),"Le Total Winner","Celui qui a gagné ce thème","wof_jogWinner") }}
+							{{ scoresElementsModule.wof_medaillon(jogWinner,"Le Total Winner","Celui qui a gagné ce thème","wof_jogWinner") }}
 
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogLoser(listeJoggeursScore),"Le Total Loser","Celui qui a pas compris","wof_jogLoser") }}
+							{{ scoresElementsModule.wof_medaillon(jogLoser,"Le Total Loser","Celui qui a pas compris","wof_jogLoser") }}
 
 							{{ scoresElementsModule.scores_legende() }}
 						</div>

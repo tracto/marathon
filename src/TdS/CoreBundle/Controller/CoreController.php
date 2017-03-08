@@ -72,10 +72,6 @@ class CoreController extends Controller{
 			      			->getRepository('TdSMarathonBundle:Joggeur')
 			      			->findAllSortByLastLogin();
 
-			$imageJogDefault=$em
-			      	->getRepository('TdSMarathonBundle:Image')
-			      	->findOneById(array('id' => "64"));
-
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
@@ -85,8 +81,7 @@ class CoreController extends Controller{
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'listeSaisons'=>$listeSaisons,
 					'saison'=>$saison,
-					'listeDernThemes'=>$listeDernThemes,					
-					'imageJogDefault'=>$imageJogDefault,			
+					'listeDernThemes'=>$listeDernThemes,						
 					'listeArticles'=>$listeArticles,
 					'listeJoggeurs'=>$listeJoggeurs,
 					'listeJoggeursScore'=>$listeJoggeursScore,
@@ -158,10 +153,8 @@ class CoreController extends Controller{
 				$joggeurScore = $em
 		          ->getRepository('TdSMarathonBundle:JoggeurScore')
 		          ->findJoggeurBySaison($saison, $joggeur);
-
-		        if(!empty($joggeurScore)){
-					// $joggeurScore=$joggeurScore[0];
-				}else{
+		        
+				if(empty($joggeurScore)){
 					$joggeurScore=new JoggeurScore;
 				}
 			}else{

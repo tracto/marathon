@@ -1,22 +1,8 @@
 services:
-    # td_s_marathon.ckeditor:
-    #     class: TdS\MarathonBundle\Form\Type\CkeditorType
-    #     tags:
-    #         - { name: form.type, alias: ckeditor }
-
-    # tds_marathon.saison.html:
-    #     class: TdS\MarathonBundle\Saison\SaisonHTML
-
-    # oc_platform.beta.listener:
-    #     class: OC\PlatformBundle\Beta\BetaListener
-    #     arguments: [@oc_platform.beta.html, "2013-10-20"]
-    #     tags:
-    #         - { name: kernel.event_listener, event: kernel.response, method: processSaison }
-
+   
     tds_marathon.saison:
         class:  TdS\MarathonBundle\Services\TdSSaison
         arguments: [ @doctrine.orm.entity_manager ] 
-            # entityManager: "@doctrine.orm.entity_manager"
 
 
     tds_marathon.scoring:
@@ -27,5 +13,7 @@ services:
     tds_marathon.theme:
         class:  TdS\MarathonBundle\Services\TdSTheme
         arguments: [ @doctrine.orm.entity_manager ]
-        
 
+    tds_marathon.hotfresh:
+        class:  TdS\MarathonBundle\Services\TdSHotfresh
+        arguments: [ @doctrine.orm.entity_manager ] 

@@ -77,20 +77,47 @@
 
 						{{ scoresElementsModule.scores_legende() }}
 					</div>
-					
 
+
+					
+					{% set jogEgoiste = "" %}
+					{% set jogDonJuan = "" %}
+					{% set jogPetitGros = "" %}
+					{% set jogLfdy = "" %}
+
+					{% set idjogEgoiste = scoreService.wof_jogEgoiste(listeJoggeursScore) %}
+					{% set idjogDonJuan = scoreService.wof_jogDonJuan(listeJoggeursScore) %}
+					{% set idjogPetitGros = scoreService.wof_jogPetitGros(listeJoggeursScore) %}
+					{% set idjogLfdy = scoreService.wof_jogLfdy(listeJoggeursScore) %}
+
+					{% for joggeurScore in listeJoggeursScore %}
+						{% if joggeurScore.joggeur.id == idjogEgoiste %}
+							{% set jogEgoiste = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogDonJuan %}
+							{% set jogDonJuan = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogPetitGros %}
+							{% set jogPetitGros = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogLfdy %}
+							{% set jogLfdy = joggeurScore.joggeur %}
+						{% endif %}
+					{% endfor %}
+
+					
 					<div class="walloffame bg-op--white-5 align-center mtm">
 						<h2>Wall of Fame</h2>
 						<div class="wof-wrapper  flex-container flex-start flex-justify">
 							
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogEgoiste(listeJoggeursScore),"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
+							{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
 
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogDonJuan(listeJoggeursScore),"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
 
 
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogPetitGros(listeJoggeursScore),"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
+							{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
 
-							{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogLfdy(listeJoggeursScore),"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}						
+							{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}						
 						</div>
 					</div>
 				</div>
@@ -204,17 +231,16 @@
 				<div class="block clearfix">
 				    {% for joggeur in listeJoggeurs %}
 				    	{% if joggeur is not null %}
-				    		{% set jogimage = joggeur.image %}
-				    		{% if joggeur.image is not defined or joggeur.image is null %}
-				    			{% set jogimage = imageJogDefault %}
-				    		{% endif %}
+				    		
 
 				    		{% if loop.index <= 9 %}
 					    		<div class='col col-xs-6 col-sm-4 col-lg-4 list-item vignette-item man pan'>
 						    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 								    	<div class="square">
-										    {% if jogimage is not null %}
-									  			<img class="" src="{{ jogimage.webPath | imagine_filter('medium_thumb') }}" alt="{{ jogimage.alt }}">
+										    {% if joggeur.image is not null %}
+									  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+											{% else %}
+								  				<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 											{% endif %}										
 
 										    <div class='inner-item-text'>

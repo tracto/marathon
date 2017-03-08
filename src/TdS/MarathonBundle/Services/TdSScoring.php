@@ -146,10 +146,11 @@ class TdSScoring {
 	    if(!$idJoggeur){
 	    	$idJoggeur=1;
 	    }
-		$wof_jogFame = $this->em
-			          ->getRepository('TdSMarathonBundle:Joggeur')
-			          ->findOneBy(array('id'=>$idJoggeur));
-		
+		// $wof_jogFame = $this->em
+		// 	          ->getRepository('TdSMarathonBundle:Joggeur')
+		// 	          ->findOneBy(array('id'=>$idJoggeur))
+  //                     ;
+		$wof_jogFame = $idJoggeur;
     	return $wof_jogFame;
     }
 

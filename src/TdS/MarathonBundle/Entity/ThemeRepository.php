@@ -53,19 +53,21 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findOneThemeById($id){
       $queryBuilder=$this->_em->createQueryBuilder('a')
-        ->addselect('a','i','j','ji','jc','jci','m','mj','th')
-        ->andwhere('a.id = :id')
-
-        ->setParameter('id', $id)
+        ->addselect('a','i','m','mj','mji','j','ji','jc','jci','th')
+        
         ->from($this->_entityName,'a')
         ->leftJoin('a.image','i')
         ->leftJoin('a.joggeur','j')
         ->leftJoin('j.image','ji')
+        // ->leftJoin('a.scores','s')
         ->leftJoin('a.joggeurChronique','jc')
         ->leftJoin('jc.image','jci')         
         ->leftJoin('a.musicTitles','m')
         ->leftJoin('m.joggeur','mj')
-        ->leftJoin('a.thread','th')        
+        ->leftJoin('mj.image','mji')
+        ->leftJoin('a.thread','th') 
+         ->where('a.id = :id')
+        ->setParameter('id', $id)      
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
@@ -104,6 +106,20 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
           ;
 
           return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findThemeOrderByDateFinOnlyId(){
+      $queryBuilder=$this->_em->createQueryBuilder('a')
+        ->addselect('partial a.{id, dateFin, statut}')
+        
+        ->from($this->_entityName,'a') 
+        ->orderBy('a.dateFin', 'DESC')     
+        ;
+
+        return $queryBuilder
             ->getQuery()
             ->getResult();
     }
