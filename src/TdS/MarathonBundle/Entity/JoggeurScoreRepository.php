@@ -23,13 +23,14 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
       
 
       $queryBuilder = $this->createQueryBuilder('c') 
-          ->addSelect('c','s','j','t','i')
+          ->addSelect('c','s','t','j','ji')
           ->leftJoin('c.scores', 's') 
           ->leftJoin('s.theme','t')
+          // ->leftJoin('t.image','ti')
           ->where('t.id IN (:id)')
           ->setParameter('id', $themesId)       
           ->leftJoin('c.joggeur', 'j')
-          ->leftJoin('j.image', 'i')
+          ->leftJoin('j.image', 'ji')
           // ->leftJoin('j.user', 'u')
           ;
                    

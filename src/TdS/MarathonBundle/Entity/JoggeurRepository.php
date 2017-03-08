@@ -29,10 +29,10 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findAllSortByLastLogin(){
     	$queryBuilder = $this->createQueryBuilder('c')
-        	->addSelect('c','m','partial mt.{id}','i')
+        	->addSelect('c','partial m.{id}','partial mt.{id}','i')
         	->leftJoin('c.user', 'm')
-            ->leftJoin('c.image', 'i')
-            ->leftJoin('c.musicTitles','mt')
+          ->leftJoin('c.image', 'i')
+          ->leftJoin('c.musicTitles','mt')
         	->orderBy('m.lastLogin', 'DESC');
 
         return $queryBuilder

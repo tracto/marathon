@@ -53,8 +53,51 @@
 							{{ scoresElementsModule.scores_legende() }}
 						</div>
 
+
+
+						{% set jogEgoiste = "" %}
+					{% set jogDonJuan = "" %}
+					{% set jogPetitGros = "" %}
+					{% set jogLfdy = "" %}
+
+					{% set idjogEgoiste = scoreService.wof_jogEgoiste(joggeursScoresOfSaison) %}
+					{% set idjogDonJuan = scoreService.wof_jogDonJuan(joggeursScoresOfSaison) %}
+					{% set idjogPetitGros = scoreService.wof_jogPetitGros(joggeursScoresOfSaison) %}
+					{% set idjogLfdy = scoreService.wof_jogLfdy(joggeursScoresOfSaison) %}
+
+					{% for joggeurScore in joggeursScoresOfSaison %}
+						{% if joggeurScore.joggeur.id == idjogEgoiste %}
+							{% set jogEgoiste = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogDonJuan %}
+							{% set jogDonJuan = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogPetitGros %}
+							{% set jogPetitGros = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogLfdy %}
+							{% set jogLfdy = joggeurScore.joggeur %}
+						{% endif %}
+					{% endfor %}
+
+					
+					<div class="walloffame bg-op--white-5 align-center mtm">
+						<h2>Wall of Fame</h2>
+						<div class="wof-wrapper  flex-container flex-start flex-justify">
+							
+							{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
+
+							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+
+
+							{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
+
+							{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}						
+						</div>
+					</div>
+
 				
-						<div class="walloffame bg-op--white-5 align-center mtm">
+						{# <div class="walloffame bg-op--white-5 align-center mtm">
 							<h3>Wall of Fame</h3>
 							<div class="wof-wrapper  flex-container flex-start flex-justify">
 												
@@ -67,7 +110,7 @@
 
 								{{ scoresElementsModule.wof_medaillon(scoreService.wof_jogLfdy(joggeursScoresOfSaison),"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}
 							</div>
-						</div>
+						</div> #}
 					{% endif %}
 				</div>
 			{% endif %}

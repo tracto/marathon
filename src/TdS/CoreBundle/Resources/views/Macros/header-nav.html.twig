@@ -99,7 +99,14 @@
   						{% set statut = "terminée" %}
   					{% endif %}
   					<h3 class="man pan">{{ statut }}</h3>
-  				</div> 
+  				</div>
+
+  				{% set hotFresh = hotfreshService.showContent() %}
+  				<div class="hotfresh-wrapper">
+  					<div class="hotfresh-inner align-center pas">
+  						{{ hotFresh.content }}
+  					</div>
+  				</div>
 
 			</div>
 	 </div>

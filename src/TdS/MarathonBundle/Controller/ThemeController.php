@@ -44,27 +44,26 @@ class ThemeController extends Controller{
 	    	$em = $this->getDoctrine()->getManager();
 	    	
 
-	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-	    					 ->findAll();
 
 	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
 	    			->findOneThemeById($id); 
+
+	    	$saison=$theme->getSaison();
 	    	              
 	        $tabIdTheme=array();
-	        foreach ($listeSaisons as $saisonItem){
-	        	foreach($saisonItem->getThemes() as $itemTheme){
-	        		if($itemTheme->getStatut() != 0){
-	        			$tabIdTheme[]=$itemTheme->getId();
-	        		
-	        		
-	        		}elseif($itemTheme->getStatut() == 0 && $itemTheme->getId() == $theme->getId()){
-	        			$tabIdTheme[]=$itemTheme->getId();
-	        		}
-	    			
-	    		}
+	        $listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
+	        		  ->findThemeOrderByDateFinOnlyId();
+
+	        foreach ($listeThemes as $themeItem){
+         		if($themeItem->getStatut() != 0){
+         			$tabIdTheme[]=$themeItem->getId();
+        		
+        		}elseif($theme->getStatut() == 0 && $themeItem->getId() == $theme->getId()){
+         			$tabIdTheme[]=$itemTheme->getId();
+         		}	    		
 	        }
 
-			$saison=$theme->getSaison();
+			
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfTheme($theme);
