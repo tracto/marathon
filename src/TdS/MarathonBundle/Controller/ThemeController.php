@@ -59,7 +59,7 @@ class ThemeController extends Controller{
          			$tabIdTheme[]=$themeItem->getId();
         		
         		}elseif($theme->getStatut() == 0 && $themeItem->getId() == $theme->getId()){
-         			$tabIdTheme[]=$itemTheme->getId();
+         			$tabIdTheme[]=$themeItem->getId();
          		}	    		
 	        }
 
