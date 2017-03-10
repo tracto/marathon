@@ -9,6 +9,7 @@
     "cssnano": "^2.6.1",
     "grunt": "^0.4.5",
     "grunt-contrib-stylus": "^0.22.0",
-    "poststylus": "^0.2.0"
+    "poststylus": "^0.2.0",
+    "tachyons": "^4.6.1"
   }
 }

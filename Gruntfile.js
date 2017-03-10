@@ -13,7 +13,7 @@ module.exports = function(grunt) {
           'include css': true
         },
         files: {
-          'web/bundles/tdsmarathon/css/styles.css': 'web/bundles/tdsmarathon/css/styles.styl'
+          // 'web/bundles/tdsmarathon/css/styles.css': 'web/bundles/tdsmarathon/css/styles.styl'
         }
       }
     }
