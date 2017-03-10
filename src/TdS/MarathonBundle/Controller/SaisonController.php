@@ -129,12 +129,13 @@ class SaisonController extends Controller{
 			if($form->isValid()){
 				$em=$this->getDoctrine()->getManager();
 				$saison->setType(1);
+				$saison->setStatut(1);
 				$em->persist($saison);
 				$em->flush();
 
 				$request->getSession()->getFlashBag()->add('notice','Nouvelle saison activée.');
 				
-				return $this->redirect($this->generateUrl('tds_marathon_theme_home'));
+				return $this->redirect($this->generateUrl('tds_dashboard'));
 			}
 
 	        return $this->render('TdSMarathonBundle:Saison:add.html.twig', array('form'=>$form->createView()));

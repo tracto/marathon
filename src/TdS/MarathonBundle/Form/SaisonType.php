@@ -16,15 +16,6 @@ class SaisonType extends AbstractType
     {
         $builder
             ->add('titre','text')
-            // ->add('statut','checkbox',array('required'=>false))
-            ->add('statut', 'choice', array(
-                'choices'  => array(
-                    'Pas encore active' => 0,
-                    'Saison en cours' => 1,
-                    'Saison terminée' => 2,
-                ),
-                'choices_as_values' => true,
-            ))
             ->add('image',new ImageType(),array('required'=>false))
             ->add('bilan','ckeditor',array('required'=>false))
             ->add('save','submit')
