@@ -8,6 +8,7 @@ use TdS\MarathonBundle\Entity\Theme;
 use TdS\MarathonBundle\Entity\Saison;
 use TdS\MarathonBundle\Entity\Website;
 use TdS\MarathonBundle\Form\WebsiteType;
+use TdS\MarathonBundle\Form\HotfreshType;
 use TdS\MarathonBundle\Entity\MusicTitle;
 use TdS\MarathonBundle\MP3File\TdSMP3File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,6 +20,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CoreController extends Controller{
+
+	
 
 	public function IndexAction(Request $request){
 			$em = $this->getDoctrine()->getManager();
@@ -179,6 +182,39 @@ class CoreController extends Controller{
 	}
 
 
+	public function ShowHotfreshAction(Request $request){
+		$em = $this->getDoctrine()->getManager();
+		$hotfresh = $em
+		    ->getRepository('TdSMarathonBundle:Hotfresh')
+		    ->findOneById(array('id',1));
+		return $this->render('TdSMarathonBundle:Hotfresh:show.html.twig',array('hotfresh'=>$hotfresh));
+		// return $content;
+	}
+	
+	public function EditHotfreshAction(Request $request,$id){
+		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+			$em = $this->getDoctrine()->getManager();
+			$hotfresh=$em->getRepository('TdSMarathonBundle:Hotfresh')
+						->find($id);
+
+			$form = $this->createForm(new HotfreshType(),$hotfresh);
+
+		
+			$form->handleRequest($request);
+			
+  	  		if ($form->isSubmitted() && $form->isValid()) {	
+				$em=$this->getDoctrine()->getManager();
+				$em->persist($hotfresh);
+				$em->flush();
+				
+				$request->getSession()->getFlashBag()->add('notice',"Message d'accueil modifié!");
+
+			}
+			return $this->render('TdSMarathonBundle:Hotfresh:form.html.twig',array('form'=>$form->createView()));
+		}
+	}
+
+
 	public function participateAction(Request $request){
 		$form = $this->get('form.factory')->create(new ParticipateType());
 		
@@ -245,5 +281,10 @@ class CoreController extends Controller{
 // 			'formatDuration'=>$formatDuration
 // 			)
 		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array("duree"=>$duree));
-	}	
+	}
+
+
+
+
+
 }

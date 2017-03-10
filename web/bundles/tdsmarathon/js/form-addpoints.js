@@ -8,7 +8,6 @@ var givenHearts=0;
 
 $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 	
-	console.log("yo heart click");
 
 	var remainingHearts=parseInt($('.joggeurDonneur-pointsInit').html());
 	var givenHearts=0;

@@ -101,10 +101,25 @@
   					<h3 class="man pan">{{ statut }}</h3>
   				</div>
 
-  				{% set hotFresh = hotfreshService.showContent() %}
+  				{% set hotFresh = hotfreshService.showContent() %} 
+
   				<div class="hotfresh-wrapper">
-  					<div class="hotfresh-inner align-center pas">
-  						{{ hotFresh.content }}
+
+  					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
+	  					<div id="form-hotfresh" class="form-hotfresh pts mts">
+							
+							{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
+						</div>
+					{% endif %}
+					<div id="hotfresh-inner" class="hotfresh-inner align-center ">
+  						<div class="hotfresh-content pas inbl"> 
+  							{{ hotFresh.content }} 
+  						</div>
+  						{% if is_granted("ROLE_SUPER_ADMIN") %}
+							<a class="button btn-action align-center pas" data-action="show-hotfresh-form" href="#">
+			  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
+							</a>					
+						{% endif %}
   					</div>
   				</div>
 

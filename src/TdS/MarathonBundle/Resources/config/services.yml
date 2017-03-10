@@ -16,4 +16,5 @@ services:
 
     tds_marathon.hotfresh:
         class:  TdS\MarathonBundle\Services\TdSHotfresh
-        arguments: [ @doctrine.orm.entity_manager ] 
+        arguments: [ @doctrine.orm.entity_manager]
+        # arguments: [@router, @form.factory] 
