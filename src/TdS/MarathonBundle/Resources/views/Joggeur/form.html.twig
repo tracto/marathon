@@ -1,15 +1,13 @@
 
 <div class="form-wrapper bg-op--white bd--light pam">
- 
-{# <form action="{{ referer }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">  #}
+
 {{ form_start(form) }}
-{#  {{ form_start(form,{'action': "{{ app.request.headers.get('referer') }}", 'attr': {'class': 'form-horizontal'} }) }}  #}
-{# <form class='form-horizontal' action="{{ referer }}" method="post" {{ form_enctype(form) }}> #}
+
 
 <form class='form-horizontal' method="post" {{ form_enctype(form) }}>
 
     {{ form_errors(form) }}
-   {#  {% set targetPath %} #}
+
 
 
     <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />

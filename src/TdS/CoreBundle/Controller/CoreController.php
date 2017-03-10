@@ -147,7 +147,6 @@ class CoreController extends Controller{
 			}
 
 			$user=$this->getUser();
-			// $joggeurUser=$user->getJoggeur();
 			$joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
 					->findJoggeurByUser($user);
 
@@ -188,8 +187,8 @@ class CoreController extends Controller{
 		    ->getRepository('TdSMarathonBundle:Hotfresh')
 		    ->findOneById(array('id',1));
 		return $this->render('TdSMarathonBundle:Hotfresh:show.html.twig',array('hotfresh'=>$hotfresh));
-		// return $content;
 	}
+
 	
 	public function EditHotfreshAction(Request $request,$id){
 		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
@@ -223,19 +222,9 @@ class CoreController extends Controller{
 			$form->handleRequest($request);
             $data = $form->getData();
 
-            // $contenuMail="<div>
-            // 				<h2>“".$data['pseudo']."“ veut devenir joggeur !</h2>
-            // 				<h3>Mail : </h3>
-            // 				<span>".$data['email']."</span>
-            // 				<h3>Candidature :</h3>
-            // 				<p>".$data['content']."</p>
-            // 			 </div>";
-
            $contenuMail="yo";
 
             $message = \Swift_Message::newInstance()
-            // $message = \Swift_Message::newInstance('SSL0.OVH.NET:contact@tiretdusix.net',25)
-                // ->setContentType('text/html')
                 ->setSubject("Marathon de la Semaine : demande d'inscription")
                 ->setFrom($data['email'])
                 ->setTo('kl6yranne@yahoo.fr')
@@ -264,27 +253,6 @@ class CoreController extends Controller{
 	      			->getRepository('TdSMarathonBundle:MusicTitle')
 	      			->findAllDurations();
 
-	    // $allDurations=0; 			
-	    // foreach($allMusicTitles as $musicTitle){
-	    // 	if($musicTitle->getDuration()!=null){
-	    // 		$allDurations=$allDurations+$musicTitle->getDuration();
-	    // 	}
-	    // }
-
-	    // $mp3File=new TdSMP3File(0);
-	    // $kilometrage=round(($allDurations*10)/3600,2);
-	    // $formatDuration=$mp3File->formatTime($allDurations);
-
-
-// array(
-// 			'kilometrage'=>$kilometrage,
-// 			'formatDuration'=>$formatDuration
-// 			)
 		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array("duree"=>$duree));
 	}
-
-
-
-
-
 }

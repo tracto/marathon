@@ -26,12 +26,10 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
           ->addSelect('c','s','t','j','ji')
           ->leftJoin('c.scores', 's') 
           ->leftJoin('s.theme','t')
-          // ->leftJoin('t.image','ti')
           ->where('t.id IN (:id)')
           ->setParameter('id', $themesId)       
           ->leftJoin('c.joggeur', 'j')
           ->leftJoin('j.image', 'ji')
-          // ->leftJoin('j.user', 'u')
           ;
                    
           
@@ -93,10 +91,7 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
         	->getQuery()->getOneOrNullResult();
  
         return $queryBuilder;
- 
-  		// return $queryBuilder
-    //    		->getQuery()
-    //    		->getResult();
+
     }
 
 
@@ -135,11 +130,6 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
        		->getResult();
 
     }
-
-
-
-
-
 
 }
 

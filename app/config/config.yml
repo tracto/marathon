@@ -154,5 +154,3 @@ liip_imagine:
                 upscale: { min: [1920, 620] }
                 
 
-# assetic:
-#     bundles: [ "FOSCommentBundle" ]

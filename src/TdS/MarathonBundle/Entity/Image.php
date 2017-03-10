@@ -82,7 +82,6 @@ class Image{
             $oldFile=$this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
             if(file_exists($oldFile)){
                 unlink($oldFile);
-                // $this->liipCacheManager->remove($oldFile,'big_image');
             }
         }
 
