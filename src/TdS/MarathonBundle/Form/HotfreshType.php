@@ -16,7 +16,6 @@ class HotfreshType extends AbstractType
     {
         $builder
             ->add('content','text');
-            // ->add('valider','submit');
     }
     
     /**

@@ -30,7 +30,6 @@ class ThemeType extends AbstractType
                       'format' => 'MM/dd/yyyy',
                       'attr' => [
                          'class' => 'form-control date',
-                         // 'data-provide' => 'datepicker',
                          
                         ]
                     )                     
@@ -80,7 +79,7 @@ class ThemeType extends AbstractType
                $theme = $event->getData();
 
                 if (null === $theme) {
-                  return; // On sort de la fonction sans rien faire lorsque $advert vaut null
+                  return; // On sort de la fonction sans rien faire 
                 }
 
                 $form = $event->getForm();

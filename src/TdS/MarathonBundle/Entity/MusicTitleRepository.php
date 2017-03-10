@@ -76,20 +76,12 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 
 
 	public function findAllDurations(){
-		// $queryBuilder=$this->_em->createQueryBuilder()
-		// 	->select('partial a.{id,duration}')
-		// 	->from($this->_entityName,'a');
 
 
 		$queryBuilder =$this->_em->createQueryBuilder()
-		//TIME_FORMAT(SEC_TO_TIME(SUM(a.duration)))
-
 			->select("SUM(a.duration) * 10 / 3600 as kilometrage, SUM(a.duration) as temps")
 			->from($this->_entityName,'a');
         	
-// 				      TIME_FORMAT(SEC_TO_TIME(SUM(a.duration)), '%hh %im %ss') as temps")
-
-
 
 		return $queryBuilder->getQuery()->getOneOrNullResult();
 	}

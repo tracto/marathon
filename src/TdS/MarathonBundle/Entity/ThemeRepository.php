@@ -34,8 +34,7 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
     public function findDerniersThemes($limit){
         $queryBuilder=$this->_em->createQueryBuilder('a')
         ->addselect('a','i','partial m.{id}','partial th.{id,numComments}')
-        ->from($this->_entityName,'a')
-                
+        ->from($this->_entityName,'a')                
         ->leftJoin('a.image','i')        
         ->leftJoin('a.musicTitles','m')
         ->leftJoin('a.thread','th')
@@ -53,13 +52,11 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findOneThemeById($id){
       $queryBuilder=$this->_em->createQueryBuilder('a')
-        ->addselect('a','i','m','mj','mji','j','ji','jc','jci','th')
-        
+        ->addselect('a','i','m','mj','mji','j','ji','jc','jci','th')        
         ->from($this->_entityName,'a')
         ->leftJoin('a.image','i')
         ->leftJoin('a.joggeur','j')
         ->leftJoin('j.image','ji')
-        // ->leftJoin('a.scores','s')
         ->leftJoin('a.joggeurChronique','jc')
         ->leftJoin('jc.image','jci')         
         ->leftJoin('a.musicTitles','m')

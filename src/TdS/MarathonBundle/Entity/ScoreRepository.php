@@ -69,12 +69,5 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository {
 
     }
 
-  //   public function findAllBySaison(){
-  //   	$repository = $this
-		//     ->getEntityManager()
-		//     ->getRepository('TdSMarathonBundle:Theme');
-
-		// $repository->findThemesBySaison(Saison $saison)
-  //   }
 
 }

@@ -32,7 +32,6 @@
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
 	{% import "TdSCoreBundle:Macros:icons-svg.html.twig" as icons %}
-	{# {% import "TdSCoreBundle:Macros:panneauinfos:pi-saison.html.twig" as PIsaison %} #}
 	{{ icons.svg() }} 
 
 	<body>
@@ -66,10 +65,8 @@
 	    	</div>
 
 
-			<div class="wrapper flex-container relative bg--marbre">
-				{# <div class="container-border-left"></div> #}		    	
+			<div class="wrapper flex-container relative bg--marbre">	    	
 				<div class="container-center container flex-item">{% block body %} {% endblock %}</div>
-				{# <div class="container-border-right"></div> #}
 			</div>
 		</div>
 

@@ -53,8 +53,7 @@ tds_admin_user_edit:
 tds_admin_user_delete:
     path:     /admin/delete/{id}
     defaults: { _controller: TdSUserBundle:Admin:delete }
-    # requirements:
-    #     id: \d+
+
 
 
 tds_home:

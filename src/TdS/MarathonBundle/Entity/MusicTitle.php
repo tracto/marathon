@@ -114,7 +114,6 @@ class MusicTitle
             return;
         }
 
-        // $this->url=$this->file->guessExtension();
         $this->url="mp3";
 
         $this->alt=$this->file->getClientOriginalName();
@@ -362,17 +361,4 @@ class MusicTitle
         return $this->alt;
     }
 
-
-
-    // public function getDuration($url){
-
-        
-    //     $data = $file->get_metadata();
-
-    //    if ($data['Encoding']=='VBR'){
-    //         return $data;
-    //    }else if ($data['Encoding']=='CBR'){
-    //         return $data;
-    //    }       
-    // }
 }

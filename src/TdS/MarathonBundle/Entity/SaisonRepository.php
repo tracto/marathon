@@ -58,25 +58,6 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
         return $results;
     }
 
-
-
-
-
-    // public function findSaisonByThemes($id){
-
-    //     $results = $this
-    //         ->createQueryBuilder('n')
-    //         ->andwhere('n.id = :id')
-    //         ->addselect('n','t','partial m.{id}','partial th.{id,numComments}')
-    //         ->leftJoin('n.themes','t')
-    //         ->leftJoin('t.musicTitles','m')
-    //         ->leftJoin('t.thread','th')
-            
-    //         ->setParameter('id',$id)
-    //         ->getQuery()->getOneOrNullResult();
- 
-    //     return $results;
-    // }
 }
 
 
