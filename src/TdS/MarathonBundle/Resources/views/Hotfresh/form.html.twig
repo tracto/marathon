@@ -1,0 +1,15 @@
+{{ form_start(form) }}      
+      <div class="w-100 w-60-m w-80-l mauto align-center">
+        {{ form_errors(form.content) }}
+        <div class="inbl">
+          {{ form_widget(form.content, {'attr': {'class': 'form-hotfresh'}}) }}
+        </div>
+      
+
+        <div class="button btn btn-action inbl">
+          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           <button type="submit" value="Valider" data-action="submit-hotfresh">Valider</button>
+        </div>
+    </div>
+
+  {{ form_end(form) }}

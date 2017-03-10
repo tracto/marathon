@@ -66,6 +66,22 @@ tds_dashboard:
     defaults: { _controller: TdSCoreBundle:Core:dashboard }
 
 
+tds_hotfresh_show:
+    path:    /hotfresh/show
+    defaults: { _controller: TdSCoreBundle:Core:showHotfresh }
+
+
+
+
+
+tds_hotfresh_edit:
+    path:    /hotfresh/edit/{id}
+    defaults: { _controller: TdSCoreBundle:Core:editHotfresh }
+    requirements:
+        id: \d+
+
+
+
 tds_becky_infos:
     pattern: /becky/infos
     defaults: { _controller: TdSBeckyBundle:Becky:infos }

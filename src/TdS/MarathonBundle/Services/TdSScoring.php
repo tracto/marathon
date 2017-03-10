@@ -97,6 +97,9 @@ class TdSScoring {
     	return $list;
     }
 
+    
+
+    // FONCTIONS DU WALL OF FAME
 
     public function wof_jogEgoiste($listeJoggeursScore){
     	$wof_jogEgoiste=$this->getIdJogFame($listeJoggeursScore,'Takenpoints','arsort');
@@ -146,10 +149,7 @@ class TdSScoring {
 	    if(!$idJoggeur){
 	    	$idJoggeur=1;
 	    }
-		// $wof_jogFame = $this->em
-		// 	          ->getRepository('TdSMarathonBundle:Joggeur')
-		// 	          ->findOneBy(array('id'=>$idJoggeur))
-  //                     ;
+
 		$wof_jogFame = $idJoggeur;
     	return $wof_jogFame;
     }
