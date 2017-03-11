@@ -10,4 +10,5 @@ namespace TdS\MarathonBundle\Entity;
  */
 class WebsiteRepository extends \Doctrine\ORM\EntityRepository
 {
+	
 }

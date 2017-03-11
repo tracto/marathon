@@ -32,6 +32,17 @@ class Comment extends BaseComment implements SignedCommentInterface{
      */
     protected $author;
 
+
+    /**
+     * Comment text
+     *
+     * @var string
+     */
+    protected $body;
+
+
+
+
     public function setAuthor(UserInterface $author)
     {
         $this->author = $author;
@@ -49,6 +60,50 @@ class Comment extends BaseComment implements SignedCommentInterface{
         }
 
         return $this->getAuthor()->getUsername();
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param  string
+     * @return null
+     */
+    public function setBody($body)
+    {
+        $body = nl2br(htmlentities($body, ENT_QUOTES, 'UTF-8'));
+        $body = preg_replace_callback('#(?:https?://\S+)|(?:www.\S+)|(?:\S+\.\S+)#', function($arr){
+            // if(strpos($arr[0], 'http://') !== 0)
+            // {
+            //     $arr[0] = 'http://' . $arr[0];
+            // }
+            $url = parse_url($arr[0]);
+
+            // images
+            if(preg_match('#\.(png|jpg|gif)$#', $url['path']))
+            {
+                return '<img src="'. $arr[0] . '" />';
+            }
+            // youtube
+            if(in_array($url['host'], array('www.youtube.com', 'youtube.com'))
+              && $url['path'] == '/watch'
+              && isset($url['query']))
+            {
+                parse_str($url['query'], $query);
+                return sprintf('<div class="video-container"><iframe class="embedded-video" src="https://www.youtube.com/embed/%s" frameborder="0" allowfullscreen></iframe></div>', $query['v']);
+                
+
+            }
+            //links
+            return sprintf('<a href="%1$s">%1$s</a>', $arr[0]);
+        }, $body);
+        $this->body = $body;
     }
 }
 

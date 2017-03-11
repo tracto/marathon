@@ -33,7 +33,6 @@
                     <div class="flex-item-fluid">
                         {% block fos_comment_comment_metas_authorline %}
                             <div class="fos_comment_comment_bulle">
-                               {#  <svg class="icon icon-alone icon--s icon-triangle"><use xlink:href="#icon-play"></use></svg> #}
 
                                 <div class="fos_comment_comment_inner-bulle">
                                     <div class="fos_comment_comment_metas_authorline"> 
@@ -69,7 +68,7 @@
                                             {% if comment is fos_comment_raw %}
                                                 {{ comment.rawBody | raw }}
                                             {% else %}
-                                                {{ comment.body | nl2br }}
+                                                {{ comment.body | raw }}
                                             {% endif %}
                                         {% endif %}
                                     {% endblock fos_comment_comment_body %}
@@ -119,27 +118,6 @@
 
         {% block fos_comment_comment_children %}
             {% if view is not same as('flat') %}
-                {% if fos_comment_can_comment(comment) %}
-
-                                              
-                            
-
-
-                            {# <div class="fos_comment_comment_reply">
-                            {% set repliesCount = 0 %}
-                            {% if children is defined %}
-                                {% for child in children %}
-                                 {% set repliesCount = loop.length %}
-                                {% endfor %}
-                                {% if repliesCount != 0 %} 
-                                    <span class="fos_comment_comment_btn_view_replies">
-                                        <span>réponses ({{ repliesCount }})</span>
-                                    </span> 
-                                {% endif %}
-                            {% endif %}
-                            </div> #}
-                        
-                {% endif %}
 
                 <div class="fos_comment_comment_replies">
 

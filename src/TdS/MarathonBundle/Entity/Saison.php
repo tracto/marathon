@@ -30,11 +30,34 @@ class Saison
     private $titre;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="activate", type="boolean")
+     * @ORM\Column(name="type", type="integer")
      */
-    private $activate;
+    private $type;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="statut", type="integer")
+     */
+    private $statut;
+
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bilan", type="text", nullable=true)
+     */
+    private $bilan;
+
 
     /**
      * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\Theme", mappedBy="saison")
@@ -80,28 +103,106 @@ class Saison
         return $this->titre;
     }
 
+
     /**
-     * Set activate
+     * Set type
      *
-     * @param boolean $activate
+     * @param boolean $type
      *
      * @return Saison
      */
-    public function setActivate($activate)
+    public function setType($type)
     {
-        $this->activate = $activate;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get activate
+     * Get type
      *
      * @return boolean
      */
-    public function getActivate()
+    public function getType()
     {
-        return $this->activate;
+        return $this->type;
+    }
+
+
+
+    /**
+     * Set statut
+     *
+     * @param boolean $statut
+     *
+     * @return Saison
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return boolean
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Saison
+     */
+    public function setImage(Image $image=null)
+    {
+        $this->image = $image;
+
+    }
+
+
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    /**
+     * Set bilan
+     *
+     * @param string $bilan
+     *
+     * @return Saison
+     */
+    public function setBilan($bilan)
+    {
+        $this->bilan = $bilan;
+
+        return $this;
+    }
+
+    /**
+     * Get bilan
+     *
+     * @return string
+     */
+    public function getBilan()
+    {
+        return $this->bilan;
     }
     
 

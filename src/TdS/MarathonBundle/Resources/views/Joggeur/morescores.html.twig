@@ -1,0 +1,39 @@
+<div>
+	{% if joggeurScore is defined and joggeurScore is not empty and joggeurScore is not null %}
+		<div class="pam">
+			{% set saison = "" %}
+			{% for score in joggeurScore.scores %}
+				{% if saison is empty %}
+					{% set saison = score.theme.saison.titre %}
+					<div class="sep--dashed">
+					<h3 class="sub-sub-title align-center">{{ saison }}</h3>
+				{% endif %}
+
+
+				{% if saison != score.theme.saison.titre %}
+					{% set saison = score.theme.saison.titre %}
+					</div>
+					<div class="sep--dashed">
+					<h3 class="sub-sub-title align-center">{{ saison }}</h3>				
+				{% endif %}
+
+				<div class="pbs flex-container flex-align">
+					<div class="saison-theme-vignette">
+						<a href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
+							<img class="" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
+																						
+							<span class="pls prs">{{ score.theme.titre }} : {{ score.totalTheme }}</span>
+							<span>
+								(<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg><span>{{ score.heartpoints }}</span> 
+								<svg class="icon icon--s icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>
+								<span>{{ score.fastpoints }}</span> 
+								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg><span>{{ score.takenpoints }} )</span>
+							</span>
+						</a>
+		      		</div>
+		      	</div>							
+			{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+</div>

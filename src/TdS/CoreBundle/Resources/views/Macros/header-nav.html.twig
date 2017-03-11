@@ -1,5 +1,16 @@
 {% macro header(saison) %}
-	<div id="header" class="main-header">
+
+	
+	{% if saison is not defined or saison is  null %}
+      	{% set saison = saisonService.getCurrSaison() %}
+	{% endif %}
+
+	{% set cssbg = "" %}
+	{% if saison.image is defined and saison.image is not null and saison.image is not empty %}
+		{% set cssbg =  saison.image.webPath | imagine_filter('header_image') %}
+	{% endif %}
+
+	<div id="header" class="main-header" style="background-image: url('{{ cssbg }}');" >
 
 			<input id="mobile-nav" type="checkbox" class="nav-toggler" />
 				<label for="mobile-nav" class="nav-toggler__label button">
@@ -11,14 +22,28 @@
 
 			<nav class="navbar-header">
 			 
-					<ul class="unstyled">
+					<ul class="navbar-first unstyled">
 						{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
 		            		<li><a href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
 		            	{% endif %}
 
 						<li><a  href="{{ path('tds_home') }}">Accueil</a></li>
-						<li><a href="{{ path('tds_marathon_theme_home') }}">Themes</a></li>
 						<li><a  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+						
+						<li class="navbar-second"><span>Saisons</span>
+							<ul class="unstyled">
+								{% for saisonListe in saisonService.allSaison() %}
+									{% for saisonItem in saisonListe %}
+										{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
+										<li><a  href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+							</ul>
+						</li>
+						
+						
+						
 
 						{% if is_granted("ROLE_SUPER_ADMIN") %}
 		            		<li><a href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
@@ -36,7 +61,11 @@
 										</span>
 
 										<span class="author-thumb">
-											<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+											{% if app.user.joggeur.image is not null %}
+												<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+											{% else %}
+										  		<img class='thumbnail' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+											{% endif %}   
 										</span>
 									</div>									
 								</div>
@@ -51,26 +80,48 @@
 
 				
 
-			{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-						<div class="beta align-center">
-							<div class="inner-beta pas">
-								<h3 class="sub-sub-title pan man">Les Gradins</h3>
-								<a target="_blank" href="https://docs.google.com/document/d/16EdBX-0i3tRVL3uEZPV-qhDdLZccpPnVzH7alhpICU0/edit?usp=sharing">
-									<span>Clique si tu veux te poser au KLM avec ta gourde.</span>
-								</a>
-							</div>
-						</div> 
-			{% endif %}
+			
 
 				
 			<div class="container-fluid">
 				<img class="main-logo" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
 
-				{# {% if saison is defined and saison.activate is not null %} #}
-					<div class="flex-item-center saison-title align-center man">
-      					<h1 class="man">{{ saisonService.getSaison() }}</h1>
-      				</div> 
-				{# {% endif %} #}
+				
+
+				<div class="flex-item-center saison-title align-center man">
+  					<h1 class="man pan">{{ saison.titre }}</h1>
+  					{% if saison.statut == 0 %}
+  						{% set statut = "pas encore activée" %}
+  					{% elseif saison.statut == 1 %}
+  						{% set statut = "en cours" %}
+  					{% elseif saison.statut == 2 %}
+  						{% set statut = "terminée" %}
+  					{% endif %}
+  					<h3 class="man pan">{{ statut }}</h3>
+  				</div>
+
+  				{% set hotFresh = hotfreshService.showContent() %} 
+
+  				<div class="hotfresh-wrapper">
+
+  					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
+	  					<div id="form-hotfresh" class="form-hotfresh pts mts">
+							
+							{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
+						</div>
+					{% endif %}
+					<div id="hotfresh-inner" class="hotfresh-inner align-center ">
+  						<div class="hotfresh-content pas inbl"> 
+  							{{ hotFresh.content }} 
+  						</div>
+  						{% if is_granted("ROLE_SUPER_ADMIN") %}
+							<a class="button btn-action align-center pas" data-action="show-hotfresh-form" href="#">
+			  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
+							</a>					
+						{% endif %}
+  					</div>
+  				</div>
+
 			</div>
 	 </div>
  {% endmacro %}

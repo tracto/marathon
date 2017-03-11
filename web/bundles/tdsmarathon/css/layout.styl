@@ -66,6 +66,13 @@ a {
 	outline:none;
 }
 
+
+
+
+
+
+
+
 .thumbnail{
 	padding:0;
 	background-color: transparent;
@@ -83,7 +90,10 @@ a {
 
 
 .wrapper{
-	.container-border-left{
+	background-color:#e3e1e2;
+	min-height:400px;
+	
+	/*.container-border-left{
 		background-color:$color20;
 		background-image:url('../images/motif-border-g.png');
 		background-repeat:repeat-y;
@@ -94,14 +104,20 @@ a {
 		background-color:$color20;
 		background-image:url('../images/motif-border-d.png');
 		background-repeat:repeat-y;
-	}
+	}*/
 
 	.container-center{
-		margin:0;
-		padding:0;
-		max-width:1170px;
+		margin:0 auto;
+		/*padding:0;*/
+		max-width:1440px;
+		background-color:rgba(217, 239, 231, 0.4);
+		border:solid $grey4;
+		border-width:0 1px 0 1px;
 		width:100%;
-		box-shadow: 0px 0px 3px #000
+
+
+		/*max-width:1500px;*/
+		/*box-shadow: 0px 0px 3px #000*/
 
 		
 
@@ -109,8 +125,7 @@ a {
 } 
 
 .main-content{
-	background-color:rgba(255,255,255,0.5);
-	min-height:400px;
+
 }
 
 
@@ -124,9 +139,6 @@ a {
 
 
 
-.main-content-page{
-	background-image:url('../images/playlist/playlist-bg.jpg');
-}
 
 
 
@@ -172,11 +184,20 @@ a {
 
 
 
-
+.bg--marathonchanteurs{
+	background-image:url('../images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+	background-repeat:repeat-y;
+}
 
 .bg--marbre{
 	background-image:url('../images/playlist/playlist-bg.jpg');
 }
+
+.bg--marbredark{
+	background-image:url('../images/bg-marbre.jpg');
+}
+
 
 .bg--lightgrey{
 	background-color:$color8;
@@ -240,15 +261,11 @@ a {
 }
 
 
-
-
-/*.warning-icon{
-	background-image:url('../images/icons/warning-icon.svg');	
+#loading{
+	display:none;
+	width:50px;
+	margin:0 auto;
 }
-
-.edit-icon{
-	background-image:url('../images/icons/edit-icon.svg');	
-}*/
 
 
 
@@ -363,6 +380,39 @@ a {
 	display:none;
 	border-top:solid 1px $grey1;
 }
+
+
+
+
+
+.main-content-saison{
+	.button-wrapper{
+		/*margin-top:-20px;*/
+		font-size:14px;
+	}
+
+
+	.col-bilan{
+		background-color:$color16;
+		color:$grey6;
+	}
+
+
+	.col-themes{
+		background-color:$color9;
+
+		.vignette-item{
+			width:50%;
+		}
+	}
+
+
+ 
+
+}
+
+
+
 
 
 

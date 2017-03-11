@@ -1,3 +1,18 @@
+         {% set draftmodeTheme =  null %}
+         {% set currentTheme =  null %}
+         {% set postTheme =  null %}
+
+         {% for theme in threeThemes %}
+            {% if theme.statut == 0 %}
+               {% set draftmodeTheme = theme %}
+            {% elseif theme.statut == 1 %}
+               {% set currentTheme = theme %}
+            {% elseif theme.statut == 2 %}
+               {% set postTheme = theme %}
+            {% endif %}
+         {% endfor %}
+
+        
 
    		<h3>Brief avant validation :</h3>
             <div  class="line sep--dashed pbm clearfix">

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ThemeType extends AbstractType
 {
@@ -30,7 +30,6 @@ class ThemeType extends AbstractType
                       'format' => 'MM/dd/yyyy',
                       'attr' => [
                          'class' => 'form-control date',
-                         // 'data-provide' => 'datepicker',
                          
                         ]
                     )                     
@@ -47,8 +46,8 @@ class ThemeType extends AbstractType
             ->add('image',new ImageType(),array('required'=>false))
             ->add('valider','submit');
 
-            if($options['draftmode'] == null){
-                 $builder->add('activate','checkbox',array('required'=>false))
+            if($options['statut'] != 0){
+                 $builder->add('statut','checkbox',array('required'=>false))
                          ->add('joggeur', 'entity', array(
                                 'class'    => 'TdSMarathonBundle:Joggeur',
                                 'property' => 'pseudo',
@@ -65,7 +64,7 @@ class ThemeType extends AbstractType
                                 'required' => false
                             ));
             }else{
-                $builder->remove('activate')
+                $builder->remove('statut')
                         ->remove('joggeur')
                         ->remove('dateDebut')
                         ->remove('dateFin')
@@ -80,13 +79,13 @@ class ThemeType extends AbstractType
                $theme = $event->getData();
 
                 if (null === $theme) {
-                  return; // On sort de la fonction sans rien faire lorsque $advert vaut null
+                  return; // On sort de la fonction sans rien faire 
                 }
 
                 $form = $event->getForm();
                
-                    if($theme->getDraftmode() == 1){
-                            $event->getForm()->remove('activate')
+                    if($theme->getStatut() == 0){
+                            $event->getForm()->remove('statut')
                                 ->remove('joggeur')
                                 ->remove('chronique')
                                 ->remove('dateDebut')
@@ -103,11 +102,11 @@ class ThemeType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'TdS\MarathonBundle\Entity\Theme',
-            'draftmode' => null,
+            'statut' => null,
         ));
     }
 

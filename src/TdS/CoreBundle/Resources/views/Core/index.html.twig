@@ -2,383 +2,305 @@
 
 
 {% block body %}
-   
 
-        <div class="playlist-body-wrapper">
- 	  		{{ playlistIndexModule.playlist(musicTitles) }}
- 	  	</div>
+{% set currentTheme = null %}
+{% set classColFlex = null %}
+{% set classColThemeLarge = "col-large" %}
+{% set detectDerniersThemes = null %}
+{% for theme in saison.themes %}	        		      				
+	{% if theme is defined and theme is not null %}
+		{% if theme.statut == 1 %}
+			{% set currentTheme = theme %}
+			{% set classColThemeLarge = "" %}
+			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}
+				
+				{% set classColFlex = "col-index-flex" %}
+			{% endif %}
+		{% else %}
+			{% set detectDerniersThemes = 1 %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+   
+<div class="index-wrapper">
+	{% if currentTheme is not defined or currentTheme is null %}
+		{% if musicTitles is defined and musicTitles is not null and musicTitles is not empty %}
+		    <div class="playlist-body-wrapper playlist-index-wrapper">
+			  	{{ playlistIndexModule.playlist(musicTitles) }}
+			</div>
+		{% endif %}
+	{% endif %}
       
 
+  	<div class='flex-container-h'>
+  		{% if saison is defined and saison.statut is not null %}
+      					
+			<div class="flex-item col-themes man pan {{ classColFlex }}">
+				{% if currentTheme is defined and currentTheme is not null %}
+					<div class="col-curr-theme">
+						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}
+					</div>	
+        		{% endif %}	
 
-      	<div class='flex-container-h'>
-      			 {% if saison is defined and saison.activate is not null %}
-      				{# <div class="man"> #}
-	      				{# <div class="col col-xs-12 col-sm-8 col-articles"> #}
-	      				<div class="flex-item col-articles">	
-		        			{% if listeArticles is defined and listeArticles is not null %}
-		        				<div class="articles-liste">
-			        				{% for article in listeArticles %}
-				        				{{ articleWrapperModule.article(article) }}
-			        				{% endfor %}
-		        				</div>
 
-		        				<div class="more-articles-content"></div>
 
-			        			{% if listeArticles|length > 5 %} 
-					        		<button href="" class="button btn-more btn pull-right mas" data-action="show-more-articles" data-offset="5">
-						        		<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-								  		<span class="btn__label">Plus d'articles</span>
-						        	</button>
-				        		{% endif %}
-		        				
-		        			{% else %}
-		        				<div>
-		        					<h3>Il n'y a aucun article pour l'instant</h3>	        		
-		        				</div>
-		        			{% endif %}
+        		
+        			
+        		
+        		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
+	        		<div class="col-other-themes {{ classColThemeLarge }}">
+						<h2 class="align-center">Les derniers thèmes</h2>
+						<div class='flex-container-h'>	
+						    {% for theme in listeDernThemes %}
+						    	{% if theme is defined and theme is not null and theme != currentTheme %}
+						      		{{ vignetteModule.vignette(theme) }}
+						      	{% endif %}
+						    {% endfor %} 
+						</div>
+					</div>
+				{% endif %}				
+		    </div>
 
-		        			{# <div class="clearfix"></div> #}
-		        				
 
-		        			
+		    {% if listeJoggeursScore is defined and listeJoggeursScore is not empty %} 
+		    	<div class="col-podium-wof bg--marathonchanteurs">
+			    	
+					<div class="bg-op--white-5 pbn">
+						<h2 class="align-center">Podium</h2>
+						<div class="flex-container podium-wrapper mbl">
+							{% for joggeurScore in listeJoggeursScore %}
+								{% if loop.index <= 3 %}
+									{{ scoresElementsModule.podium_medaillon(joggeurScore,loop.index) }}												
+								{% endif %}									 
+							{% endfor %}
+						</div>
 
-		        			{% if is_granted("ROLE_SUPER_ADMIN")  %}
-			        			<a href="{{ path('tds_marathon_article_add') }}" class="button btn pull-right btn-action mas">
-			        				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-					  				<span class="btn__label">Ajouter un Article</span>
-			        			</a>
-	        				{% endif %}
-		        		</div>
+						{{ scoresElementsModule.scores_legende() }}
+					</div>
 
-		        		
-	        		
 
-		        		{# <div class="col col-xs-12 col-sm-4 col-themes man pan"> #}	
-		        		<div class="flex-item col-themes man pan">	
-							{% if theme is defined and theme is not null %}
-								<div class='list-item vignette-item man pan'>
-									<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+					
+					{% set jogEgoiste = "" %}
+					{% set jogDonJuan = "" %}
+					{% set jogPetitGros = "" %}
+					{% set jogLfdy = "" %}
 
-							    		<div class="square">
+					{% set idjogEgoiste = scoreService.wof_jogEgoiste(listeJoggeursScore) %}
+					{% set idjogDonJuan = scoreService.wof_jogDonJuan(listeJoggeursScore) %}
+					{% set idjogPetitGros = scoreService.wof_jogPetitGros(listeJoggeursScore) %}
+					{% set idjogLfdy = scoreService.wof_jogLfdy(listeJoggeursScore) %}
 
-							    			{% if theme.activate == 1 %}
-												<div class="ribbon">
-													<div class="line flex-container-h align-center">				
-														<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
-														<span class="flex-item-fluid mls">Thème en cours</span>
-													</div>
-												</div>
-											{% endif %}
+					{% for joggeurScore in listeJoggeursScore %}
+						{% if joggeurScore.joggeur.id == idjogEgoiste %}
+							{% set jogEgoiste = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogDonJuan %}
+							{% set jogDonJuan = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogPetitGros %}
+							{% set jogPetitGros = joggeurScore.joggeur %}
+						{% endif %}
+						{% if joggeurScore.joggeur.id == idjogLfdy %}
+							{% set jogLfdy = joggeurScore.joggeur %}
+						{% endif %}
+					{% endfor %}
 
-										    {% if theme.image is not null %}
-									  			<img class="" src="{{ theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ theme.image.alt }}">
-											{% endif %}											
-											
+					
+					<div class="walloffame bg-op--white-5 align-center mtm">
+						<h2>Wall of Fame</h2>
+						<div class="wof-wrapper  flex-container flex-start flex-justify">
+							
+							{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
+
+							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+
+
+							{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
+
+							{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}						
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			
+  		{% endif %}	  				
+	</div>
+
+	<div class="flex-container-h">
+		<div class="col-lois-totale">
+			{{ loisModule.lois() }}
+			<div class="col-classement bg--marathonchanteurs align-center">
+				<h2 class="sub-title align-center">Classement</h2>
+				{% if listeJoggeursScore|length >= 3 %} 				
+					<div class="latotale bg-op--white-5 pam pbn mtm">						
+						<div class="latotale-wrapper flex-container-h">
+							<div class="flex-item-fluid align-left">
+								{% for joggeurScore in listeJoggeursScore %}
+									{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
+								{% endfor %}
+							</div>
+						</div>
+						
+						{{ scoresElementsModule.scores_legende() }}
+					</div>
+
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="flex-item col-articles">
+			<h2 class="align-center">Actus</h2>	
+			{% if listeArticles is defined and listeArticles is not null %}
+				<div class="articles-liste">
+    				{% for article in listeArticles %}
+        				{{ articleWrapperModule.article(article) }}
+    				{% endfor %}
+				</div>
+
+				<div class="more-articles-content"></div>
+
+    			{% if listeArticles|length >= 3 %} 
+	        		<button href="" class="button btn-more btn pull-right mas" data-action="show-more-articles" data-offset="3">
+		        		<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				  		<span class="btn__label">Plus d'articles</span>
+		        	</button>
+        		{% endif %}
+				
+			{% else %}
+				<div>
+					<h3>Il n'y a aucun article pour l'instant</h3>	        		
+				</div>
+			{% endif %}
+				
+
+			
+
+			{% if is_granted("ROLE_SUPER_ADMIN")  %}
+    			<a href="{{ path('tds_marathon_article_add') }}" class="button btn pull-right btn-action mas">
+    				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+	  				<span class="btn__label">Ajouter un Article</span>
+    			</a>
+			{% endif %}
+		</div>
+
+	</div>	
+
+
+	<div class="flex-container-h">
+		<div class='pbxxl-screen col-saisons pas flex-item'>
+			<div class="">
+				<h2 class="sub-title align-center">Les Saisons</h2>
+				
+					{% for saisonItem in listeSaisons %}
+						<div class="flex-container-h pas mbl saison-vignette">
+							<a class="saison-vignette-inner flex-item w-100 w-50-m" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
+								<h3 class="pas man align-center">{{ saisonItem.titre }}</h3>
+								<div class="saison-img">
+									{% if saisonItem.image is defined and saisonItem.image is not empty %}
+										<img class="" src="{{ saisonItem.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ saisonItem.image.alt }}">
+									{% else %}
+											<img class="" src="" alt="">
+									{% endif %}
+								</div>
+							</a>
+
+							{% if saisonItem.themes is defined and saisonItem.themes is not empty %}
+								<div class="flex-item w-100 w-50-m">
+									{% for themeItem in saisonItem.themes %}
+										<div class="saison-theme-vignette">
+											<a href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
+												<img class="" src="{{ themeItem.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ themeItem.image.alt }}">
+												<span>{{ themeItem.titre }}</span>
+											</a>
+										</div>
+									{% endfor %}
+								</div>
+							{% endif %}
+						</div>	
+					{% endfor %}
+				
+			</div>				
+		</div>
+
+
+
+
+		<div class='col-joggeurs-liens flex-item'>
+			<div class="list col-joggeurs pas">
+				<h2 class="sub-title align-center">Les joggeurs</h2>
+				<div class="block clearfix">
+				    {% for joggeur in listeJoggeurs %}
+				    	{% if joggeur is not null %}
+				    		
+
+				    		{% if loop.index <= 9 %}
+					    		<div class='col col-xs-6 col-sm-4 col-lg-4 list-item vignette-item man pan'>
+						    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+								    	<div class="square">
+										    {% if joggeur.image is not null %}
+									  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+											{% else %}
+								  				<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
+											{% endif %}										
+
 										    <div class='inner-item-text'>
 										    	<div class="relative">
-											    	<h3 class="man pbs">{{ theme.titre }}</h3>				
+											    	<h3 class="man pls prs">{{ joggeur.pseudo }}</h3>				
 											    	<div class="musictitle-count">
-											    		<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-											    		<span>{{ theme.musicTitles|length  }}</span>
-											    	</div>
-
-											    	<div class="comment-count">
-													    <svg class="icon icon--m icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
-													    {% if theme.thread is defined and theme.thread is not null %}
-														    <span>{{ theme.thread.numComments }}</span>
-														{% else %}
-														    <span>0</span>
-													    {% endif %}										
-													</div>
+												    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
+												    	<span>{{ joggeur.musicTitles|length  }}</span>
+												    </div>
 										    	</div>
 										    </div>	
 										</div>					    		
-						    		</a>
-					    		</div>
-					    	{% endif %}
-					    	{{ loisModule.lois() }}
-					    	
-						</div>
-					{# </div> #}
-
-
-				{% else %}
-					<div class="saison-closed">
-						<h1 class="man">La saison est finie!</h1>
-					</div>
-      			{% endif %}	  				
-			</div>		
-
-
-			<div class="flex-container-h">
-				<div class='pbxxl col-droite flex-item'>
-					<div class="col-classement align-center pam ">
-						{% if listeJoggeursScore|length > 3 %} 
-							<h2 class="sub-title">Classement</h2>
-							<div class="bg-op--white-5 pam pbn">
-								<h3>Podium</h3>
-								<div class="flex-container podium-wrapper mbl">
-									{% for joggeurScore in listeJoggeursScore %}
-											{% if loop.index <= 3 %}
-													<div class="podium podium-{{ loop.index }} list-item">
-													<div class="inner-podium">
-														<div class="colonne">
-															<strong class="place">{{ loop.index }}</strong>
-															<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-																<div class="round">
-																    {% if joggeurScore.joggeur.image is not null %}
-															  			<img class="" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-																	{% endif %}
-																</div>
-															</a>
-
-															<div class="pbs score-wrapper flex-align">
-																<span class="mrm score block">{{ joggeurScore.total }} pts</span>
-																
-																{% set totalFastpoints = 0 %}
-																{% set totalHeartpoints = 0 %}
-																{% set totalTakenpoints = 0 %}	
-																{% for score in joggeurScore.scores %}
-																	{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
-																	{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
-																	{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
-																{% endfor %}
-									      						<span class="points align-center">
-									      							<span class="points-item">
-										      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-										      							<span class="">{{ totalFastpoints }}</span> 
-									      							</span>
-									      							<span class="points-item points-item-heart ">
-											      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-											      						<span class="">{{ totalHeartpoints }}</span>
-										      						</span>
-										      						{% if totalTakenpoints != 0 %}
-											      						<span class="points-item points-item-taken">
-												      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-												      						<span class="">{{ totalTakenpoints }}</span>
-											      						</span>	
-										      						{% endif %}
-										      					</span>
-									      						
-									      					</div>
-															<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
-														</div>
-													</div>
-												</div>												
-										{% endif %}									 
-									{% endfor %}
+								    </a>
 								</div>
-
-								<div class="legende align-center  pbn mbn ">
-									Légende [
-									<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse 
-									<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
-									<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
-
-								</div>
-							</div>
-
-							<div class="walloffame bg-op--white-5 align-center pam mtm">
-								<h3>Wall of Fame</h3>
-								<div class="wof-wrapper  flex-container flex-start flex-justify">
-									<div class="wof-item wof_jogEgoiste flex-item list-item pas">				<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogEgoiste.id}) }}">								
-											<div class="round">
-													{% if wof_jogEgoiste.image is not null %}
-														<img class="" src="{{ wof_jogEgoiste.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogEgoiste.image.alt }}"/>
-													{% endif %}
-											</div>
-										</a>
-										<div>
-											<h4 class="mts mbn sub-sub-title">L'égoïste</h4>
-											<strong>Celui qui n'aime pas donner de points bisous</strong> 
-										 	<div>{{ wof_jogEgoiste.pseudo }}</div>
-										</div> 
-									</div>
-
-									<div class="wof-item wof_jogDonJuan flex-item list-item pas">
-										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogDonJuan.id}) }}">								
-											<div class="round">
-													{% if wof_jogDonJuan.image is not null %}
-														<img class="" src="{{ wof_jogDonJuan.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogDonJuan.image.alt }}">
-													{% endif %}
-											</div>
-										</a>
-										<div>
-											<h4 class="mts mbn sub-sub-title">Le mononucléose</h4>
-											<strong>Celui qui a récolté le plus de points bisous</strong>
-										 	<div>{{ wof_jogDonJuan.pseudo }}</div>
-										</div> 
-									</div>
-
-									<div class="wof-item wof_jogPetitGros flex-item list-item pas">
-										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogPetitGros.id}) }}">								
-											<div class="round">
-													{% if wof_jogPetitGros.image is not null %}
-														<img class="" src="{{ wof_jogPetitGros.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogPetitGros.image.alt }}">
-													{% endif %}
-											</div>
-										</a>
-										<div>
-										 	<h4 class="mts mbn sub-sub-title">Le petit gros à la traîne</h4>
-										 	<strong>Celui qui possède le moins de points vitesse</strong>
-										 	<div>{{ wof_jogPetitGros.pseudo }}</div>
-										 </div> 
-									</div>
-
-									<div class="wof-item wof_jogLfdy flex-item list-item pas">
-										<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_jogLfdy.id}) }}">								
-											<div class="round">
-													{% if wof_jogLfdy.image is not null %}
-														<img class="" src="{{ wof_jogLfdy.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_jogLfdy.image.alt }}">
-													{% endif %}
-											</div>
-										</a>
-										<div>
-											<h4 class="mts mbn sub-sub-title">Le Live fast die Young</h4>
-											<strong>Celui qui possède le plus de points vitesse</strong>
-										 	<div>{{ wof_jogLfdy.pseudo }}</div>
-										</div> 
-									</div>
-								</div>
-							</div>
-						
-						<div class="latotale bg-op--white-5 pam pbn mtm">
-							<h3 class="align-center">La totale</h3>
-							<div class="latotale-wrapper flex-container-h">
-								<div class="flex-item-fluid align-left">
-									{% for joggeurScore in listeJoggeursScore %}
-										{% set totalFastpoints = 0 %}
-											{% set totalHeartpoints = 0 %}
-											{% set totalTakenpoints = 0 %}	
-											{% for score in joggeurScore.scores %}
-												{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
-												{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
-												{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
-										{% endfor %}
-										
-
-										<div class="thumb-line list-item  plm prm pbs">
-												<a class="flex-container-h" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
-												<span class="author-thumb mrs">
-													{% if joggeurScore.joggeur.image is not null %}
-														<img class='thumbnail' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
-													{% endif %} 
-												</span>
-
-												<div class="author-name">
-													<h4 class="man pan">
-														<span>{{ loop.index }} - {{ joggeurScore.joggeur.pseudo }}</span>
-														<span class="scoreTotal">({{ joggeurScore.total }} pts)</span>
-													</h4>
-												</div>	
-													
-												<div class="points align-right pls">
-					      							<span class="points-item  mrs">
-						      							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-						      							<span class="">{{ totalFastpoints }}</span> 
-					      							</span>
-					      							<span class="points-item points-item-heart mrs">
-							      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-							      						<span class="">{{ totalHeartpoints }}</span>
-						      						</span>
-						      						{% if totalTakenpoints != 0 %}
-							      						<span class="points-item points-item-taken mrs">
-								      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-								      						<span class="">{{ totalTakenpoints }}</span>
-							      						</span>	
-						      						{% endif %}
-							      				</div>
-					      					</a>
-										</div>
-									{% endfor %}
-								</div>
-							</div>
-							<div class="legende align-center pas pbn mbn ">
-								Légende [
-								<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse 
-								<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
-								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
-
-							</div>
-						</div>
-
-						{% endif %}
-					</div>				
+							{% endif %}
+					    {% endif %}
+				    {% endfor %}
 				</div>
 
-
-
-
-				<div class='pbxxl  col-gauche flex-item'>
-					<div class="list col-joggeurs pas">
-						<h2 class="sub-title align-center">Les joggeurs</h2>
-						<div class="block clearfix">
-						    {% for joggeur in listeJoggeurs %}
-						    	{% if joggeur is not null %}
-						    		{% if loop.index <= 9 %}
-							    		<div class='col col-xs-6 col-sm-4 col-lg-4 list-item vignette-item man pan'>
-								    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
-										    	<div class="square">
-												    {% if joggeur.image is not null %}
-											  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
-													{% endif %}										
-
-												    <div class='inner-item-text'>
-												    	<div class="relative">
-													    	<h3 class="man pls prs">{{ joggeur.pseudo }}</h3>				
-													    	<div class="musictitle-count">
-														    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-														    	<span>{{ joggeur.musicTitles|length  }}</span>
-														    </div>
-												    	</div>
-												    </div>	
-												</div>					    		
-										    </a>
-										</div>
-									{% endif %}
-							    {% endif %}
-						    {% endfor %}
-						</div>
-					    <div class="block align-center clearfix mtm mbs">
-						    <a class="button" href="{{ path('tds_marathon_joggeur_home') }}">
-						    	<svg class="icon icon-alone icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-						    </a>
-						</div>
-					</div>
-
-					<div class="pal pbxxl align-center col-liens">
-						<h2 class="sub-title">Pas loin</h2>
-						<ul class="unstyled">
-							{% for website in websites %}
-								<li class="mts"><a href="{{ website.url }}">{{ website.name }}</a></li>
-							{% endfor %}						
-						</ul>
-
-						{% if is_granted("ROLE_SUPER_ADMIN")  %}
-							<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
-			  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-			  					<span class="btn__label">Ajouter un lien</span>
-							</a>
-
-							<div class="form-website pts mts">
-    							{{ include('TdSMarathonBundle:Website:form.html.twig') }}
-							</div>
-							<div id="anchorLiens"></div>
-						{% endif %}
-					</div>				
+			    <div class="block align-center clearfix mtm mbs">
+				    <a class="button" href="{{ path('tds_marathon_joggeur_home') }}">
+				    	<svg class="icon icon-alone icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				    </a>
 				</div>
 			</div>
+				
+			<div class="pal pbxxl align-center col-liens bg--marathonchanteurs ">
+				<h2 class="sub-title">Pas loin</h2>
+				<ul class="unstyled">
+					{% for website in websites %}
+						<li class="mts"><a href="{{ website.url }}">{{ website.name }}</a></li>
+					{% endfor %}						
+				</ul>
+
+				{% if is_granted("ROLE_SUPER_ADMIN")  %}
+					<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
+	  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+	  					<span class="btn__label">Ajouter un lien</span>
+					</a>
+
+					<div class="form-website pts mts">
+						{{ include('TdSMarathonBundle:Website:form.html.twig') }}
+					</div>
+					<div id="anchorLiens"></div>
+				{% endif %}
+			</div>				
+		</div>
+	</div>
+</div>		
 		
     
 
-    {% if is_granted("ROLE_SUPER_ADMIN") %}
-		<div class='popup-delete-confirmation' data-popupdelete>
-	        <div>
-	            <p></p>
-	            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-	            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
-	        </div>
-	    </div>
-    {% endif %}
+{% if is_granted("ROLE_SUPER_ADMIN") %}
+	<div class='popup-delete-confirmation' data-popupdelete>
+        <div>
+            <p></p>
+            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
+            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
+        </div>
+    </div>
+{% endif %}
 
 {% endblock %}

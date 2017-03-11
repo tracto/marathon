@@ -82,7 +82,6 @@ class Image{
             $oldFile=$this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
             if(file_exists($oldFile)){
                 unlink($oldFile);
-                // $this->liipCacheManager->remove($oldFile,'big_image');
             }
         }
 
@@ -119,7 +118,10 @@ class Image{
 
 
     public function getWebPath(){
-        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
+       
+        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();  
+        
+        
     }
 
 
@@ -164,8 +166,8 @@ class Image{
      */
     public function setAlt($alt)
     {
+        
         $this->alt = $alt;
-
         return $this;
     }
 
@@ -177,6 +179,7 @@ class Image{
     public function getAlt()
     {
         return $this->alt;
+        
     }
   
 }
