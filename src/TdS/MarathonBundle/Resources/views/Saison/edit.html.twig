@@ -1,0 +1,18 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div id="content" class="bg--lightgrey pam pbxxl">
+	    <h1 class="main-title man align-center">
+				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+				<span>Modifier une Saison</span>
+		</h1>
+	    {% if app.request.get('_route') != app.request.headers.get('referer') %}    
+	    	<input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />    
+		{% endif %}
+	    {{ include('TdSMarathonBundle:Saison:form.html.twig') }}
+ 	</div>
+{% endblock %}

@@ -2,6 +2,40 @@
 #     path:     /
 #     defaults: { _controller: TdSMarathonBundle:Theme:index }
 
+tds_marathon_saison_view:
+    path:     /saison/view/{id}
+    defaults:  { _controller:  TdSMarathonBundle:Saison:view }      
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+
+tds_marathon_saison_add:
+    path:     /Saison/add
+    defaults: { _controller: TdSMarathonBundle:Saison:add }
+
+
+
+tds_marathon_saison_edit:
+    path:     /Saison/edit/{id}
+    defaults: { _controller: TdSMarathonBundle:Saison:edit }
+    requirements:
+        id: \d+
+
+
+
+tds_marathon_saison_disactive_validation:
+    path: /saison/active/validation
+    defaults: { _controller: TdSMarathonBundle:Saison:disactiveValidation }
+
+
+
+
+
+
+
+
 
 tds_marathon_theme_home:
     path:     /themes
@@ -18,6 +52,7 @@ tds_marathon_theme_view:
         id: \d+
     options:
         expose: true
+
     
 
 
@@ -37,7 +72,7 @@ tds_marathon_theme_add:
     path:     /theme/add
     defaults: 
         _controller: TdSMarathonBundle:Theme:add 
-        draftmode: null 
+        statut: \d+ 
 
 tds_marathon_theme_edit:
     path:     /theme/edit/{id}
@@ -57,13 +92,13 @@ tds_marathon_theme_add_draftmode:
     path:     /theme/add/draftmode
     defaults:  
         _controller: TdSMarathonBundle:Theme:add 
-        draftmode: 1
+        statut: 0
 
 tds_marathon_theme_edit_draftmode:
     path:     /theme/edit/draftmode/{id}
     defaults:  
         _controller: TdSMarathonBundle:Theme:edit 
-        draftmode: 1
+        statut: 0
         requirements:
             id: \d+
 
@@ -96,24 +131,13 @@ tds_marathon_theme_switch:
 tds_marathon_theme_switch_validation:
     path: /theme/switch/validation
     defaults: { _controller: TdSMarathonBundle:Theme:switchValidation }
+    
+        
 
-
-# tds_marathon_theme_active:
-#     pattern: /theme/active
-#     defaults: { _controller: TdSMarathonBundle:Theme:active }
-#     options:
-#         expose: true
 
 tds_marathon_theme_active_validation:
     path: /theme/active/validation
     defaults: { _controller: TdSMarathonBundle:Theme:activeValidation }
-
-# tds_marathon_theme_edit_draftmode:
-#     path:     /theme/edit/draftmode/{id}
-#     defaults:  
-#         _controller: TdSMarathonBundle:Theme:edit
-#         draftmode: 1
-#         id: \d+
 
 
 
@@ -147,15 +171,7 @@ tds_marathon_article_more:
 
 
 
-tds_marathon_saison_add:
-    path:     /saisons
-    defaults: { _controller: TdSMarathonBundle:Saison:addSaison }
 
-
-
-tds_marathon_saison_disactive_validation:
-    path: /saison/active/validation
-    defaults: { _controller: TdSMarathonBundle:Saison:disactiveValidation }
 
 
 
@@ -193,6 +209,15 @@ tds_marathon_joggeur_view_js:
     defaults:  
         _controller: TdSMarathonBundle:Joggeur:view
         autoplay:    true
+    options:
+        expose: true
+
+
+tds_marathon_joggeur_morescores_js:
+    pattern: /joggeur/scores/{id}
+    defaults: {_controller: TdSMarathonBundle:Joggeur:morescores } 
+    requirements:
+        id: \d+      
     options:
         expose: true
 

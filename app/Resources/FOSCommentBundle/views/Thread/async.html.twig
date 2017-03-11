@@ -10,29 +10,23 @@
 #}
 
 <div id="fos_comment_thread_wrapper">
+	<h2 class="sub-title align-center pan man">Commentaires</h2>
+	{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+		<div class="fos_comment_infos pbs pts pll prl align-center">
+	        <i>
+	            Maintenant, il est possible d'ajouter des liens, des images et des vidéos youtube de l'internet. Il suffit de copier/coller l'url et Becky se charge du reste!<br/>
+	            exemples :<br/>
+	            video youtube : https://www.youtube.com/watch?v=h1wz_gotmo8 <br/>
+	            image (click droit -> copier l'adresse de l'image) : https://screenshots.fr.sftcdn.net/fr/scrn/66000/66328/3_1-big.jpg                    
+	        </i>
+	    </div>
+	{% endif %}
+
+	<div id="loading">
+  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
+	</div>
+
 	<div class="inner-wrapper">
-		<h2 class="sub-title align-center pan man">Commentaires</h2>
-
-
-		<div class="align-center fos-comment-header-buttons">
-			<div class="comment-show-button">
-				<a href="#fos_comment_thread_wrapper" class="button btn comment-btn-count" data-action="show-comments">
-			            <svg class="icon icon-alone icon--l icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
-			            <span>...</span>
-			    </a>									
-			</div>
-			<div class="comment-action-buttons">
-				<button class="btn fos_comments_close" data-action="hide-comments">
-					<svg class="icon icon--xs icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-				</button>
-
-				<button class="btn fos_comments_reload" data-action="reload-comments">
-					<svg class="icon icon--xs icon-alone icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
-				</button>
-			</div>
-		</div>
-
-
 		<div id="fos_comment_thread">
 		</div>
 	</div>
@@ -40,45 +34,70 @@
     {# {% javascripts %} #}
 	{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
 	<script type="text/javascript">
-		// $(function() {
-			// thread id
-			var fos_comment_thread_id = '{{ id }}';
+		// thread id
+		var fos_comment_thread_id = '{{ id }}';
 
-			// api base url to use for initial requests
-			var fos_comment_thread_api_base_url = "{{ path('fos_comment_get_threads') }}";
+		// api base url to use for initial requests
+		var fos_comment_thread_api_base_url = "{{ path('fos_comment_get_threads') }}";
 
-			var $root = $('html, body');
+		var $root = $('html, body');
 
-			$("[data-action='show-comments']").on('click',function(){
-					$(this).hide();
-					$(".comment-action-buttons").show();
-					$("#fos_comment_thread").show();
-					$root.animate({
-				        scrollTop: $( $.attr(this, 'href') ).offset().top
-				    }, 500);			    
-					return false;
-			});
-			
-			$("[data-action='hide-comments']").on('click',function(){
-					$("[data-action='show-comments']").show();
-					$(".comment-action-buttons").hide();
-					$("#fos_comment_thread").hide();
-					
-			});
-
-			// Snippet for asynchronously loading the comments
-			$("[data-action='reload-comments']").on('click',function(){
-				launchComments();
-			});
-
-			$(function() {
-			    launchComments();		    			
-			})();
-		// };
+		var comment = {};
 
 
+		$("[data-action='show-comments']").on('click',function(){
+				$(".comment-action-buttons").show();
+				comment.launchComments();
+				comment.construct();
+				$("#playlist-comments").show();
+				$root.animate({
+			        scrollTop: $( $.attr(this, 'href') ).offset().top
+			    }, 500);
+			    			    
+				return false;
+		});
 
-		function launchComments(){
+
+		
+		$("[data-action='hide-comments']").on('click',function(){
+				$(".comment-action-buttons").hide();
+				$("#fos_comment_thread_wrapper").hide();
+				
+		});
+
+		// Snippet for asynchronously loading the comments
+		$("[data-action='reload-comments']").on('click',function(){
+			comment.launchComments();
+		});
+	    
+
+	    comment.construct = function () {
+	        comment.formSubmitHandler();
+	        comment.commentAddedHandler();
+	    };
+
+
+
+	    comment.commentAddedHandler = function () {
+	        $(document).on('fos_comment_add_comment', function()
+	        {
+	            $('.fos_comment_submit > input[type=submit]').removeAttr("disabled");
+	        });
+	    };
+
+	    comment.formSubmitHandler = function () {
+	        $(document).on('fos_comment_submitting_form', function()
+	        {
+	            $('.fos_comment_submit > input[type=submit]').attr("disabled", "disabled");
+	        });
+	    };
+
+	    
+
+
+
+
+		comment.launchComments = function (){
 			var fos_comment_script = document.createElement('script');
 		    fos_comment_script.async = true;
 		    fos_comment_script.src = '{{ asset_url }}';
@@ -86,6 +105,11 @@
 
 		    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
 
+		    $(document).ajaxStart(function(){
+			    $('#loading').show();
+			 }).ajaxStop(function(){
+			    $('#loading').hide();
+			 });
 		    
 		};
 

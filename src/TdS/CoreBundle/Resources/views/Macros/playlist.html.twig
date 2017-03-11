@@ -5,10 +5,10 @@
 			{% if theme.musicTitles is not null %}		
 				<ul class='musicTitlesListe'>
 					{% for musicTitle in theme.musicTitles %}
-						{% if musicTitle.joggeur.image is null %}
-							{% set imagePlaylist = "" %}
+						{%  if musicTitle.joggeur.image is null or musicTitle.joggeur.image is empty %}
+							{% set imagePlaylist = "uploads/img/anonymous.jpg"|imagine_filter('tiny_thumb') %}		
 						{% else %}
-							{% set imagePlaylist = musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') %}
+							{% set imagePlaylist = musicTitle.joggeur.image.webPath|imagine_filter('tiny_thumb') %}
 						{% endif %}
 						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='{{ musicTitle.joggeur.pseudo  }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}'>
 								{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}

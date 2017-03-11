@@ -14,9 +14,9 @@
 	        </span>
 		</h1>
 
-		{% if themePostActivate is defined and themePostActivate is not null %}
+		{% if themePost is defined and themePost is not null %}
 			<div class="align-center sep">
-			    <h2 class="sub-title pbn mbn">theme : {{ themePostActivate.titre }}</h2>
+			    <h2 class="sub-title pbn mbn">theme : {{ themePost.titre }}</h2>
 			    <div class="pbm">
 			    	<strong>nombre de points disponibles :</strong>
 			    	<span><span class='joggeurDonneur-points'>{{ scoreJoggeurParTheme.pointstogive }}</span>
@@ -26,9 +26,9 @@
 			</div>
 		
 
-			{% if themePostActivate.musicTitles is defined and themePostActivate.musicTitles is not null %}
+			{% if themePost.musicTitles is defined and themePost.musicTitles is not null %}
 				<div class='row'>
-					{% for musicTitle in themePostActivate.musicTitles %}
+					{% for musicTitle in themePost.musicTitles %}
 					
 						{% if musicTitle is not null %}
 							{% if musicTitle.joggeur != app.user.joggeur %}

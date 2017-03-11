@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="container-fluid main-content-page pbxxl">
+	<div class="container-fluid main-content-page pal pbxxl">
 
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
 			<div class="mtm mrm mbn clearfix">
@@ -23,15 +23,17 @@
 		    {% for joggeur in listeJoggeurs %}
 		    	{% if joggeur is not null %}
 			    	{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
-			    		<div class='col col-xs-6 col-sm-4 col-lg-3 list-item list-item-logged vignette-item man pan'>
+			    		<div class='col col-xs-6 col-sm-4 col-lg-2 list-item list-item-logged vignette-item man pan'>
 			    	{% else %}
-			    		<div class='col col-xs-6 col-sm-4 col-lg-3 list-item vignette-item man pan'>
+			    		<div class='col col-xs-6 col-sm-4 col-lg-2 list-item vignette-item man pan'>
 			    	{% endif %}
 
 					    <a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 					    	<div class="square">
 							    {% if joggeur.image is not null %}
-						  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+						  			<img src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+								{% else %}
+								  	<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 								{% endif %}
 							
 

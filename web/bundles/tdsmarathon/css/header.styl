@@ -1,13 +1,18 @@
 
 .main-header{
 	position: relative;
-	/*background-color:rgba(0,0,0,0.3);*/
 	color:white;
-	background: url("../images/bg-header-layers/bgFull.png") no-repeat;
-	background-position:50% 40px;
+	background-repeat:no-repeat;
+	background-color:$color9;
+	background-position:50% 50%;
 	background-size:cover;
 	width:100%;
-	
+	min-height:400px;
+
+
+	@media $medium{
+		min-height:620px;
+	}
 }
 
 .main-logo{
@@ -16,18 +21,59 @@
     display: block;
     max-width: 500px;
     position: relative;
-    top: 30px;
+    top: 70px;
 }
 
 .saison-title{
-	color: #F351BE;
-    width: 30%;
-    font-size: 0.8em;
-    text-shadow: #000 0px 0px 10px;
+	color:$color17;
+    width: 80%;
+    font-size: 1em;
+    text-shadow: #000 2px 2px 2px;
     text-transform: uppercase;
     position: relative;
-    bottom: 30px;
+    bottom: 95px;
+    line-height: 1.8em;
+
+    @media $medium{
+		width: 30%;
+	}
+
 }
+
+.hotfresh-wrapper{
+	width:100%;
+	position:relative;
+	bottom:75px;	
+}
+
+.hotfresh-inner{
+	font-size:0;
+	width:400px;
+	margin:0 auto;
+	overflow-y:hidden;	
+}
+
+.hotfresh-content{
+	font-size:14px;
+	background-color:black;
+	color: #ccc50c;
+}
+
+#form-hotfresh{
+	display:none;
+	color:$grey1;
+	overflow:hidden;
+
+	input{
+		height:40px;
+	}
+
+	.btn-action{
+		padding:0.1em 1em;
+	}
+}
+
+
 
 
 .header-bg{
@@ -40,6 +86,8 @@
 	height:642px;
 	margin:0 auto;
 }
+
+
 
 .jambes-group {
 	position:relative;
@@ -148,7 +196,7 @@
 	position:absolute;
 	color:$grey6;
 	box-shadow: 2px 0 5px #000;
-	z-index: 10;
+	z-index: 110;
 
 	@media $medium{
 		position: fixed;
@@ -158,36 +206,73 @@
 
 
 
-.navbar-header ul{
+.navbar-first{
 	display:none;
 	margin: 0;
 	margin-left: -40px;
 
 	@media $medium{
 		display:block;
-		padding-top:0 !important;
+		padding-top:0 ;
 		margin: 0;
 
 	}
 }
 
-.navbar-header li {
+.navbar-first > li {
 	display:block;
 	line-height: 50px;
 	color:$grey6;
 
+
 	@media $medium{
 		display:inline-block;
-		padding: 0 30px;
+		vertical-align: top;
+		text-align: center;
+    	min-width: 150px;
+    	cursor:pointer;
+	}	
+}
+
+.navbar-first > li:hover{
+	background-color:$color18;
+}
+
+.navbar-second{	
+	display:block;
+	background-color:$color1 !important;
+	cursor:pointer;
+
+}
+
+.navbar-second ul{
+	display:none;
+	padding:0;
+	margin:0;
+
+	li:hover{
+		background-color:$color18;
+		width:100%;
 	}
 }
 
-.navbar-header li.active{
+.navbar-second:hover{
+	background-color:$color1 !important;
+
+	> ul{
+		display:block;
+	}
+
+	
+	
+}
+
+.navbar-first li.active{
 	background-color:$color18;
 }
 
 
-.navbar-header .user {
+.navbar-first .user {
 	border-top:solid 1px $grey5;
 
 	@media $medium{

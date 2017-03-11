@@ -6,7 +6,7 @@
 
 {% block tdsmarathon_body %}
 	<div id="content" class="bg--lightgrey pam pbxxl">
-		{% if draftmode == 1 %}			
+		{% if statut == 0 %}			
 			<h1 class="main-title man align-center">
 				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
 				<span>Nouveau thème d'attente</span>
@@ -14,7 +14,7 @@
 	        		<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
 	        	</span>
 	        </h1>
-		{% elseif draftmode == 0 %}
+		{% elseif statut != 0 %}
 			
 	    	<h1 class="main-title man align-center">
 

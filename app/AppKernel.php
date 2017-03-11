@@ -27,7 +27,8 @@ class AppKernel extends Kernel
             new TdS\BeckyBundle\TdSBeckyBundle(),
             new TdS\UserBundle\TdSUserBundle(),
             new TdS\CoreBundle\TdSCoreBundle(),
-            new TdS\MarathonBundle\TdSMarathonBundle()
+            new TdS\MarathonBundle\TdSMarathonBundle(),
+            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

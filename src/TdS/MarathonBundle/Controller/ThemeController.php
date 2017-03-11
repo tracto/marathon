@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Session\Session;
+
 
 
 
@@ -36,51 +36,42 @@ class ThemeController extends Controller{
     }
 
 
+
+
+
     public function viewAction(Request $request, Theme $theme, $id, $autoplay="false"){
-    	if ($theme->getDraftmode() == 0 || ($theme->getDraftmode() == 1 && $this->getUser() == $theme->getJoggeur()->getUser() )){
+    	if ($theme->getStatut() != 0 || ($theme->getStatut() == 0 && $this->getUser() == $theme->getJoggeur()->getUser())){
 	    	$em = $this->getDoctrine()->getManager();
+	    	
 
-	    	$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
-	    					 ->findAll(); 
 
-	    	$image=$em
-              ->getRepository('TdSMarathonBundle:Image')
-              ->findOneBy(array('alt' => "joggeur-anonymous.jpg"));
+	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    			->findOneThemeById($id); 
 
-              
+	    	$saison=$theme->getSaison();
+	    	              
 	        $tabIdTheme=array();
-	        foreach ($listeSaisons as $saison){
-	        	foreach($saison->getThemes() as $itemTheme){
-	        		if($itemTheme->getDraftmode() == 0){
-	        			$tabIdTheme[]=$itemTheme->getId();
-	        		
-	        		
-	        		}elseif($itemTheme->getDraftmode() == 1 && $itemTheme->getId() == $theme->getId()){
-	        			$tabIdTheme[]=$itemTheme->getId();
-	        		}
-	    			
-	    		}
+	        $listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
+	        		  ->findThemeOrderByDateFinOnlyId();
+
+	        foreach ($listeThemes as $themeItem){
+         		if($themeItem->getStatut() != 0){
+         			$tabIdTheme[]=$themeItem->getId();
+        		
+        		}elseif($theme->getStatut() == 0 && $themeItem->getId() == $theme->getId()){
+         			$tabIdTheme[]=$themeItem->getId();
+         		}	    		
 	        }
 
-	        $listeJoggeursScore = $em
-		          ->getRepository('TdSMarathonBundle:JoggeurScore')
-		          ->findAllParTheme($theme);
-
-		    foreach($listeJoggeursScore as $joggeurScore){
-		    	if(!$joggeurScore->getJoggeur()->getImage()){
-              		$joggeurScore->getJoggeur()->setImage($image);
-        		}
-		    }
-		     
-
+			
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
-	        $listeJoggeursScore=$tdsScoring->sortScorebyTotal($listeJoggeursScore);
-	        $wof_jogDonJuan=$tdsScoring->getIdJogFame($listeJoggeursScore,'Heartpoints','arsort');
+	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfTheme($theme);
+
 	    	
 		    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
+		      'saison' => $saison,
 		      'listeJoggeursScore'=>$listeJoggeursScore,
-		      'wof_jogDonJuan'=>$wof_jogDonJuan,
 		      'tabIdTheme'=>$tabIdTheme,
 		      'theme' => $theme,     
 		    ));
@@ -95,27 +86,27 @@ class ThemeController extends Controller{
 	
 
 
-    public function addAction(Request $request,$draftmode){
-    	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $draftmode == true ){
+    public function addAction(Request $request,$statut){
+    	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $statut == 0 ){
 		    	$theme=new Theme();
-				$form=$this->get('form.factory')->create(new ThemeType(), $theme, array('draftmode' => $draftmode)); 
+				$form=$this->get('form.factory')->create(new ThemeType(), $theme, array('statut' => $statut)); 
 				$form->handleRequest($request);
 
 				if($form->isValid()){
 
 					$em=$this->getDoctrine()->getManager();
-					$theme->setDraftmode($draftmode);
+					$theme->setStatut($statut);
 					if(!$theme->getJoggeur()){
 						$user=$this->getUser();
 						$theme->setJoggeur($user->getJoggeur());
 					}
 
-					if($draftmode==1){
+					if($statut==0){
 						$theme->setDateDebut(new \DateTime("now"));
 						$theme->setDateFin(new \DateTime("now"));
 						$lastSaison=new Saison();
 						$lastSaison=$em->getRepository('TdSMarathonBundle:Saison')
-		    					 		->findOneBy(array('activate' => 1));		 		
+		    					 		->findOneBy(array('statut' => 1));		 		
 						$theme->setSaison($lastSaison);
 					}
 
@@ -130,7 +121,7 @@ class ThemeController extends Controller{
 
 		        return $this->render('TdSMarathonBundle:Theme:add.html.twig', array(
 		        	'form'=>$form->createView(),
-		        	'draftmode'=>$draftmode
+		        	'statut'=>$statut
 		        	));
 		    }else{
 		    	$request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
@@ -196,24 +187,14 @@ class ThemeController extends Controller{
 	    	if($request->isXmlHttpRequest()){
 		    	$em=$this->getDoctrine()->getManager(); 
 
-		    	$draftmodeTheme = $em
-			      			->getRepository('TdSMarathonBundle:Theme')
-			      			->findOneBy(array('draftmode' => 1));  	
+		    	$threeThemes = $em->getRepository('TdSMarathonBundle:Theme')
+		    					->find3Themes();
 
-		    	$currentTheme = $em
-			      			->getRepository('TdSMarathonBundle:Theme')
-			      			->findOneBy(array('activate' => 1));
-
-			    $postTheme = $em
-			      			->getRepository('TdSMarathonBundle:Theme')
-			      			->findOneBy(array('postActivate' => 1));
 
 
 		    	return $this->render('TdSMarathonBundle:Theme:switch.html.twig',array(
-		    						'currentTheme'=>$currentTheme,
-		    						'postTheme'=>$postTheme,
-		    						'draftmodeTheme'=>$draftmodeTheme
-			  				  ));
+		    				'threeThemes'=>$threeThemes
+			  			));
 	    	}
     	}else{
 		    $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
@@ -227,116 +208,64 @@ class ThemeController extends Controller{
 	    	$referer = $this->getRequest()->headers->get('referer');
 	    	$em=$this->getDoctrine()->getManager(); 
 
-	    	$saison=$em->getRepository('TdSMarathonBundle:Saison')
-		      			->findOneBy(array('activate' => 1));
+	    	$tdsScore = $this->container->get('tds_marathon.scoring');
+	    	$tdsSaison = $this->container->get('tds_marathon.saison');
 
-	    	$allThemes = $em
-		      			->getRepository('TdSMarathonBundle:Theme')
-		      			->findAll();
+	        $saison=$tdsSaison->getCurrSaison();
 
-		    $draftmodeTheme = $em->getRepository('TdSMarathonBundle:Theme')
-		      					 ->findOneBy(array('draftmode' => 1));  	
+ 
+		    $threeThemes = $em->getRepository('TdSMarathonBundle:Theme')
+		    					->find3Themes();
 
-	    	$currentTheme = $em->getRepository('TdSMarathonBundle:Theme')
-		      				   ->findOneBy(array('activate' => 1));
+		    $draftModeTheme=null;
+		    $currentTheme=null;
+		    $postTheme=null;
 
-		    $postTheme = $em->getRepository('TdSMarathonBundle:Theme')
-		      				->findOneBy(array('postActivate' => 1));
-
-		    $scoresPostTheme=$em->getRepository('TdSMarathonBundle:Score')
-		    					->findBy(array('theme' => $postTheme)); 
-
-		    $allJoggeurs = $em
-		      			->getRepository('TdSMarathonBundle:Joggeur')
-		      			->findAll();
-
-
-		    $listeJoggeursScore = $em
-	          ->getRepository('TdSMarathonBundle:JoggeurScore')
-	          ->findAllBySaison($saison);
-
-	        foreach($allJoggeurs as $joggeur){
-	        	$joggeurScore=$joggeur->getJoggeurScore();
-
-	    	}
-
-	    	if(!empty($scoresPostTheme)){
-		    	foreach($scoresPostTheme as $scorePostTheme){
-		         	$joggeurScore=$scorePostTheme->getJoggeurScore();
-		         	$scorePostTheme->setTakenpoints($joggeurScore->getPointstogive());
-		        	
-		        }
-	    	}
-
-	         foreach($allJoggeurs as $joggeur){
-	        	$joggeurScore=$joggeur->getJoggeurScore();
-	        	// $joggeurScore->setPointstogive(0);
-	    	}
-
-		    $musicTitlesDuTheme=$currentTheme->getMusicTitles();
-		    $joggeursDuTheme= new ArrayCollection();
-	        foreach($musicTitlesDuTheme as $musicTitleDuTheme){
-	            if (!$joggeursDuTheme->contains($musicTitleDuTheme->getJoggeur())) {
-	                $joggeursDuTheme->add($musicTitleDuTheme->getJoggeur());
-	            }
-	        }
-	        $i=$joggeursDuTheme->count();
-
-	        if($joggeursDuTheme[0] && $currentTheme){
-	        	$currentTheme->setJoggeurChronique($joggeursDuTheme[0]);
-	        	
-	    	}
-
-	        foreach($joggeursDuTheme as $joggeurDuTheme){
-	        	$joggeurScore=$joggeurDuTheme->getJoggeurScore();
-
-	        	if(empty($joggeurDuTheme->getJoggeurScore())){
-	         		$joggeurScore= new JoggeurScore;
-	         		$joggeurDuTheme->setJoggeurScore($joggeurScore); 
-	         		$em->persist($joggeurDuTheme);       		
-	         	}
-
-	         	 if(empty($joggeurScore->getJoggeur())){
-	         	 	$joggeurScore->setJoggeur($joggeurDuTheme);        		
-	         	 }
-
-	        	
-	        	$joggeurScore->setPointstogive(10);
-
-	        	$score= new Score;
-	        	$score->setJoggeurScore($joggeurScore);
-	        	$score->setTheme($currentTheme);
-	        	$score->setFastpoints($i);
-
-	        	$joggeurScore->addScore($score);
-
-	        	$em->persist($score);
-	        	$em->persist($joggeurScore);
-	        	$em->persist($joggeurDuTheme); 
-	        	
-	         	$i--;
-	        }
-
-
-
-
-		    foreach ($allThemes as $theme) {
-		    	$theme->setDraftmode(0);
-		    	$theme->setActivate(0);
-		    	$theme->setPostActivate(0);
+		    foreach($threeThemes as $themeItem){
+		    	if($themeItem->getStatut()==0){
+		    		$draftModeTheme=$themeItem;
+		    	}elseif($themeItem->getStatut()==1){
+		    		$currentTheme=$themeItem;
+		    	}elseif($themeItem->getStatut()==2){
+		    		$postTheme=$themeItem;
+		    	}
 		    }
-			
-			if($draftmodeTheme){
-				$draftmodeTheme->setActivate(1);
+
+		    if($postTheme){
+		    	$tdsScore->setTakenPointsToJoggeurs($saison,$postTheme);
 			}
-			
+
+		    
+	        if($currentTheme){
+	  			$joggeursDuTheme=$tdsScore->setFastPointsToJoggeurs($currentTheme);
+	  			foreach($joggeursDuTheme as $joggeurDuTheme){
+	  				if($joggeursDuTheme[0] && $currentTheme){
+	  					$joggeurScore=$joggeurDuTheme->getJoggeurScore();
+            			$currentTheme->setJoggeurChronique($joggeursDuTheme[0]);
+            			$joggeurScore->setPointstogive(10);            
+        			}
+	  			}
+	  		}
+
+
+		    if($draftModeTheme){
+				$draftModeTheme->setStatut(1);
+			}
+
+		    if($postTheme) {
+		    	$postTheme->setStatut(3);
+		    }
+						
 
 			if($currentTheme){
-				$currentTheme->setPostActivate(1);
+				$currentTheme->setStatut(2);
 				$em->persist($currentTheme); 
 			}
 
 			$em->flush();
+
+
+
 			$request->getSession()->getFlashBag()->add('notice','Changement de thème effectué avec succès.');
 			return $this->redirect($referer);
 
@@ -356,17 +285,11 @@ class ThemeController extends Controller{
 
 		    $draftmodeTheme = $em
 		      			->getRepository('TdSMarathonBundle:Theme')
-		      			->findOneBy(array('draftmode' => 1));  	
-
-	    	    
-			
+		      			->findOneBy(array('statut' => 0));  		    	    			
 			if($draftmodeTheme){
-				$draftmodeTheme->setActivate(1);
-				$draftmodeTheme->setDraftmode(0);
+				$draftmodeTheme->setStatut(1);
 			}
-			
-
-					
+								
 			$em->flush();
 			$request->getSession()->getFlashBag()->add('notice',"thème d'attente activé avec succès.");
 			return $this->redirect($referer);
@@ -410,7 +333,7 @@ class ThemeController extends Controller{
 		    $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
 		    return $this->redirectToRoute('tds_dashboard');
 		}
-}
+	}
 
 
 

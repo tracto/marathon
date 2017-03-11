@@ -21,6 +21,7 @@
 				{% endif %}
 			</div>
 			<div class="content">
+				{% set contenu = article.contenu|nl2br %}
 				{{ article.contenu|raw }}
 			</div>
 		</div>

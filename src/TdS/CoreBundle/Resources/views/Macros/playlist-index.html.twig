@@ -11,7 +11,7 @@
 					{% endif %}
 					{# big_image #}
 					{% if musicTitle.joggeur.image is null %}
-						{% set imageJoggeurPlaylist = "" %}
+						{% set imageJoggeurPlaylist = "uploads/img/anonymous.jpg"|imagine_filter('tiny_thumb') %}
 					{% else %}
 						{% set imageJoggeurPlaylist = musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb') %}
 					{% endif %}
@@ -69,10 +69,10 @@
 										<div class="jp-volume-controls">
 											<div class="block clearfix">
 												<button class="jp-mute btn btn-default pull-left" role="button" tabindex="0">
-													<svg class="icon icon--s  icon-volume-off"><use xlink:href="#icon-volume-off"></use></svg>
+													<svg class="icon icon--xs  icon-volume-off"><use xlink:href="#icon-volume-off"></use></svg>
 												</button>
 												<button class="jp-volume-max btn btn-default align-right pull-right" role="button" tabindex="0">
-													<svg class="icon icon--s  icon-volume-up"><use xlink:href="#icon-volume-up"></use></svg>
+													<svg class="icon icon--xs  icon-volume-up"><use xlink:href="#icon-volume-up"></use></svg>
 												</button>
 											</div>
 											<div class="jp-volume-bar">
