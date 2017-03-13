@@ -10,27 +10,27 @@
 
 		
 			
-			<div data-action="show-chronique" class='btn btn-caret'>
+			<div data-action="show-chronique" class='button button-caret'>
 				<span>Chroniques à écrire ({{ i }})</span>
-				<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+				<svg class="icon icon--xs icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
 			
 			</div>
 
-			<div class='chroniques-list mtm'>
+			<div class='chroniques-list mv2 dn'>
 				{% for theme in allThemes %}
 					{% if theme.chronique is null and theme.statut != 0 %}
-					<div class="flex-container-h pas sep--dashed">
-						<div class="flex-item-fluid">
-							<strong>{{ theme.titre }}</strong>
+					<div class="pv2 db cf">
+						<div class="dib v-mid">
+							<strong class="db">{{ theme.titre }}</strong>
 							{% for musicTitle in theme.musicTitles %}
 								{% if loop.index == 1 %}
-									<span>par : {{ musicTitle.joggeur.pseudo }}</span>
+									<span class="db">par : {{ musicTitle.joggeur.pseudo }}</span>
 								{% endif %}
 							{% endfor %}
 						</div>
-						<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
+						<a class="button dib v-mid fr" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': app.user.joggeur.id}) }}">
 							<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-							<span class="btn__label">Ecrire</span>
+							<span class="">Ecrire</span>
 						</a>
 					</div>
 					
@@ -51,36 +51,31 @@
 			{% endfor %}
 
 			{% if i != 0 %}
-				<div data-action="show-chronique" class='btn btn-caret'>
+				<div data-action="show-chronique" class='button button-caret'>
 					<span>tu as {{ i }} chronique(s) à écrire</span>
 					<svg class="icon icon--s icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
 				</div>
 			{% else %}
-				<div>Zut de flûte, tu n'as aucune chronique à écrire</div>
+				<div class="dark-gray i">Zut de flûte, tu n'as aucune chronique à écrire</div>
 			{% endif %}
 
 
-
-			{% for theme in allThemes %}
-				{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
-					{% if app.user.joggeur == theme.joggeurChronique %}
-						
-							
-								
-								<div class='chroniques-list mtm'>
-									<div class="flex-container-h pas sep--dashed">
-										<div class="flex-item-fluid">	
-											<strong>{{ theme.titre }}</strong>
-										</div>
-    									<a class="button btn btn-action" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': theme.joggeurChronique.id}) }}">
-    										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-    										<span class="btn__label">Ecrire</span>
-    									</a>
-    								</div>
+			<div class='chroniques-list mv2 dn'>
+				{% for theme in allThemes %}
+					{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
+						{% if app.user.joggeur == theme.joggeurChronique %}								<div class="pv2 db cf">
+								<div class="dib v-mid">	
+									<strong>{{ theme.titre }}</strong>
 								</div>
-					{% endif %}		        			
-				{% endif %}
-			{% endfor %}			
+								<a class="button dib v-mid fr" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': theme.joggeurChronique.id}) }}">
+									<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+									<span class="">Ecrire</span>
+								</a>
+							</div>									
+						{% endif %}		        			
+					{% endif %}
+				{% endfor %}
+			</div>			
 		</div>
 	{% endif %}
 {% endmacro %}

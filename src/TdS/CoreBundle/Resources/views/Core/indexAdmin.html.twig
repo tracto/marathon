@@ -13,7 +13,7 @@
 		{% endif %}
 	{% endfor %}
 
-    <span class="btn btn-default btn-becky hidden" data-random="1" data-info="">
+    <span class="button btn-becky dn" data-random="1" data-info="">
 	    <span class="icon-cocktail"></span>
 	</span>
     
@@ -23,84 +23,83 @@
 
 	    {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
 	        
-	        <div class='tableau-bord'>
-	       		<div class="tableau-bord_col-droite panneau-infos pam">	        				        	
-					<h2 class="sub-title man pan">
-						<span>Panneau d'information</span>
-						<span class="button btn btn-default btn-becky" data-info="Le panneau d'information te renseigne sur le thème en cours, le thème d'attente ou les chroniques à écrire.">
-        					<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-        				</span>
+	        <div class='tableau-bord flex flex-row flex-wrap w-100'>
+	       		<div class="flex-item w-100 w-40-ns bg-ms-turquoise order-2-ns pa3">	        				        	
+					<h2 class="sub-title tc">
+						<span class="dib">Panneau d'information</span>
+						<button class="button btn-alone btn-becky dib" data-info="Le panneau d'information te renseigne sur le thème en cours, le thème d'attente ou les chroniques à écrire.">
+        					<svg class="icon icon--xs icon-becky"><use xlink:href="#icon-becky"></use></svg>
+        				</button>
 					</h2>
 
-					<div class="pi-saison sep clearfix">
+					<div class="pi-saison bg-white-30 pa2 mv2">
 						{{ PIsaison.saison(saison) }}
 					</div>
 
 
-					<div class="pi-themes sep clearfix">
+					<div class="pi-themes bg-white-30 pa2 mv2">
 						{{ PItheme.theme(saison, theme, draftmodeTheme, joggeurForDraftmodeTheme) }}			
 					</div>
 
-					<div class='pi-chroniques sep'>
+					<div class='pi-chroniques bg-white-30 pa2 mv2'>
 						{{ PIchronique.chronique(allThemes) }}		        					
     				</div>
 				</div>
 
-				<div class="tableau-bord_col-gauche col-playlist">		        		
+				<div class="col-playlist flex-item w-100 w-60-ns order-1-ns">		        		
       				{% if saison is defined and saison is not null %}
 			        	{% if theme is defined and theme is not null %}
 			        		{{ playlistWrapperModule.pl_theme(theme,null,null,true,false,null,1) }}
 						{% else %}
 			        		<div>
-			        			<h3 class="align-center">Il n'y a pas de thème en cours</h3>
+			        			<h3 class="dark-gray i tc">Il n'y a pas de thème en cours</h3>
 			        		</div>
 			        	{% endif %}
 			        {% else %} 
-			        	<div class="saison-title align-center man saison-closed">
+			        	<div class="saison-title saison-closed tc i dark-gray ">
 							<h1 class="man align-center">La saison est finie!</h1>
 						</div>
 		        	{% endif %}       		        		
         		</div>
 	        </div>
 
-	        	<div class='tableau-bord'>
-
-					<div class="tableau-bord_col-gauche col-score pas">
-	        			<h2 class="sub-title">Score</h2>
+	        	<div class='tableau-bord flex flex-wrap flex-auto'>
+					<div class="flex-item w-100 w-40-ns pa3 bg-ms-gold">
+	        			<h2 class="sub-title tc">Score</h2>
 	        			
-	        			<div class="bg-op--black pas">
+	        			<div class="">
 	        				{% if saison is defined and saison is not null %}
-		        				<span class="align-center block">pour la saison en cours</span>
+		        				<span class="db tc">pour la saison en cours</span>
 		        				{% set scoreTotal = 0 %}
 		        				{% if joggeurScore is defined %}
 		        					{% if joggeurScore.total is defined %}
 		        						{% set scoreTotal = joggeurScore.total %}
 		        					{% endif %}
 		        				{% endif %}
-		        				<span class="align-center block text--m">{{ scoreTotal }} points </span>
+		        				<span class="pa3 mt2 db tc f5 bg-white-20 mv2">{{ scoreTotal }} points </span>
 	        				{% else %}
-	        					<span class="align-center block">Il n'y a pas de saison en cours</span>
+	        					<span class="pa3 mt2 db tc f5 bg-white-20 i mv2">Il n'y a pas de saison en cours</span>
 	        				{% endif %}
 	        			</div>
 
-	        			<div class="flex-container-h line mts mbs">
-		        			<a class="button btn btn-view  flex-item-center align-center" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saison.id }) }}">
-		        				<svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>
+	        			<div class="tc mv2">
+		        			<a class="button" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saison.id }) }}">
+		        				<svg class="icon icon--s icon-eye"><use xlink:href="#icon-eye"></use></svg>
 		        				<span>classement</span>
 		        			</a>
 	        			</div>
 
 	        			{% if saison is defined and saison is not null %}
-		        			<div class="flex-container-h">
-								<div class="btn__info flex-item-fluid align-right prm mrn pts pbs">
+		        			<div class="mv2 pt3 flex flex-auto flex-wrap">
+								<div class="flex-item w-50 w-60-ns justify-center bg-white-20 pa3">
 									{% if joggeurScore is defined %}
 		        						<span>Il te reste {{ joggeurScore.pointstogive }} points à attribuer</span>
 		        					{% endif %}
 								</div>
 
-								<a class="button btn btn-action mln" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
-									<svg class="icon icon-heart"><use xlink:href="#icon-heart"></use></svg>
-									<span class="btn__label">Donner des points</span>
+								<a class="flex-item w-50 w-40-ns v-mid button" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+									<svg class="icon icon--s icon-heart"><use xlink:href="#icon-heart"></use></svg>
+									<span class="">Donner des points</span>
 								</a>
 							</div>
 						{% endif %}
@@ -108,35 +107,35 @@
 
 	        		
 
-		        	<div class="tableau-bord_col-droite col-profil pas pbxxl">
-		        		<h2 class="sub-title">Mon profil</h2>
-							<div class="flex-container-h">
-								<div class="flex-item mrm">
+		        	<div class="flex-item w-100 w-60-ns pa3 bg-ms-violet">
+		        		<h2 class="sub-title tc">Mon profil</h2>
+							<div class="mt3 flex flex-auto flex-wrap">
+								<div class="flex-item w-100 w-50-ns">
 									<span class="">
 										{% if joggeur.image is defined or joggeur.image is not null or joggeur.image is not empty %}
-									  		<img class='thumbnail' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>
+									  		<img class='db w-100' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>
 										{% else %}
 					  						<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 										{% endif %}
 									</span>
 								</div>
 
-								<div class="flex-item">
+								<div class="flex-item w-100 w-50-ns">
 								{% if joggeur.presentation is not null %}
 							  		<div class="line block">{{ joggeur.presentation | raw }}</div>
 								{% endif %}
 							
 
-								<div class="line block">
-									<a class="button btn btn-view flex-item-center" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
-										<svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>
+								<div class="db tl mv2">
+									<a class="button" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+										<svg class="icon icon--s icon-eye"><use xlink:href="#icon-eye"></use></svg>
 				        				<span>Voir mon profil</span>								
 									</a>
 								</div>
 
-							    <div class="line block pts">
-								    <a class="button btn btn-action flex-item-center mbs" href="{{ path('fos_user_profile_show') }}">
-								    	<svg class="icon icon--m icon-locked"><use xlink:href="#icon-locked"></use></svg>
+							    <div class="db tl mv2">
+								    <a class="button " href="{{ path('fos_user_profile_show') }}">
+								    	<svg class="icon icon--xs icon-locked"><use xlink:href="#icon-locked"></use></svg>
 								    	<span>Paramètres de connexion</span> 
 								    </a>
 							    </div>	

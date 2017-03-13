@@ -11,7 +11,7 @@
 	{% endif %}
 
 
-	<header id="header" class="main-header relative z-1" style="background-image: url('{{ cssbg }}');" >
+	<header id="header" class="main-header relative cover bg-center w-100" style="background-image: url('{{ cssbg }}');" >
 
 
 
@@ -23,8 +23,8 @@
 			</svg>
 		</label>
 
-			<nav class="navbar-header bg-black-90 fixed w-100 ph0 pv3 pv2-ns ph2-ns">
-				<ul class="navbar-first list mh0 ph0 w-100 relative">
+			<nav class="navbar-header bg-black-90 fixed w-100 ph0 pv3 pv0-ns ph3-ns z-1 ">
+				<ul class="navbar-first list mh0 ph0 w-100 relative dn db-ns">
 					{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
 	            		<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
 	            	{% endif %}
@@ -51,7 +51,7 @@
 	            		<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
 	            	{% endif %}
 
-	            	<li class="user db dib-ns mr3-ns v-top tc" aria-label="user">
+	            	<li class="user db dib-ns mr3-ns v-top tc fr-ns" aria-label="user">
 			          	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}				   
 			          		<div class='thumb-line author pt3 pt0-ns'>
 								<div>										
@@ -78,109 +78,54 @@
 			        </li>
 				</ul>
 			</nav>
-=======
-			<nav class="navbar-header bg-black-90 fixed w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
-			 
-					<ul class="navbar-first unstyled">
-						{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-		            		<li class="dib mr3 v-top"><a class="link white" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
-		            	{% endif %}
 
-						<li class="dib mr3 v-top"><a class="link white"  href="{{ path('tds_home') }}">Accueil</a></li>
-						<li class="dib mr3 v-top"><a class="link white"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
-						
-						<li class="navbar-second dib mr3 v-top"><span class="link white" >Saisons</span>
-							<ul class="">
-								{% for saisonListe in saisonService.allSaison() %}
-									{% for saisonItem in saisonListe %}
-										{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
-										<li><a  href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
-										{% endif %}
-									{% endfor %}
-								{% endfor %}
-							</ul>
-						</li>
-						
-						
-						
 
-						{% if is_granted("ROLE_SUPER_ADMIN") %}
-		            		<li class="dib mr3 v-top"><a class="link white"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
-		            	{% endif %}
-
-		            	<li class="user dib mr3 v-top" aria-label="user">
-				          	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}				   
-				          		<div class='thumb-line author'>
-									<div>										
-										<span class="author-name mls">
-											<a href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
-												<span>{{ app.user.joggeur.pseudo }}</span> 
-											</a>
-											<a class="deconnexion block" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-										</span>
-
-										<span class="author-thumb">
-											{% if app.user.joggeur.image is not null %}
-												<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-											{% else %}
-										  		<img class='thumbnail' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
-											{% endif %}   
-										</span>
-									</div>									
-								</div>
-								
-				            {% else %}
-				               <a href="{{ path('fos_user_security_login') }}">Connexion</a>		
-				            {% endif %}
-				        </li>
-					</ul>
-				</nav>
->>>>>>> Stashed changes
 
 				
 
 			
 
 				
-			<div class="container-fluid">
-				<img class="main-logo" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
+			<div class="dt w-100 mw8 center">
+				<div class="dtc v-mid relative">
+					<img class="main-logo tc center db" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
 
-				
+					
 
-				<div class="flex-item-center saison-title align-center man">
-  					<h1 class="man pan">{{ saison.titre }}</h1>
-  					{% if saison.statut == 0 %}
-  						{% set statut = "pas encore activée" %}
-  					{% elseif saison.statut == 1 %}
-  						{% set statut = "en cours" %}
-  					{% elseif saison.statut == 2 %}
-  						{% set statut = "terminée" %}
-  					{% endif %}
-  					<h3 class="man pan">{{ statut }}</h3>
-  				</div>
+					<div class="saison-title tc relative">
+	  					<h1 class="pa0 ma0">{{ saison.titre }}</h1>
+	  					{% if saison.statut == 0 %}
+	  						{% set statut = "pas encore activée" %}
+	  					{% elseif saison.statut == 1 %}
+	  						{% set statut = "en cours" %}
+	  					{% elseif saison.statut == 2 %}
+	  						{% set statut = "terminée" %}
+	  					{% endif %}
+	  					<h3 class="pa0 ma0">{{ statut }}</h3>
+	  				</div>
 
-  				{% set hotFresh = hotfreshService.showContent() %} 
+	  				{% set hotFresh = hotfreshService.showContent() %} 
 
-  				<div class="hotfresh-wrapper">
+	  				<div class="hotfresh-wrapper tc relative center mw6">
 
-  					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
-	  					<div id="form-hotfresh" class="form-hotfresh pts mts">
-							
-							{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
-						</div>
-					{% endif %}
-					<div id="hotfresh-inner" class="hotfresh-inner align-center ">
-  						<div class="hotfresh-content pas inbl"> 
-  							{{ hotFresh.content }} 
-  						</div>
-  						{% if is_granted("ROLE_SUPER_ADMIN") %}
-							<a class="button btn-action align-center pas" data-action="show-hotfresh-form" href="#">
-			  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
-							</a>					
+	  					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
+		  					<div id="form-hotfresh" class="form-hotfresh dn">
+								
+								{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
+							</div>
 						{% endif %}
-  					</div>
+						<div id="hotfresh-inner" class="tc">
+	  						<div class="hotfresh-content bg-black white pa2 dib"> 
+	  							{{ hotFresh.content }} 
+	  						</div>
+	  						{% if is_granted("ROLE_SUPER_ADMIN") %}
+								<a class="button btn-action dib pa2" data-action="show-hotfresh-form" href="#">
+				  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
+								</a>					
+							{% endif %}
+	  					</div>
+	  				</div>
   				</div>
-
 			</div>
 	 </header>
  {% endmacro %}

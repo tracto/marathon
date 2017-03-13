@@ -12,8 +12,7 @@
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
 			{% set classColThemeLarge = "" %}
-			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}
-				
+			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				
 				{% set classColFlex = "col-index-flex" %}
 			{% endif %}
 		{% else %}
@@ -23,29 +22,28 @@
 {% endfor %}
    
 <div class="index-wrapper">
+	{# lecteur fixe (si pas de thème en cours) #}
 	{% if currentTheme is not defined or currentTheme is null %}
 		{% if musicTitles is defined and musicTitles is not null and musicTitles is not empty %}
-		    <div class="playlist-body-wrapper playlist-index-wrapper">
+		    <div class="playlist-body-wrapper playlist-index-wrapper ">
 			  	{{ playlistIndexModule.playlist(musicTitles) }}
 			</div>
 		{% endif %}
 	{% endif %}
+	{# fin lecteur fixe  #}
       
-
-  	<div class='flex-container-h'>
+      
+	{# partie 1 #}
+  	<div class='flex flex-auto flex-wrap'>
   		{% if saison is defined and saison.statut is not null %}
       					
-			<div class="flex-item col-themes man pan {{ classColFlex }}">
+			<div class="flex-item {{ classColFlex }}">
 				{% if currentTheme is defined and currentTheme is not null %}
-					<div class="col-curr-theme">
+					<div class="">
 						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}
 					</div>	
         		{% endif %}	
-
-
-
-        		
-        			
+       			
         		
         		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
 	        		<div class="col-other-themes {{ classColThemeLarge }}">
@@ -125,6 +123,7 @@
 			
   		{% endif %}	  				
 	</div>
+	{# fin partie 1 #}
 
 	<div class="flex-container-h">
 		<div class="col-lois-totale">
