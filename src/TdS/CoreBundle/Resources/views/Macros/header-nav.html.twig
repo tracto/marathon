@@ -10,15 +10,18 @@
 		{% set cssbg =  saison.image.webPath | imagine_filter('header_image') %}
 	{% endif %}
 
+
 	<header id="header" class="main-header relative z-1" style="background-image: url('{{ cssbg }}');" >
 
-			<input id="mobile-nav" type="checkbox" class="nav-toggler" />
-				<label for="mobile-nav" class="nav-toggler__label button">
-					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1"  viewBox="0 0 32 32">
-					  <path d="M0 0v3h32v-3h-32zm0 10v3h32v-3h-32zm0 10v3h32v-3h-32z"/>
-					</svg>
-				</label>
 
+
+
+		<input id="mobile-nav" type="checkbox" class="nav-toggler" />
+		<label for="mobile-nav" class="nav-toggler__label button">
+			<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1"  viewBox="0 0 32 32">
+			  <path d="M0 0v3h32v-3h-32zm0 10v3h32v-3h-32zm0 10v3h32v-3h-32z"/>
+			</svg>
+		</label>
 
 			<nav class="navbar-header bg-black-90 fixed w-100 ph0 pv3 pv2-ns ph2-ns">
 				<ul class="navbar-first list mh0 ph0 w-100 relative">
@@ -75,6 +78,64 @@
 			        </li>
 				</ul>
 			</nav>
+=======
+			<nav class="navbar-header bg-black-90 fixed w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
+			 
+					<ul class="navbar-first unstyled">
+						{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+		            		<li class="dib mr3 v-top"><a class="link white" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
+		            	{% endif %}
+
+						<li class="dib mr3 v-top"><a class="link white"  href="{{ path('tds_home') }}">Accueil</a></li>
+						<li class="dib mr3 v-top"><a class="link white"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+						
+						<li class="navbar-second dib mr3 v-top"><span class="link white" >Saisons</span>
+							<ul class="">
+								{% for saisonListe in saisonService.allSaison() %}
+									{% for saisonItem in saisonListe %}
+										{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
+										<li><a  href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+							</ul>
+						</li>
+						
+						
+						
+
+						{% if is_granted("ROLE_SUPER_ADMIN") %}
+		            		<li class="dib mr3 v-top"><a class="link white"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
+		            	{% endif %}
+
+		            	<li class="user dib mr3 v-top" aria-label="user">
+				          	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}				   
+				          		<div class='thumb-line author'>
+									<div>										
+										<span class="author-name mls">
+											<a href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
+												<span>{{ app.user.joggeur.pseudo }}</span> 
+											</a>
+											<a class="deconnexion block" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+										</span>
+
+										<span class="author-thumb">
+											{% if app.user.joggeur.image is not null %}
+												<img class='thumbnail' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+											{% else %}
+										  		<img class='thumbnail' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+											{% endif %}   
+										</span>
+									</div>									
+								</div>
+								
+				            {% else %}
+				               <a href="{{ path('fos_user_security_login') }}">Connexion</a>		
+				            {% endif %}
+				        </li>
+					</ul>
+				</nav>
+>>>>>>> Stashed changes
 
 				
 
