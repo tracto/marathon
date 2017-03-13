@@ -37,7 +37,7 @@
 
 	<body>
 		<div id="device"></div>
-		<div class="main-wrapper">
+		<div class="main-wrapper f6">
 
 			{# <div id="becky-content">
 				<div class="becky-overlay" data-close-becky></div>
@@ -59,21 +59,18 @@
 			{{ headernavModule.header(saison) }} 
 
 
-			<div class="flashbag align-center relative">
+			<div class="flashbag tc relative">
 	      		{% for message in app.session.flashbag.get('notice') %}
-	        		<span class="block pas">Info : {{ message }}</span>
+	        		<span class="db pa2">Info : {{ message }}</span>
 	      		{% endfor %}
 	    	</div>
 
 
-			<div class="wrapper flex flex-row flex-wrap relative bg--marbre bg-red">	    	
-<<<<<<< Updated upstream
-				{# <div class="container-center flex-item bg-pink">{% block body %} {% endblock %}</div>
-			</div> #}
-=======
+			<div class="wrapper flex flex-row flex-wrap relative bg--marbre">	    	
+				
 				<div class="container-center flex-item bg-pink">{% block body %} {% endblock %}</div>
 			</div>
->>>>>>> Stashed changes
+
 		</div>
 
 
