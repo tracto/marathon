@@ -4,16 +4,15 @@
 {% block body %}
 
 {% set currentTheme = null %}
-{% set classColFlex = null %}
-{% set classColThemeLarge = "col-large" %}
+{% set classColPlaylist = "w-100 w-60-ns" %}
+{# {% set classColTheme = "" %} #}
 {% set detectDerniersThemes = null %}
 {% for theme in saison.themes %}	        		      				
 	{% if theme is defined and theme is not null %}
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
-			{% set classColThemeLarge = "" %}
-			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				
-				{% set classColFlex = "col-index-flex" %}
+			{# {% set classColTheme = "" %} #}
+			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				{% set classColPlaylist = "w-100" %}
 			{% endif %}
 		{% else %}
 			{% set detectDerniersThemes = 1 %}
@@ -32,22 +31,25 @@
 	{% endif %}
 	{# fin lecteur fixe  #}
       
-      
-	{# partie 1 #}
+
+	{# PARTIE 1 : playlist du thème en cours + les derniers thèmes + podium #}
   	<div class='flex flex-auto flex-wrap'>
   		{% if saison is defined and saison.statut is not null %}
       					
-			<div class="flex-item {{ classColFlex }}">
+			<div class="flex-item {{ classColPlaylist }} flex flex-wrap flex-auto ">
+				{# colonne playlist theme en cours #}
 				{% if currentTheme is defined and currentTheme is not null %}
-					<div class="">
+					<div class="flex-item w-100 w-60-ns">
 						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}
 					</div>	
         		{% endif %}	
-       			
+       			{# fin playlist #}
         		
+
+       			{# colonne derniers thèmes #}
         		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
-	        		<div class="col-other-themes {{ classColThemeLarge }}">
-						<h2 class="align-center">Les derniers thèmes</h2>
+	        		<div class="flex-item w-100 w-40-ns bg-ms-turquoise">
+						<h2 class="tc">Les derniers thèmes</h2>
 						<div class='flex-container-h'>	
 						    {% for theme in listeDernThemes %}
 						    	{% if theme is defined and theme is not null and theme != currentTheme %}
@@ -56,12 +58,13 @@
 						    {% endfor %} 
 						</div>
 					</div>
-				{% endif %}				
+				{% endif %}
+				{# colonne derniers thèmes #}				
 		    </div>
 
-
+		    {# colonne podium + wall of fame #}
 		    {% if listeJoggeursScore is defined and listeJoggeursScore is not empty %} 
-		    	<div class="col-podium-wof bg--marathonchanteurs">
+		    	<div class="flex-item w-100 w-40-ns bg-ms-gold">
 			    	
 					<div class="bg-op--white-5 pbn">
 						<h2 class="align-center">Podium</h2>
@@ -120,15 +123,20 @@
 					</div>
 				</div>
 			{% endif %}
-			
+			{# fin colonne podium + wall of fame #}
   		{% endif %}	  				
 	</div>
-	{# fin partie 1 #}
+	{# FIN PARTIE 1 #}
 
-	<div class="flex-container-h">
-		<div class="col-lois-totale">
+
+	{# ///////////////////////////////////////////////////////// #}
+
+
+	{# PARTIE 2 / lois/classement + actus #}
+	<div class="flex flex-auto flex-wrap">
+		<div class="flex-item w-100 w-40-ns bg-ms-vert">
 			{{ loisModule.lois() }}
-			<div class="col-classement bg--marathonchanteurs align-center">
+			<div class="tc">
 				<h2 class="sub-title align-center">Classement</h2>
 				{% if listeJoggeursScore|length >= 3 %} 				
 					<div class="latotale bg-op--white-5 pam pbn mtm">						
@@ -147,7 +155,7 @@
 			</div>
 		</div>
 
-		<div class="flex-item col-articles">
+		<div class="flex-item w-100 w-60-ns bg-ms-orange-light">
 			<h2 class="align-center">Actus</h2>	
 			{% if listeArticles is defined and listeArticles is not null %}
 				<div class="articles-liste">
@@ -183,10 +191,15 @@
 		</div>
 
 	</div>	
+	{# FIN PARTIE 2 #}
 
 
-	<div class="flex-container-h">
-		<div class='pbxxl-screen col-saisons pas flex-item'>
+	{# ///////////////////////////////////////////////////////// #}
+
+
+	{# PARTIE 3 / liste saisons + joggeurs/liens #}
+	<div class="flex flex-auto flex-wrap">
+		<div class='flex-item w-100 w-60-ns bg-ms-bleu'>
 			<div class="">
 				<h2 class="sub-title align-center">Les Saisons</h2>
 				
@@ -224,7 +237,7 @@
 
 
 
-		<div class='col-joggeurs-liens flex-item'>
+		<div class='flex-item w-100 w-40-ns bg-ms-violet'>
 			<div class="list col-joggeurs pas">
 				<h2 class="sub-title align-center">Les joggeurs</h2>
 				<div class="block clearfix">
@@ -288,6 +301,7 @@
 			</div>				
 		</div>
 	</div>
+	{# FIN PARTIE 3 #}
 </div>		
 		
     

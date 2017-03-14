@@ -22,10 +22,11 @@
 		{% set joggeurInPlaylist = 0 %}
 
 	    {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-	        
-	        <div class='tableau-bord flex flex-row flex-wrap w-100'>
-	       		<div class="flex-item w-100 w-40-ns bg-ms-turquoise order-2-ns pa3">	        				        	
-					<h2 class="sub-title tc">
+
+	        {# PARTIE 1 / panneau information / playlist du thème en cours #}
+	        <div class='flex flex-row flex-wrap w-100'>
+	        	{# colonne panneau information #}
+	       		<div class="flex-item w-100 w-40-ns bg-ms-turquoise order-2-ns pa3">	        	<h2 class="sub-title tc">
 						<span class="dib">Panneau d'information</span>
 						<button class="button btn-alone btn-becky dib" data-info="Le panneau d'information te renseigne sur le thème en cours, le thème d'attente ou les chroniques à écrire.">
         					<svg class="icon icon--xs icon-becky"><use xlink:href="#icon-becky"></use></svg>
@@ -45,7 +46,10 @@
 						{{ PIchronique.chronique(allThemes) }}		        					
     				</div>
 				</div>
+				{# fin colonne panneau information #}
 
+
+				{# colonne playlist #}
 				<div class="col-playlist flex-item w-100 w-60-ns order-1-ns">		        		
       				{% if saison is defined and saison is not null %}
 			        	{% if theme is defined and theme is not null %}
@@ -61,88 +65,97 @@
 						</div>
 		        	{% endif %}       		        		
         		</div>
+        		{# fin colonne playlist #}
 	        </div>
+			{# FIN PARTIE 1 #}
 
-	        	<div class='tableau-bord flex flex-wrap flex-auto'>
-					<div class="flex-item w-100 w-40-ns pa3 bg-ms-gold">
-	        			<h2 class="sub-title tc">Score</h2>
-	        			
-	        			<div class="">
-	        				{% if saison is defined and saison is not null %}
-		        				<span class="db tc">pour la saison en cours</span>
-		        				{% set scoreTotal = 0 %}
-		        				{% if joggeurScore is defined %}
-		        					{% if joggeurScore.total is defined %}
-		        						{% set scoreTotal = joggeurScore.total %}
-		        					{% endif %}
-		        				{% endif %}
-		        				<span class="pa3 mt2 db tc f5 bg-white-20 mv2">{{ scoreTotal }} points </span>
-	        				{% else %}
-	        					<span class="pa3 mt2 db tc f5 bg-white-20 i mv2">Il n'y a pas de saison en cours</span>
+	        {# ///////////////////////////////////////////////////////// #}
+
+
+	        {# PARTIE 2 / score + profil du joggeur #}
+        	<div class='flex flex-wrap flex-auto'>
+        		{# colonne score #}
+				<div class="flex-item w-100 w-40-ns pa3 bg-ms-gold">
+        			<h2 class="sub-title tc">Score</h2>
+        			
+        			<div class="">
+        				{% if saison is defined and saison is not null %}
+	        				<span class="db tc">pour la saison en cours</span>
+	        				{% set scoreTotal = 0 %}
+	        				{% if joggeurScore is defined %}
+	        					{% if joggeurScore.total is defined %}
+	        						{% set scoreTotal = joggeurScore.total %}
+	        					{% endif %}
 	        				{% endif %}
-	        			</div>
+	        				<span class="pa3 mt2 db tc f5 bg-white-20 mv2">{{ scoreTotal }} points </span>
+        				{% else %}
+        					<span class="pa3 mt2 db tc f5 bg-white-20 i mv2">Il n'y a pas de saison en cours</span>
+        				{% endif %}
+        			</div>
 
-	        			<div class="tc mv2">
-		        			<a class="button" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saison.id }) }}">
-		        				<svg class="icon icon--s icon-eye"><use xlink:href="#icon-eye"></use></svg>
-		        				<span>classement</span>
-		        			</a>
-	        			</div>
+        			<div class="tc mv2">
+	        			<a class="button" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saison.id }) }}">
+	        				<svg class="icon icon--s icon-eye"><use xlink:href="#icon-eye"></use></svg>
+	        				<span>classement</span>
+	        			</a>
+        			</div>
 
-	        			{% if saison is defined and saison is not null %}
-		        			<div class="mv2 pt3 flex flex-auto flex-wrap">
-								<div class="flex-item w-50 w-60-ns justify-center bg-white-20 pa3">
-									{% if joggeurScore is defined %}
-		        						<span>Il te reste {{ joggeurScore.pointstogive }} points à attribuer</span>
-		        					{% endif %}
-								</div>
+        			{% if saison is defined and saison is not null %}
+	        			<div class="mv2 pt3 flex flex-auto flex-wrap">
+							<div class="flex-item w-50 w-60-ns justify-center bg-white-20 pa3">
+								{% if joggeurScore is defined %}
+	        						<span>Il te reste {{ joggeurScore.pointstogive }} points à attribuer</span>
+	        					{% endif %}
+							</div>
 
-								<a class="flex-item w-50 w-40-ns v-mid button" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
-									<svg class="icon icon--s icon-heart"><use xlink:href="#icon-heart"></use></svg>
-									<span class="">Donner des points</span>
+							<a class="flex-item w-50 w-40-ns v-mid button" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+								<svg class="icon icon--s icon-heart"><use xlink:href="#icon-heart"></use></svg>
+								<span class="">Donner des points</span>
+							</a>
+						</div>
+					{% endif %}
+				</div>
+
+        		
+				{# colonne profil #}
+	        	<div class="flex-item w-100 w-60-ns pa3 bg-ms-violet">
+	        		<h2 class="sub-title tc">Mon profil</h2>
+						<div class="mt3 flex flex-auto flex-wrap">
+							<div class="flex-item w-100 w-50-ns">
+								<span class="">
+									{% if joggeur.image is defined or joggeur.image is not null or joggeur.image is not empty %}
+								  		<img class='db w-100' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>
+									{% else %}
+				  						<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
+									{% endif %}
+								</span>
+							</div>
+
+							<div class="flex-item w-100 w-50-ns">
+							{% if joggeur.presentation is not null %}
+						  		<div class="line block">{{ joggeur.presentation | raw }}</div>
+							{% endif %}
+						
+
+							<div class="db tl mv2">
+								<a class="button" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+									<svg class="icon icon--s icon-eye"><use xlink:href="#icon-eye"></use></svg>
+			        				<span>Voir mon profil</span>								
 								</a>
 							</div>
-						{% endif %}
+
+						    <div class="db tl mv2">
+							    <a class="button " href="{{ path('fos_user_profile_show') }}">
+							    	<svg class="icon icon--xs icon-locked"><use xlink:href="#icon-locked"></use></svg>
+							    	<span>Paramètres de connexion</span> 
+							    </a>
+						    </div>	
+						</div>						    
 					</div>
-
-	        		
-
-		        	<div class="flex-item w-100 w-60-ns pa3 bg-ms-violet">
-		        		<h2 class="sub-title tc">Mon profil</h2>
-							<div class="mt3 flex flex-auto flex-wrap">
-								<div class="flex-item w-100 w-50-ns">
-									<span class="">
-										{% if joggeur.image is defined or joggeur.image is not null or joggeur.image is not empty %}
-									  		<img class='db w-100' src='{{ joggeur.image.webPath | imagine_filter('medium_thumb')  }}'/>
-										{% else %}
-					  						<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
-										{% endif %}
-									</span>
-								</div>
-
-								<div class="flex-item w-100 w-50-ns">
-								{% if joggeur.presentation is not null %}
-							  		<div class="line block">{{ joggeur.presentation | raw }}</div>
-								{% endif %}
-							
-
-								<div class="db tl mv2">
-									<a class="button" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
-										<svg class="icon icon--s icon-eye"><use xlink:href="#icon-eye"></use></svg>
-				        				<span>Voir mon profil</span>								
-									</a>
-								</div>
-
-							    <div class="db tl mv2">
-								    <a class="button " href="{{ path('fos_user_profile_show') }}">
-								    	<svg class="icon icon--xs icon-locked"><use xlink:href="#icon-locked"></use></svg>
-								    	<span>Paramètres de connexion</span> 
-								    </a>
-							    </div>	
-							</div>						    
-						</div>
-		        	</div>
-		        </div>
+	        	</div>
+	        	{# fin colonne profil #}
+	        </div>
+	        {# FIN PARTIE 2 #}
 	   
 		    {% else %}
 		        <h1>Accueil</h1>
