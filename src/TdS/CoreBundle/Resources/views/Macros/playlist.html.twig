@@ -1,6 +1,7 @@
 {% macro playlist(theme,joggeur) %}
 <div class='playlist-body'>
-	<div class='hidden'>
+	{# liste envoyée au jplayer / invisible #}
+	<div class='dn'>
 		{% if theme is not null %}
 			{% if theme.musicTitles is not null %}		
 				<ul class='musicTitlesListe'>
@@ -34,6 +35,7 @@
 			{% endif %}
 		{% endif %}
 	</div>
+	{# fin liste envoyée au jplayer  #}
 
 
 
@@ -41,71 +43,74 @@
 	<div id="" class="jp-jplayer"></div>
 		<div id="" class="jp-container jp-audio" role="application" aria-label="media player">
 			<div class="jp-type-playlist">
-				<div class="jp-gui jp-interface">
-					<div class="jp-controls-holder pas">
-						<div class="jp-controls">
-							<button class="jp-previous" role="button" tabindex="0">
-								<svg class="icon icon-alone icon--s icon-first"><use xlink:href="#icon-first"></use></svg>
+				<div class="jp-gui jp-interface bb bt-0 bl-0 br-0 b--dashed dark-gray pb3 z-2">
+					<div class="jp-controls-holder pa2">
+						<div class="jp-controls flex flex-auto flex-wrap justify-center">
+							<button class="button-player jp-previous mh1" role="button" tabindex="0">
+								<svg class="icon icon--xs"><use xlink:href="#icon-first"></use></svg>
 							</button>
-							<button class="jp-play" role="button" tabindex="0">
-								<svg class="icon icon-alone icon--s icon-play"><use xlink:href="#icon-play"></use></svg>
+							<button class="button-player jp-play mh1" role="button" tabindex="0">
+								<svg class="icon icon--xs"><use xlink:href="#icon-play"></use></svg>
 							</button>
-							<button class="jp-pause">
-								<svg class="icon icon-alone icon--s icon-pause"><use xlink:href="#icon-pause"></use></svg>
+							<button class="button-player jp-pause mh1">
+								<svg class="icon icon--xs"><use xlink:href="#icon-pause"></use></svg>
 							</button>
-							<button class="jp-stop" role="button" tabindex="0">
-								<svg class="icon icon-alone icon--s icon-stop"><use xlink:href="#icon-stop"></use></svg>
+							<button class="button-player jp-stop mh1" role="button" tabindex="0">
+								<svg class="icon icon--xs"><use xlink:href="#icon-stop"></use></svg>
 							</button>
-							<button class="jp-next" role="button" tabindex="0">
-								<svg class="icon icon-alone icon--s icon-last"><use xlink:href="#icon-last"></use></svg>
+							<button class="button-player jp-next mh1" role="button" tabindex="0">
+								<svg class="icon icon--xs"><use xlink:href="#icon-last"></use></svg>
 							</button>
 						</div>
 
-						<div class="jp-timeline">
-							<div class="jp-infos-title" data-infostitle></div>
-							<div class="jp-progress">
-								<div class="jp-seek-bar">
-									<div class="jp-play-bar"></div>
+						<div class="jp-timeline pv2">
+							<div class="jp-infos-title f5 tc" data-infostitle></div>
+							<div class="jp-progress w-100 h2">
+								<div class="jp-seek-bar bg-ms-turquoise h-100">
+									<div class="jp-play-bar bg-near-black h-100"></div>
 								</div>
 							</div>
-							<div class="jp-duration pull-right" role="timer" aria-label="duration">&nbsp;</div>
-							<div class="jp-current-time pull-left" role="timer" aria-label="time">&nbsp;</div>
+							<div class="w-100 cf pv2">
+								<div class="jp-duration fr" role="timer" aria-label="duration">&nbsp;</div>
+								<div class="jp-current-time fl" role="timer" aria-label="time">&nbsp;</div>
+							</div>
 						</div>
 						
-						<div class="jp-sub-toggles flex-container pts"> 
-							<div class="flex-item-fluid jp-volume-controls">
-								<button class="jp-mute btn btn-default" role="button" tabindex="0">
-									<svg class="icon icon-alone icon--s icon-volume-off"><use xlink:href="#icon-volume-off"></use></svg>
-								</button>
-								<button class="jp-volume-max btn btn-default pull-right" role="button" tabindex="0">
-									<svg class="icon icon-alone icon--s icon-volume-up"><use xlink:href="#icon-volume-up"></use></svg>
-								</button>
-								<div class="jp-volume-bar">
-									<div class="jp-volume-bar-value"></div>
+						<div class="jp-sub-toggles flex flex-auto flex-wrap justify-between pt2 w-100"> 
+							<div class="flex-item jp-volume-controls w-40 ">
+								<div class="cf">
+									<button class="jp-mute button-nude fl" role="button" tabindex="0">
+										<svg class="icon icon--xs"><use xlink:href="#icon-volume-off"></use></svg>
+									</button>
+									<button class="jp-volume-max button-nude fr" role="button" tabindex="0">
+										<svg class="icon icon--xs"><use xlink:href="#icon-volume-up"></use></svg>
+									</button>
+								</div>
+								<div class="jp-volume-bar h1 bg-dark-gray pointer">
+									<div class="jp-volume-bar-value bg-ms-bleu h-100"></div>
 								</div>
 							</div>
 
-							<div class="flex-item-fluid jp-toggles clearfix">
-								<button class="jp-repeat btn btn-default pull-right" role="button" tabindex="0">
-									<svg class="icon icon-alone icon--s icon-repeat"><use xlink:href="#icon-repeat"></use></svg>
+							<div class="flex-item jp-toggles w-30 tr">
+								<button class="jp-repeat button-player" role="button" tabindex="0">
+									<svg class="icon icon-alone icon--xs icon-repeat"><use xlink:href="#icon-repeat"></use></svg>
 								</button>
-								<button class="jp-shuffle btn btn-default pull-right" role="button" tabindex="0">
-									<svg class="icon icon-alone icon--s icon-shuffle"><use xlink:href="#icon-shuffle"></use></svg>
+								<button class="jp-shuffle button-player" role="button" tabindex="0">
+									<svg class="icon icon-alone icon--xs icon-shuffle"><use xlink:href="#icon-shuffle"></use></svg>
 								</button>
 							</div> 							
 						</div>
-					</div>
-					
-				
+					</div>				
 				</div>
+
 				<div class="jp-playlist">
 					<div class="jp-playlist-inner">
-						<ul class="unstyled">
+						<ul class="list pl0">
 							<li>&nbsp;</li>
 						</ul>
 					</div>
 
-					<a class="creativec-lien pts pull-right" href="http://creativecommons.org/licenses/by-sa/4.0/">
+					<a class="creativec-lien" href="http://creativecommons.org/licenses/by-sa/4.0/">
 						<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
 					</a>
 				</div>

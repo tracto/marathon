@@ -1,3 +1,4 @@
+{# MACRO PLAYLIST WRAPPER DE THEME #}
 {% macro pl_theme(theme,joggeur,tabIdTheme,enCours,autoplay,listeJoggeursScore,minify) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %} 
@@ -35,91 +36,107 @@
 	{% if autoplay is null or autoplay is not defined %}
 		{% set autoplay = "false" %}
 	{% endif %}
-	<div class='playlist-wrapper relative {{ pbxxl }}' data-type="theme" data-autoplay={{ autoplay }}>
-
+	<div class='playlist-wrapper relative w-100' data-type="theme" data-autoplay={{ autoplay }}>
+		{# flèches theme precedent / thème suivant #}
 		{% if tabIdTheme is not null %}
-			<a class="btn playlist-nav-prec pas" data-id="{{ tabIdTheme[keyThemePrec] }}" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemePrec]}) }}">
-				<svg class="icon icon-alone icon--l icon-playlist-arrow-prev"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
-			</a>
-			<a class="btn playlist-nav-suiv pas" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemeSuiv]}) }}">
-				<svg class="icon icon-alone icon--l icon-playlist-arrow-suiv"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
-			</a>
+			<div class="playlist-fleches w-100 absolute z-1 cf pe-n">
+				<a class="pa2 bg-near-black fl pe-a" data-id="{{ tabIdTheme[keyThemePrec] }}" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemePrec]}) }}">
+					<svg class="icon icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
+				</a>
+				<a class="pa2 bg-near-black fr pe-a" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemeSuiv]}) }}">
+					<svg class="icon icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
+				</a>
+			</div>
+		{% endif %}
+		{# fin flèches #}
+
+		{# ruban thème en cours / thème d'attente #}
+		{% if theme.statut == 1 %}
+			<div class="ribbon">
+				<div class="tc bg-ms-fushia w-100">							
+					<svg class="dib v-mid icon icon--s icon-warning"><use xlink:href="#icon-warning"></use></svg>
+					<span class="dib v-mid">Thème en cours</span>
+				</div>
+			</div>
 		{% endif %}
 
+		{% if theme.statut == 0 and theme.joggeur.id == app.user.joggeur.id %}
+			<div class="ribbon">
+				<div class="tc bg-ms-fushia w-100">							
+					<svg class="dib v-mid icon icon--s icon-warning"><use xlink:href="#icon-warning"></use></svg>
+					<span class="dib v-mid">Theme en attente crée par toi</span>
+				</div>
+			</div>
+		{% endif %}
+		{# fin ruban #}
 
 
 
-		<div class="flex-container-h">
-			<div class="flex-item col-playlist-gauche">
-
-				{% if theme.statut == 1 %}
-					<div class="ribbon">
-						<div class="line flex-container-h align-center">							
-							<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
-							<span class="flex-item-fluid mls">Thème en cours</span>
-						</div>
-					</div>
-				{% endif %}
-
-				{% if theme.statut == 0 and theme.joggeur.id == app.user.joggeur.id %}
-    				<div class="ribbon">
-						<div class="line flex-container-h align-center">							
-							<svg class="icon icon--l icon-warning"><use xlink:href="#icon-warning"></use></svg>
-							<span class="flex-item-fluid mls">Theme en attente crée par toi</span>
-						</div>
-					</div>
-				{% endif %}
-
-
-				<div class="relative">
-					<div class="playlist-header-image">
-						{% if theme.image is not null %}
-							<img class="img-aspect-ratio" src="{{ theme.image.webPath  | imagine_filter('big_image') }}" alt="{{ theme.image.alt }}">
-						{% endif %}
-					</div>
+		{# PARTIE 1 / contenu thème + playlist #}
+		<div class="flex flex-auto flex-wrap">
+			{# colonne infos du thème + scores #}
+			<div class="flex-item w-100 w-50-ns">
+				<div class="relative"> 
 					
-
-					<div class="playlist-header pam">
-						{% if saison is defined and saison is not  null %}
-							<span class="playlist-header-saison">{{ saison.titre }}</span>
-						{% endif %}
-
-						<div class="playlist-header-date">
-								du 
-							  		<span>{{ theme.dateDebut|date('d/m/Y') }}</span>
-								au 
-							  		<span>{{ theme.dateFin|date('d/m/Y') }}</span>
+					{# header (infos) du thème #}
+					<div class="playlist-header pa3 bg-ms-turquoise cf">
+						<div class="pt3">
+							<i class="dark-gray">Theme :</i>
+							<h1 class="pa0 ma0 lh-solid">{{ theme.titre }}</h1>
 						</div>
-						<h1>{{ theme.titre }}</h1>
-						<div class='thumb-line author'>
-							<a href="{{ path('tds_marathon_joggeur_view', {'id': theme.joggeur.id}) }}">
-								<span class="author-thumb">
-									<img class='thumbnail' src='{{ theme.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+
+						<div>
+							{% if saison is defined and saison is not  null %}
+								<span class="dib">{{ saison.titre }}</span>
+							{% endif %}
+
+							<div class="">
+								du 
+							  	<span>{{ theme.dateDebut|date('d/m/Y') }}</span>
+								au 
+							  	<span>{{ theme.dateFin|date('d/m/Y') }}</span>
+							</div>
+						</div>
+						
+						<div class='thumb-line fr'>
+							<a class="db w-100 no-underline near-black" href="{{ path('tds_marathon_joggeur_view', {'id': theme.joggeur.id}) }}">
+								<span class="dib v-mid">
+									<i class="db tr">Auteur</i>
+									<span class="db tr">{{ theme.joggeur.pseudo }}</span>
 								</span>
-								<span class="author-name"><i>Auteur</i>{{ theme.joggeur.pseudo }}</span>
+								<span class="dib v-mid thumbnail--s">
+									<img class='w-100' src='{{ theme.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
+								</span>
 							</a>
 						</div>
 
-
-						<div class="comment-show-button">
-							<a href="#fos_comment_thread_wrapper" class="button btn comment-btn-count" data-action="show-comments">
-						            <svg class="icon icon-alone icon--l icon-dialog-icon"><use xlink:href="#icon-dialog-icon"></use></svg>
+						<div class="comment-show-button relative top-0 fl">
+							<a href="#fos_comment_thread_wrapper" class="button button-special button-comments dib v-top relative" data-action="show-comments">
+						            <svg class="db top-0 icon icon--s absolute"><use xlink:href="#icon-dialog-icon"></use></svg>
 						            {% if theme.thread.numComments is defined and theme.thread.numComments is not null and theme.thread.numComments is not empty %} 
-						            	<span>{{ theme.thread.numComments }}</span>
+						            	<span class="db tc absolute w-100 pt1">{{ theme.thread.numComments }}</span>
 						            {% else %}
-						            	<span>0</span>
+						            	<span class="db tc absolute w-100 pt1">0</span>
 						        	{% endif %}
-						    </a>									
+						    </a>
+						    <span class="dib v-mid pt1">commentaires</span>									
 						</div>						
 					</div>
+					{# fin header (infos) du thème #}
+
+					{# image du thème #}
+					<div class="">
+						{% if theme.image is not null %}
+							<img class="img-aspect-ratio db w-100" src="{{ theme.image.webPath  | imagine_filter('big_image') }}" alt="{{ theme.image.alt }}">
+						{% endif %}
+					</div>
+					{# fin image du thème #}
 				</div>
 
 				
 
 				{% if listeJoggeursScore is defined and listeJoggeursScore is not null and listeJoggeursScore is not empty %}
 					
-
-
 					{% set jogDonJuan = "" %}
 					{% set jogWinner = "" %}
 					{% set jogLoser = "" %}
@@ -141,9 +158,10 @@
 						{% endif %}
 					{% endfor %}
 
-					<div class="playlist-scores walloffame bg-op--white-5 align-center pam pbn">
-						<h3 class="ptn mtn">Wall of Fame du thème</h3>
-						<div class="wof-wrapper flex-container flex-start  flex-justify">
+					{# wall of fame du thème #}
+					<div class="playlist-scores walloffame bg-white-50 tc pa3 bg-ms-gold">
+						<h3 class="sub-title tc">Wall of Fame du thème</h3>
+						<div class="wof-wrapper flex flex-auto flex-wrap flex-justify">
 							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
 
 							{{ scoresElementsModule.wof_medaillon(jogWinner,"Le Total Winner","Celui qui a gagné ce thème","wof_jogWinner") }}
@@ -153,26 +171,32 @@
 							{{ scoresElementsModule.scores_legende() }}
 						</div>
 					</div>
+					{# fin wall of fame #}
 				{% endif %}
 
 
-				
+				{# chronique du thème #}
 				{% if theme.chronique is defined and theme.chronique is not null %}
-					<div class="playlist-chronique">
+					<div class="playlist-chronique pa3 bg-ms-bleu">
 							{% if theme.chronique != '' and theme.joggeurChronique is not null %}
 									<div class="playlist-chronique-header">
-										<div class="row clearfix">
-											<div class='thumb-line col col-xs-7 pull-right'>
-												<a class="pull-right" href="{{ path('tds_marathon_joggeur_view', {'id': theme.joggeurChronique.id}) }}">
-													<span class="author-name"><i>Auteur</i>{{ theme.joggeurChronique.pseudo }}</span>
-													<span ><img class='thumbnail' width='50px' src='{{ theme.joggeurChronique.image.webPath | imagine_filter('tiny_thumb')  }}'/></span>
-												</a>
+										<div class="flex flex-wrap flex-auto justify-between w-100">
+											<div class="flex-item w-50 w-40ms flex-end">
+												<svg class="icon icon--s icon-newspaper"><use xlink:href="#icon-newspaper"></use></svg>
+												<h4 class="sub-title">Chronique </h4>
 											</div>
 
-											<div class="col col-xs-5">
-												<svg class="icon icon-newspaper"><use xlink:href="#icon-newspaper"></use></svg>
-												<h4 class="sub-title pan man">Chronique </h4>
-											</div>										
+											<div class="flex-item">
+												<a class="thumb-line" href="{{ path('tds_marathon_joggeur_view', {'id': theme.joggeurChronique.id}) }}">
+													<span class="dib v-mid near-black">
+														<i class="db tr">Auteur</i>
+														<span class="db tr">{{ theme.joggeurChronique.pseudo }}</span>
+													</span>
+													<span class='thumbnail--s dib v-mid'>
+														<img class="db w-100" src='{{ theme.joggeurChronique.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+													</span>
+												</a>
+											</div>																					
 										</div>
 									</div>
 
@@ -187,6 +211,7 @@
 							{% endif %}
 					</div> 
 				{% endif %}
+				{# fin chronique du thème #}
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
 					<div class="pam {{ pbxxl }}">
@@ -197,11 +222,11 @@
 					</div>
 				{% endif %}
 			</div>
+			{# fin colonne infos du thème #}
 
 
-
-			
-			<div class="flex-item col-playlist-droite">
+			{# colonne playlist #}
+			<div class="flex-item w-100 w-50-ns pa3">
 				
 				{{ playlistModule.playlist(theme,null) }}
 
@@ -260,10 +285,16 @@
 					</a>					
 				{% endif %}
 
-			</div>					
+			</div>
+			{# fin colonne playlist #}					
 		</div>
+		{# FIN PARTIE 1 #}
 
 
+		{# ///////////////////////////////////////////////////////// #}
+
+
+		{# PARTIE 2 / commentaires #}
 		<div class="align-center fos-comment-header-buttons">
 			<div class="comment-action-buttons">
 				<button class="btn fos_comments_close" data-action="hide-comments">
@@ -281,18 +312,23 @@
 
 			{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': theme.id } %}
 		</div>
-			
-
+		{# FIN PARTIE 2 #}	
 	</div>
 {% endmacro %}
+{# FIN MACRO PLAYLIST WRAPPER DE THEME #}
+
+
+
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
 
 
 
 
 
-
-
-
+{# MACRO PLAYLIST WRAPPER DE JOGGEUR #}
 {% macro pl_joggeur(theme,joggeur,tabIdJoggeur,autoplay,saison,joggeurScoreCurrSais) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
@@ -461,6 +497,5 @@
 			</div>
 		</div>
 	</div>
-
-
 {% endmacro %}
+{# FIN MACRO PLAYLIST WRAPPER DE JOGGEUR #}
