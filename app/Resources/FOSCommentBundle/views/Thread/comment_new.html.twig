@@ -11,7 +11,7 @@
 {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
 	{% include "FOSCommentBundle:Thread:comment_new_content.html.twig" %}
 {% else %}
-	<div class="fos_comment_infos align-center pam pbl">
+	<div class="fos_comment_infos tc pa3 pb5">
 		<i class="">Il faut être connecté et en baskets pour pouvoir ajouter un nouveau commentaire</i>
 	</div>
 {% endif %}

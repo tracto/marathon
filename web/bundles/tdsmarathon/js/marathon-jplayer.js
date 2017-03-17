@@ -53,11 +53,19 @@ $(document).ready(function(){
 
           createListItem=function(media){
                 var self = this;
-                var listItem = "<li class='playlist-item'><div>";
-
-                listItem += "<a href='javascript:;' class='" + myPlaylist.options.playlistOptions.itemClass + "' data-tabindex='"+media.index+"'><span class='jp-thumb'><img src='"+media.thumb+"'/></span><span class='jp-title-artist'><span class='jp-title'>"+media.index + "-" + media.title + "</span>" + (media.artist ?
-                " <span class='jp-artist'>" + media.artist + "</span></span>" : "") + "</a>";
-                listItem += "</div></li>";             
+                var listItem = "<li class='playlist-item pa2'>";
+                      listItem += "<a href='javascript:;' class='w-100 flex flex-auto no-underline near-black " + myPlaylist.options.playlistOptions.itemClass + "' data-tabindex='"+media.index+"'>";
+                        listItem += "<span class='jp-thumb thumbnail--m flex-item'>";
+                          listItem += "<img class='db w-100' src='"+media.thumb+"'/>";
+                        listItem += "</span>";
+                        listItem += "<div class='jp-title-artist flex-item pl2'>";
+                            listItem += "<span class='jp-title db w-100'>" + media.title + "</span>";
+                            listItem +=(media.artist ?" <span class='jp-artist db w-100 i dark-gray '>" + media.artist + "</span>" : "");
+                          
+                        listItem += "</div>";
+                        listItem += "<span class='flex-item f2 v-mid pr1 ms-bleu'>" + media.index + "</span>";
+                      listItem += "</a>";
+                    listItem += "</li>";             
                 return listItem;
           };
 

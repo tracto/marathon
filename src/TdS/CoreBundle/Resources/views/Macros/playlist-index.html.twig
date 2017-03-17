@@ -1,8 +1,8 @@
 {% macro playlist(musicTitles) %}
-	<div class='playlist-index-body'>
+	<div class='fixed top-0'>
 		
 		{% if musicTitles is not null %}
-			<ul class='musicTitlesListe'>
+			<ul class='dn'>
 				{% for musicTitle in musicTitles %}
 					{% if musicTitle.theme.image is null %}
 						{% set imageThemePlaylist = "" %}

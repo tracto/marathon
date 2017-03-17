@@ -33,6 +33,7 @@
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
 	{% import "TdSCoreBundle:Macros:icons-svg.html.twig" as icons %}
+	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
 	{{ icons.svg() }} 
 
 	<body>
@@ -66,8 +67,8 @@
 	    	</div>
 
 
+
 			<div class="wrapper flex flex-row flex-wrap relative bg--marbre">	    	
-				
 				<div class="container-center flex-item bg-pink">{% block body %} {% endblock %}</div>
 			</div>
 

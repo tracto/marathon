@@ -4,18 +4,24 @@
 {% block body %}
 
 {% set currentTheme = null %}
-{% set classColPlaylist = "w-100 w-60-ns" %}
-{# {% set classColTheme = "" %} #}
+{% set classColPlaylistTheme = "w-100 w-60-ns" %}
+{% set classColPlaylist="flex-auto" %}
+{% set classColTheme = "flex-auto" %}
+{% set classThemeItem = "w-50 w-25-ns" %}
 {% set detectDerniersThemes = null %}
 {% for theme in saison.themes %}	        		      				
 	{% if theme is defined and theme is not null %}
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
-			{# {% set classColTheme = "" %} #}
-			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				{% set classColPlaylist = "w-100" %}
+			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				
+				{% set classColPlaylistTheme = "w-100" %}
+				{% set classColPlaylist="w-100 w-60-ns" %}
+				{% set classColTheme = "w-100 w-40-ns" %}
+				{% set classThemeItem = "w-100 w-50-ns" %} 
 			{% endif %}
 		{% else %}
 			{% set detectDerniersThemes = 1 %}
+			{% set classThemeItem = "w-100 w-33-ns" %}
 		{% endif %}
 	{% endif %}
 {% endfor %}
@@ -36,10 +42,10 @@
   	<div class='flex flex-auto flex-wrap'>
   		{% if saison is defined and saison.statut is not null %}
       					
-			<div class="flex-item {{ classColPlaylist }} flex flex-wrap flex-auto ">
+			<div class="flex-item {{ classColPlaylistTheme }} flex flex-wrap flex-auto">
 				{# colonne playlist theme en cours #}
 				{% if currentTheme is defined and currentTheme is not null %}
-					<div class="flex-item w-100 w-60-ns">
+					<div class="flex-item {{ classColPlaylist }}">
 						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}
 					</div>	
         		{% endif %}	
@@ -48,12 +54,14 @@
 
        			{# colonne derniers thèmes #}
         		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
-	        		<div class="flex-item w-100 w-40-ns bg-ms-turquoise">
+	        		<div class="flex-item {{ classColTheme }} bg-ms-turquoise pa2">
 						<h2 class="tc">Les derniers thèmes</h2>
-						<div class='flex-container-h'>	
+						<div class='flex flex-auto flex-wrap justify-center'>	
 						    {% for theme in listeDernThemes %}
 						    	{% if theme is defined and theme is not null and theme != currentTheme %}
-						      		{{ vignetteModule.vignette(theme) }}
+						    		<div class="flex-item {{ classThemeItem }} pa2"> {# w-100 w-50-ns #} 
+						      			{{ vignetteModule.vignette(theme) }}
+						      		</div>
 						      	{% endif %}
 						    {% endfor %} 
 						</div>
@@ -134,7 +142,7 @@
 
 	{# PARTIE 2 / lois/classement + actus #}
 	<div class="flex flex-auto flex-wrap">
-		<div class="flex-item w-100 w-40-ns bg-ms-vert">
+		<div class="flex-item w-100 w-40-ns bg-ms-vert pa3">
 			{{ loisModule.lois() }}
 			<div class="tc">
 				<h2 class="sub-title align-center">Classement</h2>
@@ -146,8 +154,7 @@
 									{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
 								{% endfor %}
 							</div>
-						</div>
-						
+						</div>						
 						{{ scoresElementsModule.scores_legende() }}
 					</div>
 
