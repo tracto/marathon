@@ -72,10 +72,9 @@
 
 		    {# colonne podium + wall of fame #}
 		    {% if listeJoggeursScore is defined and listeJoggeursScore is not empty %} 
-		    	<div class="flex-item w-100 w-40-ns bg-ms-gold">
-			    	
-					<div class="bg-op--white-5 pbn">
-						<h2 class="align-center">Podium</h2>
+		    	<div class="flex-item w-100 w-40-ns bg-ms-gold pa3">
+			    	<h2 class="tc">Podium</h2>
+					<div class="bg-white-30">						
 						<div class="flex-container podium-wrapper mbl">
 							{% for joggeurScore in listeJoggeursScore %}
 								{% if loop.index <= 3 %}
@@ -115,9 +114,9 @@
 					{% endfor %}
 
 					
-					<div class="walloffame bg-op--white-5 align-center mtm">
-						<h2>Wall of Fame</h2>
-						<div class="wof-wrapper  flex-container flex-start flex-justify">
+					<div class="walloffame pt4">
+						<h2 class="tc">Wall of Fame</h2>
+						<div class="wof-wrapper  flex flex-wrap flex-auto flex-justify">
 							
 							{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
 
