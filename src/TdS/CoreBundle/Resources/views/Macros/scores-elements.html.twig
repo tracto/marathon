@@ -1,3 +1,4 @@
+{# MACRO PODIUM #}
 {% macro podium_medaillon(joggeurScore,loopindex) %}
 	{% set totalFastpoints = 0 %}
 	{% set totalHeartpoints = 0 %}
@@ -50,9 +51,20 @@
 		</div>
 	</div>
 {% endmacro %}
+{# FIN MACRO PODIUM #}
 
 
 
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+
+
+
+
+
+{# MACRO WALL OF FAME JOGGEUR #}
 {% macro wof_medaillon(wof_joggeur,intitule,desc,class) %}
 	{% set totalHeartpoints = 0 %}
 	{% set totalTakenpoints = 0 %}
@@ -65,77 +77,111 @@
 
 
 
-	<div class="wof-item {{ class }} flex-item list-item pas">
-		<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': wof_joggeur.id}) }}">								
-			<div class="round">
-					{% if wof_joggeur.image is not null %}
-						<img class="" src="{{ wof_joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_joggeur.image.alt }}">
-					{% else %}
-				  		<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
-					{% endif %}
-			</div>
-		</a>
-		<div class="b--dashed">
-			<h4 class="mts mbn sub-sub-title">{{ intitule }}</h4>
-			<strong>{{ desc }}</strong>
-		 	<div>{{ wof_joggeur.pseudo }}</div>
-		</div>
-
-		<div class="pbs flex-align ">
-			<div class="score">{{ wof_joggeur.joggeurScore.total }} pts</div>
-			<span class="points align-center">
-				<span class="points-item">
-						<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-						<span class="">{{ totalFastpoints }}</span> 
-				</span>
-				<span class="points-item points-item-heart ">
-  					<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-  					<span class="">{{ totalHeartpoints }}</span>
-				</span>
-				{% if totalTakenpoints != 0 %}
-  					<span class="points-item points-item-taken">
-      					<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-      					<span class="">{{ totalTakenpoints }}</span>
-  					</span>	
+	<div class="wof-item {{ class }} flex-item pa1 w-33 ">
+		<div class="bg-white-20 pa1 min-h-100 flex flex-wrap">
+			<a class="medaillon-round" href="{{ path('tds_marathon_joggeur_view', {'id': wof_joggeur.id}) }}">								
+				{% if wof_joggeur.image is not null %}
+					<img class="" src="{{ wof_joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_joggeur.image.alt }}">
+				{% else %}
+			  		<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 				{% endif %}
-			</span>
+			</a>
+
+			<div class="relative w-100 self-end">
+				<div class="pb3">
+					<h4 class="">{{ intitule }}</h4>
+					<strong>{{ desc }}</strong>
+				 	<div>{{ wof_joggeur.pseudo }}</div>
+				</div>
+
+				<div class="relative bottom-0 b--dashed bb-0 bt bl-0 br-0 pt3">
+					<div class="score f4">{{ wof_joggeur.joggeurScore.total }} pts</div>
+					<div class="flex flex-auto flex-wrap justify-between mt3">
+						<span class="flex-item bg-near-black ms-gold pa1 w-30">
+								<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid"><use xlink:href="#icon-fast"></use></svg>
+								<span class="dib v-mid">{{ totalFastpoints }}</span> 
+						</span>
+						<span class="flex-item bg-near-black ms-gold pa1 w-30">
+		  					<svg class="icon icon--xs icon-heart2 fill-ms-gold dib v-mid" ><use xlink:href="#icon-heart2"></use></svg>
+		  					<span class="dib v-mid">{{ totalHeartpoints }}</span>
+						</span>
+						{% if totalTakenpoints != 0 %}
+		  					<span class="flex-item bg-near-black ms-gold pa1 w-30">
+		      					<svg class="icon icon--xs icon-minus fill-ms-gold dib v-mid" ><use xlink:href="#icon-minus"></use></svg>
+		      					<span class="dib v-mid">{{ totalTakenpoints }}</span>
+		  					</span>	
+						{% endif %}
+					</div>
+				</div>
+			</div>
 		</div>		 
 	</div>
 {% endmacro %}
+{# FIN MACRO WALL OF FAME JOGGEUR #}
 
 
+
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+
+
+
+
+
+{# MACRO MEDAILLON SCORE PAR THEME #}
 {% macro theme_medaillon(score) %}
-	<div class="score-item-theme wof-item flex-item list-item pas">											
-		<a class="thumbnail" href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
-			<div class="round">
+	<div class="score-item-theme wof-item flex-item pa1 w-33">									<div class="bg-white-20 pa1 min-h-100 flex flex-wrap">		
+			<a class="medaillon-round" href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
 			    {% if score.theme.image is not null %}
 		  			<img class="" src="{{ score.theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ score.theme.image.alt }}"/>	
 				{% endif %}
-			</div>
-		</a>
-		<h5 class="pas man sep--dashed">{{ score.theme.titre }}</h5> 
-		<div class='score'>{{ score.totalTheme }} pts</div>
-		<div class='points'>
-			<span class="points-item points-item-fast">
-				<svg class="icon icon--s icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>
-				<span>{{ score.fastpoints }}</span>
-			</span>
+			</a>
 
-			<span class="points-item points-item-heart ">
-				<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-				<span>{{ score.heartpoints }}</span>
-			</span>
-			{% if score.takenpoints != 0 %}
-				<span class="points-item points-item-taken">
-					<svg class="icon icon--s icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-					<span>{{ score.takenpoints }}</span>
-				</span>
-			{% endif %}
+			<div class="relative w-100 self-end">
+				<div class="pb3">
+					<strong class="db tc">{{ score.theme.titre }}</strong> 
+					<span class='db score f5 tc'>{{ score.totalTheme }} pts</span>
+				</div>
+
+				<div class="relative bottom-0 b--dashed bb-0 bt bl-0 br-0 pt3">
+					<div class="flex flex-auto flex-wrap justify-between mt3">
+						<span class="flex-item bg-near-black ms-gold pa1 w-30">
+							<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid" ><use xlink:href="#icon-fast"></use></svg>
+							<span class="dib v-mid">{{ score.fastpoints }}</span>
+						</span>
+
+						<span class="flex-item bg-near-black ms-gold pa1 w-30">
+							<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid" ><use xlink:href="#icon-heart2"></use></svg>
+							<span class="dib v-mid">{{ score.heartpoints }}</span>
+						</span>
+						{% if score.takenpoints != 0 %}
+							<span class="flex-item bg-near-black ms-gold pa1 w-30">
+								<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid" ><use xlink:href="#icon-minus"></use></svg>
+								<span class="dib v-mid">{{ score.takenpoints }}</span>
+							</span>
+						{% endif %}
+					</div>
+				</div>
+			</div>
 		</div>					      						
 	</div>
 {% endmacro %}
+{# FIN MACRO MEDAILLON SCORE PAR THEME #}
 
 
+
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+
+
+
+
+
+{# MACRO LISTE SCORES JOGGEURS #}
 {% macro scores_latotale(joggeurScore,loopindex) %}
 	{% set totalHeartpoints = 0 %}
 	{% set totalTakenpoints = 0 %}
@@ -147,7 +193,7 @@
 	{% endfor %}
 
 
-	<div class="thumb-line list-item  plm prm pbs">
+	<div class="score-item-liste bg-red">
 			<a class="flex-container-h" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
 			<span class="author-thumb mrs">
 				{% if joggeurScore.joggeur.image is not null %}
@@ -183,14 +229,28 @@
 			</a>
 	</div>
 {% endmacro %}
+{# FIN MACRO LISTE SCORES JOGGEURS #}
 
 
 
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+
+
+
+
+
+{# MACRO LEGENDE #}
 {% macro scores_legende() %}
-	<div class="legende align-center pbn mbn">
-		Légende [
-		<svg class="icon icon--s icon-fast" ><use xlink:href="#icon-fast"></use></svg>=points vitesse 
-		<svg class="icon icon--xs icon-heart2 mls" ><use xlink:href="#icon-heart2"></use></svg>=points bisous
-		<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>=points retirés ]
+	<div class="legende tc f7 black-50 i">
+		<span class="dib v-mid">Légende [</span>
+		<svg class="icon icon--s dib v-mid fill-black-50" ><use xlink:href="#icon-fast"></use></svg>
+		<span>=points vitesse</span> 
+		<svg class="icon icon--xs dib v-mid ml2 fill-black-50" ><use xlink:href="#icon-heart2"></use></svg>
+		<span class="dib v-mid">=points bisous</span>
+		<svg class="icon icon--s dib v-mid ml2 fill-black-50" ><use xlink:href="#icon-minus"></use></svg>
+		<span class="dib v-mid">=points retirés ]</span>
 	</div>
 {% endmacro %}

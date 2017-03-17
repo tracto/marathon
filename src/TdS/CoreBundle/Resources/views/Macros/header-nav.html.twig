@@ -108,7 +108,8 @@
 
   				<div class="hotfresh-wrapper tc relative center mw6">
   					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
-	  					<div id="form-hotfresh" class="form-hotfresh dn">							{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
+	  					<div id="form-hotfresh" class="form-hotfresh dn">							
+	  						{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
 						</div>
 					{% endif %}
 					<div id="hotfresh-inner" class="tc">

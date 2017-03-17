@@ -23,7 +23,7 @@
         {% endblock %}
 
         {% block fos_comment_comment_new_form %}
-            <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
+            <form class="fos_comment_comment_new_form w-100" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
 
 
                 {% block fos_comment_form_fields %}
@@ -33,26 +33,28 @@
                     </div>
 
 
-                    <div class="fos_comment_comment_form_body">
-                        <div class="fos_comment_comment_authorImage comment_authorImage_preview">
+                    <div class="fos_comment_comment_form_body flex flex-auto flex-wrap justify-center ba br3 black-30 mw6 w-100 ma3">
+                        <div class="flex-item thumbnail--m">
                             {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-                                <img class="img-responsive" src="{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ app.user.joggeur.image.alt }}"/>
+                                <img class="db bn" src="{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ app.user.joggeur.image.alt }}"/>
                             {% else %}
-                                <img class="img-responsive" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="anonymous img"/>
+                                <img class="" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="anonymous img"/>
                             {% endif %}
                         </div>
 
-                        {{ form_widget(form.body) }}
+                        <div class="flex-item fos_comment_comment_form_content">
+                            {{ form_widget(form.body) }}
+                        </div>
 
-                        <div class="fos_comment_submit align-right">
+                        <div class="fos_comment_submit flex-item tr">
                             {% block fos_comment_form_submit %}
-                                <button class='button btn' type="submit" class="button btn fos_comment_comment_validate">
-                                    <svg class="icon icon--s icon-alone icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
+                                <button class='button' type="submit" class="button btn fos_comment_comment_validate">
+                                    <svg class="icon icon--xs"><use xlink:href="#icon-checkmark"></use></svg>
                                 </button>
                                 
                                 {% if parent is not null %}
-                                    <button type="button"  class="button btn fos_comment_comment_reply_cancel">
-                                        <svg class="icon icon--s icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                                    <button type="button"  class="button">
+                                        <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
                                     </button>
                                 {% endif %}                               
                             {% endblock %}

@@ -159,17 +159,17 @@
 					{% endfor %}
 
 					{# wall of fame du thème #}
-					<div class="playlist-scores walloffame bg-white-50 tc pa3 bg-ms-gold">
-						<h3 class="sub-title tc">Wall of Fame du thème</h3>
-						<div class="wof-wrapper flex flex-auto flex-wrap flex-justify">
+					<div class="playlist-scores walloffame tc pa3  bg-ms-gold">
+						<h2 class="tc ">Wall of Fame du thème</h2>
+
+						<div class="wof-wrapper flex flex-auto flex-wrap flex-justify mv3">
 							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
 
 							{{ scoresElementsModule.wof_medaillon(jogWinner,"Le Total Winner","Celui qui a gagné ce thème","wof_jogWinner") }}
 
-							{{ scoresElementsModule.wof_medaillon(jogLoser,"Le Total Loser","Celui qui a pas compris","wof_jogLoser") }}
-
-							{{ scoresElementsModule.scores_legende() }}
+							{{ scoresElementsModule.wof_medaillon(jogLoser,"Le Total Loser","Celui qui a pas compris","wof_jogLoser") }}					
 						</div>
+						{{ scoresElementsModule.scores_legende() }}
 					</div>
 					{# fin wall of fame #}
 				{% endif %}
@@ -179,11 +179,11 @@
 				{% if theme.chronique is defined and theme.chronique is not null %}
 					<div class="playlist-chronique pa3 bg-ms-bleu">
 							{% if theme.chronique != '' and theme.joggeurChronique is not null %}
-									<div class="playlist-chronique-header">
+									<div class="playlist-chronique-header pb2 mb2 b--dashed bt-0 br-0 bl-0 bb">
 										<div class="flex flex-wrap flex-auto justify-between w-100">
-											<div class="flex-item w-50 w-40ms flex-end">
-												<svg class="icon icon--s icon-newspaper"><use xlink:href="#icon-newspaper"></use></svg>
-												<h4 class="sub-title">Chronique </h4>
+											<div class="flex-item w-50 w-40ms flex-start">
+												<svg class="icon icon--s icon-newspaper dib v-mid"><use xlink:href="#icon-newspaper"></use></svg>
+												<h2 class="dib v-mid ma0 pa0">Chronique </h2>
 											</div>
 
 											<div class="flex-item">
@@ -214,7 +214,7 @@
 				{# fin chronique du thème #}
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<div class="pam {{ pbxxl }}">
+					<div class="pa3">
 						<a class="button btn btn-action mtm" href="{{ path('tds_marathon_theme_edit', {'id': theme.id}) }}">
 				  			<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 				  			<span class="btn__label">Modifier le thème</span>
@@ -239,26 +239,26 @@
 					{% endfor %}
 				{% endif %}
 
-				{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and  enCours == true) %}					
+				{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and  theme.statut == 1) %}					
 					{% if joggeurInMusicList is null %}
-						<div class="btn-double mas">
-							<div class="btn__info flex-item align-right prm mrn pts pbs">
+						<div class="flex flex-auto items-center justify-end">
+							<div class="flex-item tr pr2">
 								<span>Tu n'as pas encore ajouté de morceau</span>
 							</div>
 
-							<a class="button btn btn-action flex-item mln" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': app.user.joggeur.id, 'theme_id': theme.id, 'route':'theme-view'}) }}">
-								<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
+							<a class="button flex-item" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': app.user.joggeur.id, 'theme_id': theme.id, 'route':'theme-view'}) }}">
+								<svg class="icon icon--s pa1"><use xlink:href="#icon-add-music"></use></svg>
 								<span class="btn__label">ajouter un morceau</span>
 							</a>
 						</div>
 					{% else %}
-						<div class="btn-double mas">
-							<div class="btn__info flex-item align-right prm mrn pts pbs">
-								<span>Tu as déjà ajouté un morceau au thème en cours</span>
+						<div class="flex flex-auto flex-wrap justify-end">
+							<div class="flex-item tr pa3 bg-black-50 white">
+								<span>Tu as déjà ajouté un morceau au thème</span>
 							</div>
 						{% if is_granted("ROLE_SUPER_ADMIN") %}
-							<a class="button btn btn-action flex-item mln" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': app.user.joggeur.id, 'theme_id': theme.id, 'route':'theme-view'}) }}">
-								<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
+							<a class="button flex-item" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': app.user.joggeur.id, 'theme_id': theme.id, 'route':'theme-view'}) }}">
+								<svg class="icon icon--s pa1"><use xlink:href="#icon-add-music"></use></svg>
 								<span class="btn__label">ajouter un morceau</span>
 							</a>
 						{% endif %}
@@ -268,9 +268,9 @@
 
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<div class="flex-item align-right">
-						<a class="button btn btn-action mas" href="{{ path('tds_marathon_musictitle_list', {'theme_id': theme.id}) }}">
-			  				<svg class="icon icon--m  icon-remove-music"><use xlink:href="#icon-remove-music"></use></svg>
+					<div class="flex flex-auto justify-end mt2">
+						<a class="button" href="{{ path('tds_marathon_musictitle_list', {'theme_id': theme.id}) }}">
+			  				<svg class="icon icon--s pa1"><use xlink:href="#icon-remove-music"></use></svg>
 			  				<span class="btn__label">Supprimer un morceau</span>
 						</a>
 					</div>
@@ -295,21 +295,20 @@
 
 
 		{# PARTIE 2 / commentaires #}
-		<div class="align-center fos-comment-header-buttons">
-			<div class="comment-action-buttons">
-				<button class="btn fos_comments_close" data-action="hide-comments">
+		<div class="fos-comment-header-buttons w-100 bt black-30 pb4">
+			<div class="comment-action-buttons center tc dn">
+				<button class="button" data-action="hide-comments">
 					<svg class="icon icon--xs icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
 				</button>
 
-				<button class="btn fos_comments_reload" data-action="reload-comments">
+				<button class="button" data-action="reload-comments">
 					<svg class="icon icon--xs icon-alone icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
 				</button>
 			</div>
 		</div>
 
 		
-		<div id="playlist-comments" class="playlist-comments ptl pbl {{ pbxxl }}">
-
+		<div id="playlist-comments" class="playlist-comments dn">
 			{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': theme.id } %}
 		</div>
 		{# FIN PARTIE 2 #}	
@@ -332,6 +331,7 @@
 {% macro pl_joggeur(theme,joggeur,tabIdJoggeur,autoplay,saison,joggeurScoreCurrSais) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
+	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
 
 	{% if tabIdJoggeur is not null %}
 		{% set keyJoggeurPrec ='' %}
@@ -360,68 +360,102 @@
 		{% set autoplay = "false" %}
 	{% endif %}
 
-	<div class='playlist-wrapper relative pbxxl' data-type="joggeur" data-autoplay={{ autoplay }}>
+	<div class='playlist-wrapper relative w-100' data-type="joggeur" data-autoplay={{ autoplay }}>
+		{# flèches joggeur precedent / joggeur suivant #}
 		{% if tabIdJoggeur is not null %}
-			<a class="button btn playlist-nav-prec pas" data-id="{{ tabIdJoggeur[keyJoggeurPrec] }}" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurPrec]}) }}">
-				<svg class="icon icon-alone icon--l icon-playlist-arrow-prev"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
-			</a>
-			<a class="button btn playlist-nav-suiv pas" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurSuiv]}) }}">
-				<svg class="icon icon-alone icon--l icon-playlist-arrow-suiv"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
-			</a>
+			<div class="playlist-fleches w-100 absolute z-1 cf pe-n">
+				<a class="pa2 bg-near-black fl pe-a" data-id="{{ tabIdJoggeur[keyJoggeurPrec] }}" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurPrec]}) }}">
+					<svg class="icon icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
+				</a>
+				<a class="pa2 bg-near-black fr pe-a" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurSuiv]}) }}">
+					<svg class="con icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
+				</a>
+			</div>
 		{% endif %}
+		{# fin flèches #}
+
+		
 
 
-		<div class="flex-container-h">
-			<div class="playlist-header-wrapper col-playlist-gauche">
-				<div class="relative">
-					<div class="playlist-header-image">
+		{# PARTIE 1 / contenu joggeur + playlist #}
+		<div class="flex flex-auto flex-wrap">
+			{# colonne infos du joggeur + scores #}
+			<div class="flex-item w-100 w-50-ns">
+				<div class="relative"> 					
+					{# header (infos) du joggeur #}
+					<div class="playlist-header pa3 bg-ms-turquoise cf">
+						<h1 class="pa0 ma0 lh-solid pt3">{{ joggeur.pseudo }}</h1>
+
+						<div class="">
+							<div class="tr">
+								<svg class="icon icon--s"><use xlink:href="#icon-cd"></use></svg>
+								<span>{{ joggeur.musicTitles.count }}</span>
+							</div>
+							{% if joggeur.mail is defined and joggeur.mail is not null %}
+								<a class="db no-underline near-black" href="mailto:{{ joggeur.mail }}">
+									<svg class="icon icon--s icon-paperplane"><use xlink:href="#icon-paperplane"></use></svg>
+									<span class='dib v-mid'>{{ joggeur.mail }}</span>
+								</a>
+							{% endif %}
+
+							{% if joggeur.website.url is defined and joggeur.website.url is not null %}
+								<a class="db no-underline" href="{{ joggeur.website.url }}" target="blank">
+									<svg class="icon icon--s icon-website dib v-mid"><use xlink:href="#icon-website"></use></svg>
+									<span class="dib v-mid">{{ joggeur.website.url }}</span>
+								</a>
+							{% endif %}
+						</div>						
+					</div>
+					{# fin header (infos) du joggeur #}
+
+
+					{# image du joggeur #}
+					<div class="playlist-header-image w-100 min-h-100">
 						{% if joggeur.image is not null %}
-							<img class="img-aspect-ratio" src="{{ joggeur.image.webPath  | imagine_filter('big_image') }}" alt="{{ joggeur.image.alt }}">
+							<img class="w-100 db min-h-100" src="{{ joggeur.image.webPath  | imagine_filter('big_image') }}" alt="{{ joggeur.image.alt }}">
 						{% else %}
-						  	<img class="img-aspect-ratio" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('big_image') }}" alt="">		
+						  	<img class="w-100 db" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('big_image') }}" alt="">		
 						{% endif %}
 					</div>
-			
-
-					<div class="playlist-header">
-						
-
-						<div class="playlist-header-links">
-							{% if joggeur.mail is defined and joggeur.mail is not null %}
-								<div class="playlist-header-mail">
-										<a class="btn" href="mailto:{{ joggeur.mail }}">
-											<span class='mail-text'>{{ joggeur.mail }}</span>
-											<svg class="icon icon--m icon-paperplane"><use xlink:href="#icon-paperplane"></use></svg>
-											
-										</a>
-								</div>
-							{% endif %}
-
-							{% if joggeur.website.url is defined %}
-								<div class="playlist-header-website">
-										<a class="btn" href="{{ joggeur.website.url }}" target="blank">
-											<svg class="icon icon--m icon-website"><use xlink:href="#icon-website"></use></svg>
-											<span>{{ joggeur.website.url }}</span>
-										</a>
-								</div>
-							{% endif %}
-						</div>
-						
-						<h1 class="pam">{{ joggeur.pseudo }}</h1>
-					</div>
+					{# fin image du joggeur #}
 				</div>
 
-				
+				{# présentation du joggeur #}
+				{% if joggeur.presentation is not null %}
+					<div class="bg-ms-turquoise">
+						<div class="pa3">
+							<h2 class="tc">Présentation</h2>
+			  				<div class="pa0">{{ joggeur.presentation | raw }}</div>
+			  			</div>
+			  		</div>
+				{% endif %}
 
+				{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo) %}
+					<div class="bg-ms-turquoise pa3 cf">
+						<a class="button tr no-underline near-black fr" href="{{ path('tds_marathon_joggeur_edit', {'id': joggeur.id}) }}">
+			  				<svg class="icon icon--xs"><use xlink:href="#icon-pencil"></use></svg>
+
+			  				{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
+			  					<span class="">Modifier mon profil</span>
+			  				{% elseif is_granted("ROLE_SUPER_ADMIN") and joggeur.pseudo != app.user.joggeur.pseudo %}
+			  					<span class="">Modifier le joggeur</span>
+			  				{% endif %}		  				
+						</a>
+					</div>
+				{% endif %}
+				{# présentation du joggeur #}	
+
+				{# scores du joggeur de la saison en cours, par thème #}
 				{% if joggeurScoreCurrSais is defined and joggeurScoreCurrSais is not null %}
-					{% if joggeurScoreCurrSais.total is defined %}
-						<h4 class="sub-title man pan ptm align-center">Score</h4>
-						<div class="playlist-scores playlist-joggeur-score walloffame pbn">
-							<div class="playlist-scores-header pbm ptm mbm w-70-l">				<h5 class="sub-sub-title man pan align-center">{{ saison.titre }} : {{ joggeurScoreCurrSais.total }} pts</h5>
+					{% if joggeurScoreCurrSais.total is defined %}						
+						<div class="playlist-scores walloffame pa3 bg-ms-gold">
+							<h2 class="tc">Score</h2>
+							<div class="w-100">
+								<span class="db f4 tc pa2 bg-white-20 center">{{ saison.titre }} : {{ joggeurScoreCurrSais.total }} pts</span>
 							</div>
 							
 							{% if joggeurScoreCurrSais.scores is defined and joggeurScoreCurrSais.scores is not null and joggeurScoreCurrSais.scores is not empty %}
-								<div class="wof-wrapper flex-container flex-start flex-justify align-center pbm">
+								<div class="wof-wrapper flex flex-auto flex-wrap flex-justify mv3">
 									{% for score in joggeurScoreCurrSais.scores %}
 										{{ scoresElementsModule.theme_medaillon(score) }}
 									{% endfor %}
@@ -431,70 +465,53 @@
 						</div>
 					{% endif %}
 				{% endif %}
+				{# fin scores du joggeur de la saison en cours #}
 
-				<div class="align-center mtm">
-					<div class="pas sep">
-						
-						<btn class="button btn btn-more btn-caret pbs" data-action="playlist-scores-more" data-id="{{ joggeur.id }}">
-							<svg class="icon icon--s icon-arrow-right" ><use xlink:href="#icon-arrow-left"></use></svg>
-							<span class="pts">Scores des autres saisons</span>													
-						</btn>
-						
-					</div>
-					
-				</div>
+				{# scores du joggeur des autres saisons #}
+				<div class="bg-red">
+					<div class="pa2">						
+						<btn class="button button-caret" data-action="playlist-scores-more" data-id="{{ joggeur.id }}">
+							<svg class="icon icon--xs dib v-mid" ><use xlink:href="#icon-arrow-left"></use></svg>
+							<span class="dib v-mid">Scores des autres saisons</span>		
+						</btn>						
+					</div>					
+				
 
-				<div id="playlist-scores-more" class="playlist-scores-more">
-					<div id="loading">
-				  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
+					<div id="playlist-scores-more" class="pa3">
+						<div id="loading" class"w-100 dn">
+					  		{{ loaderModule.loader() }}
+						</div>
 					</div>
 				</div>
-													
+				{# scores du joggeur des autres saisons #}									
 			</div>
+			 {# fin colonne 1 / infos #}
 
 
-			<div class="playlist-body-wrapper col-playlist-droite">				
+
+
+			{# colonne 2 / playlist #}
+			<div class="flex-item w-100 w-50-ns pa3">
+
+
 				{{ playlistModule.playlist(null,joggeur) }}
 
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
 
-					<div class="btn-double mas">
-						<div class="btn__info flex-item align-right prm mrn pts pbs">
+					<div class="flex flex-auto flex-wrap justify-end">
+						<div class="flex-item tr pa3 bg-black-50 white">
 							<span>Nombre total de morceaux : {{ joggeur.musicTitles.count }}</span>
 						</div>
 
-						<a class="button btn btn-action mln flex-item" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': joggeur.id, 'theme_id': 0, 'route':'joggeur-view'}) }}">
-							<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
-							<span class="btn__label">ajouter un morceau</span>
+						<a class="button flex-item" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': joggeur.id, 'theme_id': 0, 'route':'joggeur-view'}) }}">
+							<svg class="icon icon--s pa1"><use xlink:href="#icon-add-music"></use></svg>
+							<span class="">ajouter un morceau</span>
 						</a>
 					</div>
-				{% endif %}
-
-				{% if joggeur.presentation is not null %}
-					<div class="playlist-presentation ">
-						<div class="playlist-presentation-inner pam">
-							<h4 class="sub-title man pan align-center">Présentation</h4>
-			  				<div class="man pan">{{ joggeur.presentation | raw }}</div>
-			  			</div>
-			  		</div>
-				{% endif %}
-
-				{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo) %}
-					<div class="pam ">
-						<a class="button btn btn-action pull-right mtn" href="{{ path('tds_marathon_joggeur_edit', {'id': joggeur.id}) }}">
-			  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-
-			  				{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
-			  					<span class="btn__label">Modifier mon profil</span>
-			  				{% elseif is_granted("ROLE_SUPER_ADMIN") and joggeur.pseudo != app.user.joggeur.pseudo %}
-			  					<span class="btn__label">Modifier le joggeur</span>
-			  				{% endif %}		  				
-						</a>
-					</div>
-				{% endif %}	
-				 		
+				{% endif %}				 		
 			</div>
+			{# fin colonne 2 / playlist #}
 		</div>
 	</div>
 {% endmacro %}

@@ -1,37 +1,47 @@
 <div>
 	{% if joggeurScore is defined and joggeurScore is not empty and joggeurScore is not null %}
-		<div class="pam">
+		<div class="">
 			{% set saison = "" %}
 			{% for score in joggeurScore.scores %}
 				{% if saison is empty %}
 					{% set saison = score.theme.saison.titre %}
-					<div class="sep--dashed">
-					<h3 class="sub-sub-title align-center">{{ saison }}</h3>
+					<div class="b--dashed bt br-0 bl-0 bb-0">
+					<h3 class="tc">{{ saison }}</h3>
 				{% endif %}
 
 
 				{% if saison != score.theme.saison.titre %}
 					{% set saison = score.theme.saison.titre %}
 					</div>
-					<div class="sep--dashed">
-					<h3 class="sub-sub-title align-center">{{ saison }}</h3>				
+					<div class="b--dashed bt br-0 bl-0 bb-0">
+					<h3 class="tc">{{ saison }}</h3>				
 				{% endif %}
 
-				<div class="pbs flex-container flex-align">
-					<div class="saison-theme-vignette">
-						<a href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
-							<img class="" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
+				<a class="flex flex-wrap flex-row items-center mb2 no-underline near-black w-100"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
+							<div class="flex-item thumbnail--m">
+								<img class="" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
+							</div>
 																						
-							<span class="pls prs">{{ score.theme.titre }} : {{ score.totalTheme }}</span>
-							<span>
-								(<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg><span>{{ score.heartpoints }}</span> 
-								<svg class="icon icon--s icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>
-								<span>{{ score.fastpoints }}</span> 
-								<svg class="icon icon--s icon-minus mls" ><use xlink:href="#icon-minus"></use></svg><span>{{ score.takenpoints }} )</span>
+							<span class="flex-item flex-auto ph2">{{ score.theme.titre }} : {{ score.totalTheme }}
 							</span>
-						</a>
-		      		</div>
-		      	</div>							
+
+							<div class="flex-item flex flex-wrap justify-between items-center">
+								<div class="bg-near-black ms-bleu flex-item w-30 pa1 flex">
+									<svg class="icon icon--xs fill-ms-bleu flex-item w-50 mr2" ><use xlink:href="#icon-heart2"></use></svg>
+									<span class="flex-item w-50">{{ score.heartpoints }}</span>
+								</div>
+
+								<div class="bg-near-black ms-bleu w-30 pa1 flex"> 
+									<svg class="icon icon--xs fill-ms-bleu flex-item w-50 mr2"><use xlink:href="#icon-fast"></use></svg>
+									<span class="flex-item w-50">{{ score.fastpoints }}</span>
+								</div>
+
+								<div class="bg-near-black ms-bleu w-30 pa1 flex"> 
+									<svg class="icon icon--xs fill-ms-bleu flex-item w-50 mr2" ><use xlink:href="#icon-minus"></use></svg>
+									<span class="flex-item w-50">{{ score.takenpoints }}</span>
+								</div>
+							</div>
+				</a>							
 			{% endfor %}
 			</div>
 		</div>
