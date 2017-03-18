@@ -74,11 +74,11 @@
 		    {% if listeJoggeursScore is defined and listeJoggeursScore is not empty %} 
 		    	<div class="flex-item w-100 w-40-ns bg-ms-gold pa3">
 			    	<h2 class="tc">Podium</h2>
-					<div class="bg-white-30">						
-						<div class="flex-container podium-wrapper mbl">
+					<div class="bg-white-30 pa2">						
+						<div class="podium-wrapper flex items-end mb4">
 							{% for joggeurScore in listeJoggeursScore %}
 								{% if loop.index <= 3 %}
-									{{ scoresElementsModule.podium_medaillon(joggeurScore,loop.index) }}												
+									{{ scoresElementsModule.podium_medaillon(joggeurScore,loop.index) }}			
 								{% endif %}									 
 							{% endfor %}
 						</div>
@@ -141,25 +141,23 @@
 
 	{# PARTIE 2 / lois/classement + actus #}
 	<div class="flex flex-auto flex-wrap">
-		<div class="flex-item w-100 w-40-ns bg-ms-vert pa3">
-			{{ loisModule.lois() }}
-			<div class="tc">
-				<h2 class="sub-title align-center">Classement</h2>
-				{% if listeJoggeursScore|length >= 3 %} 				
-					<div class="latotale bg-op--white-5 pam pbn mtm">						
-						<div class="latotale-wrapper flex-container-h">
-							<div class="flex-item-fluid align-left">
-								{% for joggeurScore in listeJoggeursScore %}
-									{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
-								{% endfor %}
-							</div>
-						</div>						
-						{{ scoresElementsModule.scores_legende() }}
-					</div>
+		<div class="flex-item w-100 w-40-ns">
+			<div class="bg-ms-vert pa3"> 
+				{{ loisModule.lois() }}
+			</div>
 
+			<div class="bg-ms-purple pa3">
+				<h2 class="tc">Classement</h2>
+				{% if listeJoggeursScore|length >= 3 %} 										<div class="">
+						{% for joggeurScore in listeJoggeursScore %}
+							{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
+						{% endfor %}
+					</div>						
+					{{ scoresElementsModule.scores_legende() }}
 				{% endif %}
 			</div>
 		</div>
+		
 
 		<div class="flex-item w-100 w-60-ns bg-ms-orange-light">
 			<h2 class="align-center">Actus</h2>	

@@ -1,5 +1,7 @@
 {# MACRO PODIUM #}
 {% macro podium_medaillon(joggeurScore,loopindex) %}
+	{% import _self as self %}
+
 	{% set totalFastpoints = 0 %}
 	{% set totalHeartpoints = 0 %}
 	{% set totalTakenpoints = 0 %}	
@@ -10,43 +12,44 @@
 	{% endfor %}
 
 
-	<div class="podium podium-{{ loopindex }} list-item">
-		<div class="inner-podium">
-			<div class="colonne">
-				<strong class="place">{{ loopindex }}</strong>
-				<a class="thumbnail" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
-					<div class="round">
-					    {% if joggeurScore.joggeur.image is not null %}
-				  			<img src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
-				  		{% else %}
-				  			<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
-						{% endif %}
-					</div>
-				</a>
 
-				<div class="pbs score-wrapper flex-align">
-					<span class="mrm score block">{{ joggeurScore.total }} pts</span>
-					
-					
-						<span class="points align-center">
-							<span class="points-item">
-  							<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-  							<span class="">{{ totalFastpoints }}</span> 
-							</span>
-							<span class="points-item points-item-heart ">
-      						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-      						<span class="">{{ totalHeartpoints }}</span>
-  						</span>
-  						{% if totalTakenpoints != 0 %}
-      						<span class="points-item points-item-taken">
-	      						<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-	      						<span class="">{{ totalTakenpoints }}</span>
-      						</span>	
-  						{% endif %}
-  					</span>
-						
-					</div>
-				<span class="joggeur-name">{{ joggeurScore.joggeur.pseudo }}</span>
+
+    {% if loopindex == 1 %}
+		{% set podiumColor = "ms-gold" %}
+		{% set classPodium = "order-2 z-5" %}
+	{% elseif loopindex == 2 %}
+		{% set podiumColor = "ms-purple" %}
+		{% set classPodium = "order-3 z-4" %}
+	{% elseif loopindex == 3 %}
+		{% set podiumColor = "ms-bleu-bright" %}
+		{% set classPodium = "order-1 z-3" %}
+	{% endif %}
+
+
+	<div class="podium {{ classPodium }} podium-{{ loopindex }} flex-item w-33 ">
+		<div class="bg-{{ podiumColor }} w-90 h-100 center flex flex-auto flex-wrap">
+			<div class="flex-item self-start f2 dark-gray tc fw1 pt3 w-100">{{ loopindex }}</div>
+			<a class="flex-item self-end w-100 center" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
+				<div class="medaillon-round">
+				    {% if joggeurScore.joggeur.image is not null %}
+			  			<img src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+			  		{% else %}
+			  			<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
+					{% endif %}
+				</div>
+			</a>
+
+			<div class="w-100 flex-item self-end pa1">
+				<h4 class="tc f5 ma0 pa0">{{ joggeurScore.joggeur.pseudo }}</h4>
+				<div class="tc f4">{{ joggeurScore.total }} pts</div>
+									
+				<div class="flex flex-auto flex-wrap justify-center  {{ podiumColor }} pt3">
+					{{ self.scores_miniblock_vertical(totalFastpoints,"#icon-fast",podiumColor) }}
+					{{ self.scores_miniblock_vertical(totalHeartpoints,"#icon-heart2",podiumColor,"pa1") }}
+					{% if totalTakenpoints != 0 %}
+						{{ self.scores_miniblock_vertical(totalTakenpoints,"#icon-minus",podiumColor,"pv1") }}
+					{% endif %}
+				</div>						
 			</div>
 		</div>
 	</div>
@@ -66,6 +69,8 @@
 
 {# MACRO WALL OF FAME JOGGEUR #}
 {% macro wof_medaillon(wof_joggeur,intitule,desc,class) %}
+	{% import _self as self %}
+
 	{% set totalHeartpoints = 0 %}
 	{% set totalTakenpoints = 0 %}
 	{% set totalFastpoints = 0 %}	
@@ -96,20 +101,11 @@
 
 				<div class="relative bottom-0 b--dashed bb-0 bt bl-0 br-0 pt3">
 					<div class="score f4">{{ wof_joggeur.joggeurScore.total }} pts</div>
-					<div class="flex flex-auto flex-wrap justify-between mt3">
-						<span class="flex-item bg-near-black ms-gold pa1 w-30">
-								<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid"><use xlink:href="#icon-fast"></use></svg>
-								<span class="dib v-mid">{{ totalFastpoints }}</span> 
-						</span>
-						<span class="flex-item bg-near-black ms-gold pa1 w-30">
-		  					<svg class="icon icon--xs icon-heart2 fill-ms-gold dib v-mid" ><use xlink:href="#icon-heart2"></use></svg>
-		  					<span class="dib v-mid">{{ totalHeartpoints }}</span>
-						</span>
+					<div class="flex flex-auto flex-wrap justify-center mt3">
+						{{ self.scores_miniblock_vertical(totalFastpoints,"#icon-fast","ms-gold") }}
+						{{ self.scores_miniblock_vertical(totalHeartpoints,"#icon-heart2","ms-gold","pa1") }}
 						{% if totalTakenpoints != 0 %}
-		  					<span class="flex-item bg-near-black ms-gold pa1 w-30">
-		      					<svg class="icon icon--xs icon-minus fill-ms-gold dib v-mid" ><use xlink:href="#icon-minus"></use></svg>
-		      					<span class="dib v-mid">{{ totalTakenpoints }}</span>
-		  					</span>	
+							{{ self.scores_miniblock_vertical(totalTakenpoints,"#icon-minus","ms-gold","pv1") }}
 						{% endif %}
 					</div>
 				</div>
@@ -132,7 +128,10 @@
 
 {# MACRO MEDAILLON SCORE PAR THEME #}
 {% macro theme_medaillon(score) %}
-	<div class="score-item-theme wof-item flex-item pa1 w-33">									<div class="bg-white-20 pa1 min-h-100 flex flex-wrap">		
+	{% import _self as self %}
+
+	<div class="score-item-theme wof-item flex-item pa1 w-33">									
+		<div class="bg-white-20 pa1 min-h-100 flex flex-wrap">		
 			<a class="medaillon-round" href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
 			    {% if score.theme.image is not null %}
 		  			<img class="" src="{{ score.theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ score.theme.image.alt }}"/>	
@@ -146,22 +145,12 @@
 				</div>
 
 				<div class="relative bottom-0 b--dashed bb-0 bt bl-0 br-0 pt3">
-					<div class="flex flex-auto flex-wrap justify-between mt3">
-						<span class="flex-item bg-near-black ms-gold pa1 w-30">
-							<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid" ><use xlink:href="#icon-fast"></use></svg>
-							<span class="dib v-mid">{{ score.fastpoints }}</span>
-						</span>
-
-						<span class="flex-item bg-near-black ms-gold pa1 w-30">
-							<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid" ><use xlink:href="#icon-heart2"></use></svg>
-							<span class="dib v-mid">{{ score.heartpoints }}</span>
-						</span>
-						{% if score.takenpoints != 0 %}
-							<span class="flex-item bg-near-black ms-gold pa1 w-30">
-								<svg class="icon icon--xs icon-fast fill-ms-gold dib v-mid" ><use xlink:href="#icon-minus"></use></svg>
-								<span class="dib v-mid">{{ score.takenpoints }}</span>
-							</span>
-						{% endif %}
+					<div class="flex flex-auto flex-wrap justify-center mt3">
+							{{ self.scores_miniblock_vertical(score.fastpoints,"#icon-fast","ms-gold") }}
+							{{ self.scores_miniblock_vertical(score.heartpoints,"#icon-heart2","ms-gold","pa1") }}
+							{% if score.takenpoints != 0 %}
+								{{ self.scores_miniblock_vertical(score.takenpoints,"#icon-minus","ms-gold","pv1") }}
+							{% endif %}
 					</div>
 				</div>
 			</div>
@@ -181,8 +170,10 @@
 
 
 
-{# MACRO LISTE SCORES JOGGEURS #}
+{# MACRO LISTE LA TOTALE #}
 {% macro scores_latotale(joggeurScore,loopindex) %}
+	{% import _self as self %}
+
 	{% set totalHeartpoints = 0 %}
 	{% set totalTakenpoints = 0 %}
 	{% set totalFastpoints = 0 %}	
@@ -193,43 +184,74 @@
 	{% endfor %}
 
 
-	<div class="score-item-liste bg-red">
-			<a class="flex-container-h" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
-			<span class="author-thumb mrs">
-				{% if joggeurScore.joggeur.image is not null %}
-					<img class='thumbnail' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
-				{% else %}
-				  	<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
-				{% endif %}
-			</span>
+	
+	<a class="flex flex-auto flex-wrap justify-between w-100 bg-white-30 mb2 items-end no-underline near-black pa1" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
+	<div class="self-center flex">
+		<span class="thumbnail--s self-center ">
+			{% if joggeurScore.joggeur.image is not null %}
+				<img class='db w-100' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
+			{% else %}
+			  	<img class='db w-100' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+			{% endif %}
+		</span>
 
-			<div class="author-name">
-				<h4 class="man pan">
-					<span>{{ loopindex }} - {{ joggeurScore.joggeur.pseudo }}</span>
-					<span class="scoreTotal">({{ joggeurScore.total }} pts)</span>
-				</h4>
-			</div>	
-				
-			<div class="points align-right pls">
-					<span class="points-item  mrs">
-						<svg class="icon icon--s icon-fast"><use xlink:href="#icon-fast"></use></svg>
-						<span class="">{{ totalFastpoints }}</span> 
-					</span>
-					<span class="points-item points-item-heart mrs">
-						<svg class="icon icon--xs icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
-						<span class="">{{ totalHeartpoints }}</span>
-					</span>
-					{% if totalTakenpoints != 0 %}
-						<span class="points-item points-item-taken mrs">
-							<svg class="icon icon--xs icon-minus" ><use xlink:href="#icon-minus"></use></svg>
-							<span class="">{{ totalTakenpoints }}</span>
-						</span>	
-					{% endif %}
-				</div>
-			</a>
+	
+		<div class="flex self-center pl3">
+			<h4 class="fw1 f6 ma0 pa0 self-center ">{{ loopindex }} - {{ joggeurScore.joggeur.pseudo }}</h4>
+			<span class="f5 flex self-center pl2">{{ joggeurScore.total }} pts</span>
+		</div>
+	</div>	
+		
+	<div class="self-center flex">
+			{{ self.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","ms-purple","icon--s") }}
+			{{ self.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart2","ms-purple","icon--xs") }}
+			{% if totalTakenpoints != 0 %}
+				{{ self.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","ms-purple","icon--s") }}
+			{% endif %}
+		</div>
+	</a>
+{% endmacro %}
+{# FIN MACRO LISTE LA TOTALE #}
+
+
+
+
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+
+
+
+
+
+{# MACRO MINI BLOCK SCORE VERTICAL / coeur - vitesse - retire #}
+{% macro scores_miniblock_vertical(typepoints,icon,color,extraclass) %}
+	<div class="flex-item content-center w-33">
+		<div class="ma1 bg-near-black">
+			<div class="w-100 bb b--white-10">
+				<svg class="icon icon--s fill-{{ color }} db center {{ extraclass }}" ><use xlink:href="{{ icon }}"></use></svg>
+			</div>
+			<span class="db center tc {{ color }} pa1">{{ typepoints }}</span>
+		</div>
 	</div>
 {% endmacro %}
-{# FIN MACRO LISTE SCORES JOGGEURS #}
+{# FIN MACRO MINI BLOCK SCORE #}
+
+
+{# MACRO MINI BLOCK SCORE VERTICAL / coeur - vitesse - retire #}
+{% macro scores_miniblock_horizontal(typepoints,icon,color,extraclass) %}
+	<div class="flex flex-auto">
+		<div class="bg-near-black ph1 ml2 flex flex-auto items-center">
+			<div class="w-100 br b--white-10 flex pr1">
+				<svg class=" icon {{ extraclass }} fill-{{ color }}"><use xlink:href="{{ icon }}"></use></svg>
+			</div>
+			<span class="flex {{ color }} pl1">{{ typepoints }}</span>
+		</div> 
+	</div>
+{% endmacro %}
+{# FIN MACRO MINI BLOCK SCORE #}
+
 
 
 
@@ -246,11 +268,16 @@
 {% macro scores_legende() %}
 	<div class="legende tc f7 black-50 i">
 		<span class="dib v-mid">Légende [</span>
-		<svg class="icon icon--s dib v-mid fill-black-50" ><use xlink:href="#icon-fast"></use></svg>
-		<span>=points vitesse</span> 
+		<svg class="icon icon--xs dib v-mid fill-black-50" ><use xlink:href="#icon-fast"></use></svg>
+		<span>points vitesse |</span> 
 		<svg class="icon icon--xs dib v-mid ml2 fill-black-50" ><use xlink:href="#icon-heart2"></use></svg>
-		<span class="dib v-mid">=points bisous</span>
-		<svg class="icon icon--s dib v-mid ml2 fill-black-50" ><use xlink:href="#icon-minus"></use></svg>
-		<span class="dib v-mid">=points retirés ]</span>
+		<span class="dib v-mid">points bisous |</span>
+		<svg class="icon icon--xs dib v-mid ml2 fill-black-50" ><use xlink:href="#icon-minus"></use></svg>
+		<span class="dib v-mid">points retirés ]</span>
 	</div>
 {% endmacro %}
+{# FIN MACRO LEGENDE #}
+
+
+
+

@@ -68,8 +68,10 @@
 
 
 
-			<div class="wrapper flex flex-row flex-wrap relative bg--marbre">	    	
-				<div class="container-center flex-item bg-pink">{% block body %} {% endblock %}</div>
+			<div class="wrapper flex flex-auto flex-wrap relative bg--marbre">
+				<div class="container-border-left flex flex-auto flex-wrap min-h-100"></div>		    	
+				<div class="container-center flex-item ph3 bl br bt-0 bb-0 b--dashed b--black-50">{% block body %} {% endblock %}</div>
+				<div class="container-border-right flex flex-auto flex-wrap"></div>
 			</div>
 
 		</div>
