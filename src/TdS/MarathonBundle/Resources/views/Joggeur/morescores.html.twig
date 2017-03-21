@@ -1,7 +1,7 @@
 <div>
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
-	
+
 	{% if joggeurScore is defined and joggeurScore is not empty and joggeurScore is not null %}
 		<div class="">
 			{% set saison = "" %}
@@ -28,7 +28,7 @@
 							<span class="flex-item flex-auto ph2">{{ score.theme.titre }} : {{ score.totalTheme }}
 							</span>
 
-							<div class="flex-item flex flex-wrap justify-between items-center">
+							<div class="self-center flex">
 
 
 								{{ scoresElementsModule.scores_miniblock_horizontal(score.fastpoints,"#icon-fast","ms-bleu","icon--s") }}
@@ -37,20 +37,6 @@
 									{{ scoresElementsModule.scores_miniblock_horizontal(score.takenpoints,"#icon-minus","ms-bleu","icon--s") }}
 								{% endif %}
 
-								{# <div class="bg-near-black ms-bleu flex-item w-30 pa1 flex">
-									<svg class="icon icon--xs fill-ms-bleu flex-item w-50 mr2" ><use xlink:href="#icon-heart2"></use></svg>
-									<span class="flex-item w-50">{{ score.heartpoints }}</span>
-								</div>
-
-								<div class="bg-near-black ms-bleu w-30 pa1 flex"> 
-									<svg class="icon icon--xs fill-ms-bleu flex-item w-50 mr2"><use xlink:href="#icon-fast"></use></svg>
-									<span class="flex-item w-50">{{ score.fastpoints }}</span>
-								</div>
-
-								<div class="bg-near-black ms-bleu w-30 pa1 flex"> 
-									<svg class="icon icon--xs fill-ms-bleu flex-item w-50 mr2" ><use xlink:href="#icon-minus"></use></svg>
-									<span class="flex-item w-50">{{ score.takenpoints }}</span>
-								</div> #}
 							</div>
 				</a>							
 			{% endfor %}

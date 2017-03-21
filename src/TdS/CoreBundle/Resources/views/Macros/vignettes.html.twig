@@ -1,0 +1,121 @@
+MACRO VIGNETTE THEME #}
+{% macro vignette_theme(theme) %}
+    {% if theme.statut is null or theme.statut != 0 or (is_granted("ROLE_SUPER_ADMIN","ROLE_USER") and theme.statut == 0 and theme.joggeur == app.user.joggeur ) %}
+	    {% if theme.statut == 0 and theme.joggeur == app.user.joggeur %}
+	     	<div class='op-50 relative'>
+	     					    		
+		{% else %}
+		    <div class='relative'>
+		{% endif %}
+		    		
+
+	    		<a class="db w-100 no-underline" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+
+		    		<div class="relative">
+		    			<div class="aspect-ratio aspect-ratio--1x1">
+						    {% if theme.image is not null %}
+					  			<img class="aspect-ratio--object" src="{{ theme.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ theme.image.alt }}">
+							{% endif %}
+						</div>
+						
+						{% if theme.statut == 0 and theme.joggeur.id == app.user.joggeur.id %}
+		    				<div class="ribbon w-100 ph2 bg-ms-fushia tc">						
+		    					<svg class="icon icon--s dib v-mid"><use xlink:href="#icon-warning"></use></svg>
+								<span class="dib v-mid">Theme en attente crée par toi</strong></span>
+							</div>
+		    			{% endif %}
+
+		    			<div class="absolute top-0 flex flex-auto flex-wrap justify-center w-100 z-200">
+			    			<div class="flex flex-wrap bg-near-black pa2 mr2">
+					    		<svg class="flex-item icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-cd"></use></svg>
+					    		<span class="flex-item ms-turquoise">{{ theme.musicTitles|length  }}</span>
+					    	</div>
+
+					    	<div class="flex flex-wrap bg-near-black pa2">
+							    <svg class="flex-item icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-dialog-icon"></use></svg>
+							    {% if theme.thread is defined and theme.thread is not null %}
+								    <span class="ms-turquoise">{{ theme.thread.numComments }}</span>
+								{% else %}
+								    <span class="ms-turquoise">0</span>
+							    {% endif %}										
+							</div>
+						</div>
+
+					    <div class='bg-near-black ms-turquoise pa2'>
+						    	<h3 class="ma0">{{ theme.titre }}</h3>
+						    	<i class="f7">Créé par : {{ theme.joggeur.pseudo }}</i>
+						    	
+								{% if theme.chronique is defined and theme.chronique is not null %}
+									<div class="">
+										<svg class="icon icon--xs fill-ms-turquoise"><use xlink:href="#icon-newspaper"></use></svg>
+									</div>
+								{% endif %}
+					    </div>	
+					</div>					    		
+	    		</a>
+	    		{% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <a class='button absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
+                        <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                    </a>
+                {% endif %}				    		
+		</div>
+    {% endif %}
+{% endmacro %}
+{# FIN MACRO VIGNETTE THEME #}
+
+
+
+
+
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+{# ///////////////////////////////////////////////////////// #}
+
+
+
+
+
+{# MACRO VIGNETTE JOGGEUR #}
+{% macro vignette_joggeur(joggeur) %}   
+	<div class='relative'>
+		<a class="db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+
+			<div class="relative">
+				<div class="aspect-ratio aspect-ratio--1x1">
+					{% if joggeur.image is not null %}
+			  			<img class="aspect-ratio--object" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
+					{% else %}
+		  				<img class="aspect-ratio--object" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">	
+		  				{# db w-100 min-h-100 #} 
+		  			{% endif %}
+	  			</div>
+				
+				{% if joggeur.id == app.user.joggeur.id %}
+					<div class="ribbon w-100 ph2 bg-ms-fushia tc flex aspect-ratio--object o-50">
+						<div class="self-center w-100 tc">						
+							<svg class="icon icon--s dib v-mid"><use xlink:href="#icon-warning"></use></svg>
+							<span class="dib v-mid near-black">Ton profil</strong></span>
+						</div>
+					</div>
+				{% endif %}
+
+				<div class="absolute top-0 flex flex-auto flex-wrap justify-center w-100 z-200">
+	    			<div class="flex flex-wrap bg-near-black pa2 mr2">
+			    		<svg class="flex-item icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-cd"></use></svg>
+			    		<span class="flex-item ms-turquoise">{{ joggeur.musicTitles|length  }}</span>
+			    	</div>
+				</div>
+
+			    <div class='flex bg-near-black ms-turquoise pa2 h3 w-100'>
+				    	<h3 class="ma0 fw1 tc f7 self-center w-100">{{ joggeur.pseudo }}</h3>
+			    </div>	
+			</div>					    		
+		</a>
+		{% if is_granted("ROLE_SUPER_ADMIN") %}
+            <a class='button absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_joggeur_delete', {'id': joggeur.id}) }} "  data-pseudo="{{ joggeur.pseudo }}">
+                <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
+            </a>
+        {% endif %}			    		
+	</div>
+{% endmacro %}
+{# FIN MACRO VIGNETTE JOGGEUR #}

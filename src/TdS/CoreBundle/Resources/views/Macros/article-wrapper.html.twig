@@ -1,23 +1,23 @@
 {% macro article(article) %}
 
-	<div class="article-wrapper">
-		<div class="article-inner-wrapper pam">
+	<div class="bg-white-30 pa3 mv2">
+		<div class="">
 			{% if is_granted("ROLE_SUPER_ADMIN") %}
-				<div class="pull-right">
-					<a class="button btn btn-action" href="{{ path('tds_marathon_article_edit', { 'id': article.id }) }}">
-						<svg class="icon icon--s icon-alone icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+				<div class="tr">
+					<a class="button" href="{{ path('tds_marathon_article_edit', { 'id': article.id }) }}">
+						<svg class="icon icon--xs"><use xlink:href="#icon-pencil"></use></svg>
 					</a>
-					<a class='button btn btn-action' data-delete data-href="{{ path('tds_marathon_article_delete', {'id': article.id}) }} "  data-pseudo="{{ article.titre }}">
-			            <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+					<a class='button' data-delete data-href="{{ path('tds_marathon_article_delete', {'id': article.id}) }} "  data-pseudo="{{ article.titre }}">
+			            <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
 			        </a>
 		     	</div>
 			{% endif %}
-			<h3 class="article-titre man pan">{{ article.titre }}</h3>
+			<h3 class="pa0 ma0">{{ article.titre }}</h3>
 			
-			<strong class="article-date">le {{ article.datePost|date('d/m/Y à H:s') }}</strong>
-			<div class="article-image mtm">
+			<strong class="i fw1">le {{ article.datePost|date('d/m/Y à H:s') }}</strong>
+			<div class="article-image mt2">
 				{% if article.image is not null %}
-					<img class="img-responsive" src="{{ article.image.webPath  | imagine_filter('big_image') }}" alt="{{ article.image.alt }}">
+					<img class="" src="{{ article.image.webPath  | imagine_filter('big_image') }}" alt="{{ article.image.alt }}">
 				{% endif %}
 			</div>
 			<div class="content">
