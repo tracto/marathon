@@ -163,11 +163,17 @@
 						<h2 class="tc ">Wall of Fame du thème</h2>
 
 						<div class="wof-wrapper flex flex-auto flex-wrap flex-justify mv3">
-							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+							<div class="wof-item wof_jogDonJuan pa1 w-33">
+								{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous") }}
+							</div>
 
-							{{ scoresElementsModule.wof_medaillon(jogWinner,"Le Total Winner","Celui qui a gagné ce thème","wof_jogWinner") }}
+							<div class="wof-item wof_jogWinner pa1 w-33">
+								{{ scoresElementsModule.wof_medaillon(jogWinner,"Le Total Winner","Celui qui a gagné ce thème") }}
+							</div>
 
-							{{ scoresElementsModule.wof_medaillon(jogLoser,"Le Total Loser","Celui qui a pas compris","wof_jogLoser") }}					
+							<div class="wof-item wof_jogLoser pa1 w-33">
+								{{ scoresElementsModule.wof_medaillon(jogLoser,"Le Total Loser","Celui qui a pas compris") }}
+							</div>					
 						</div>
 						{{ scoresElementsModule.scores_legende() }}
 					</div>

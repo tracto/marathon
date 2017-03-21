@@ -11,7 +11,7 @@
 	{% endif %}
 
 
-	<header id="header" class="main-header relative cover bg-center w-100 z-999" style="background-image: url('{{ cssbg }}');" >
+	<header id="header" class="main-header relative cover bg-center w-100" style="background-image: url('{{ cssbg }}');" >
 
 		{# PARTIE 1 : navigation #}
 		<input id="mobile-nav" type="checkbox" class="nav-toggler" />
@@ -21,7 +21,7 @@
 			</svg>
 		</label>
 
-		<nav class="navbar-header bg-black-90 fixed w-100 ph0 pv3 pv0-ns ph3-ns z-1 ">
+		<nav class="navbar-header bg-black-90 fixed w-100 ph0 pv3 pv0-ns ph3-ns z-999">
 			<ul class="navbar-first list mh0 ph0 w-100 relative dn db-ns">
 				{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
             		<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
