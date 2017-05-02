@@ -39,7 +39,7 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 		$(this).removeClass('is-active');
 		remainingHearts = remainingHearts - (givenHearts - $('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val());		
 		$('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val(0);				
-		$("#popup").find('.popup-wrapper').show();		
+		$("#popup").show();		
 	}
 
 	$('.joggeurDonneur-points').html(remainingHearts);
@@ -48,6 +48,3 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 });
 
 
-$("#popup").find('.popup-close').on('click',function(){
-	$("#popup").find('.popup-wrapper').hide();
-})

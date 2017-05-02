@@ -34,7 +34,8 @@ $(function() {
         }
     }); 
 
-    $(".btn-becky").each(function(){
+    // $(".btn-becky").each(function(){
+    $('[data-btn-becky]').each(function(){
       if($(this).data("random")=="1"){
         $('#becky-content').show();
         $.ajax({
@@ -57,7 +58,7 @@ $(function() {
 });
 
 
-$(".btn-becky").on('click',function(){
+$('[data-btn-becky]').on('click',function(){
   $('#becky-content').show();
   $('#becky-content').find(".becky-text").html($(this).data('info'));
 });
@@ -77,7 +78,10 @@ $("[data-action='credits']").on('click',function(){
     },
   });
 
-
-
 });
 
+
+// FERMETURE POPUP
+$('body').on('click', '[data-action="close-popup"]', function(){
+    $("#popup").hide();
+  });

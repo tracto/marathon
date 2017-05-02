@@ -129,12 +129,12 @@ class ThemeController extends Controller{
 		    }
     }
 
-    public function editAction(Theme $theme, $id, Request $request){
+    public function editAction(Request $request, Theme $theme, $id){
     	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $theme->getJoggeur()->getUser() ){
 	    	$em=$this->getDoctrine()->getManager();
 
-		  	
-		  	$form=$this->createForm(new ThemeEditType(),$theme);
+		  	$statut=$theme->getStatut();
+		  	$form=$this->createForm(new ThemeEditType(),$theme, array('statut' => $statut));
 
 		  	if($form->handleRequest($request)->isValid()){
 
@@ -147,7 +147,8 @@ class ThemeController extends Controller{
 
 		  	return $this->render('TdSMarathonBundle:Theme:edit.html.twig',array(
 		  		'form'=>$form->createView(),
-		  		'theme'=>$theme));
+		  		'theme'=>$theme,
+		  		'statut'=>$statut));
 		  	}
 
 		}else{

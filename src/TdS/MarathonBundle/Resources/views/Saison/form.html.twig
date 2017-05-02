@@ -1,43 +1,48 @@
-<div class="form-wrapper bg-op--white bd--light pam">
+<div class="form-wrapper">
    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(form) }}
 
-    <div class="form-group row mll mrl ptm pbm">
-      {{ form_label(form.titre, "titre", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+    <div class="form-group form-input-title f4">
+      {{ form_label(form.titre, "titre", {'label_attr': {'class': 'form-label control-label'}}) }}
       {{ form_errors(form.titre) }}
-      <div class="col-xs-12 col-sm-6">
-        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+      <div class="form-widget">
+        {{ form_widget(form.titre) }}
       </div>       
     </div>
 
-    <div class="form-group row mll mrl ptm pbm sep--dashed">
-        {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-        {{ form_errors(form.image) }}
-        <span class="button btn btn-default btn-becky" data-info="Cette image viendra se placer dans le bandeau entête, sous la tête de mort. Il est important qu'elle soit d'assez bonne qualité. <br/> Taille recommandée : 1960px * 960px / 72dpi  (l'image sera centrée horizontalement) <br/>
-        Sous photoshop, il est aussi préférable d'enregistrer pour le web et ses périphériques (menu fichier), en format jpeg.">
-            <svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-        </span>
-        <div class='col-xs-12 col-sm-6'>
+    <div class="form-group pv3">
+        <div class="form-label flex">
+          {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'pr2 control-label'}}) }}
+          {{ form_errors(form.image) }}
+          <div class="self-end">
+            <span class="button-becky db" data-info="Cette image viendra se placer dans le bandeau entête, sous la tête de mort. Il est important qu'elle soit d'assez bonne qualité. <br/> Taille recommandée : 1960px * 960px / 72dpi  (l'image sera centrée horizontalement) <br/>
+            Sous photoshop, il est aussi préférable d'enregistrer pour le web et ses périphériques (menu fichier), en format jpeg." data-btn-becky>
+                {% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+                <img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">
+            </span>
+          </div>
+        </div>
+        <div class='form-widget'>
           {{ form_widget(form.image,{'attr':{'class':''}}) }}
         </div>
     </div>
 
 
 
-    <div class="form-group row ptm pbm sep--dashed">
-        {{ form_label(form.bilan, "Bilan de la Saison", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+    <div class="form-group">
+        {{ form_label(form.bilan, "Bilan de la Saison", {'label_attr': {'class': 'form-label control-label'}}) }}
         {{ form_errors(form.bilan) }}
-        <div class="col-xs-12 col-sm-6">
+        <div class="form-widget">
           {{ form_widget(form.bilan) }}
         </div>
     </div>
 
     
-    <div class="align-center">
-        <div class="button btn btn-action mts">
-          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
-           {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary','value':'valider'}}) }}
+    <div class="center tc">
+        <div class="button button-save">
+          <svg class="icon icon--xs icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(form.save, {'attr': {'value':'valider'}}) }}
         </div>
     </div>
 

@@ -23,26 +23,32 @@ $(document).ready(function(){
     createTitleItem=function(media){
                 var self = this;
 
-                var listItem = "<div class='playlist-item clearfix'>";
-                listItem += "<a href='javascript:;' class='mbs flex-container-h " + playlistIndex.options.playlistOptions.itemClass + "' tabindex='1'>";
+                var listItem = "<div class='playlist-item'>";
+                    listItem += "<div href='javascript:;' class='flex flex-auto flex-wrap" + playlistIndex.options.playlistOptions.itemClass + "' tabindex='1'>";
                 
-                listItem +="<div class='flex-item w-70 man'>";
-                listItem +="<div class='jp-title'>" + media.title + "</div>";
-                listItem +="<div class='jp-theme'>Theme :" + media.theme + "</div>";
-                listItem +="</div>";
+                        listItem +="<div class='w-70 flex'>";
+                            listItem +="<div>";                          
+                                listItem +="<div class='jp-title i f6'>" + media.title + "</div>";
+                                listItem +="<div class='jp-theme'><span class='f8'> Theme : </span>" + media.theme + "</div>";
+                            listItem +="</div>";
+                        listItem +="</div>";
 
+                        
                 
-                
-                listItem +="<div class='flex-item w-30 align-right flex-container-h man'>";
-				listItem +="<div class='jp-artist prs'><h5 class='pan man'>Joggeur</h5><span>" + media.artist + "</span></div>";
-				listItem +="<div class='jp-thumb jp-thumb-artiste'><img src='"+media.thumbartiste+"'/></div>";
-				listItem +="</div>";
+                        listItem +="<div class='flex flex-auto tr justify-end'>";
+				            listItem +="<div class='jp-artist pr2'>";
+                                listItem +="<span class='db f8'>Joggeur</span>";
+                                listItem +="<span>" + media.artist + "</span>";
+                            listItem +="</div>";
+				            listItem +="<div class='jp-thumb jp-thumb-artiste relative thumbnail--m flex-0 overflow-hidden'>";
+                                listItem +="<img class='aspect-ratio--object' src='"+media.thumbartiste+"'/>";
+                            listItem +="</div>";
+				        listItem +="</div>";
 
-				listItem += "</a>";
-                
+				    listItem += "</div>";                
                 listItem += "</div>";
 
-                playlistIndexBody.find('.jp-thumb-theme').html("<img src='"+media.thumbtheme+"'/>");
+                playlistIndexBody.find('.jp-thumb-theme').html("<div class='relative thumbnail--ml aspect-ratio aspect-ratio--1x1'><img class='aspect-ratio--object' src='"+media.thumbtheme+"'/></div>");
                 return listItem;
     };
 

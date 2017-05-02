@@ -34,6 +34,11 @@ tds_marathon_saison_disactive_validation:
 
 
 
+tds_marathon_score_viewnav:
+    path:     /Score/viewNavScores
+    defaults: { _controller: TdSMarathonBundle:Score:viewNavScores }
+
+
 
 
 
@@ -79,6 +84,7 @@ tds_marathon_theme_edit:
     defaults: { _controller: TdSMarathonBundle:Theme:edit }
     requirements:
         id: \d+
+         
 
 tds_marathon_theme_delete:
     path:     /theme/delete/{id}
@@ -270,6 +276,9 @@ tds_marathon_musictitle_delete:
     defaults: { _controller: TdSMarathonBundle:MusicTitle:delete }
     requirements:
         id: \d+
+
+
+
 
 
 

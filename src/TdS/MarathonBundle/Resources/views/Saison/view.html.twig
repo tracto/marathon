@@ -18,16 +18,53 @@
 
 		{# PARTIE 1 : les thèmes + podium / wall of fame #}		
 		<div class="flex flex-auto flex-wrap">
-			<div class="w-100 w-50-ns bg-ms-turquoise pa2">
+			<div class="w-100 w-60-ns bg-ms-turquoise relative">
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<a class="button" href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
+					<a class="button absolute mt2 ml2" href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 						<span class="btn__label">Modifier la saison</span>	  						  				
 					</a>
 				{% endif %}
 
-				<div class="">
-					<h2 class="tc">Liste des thèmes</h2>
+				{% if saison.bilan is defined and saison.bilan is not empty and saison.bilan is not null %} 
+				<div class="w-100 bg-ms-orange-light pa4">
+					
+
+					<div class="ms-title ms-title_turfu">
+						<div class="w-100 flex-none">
+							<svg class="db icon fill-near-black tc w-30 center"><use xlink:href="#icon-flags"></use></svg>
+						</div>
+						<div class="ms-title_turfu_inner w-100 flex-ns justify-center">
+							<div class="">
+								<div class="turfu-apple cf"><span class="fr-ns"></span></div>
+								<div class="turfu-netscape"></div>
+							</div>					
+						    <h2><span class="">Bilan</span></h2>
+						    <div class="">
+						    	<div class="turfu-apple dn db-ns"><span class=""></span></div>
+						    	<div class="turfu-ie"></div>				    	
+							</div>
+						</div>			    	
+					</div>
+
+				<div class="">{{ saison.bilan|raw }}</div>
+				</div>
+			{% endif %}
+
+				<div class="pa4">
+					<div class="ms-title pt4">
+							<div class="">
+								<div class="gif-basket-g"></div>
+							</div>
+			    			<h2><span class="">Liste des Thèmes</span></h2>
+			    			<div class="">
+			    				<div class="gif-basket-d"></div>
+							</div>
+			    		</div>
+
+			    		<div class="w-100 w-70-m w-50-l center pb2 tc">
+			    			<div class="sep-guitare"></div>
+						</div>
 					<div class="flex flex-auto flex-wrap justify-center">	
 					    {% for theme in saison.themes %}
 					    	<div class="w-50 w-33-ns pa2">
@@ -40,10 +77,12 @@
 			</div>
 
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
-				<div class="bg-ms-gold pa3 w-100 w-50-ns">
+				<div class="bg-ms-gold pa3 w-100 w-40-ns">
 					{% if joggeursScoresOfSaison|length > 3 %} 
-						<h2 class="tc">Podium</h2>
-						<div class="bg-white-30 pa2">
+						<div class="ms-title ms-title_spikes">
+				    		<h2><span class="bg-ms-gold">Podium</span></h2>
+				    	</div>
+						<div class="pa2">
 							<div class="podium-wrapper flex items-end mb4">
 								{% for joggeurScore in joggeursScoresOfSaison %}
 									{% if loop.index <= 3 %}
@@ -51,58 +90,61 @@
 									{% endif %}									 
 								{% endfor %}							
 							</div>
-							{{ scoresElementsModule.scores_legende() }}
 						</div>
 
-
-
-					{% set jogEgoiste = "" %}
-					{% set jogDonJuan = "" %}
-					{% set jogPetitGros = "" %}
-					{% set jogLfdy = "" %}
-
-					{% set idjogEgoiste = scoreService.wof_jogEgoiste(joggeursScoresOfSaison) %}
-					{% set idjogDonJuan = scoreService.wof_jogDonJuan(joggeursScoresOfSaison) %}
-					{% set idjogPetitGros = scoreService.wof_jogPetitGros(joggeursScoresOfSaison) %}
-					{% set idjogLfdy = scoreService.wof_jogLfdy(joggeursScoresOfSaison) %}
-
-					{% for joggeurScore in joggeursScoresOfSaison %}
-						{% if joggeurScore.joggeur.id == idjogEgoiste %}
-							{% set jogEgoiste = joggeurScore.joggeur %}
-						{% endif %}
-						{% if joggeurScore.joggeur.id == idjogDonJuan %}
-							{% set jogDonJuan = joggeurScore.joggeur %}
-						{% endif %}
-						{% if joggeurScore.joggeur.id == idjogPetitGros %}
-							{% set jogPetitGros = joggeurScore.joggeur %}
-						{% endif %}
-						{% if joggeurScore.joggeur.id == idjogLfdy %}
-							{% set jogLfdy = joggeurScore.joggeur %}
-						{% endif %}
-					{% endfor %}
-
-					
-					<div class="walloffame pt4">
-						<h2 class="tc">Wall of Fame</h2>
-						<div class="wof-wrapper  flex flex-wrap flex-auto flex-justify">
-							<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
-								{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
-							</div>
-
-							<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
-								{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
-							</div>
-
-							<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
-								{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
-							</div>
-
-							<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
-								{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}
-							</div>						
+						<div class="w-100 pt2">
+							<img src="{{ '../../../bundles/tdsmarathon/images/gifs/sep-clavier.gif' }}" alt="">
 						</div>
-					</div>
 
+						{% set jogEgoiste = "" %}
+						{% set jogDonJuan = "" %}
+						{% set jogPetitGros = "" %}
+						{% set jogLfdy = "" %}
+
+						{% set idjogEgoiste = scoreService.wof_jogEgoiste(joggeursScoresOfSaison) %}
+						{% set idjogDonJuan = scoreService.wof_jogDonJuan(joggeursScoresOfSaison) %}
+						{% set idjogPetitGros = scoreService.wof_jogPetitGros(joggeursScoresOfSaison) %}
+						{% set idjogLfdy = scoreService.wof_jogLfdy(joggeursScoresOfSaison) %}
+
+						{% for joggeurScore in joggeursScoresOfSaison %}
+							{% if joggeurScore.joggeur.id == idjogEgoiste %}
+								{% set jogEgoiste = joggeurScore.joggeur %}
+							{% endif %}
+							{% if joggeurScore.joggeur.id == idjogDonJuan %}
+								{% set jogDonJuan = joggeurScore.joggeur %}
+							{% endif %}
+							{% if joggeurScore.joggeur.id == idjogPetitGros %}
+								{% set jogPetitGros = joggeurScore.joggeur %}
+							{% endif %}
+							{% if joggeurScore.joggeur.id == idjogLfdy %}
+								{% set jogLfdy = joggeurScore.joggeur %}
+							{% endif %}
+						{% endfor %}
+
+						
+						<div class="walloffame pt4">
+							<div class="ms-title ms-title_spikes">
+			    				<h2><span class="bg-ms-gold">Wall of Fame</span></h2>
+			    			</div>
+							<div class="wof-wrapper flex flex-wrap flex-auto flex-justify">
+								<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
+									{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
+								</div>
+
+								<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
+									{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+								</div>
+
+								<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
+									{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
+								</div>
+
+								<div class="wof-item wof_jogEgoiste flex-item pa1 w-50 w-50-m w-25-l">
+									{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}
+								</div>						
+							</div>
+						</div>
+						{{ scoresElementsModule.scores_legende() }}
 					{% endif %}
 				</div>
 			{% endif %}
@@ -114,23 +156,25 @@
 
 
 		{# PARTIE 2 / bilan + la totale #}
-		<div class="flex flex-auto flex-wrap">
-			
-			{% if saison.bilan is defined and saison.bilan is not empty and saison.bilan is not null %} 
-				<div class="w-100 w-60-ns bg-ms-vert pa3">
-					<h2 class="tc">Bilan</h2>
-					<div>{{ saison.bilan|raw }}</div>
-				</div>
-			{% endif %}
-			
+		<div class="flex flex-auto flex-wrap">			
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
-				<div class="w-100 w-40-ns bg-ms-purple pa3">		
-					<h2 class="tc">La totale</h2>	
-					<h3 class="align-center">La totale</h3>
-					<div class="latotale-wrapper flex-container-h">
-						<div class="flex-item-fluid align-left">
+				<div class="w-100 bg-ms-light-violet pa4">		
+					<div class="flex flex-auto flex-wrap mb3">
+						<svg class="icon icon--l icon--m-m icon--l-l db w-100 center tc w-auto-ns flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
+						<div class="ms-title ms-title_spikes flex-1">					
+					    	<h2><span class="bg-ms-light-violet">Classement</span></h2>			    	
+					    </div>
+					    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
+					</div>
+					
+					<div class="latotale-wrapper flex flex-auto flex-wrap">
+						<div class="flex-item-fluid align-left w-50-ns pr2-ns">
+							{% set moitieClassement = (joggeursScoresOfSaison|length/2)|round(0, 'ceil') %}
 						    {% for joggeurScore in joggeursScoresOfSaison %}
-						      	{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
+						    	{% if loop.index == moitieClassement %}
+						    		</div><div class="flex-item-fluid align-left w-50-ns pl2-ns">
+						    	{% endif %} 
+								{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}	
 						    {% endfor %}
 						</div>
 					</div>				    

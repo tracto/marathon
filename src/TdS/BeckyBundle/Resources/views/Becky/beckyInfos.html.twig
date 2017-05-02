@@ -4,9 +4,9 @@ Ici tu es sur la page d'accueil spéciale pour les joggeurs.</br/></br/>
 {{ beckyInfos.info | raw }}
 
 {% if is_granted("ROLE_SUPER_ADMIN") %}
-		<a class="button btn btn-action pull-right mtm mbs" href="{{ path('tds_becky_liste_phrases') }}">
-			<svg class="icon icon--m icon-notebook-list"><use xlink:href="#icon-notebook-list"></use></svg>
-			<span class="btn__label">liste des phrases</span>
+		<a class="button" href="{{ path('tds_becky_liste_phrases') }}">
+			<svg class="icon icon--xs"><use xlink:href="#icon-notebook-list"></use></svg>
+			<span class="">liste des phrases</span>
 		</a>
 
 {% endif %}

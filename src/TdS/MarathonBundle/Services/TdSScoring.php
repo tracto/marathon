@@ -13,15 +13,18 @@ class TdSScoring {
 
 	private $em;
 
-	/**
-	 * @InjectParams({
-	 *    "em" = @Inject("doctrine.orm.entity_manager")
-	 * })
-	 */
+
+	
 	public function __construct(EntityManager $em)
 	{
 	    $this->em = $em;
 	}
+
+
+    // public function getPointsToGive($joggeurScore){
+    //     $joggeurScore->getPointstogive();
+
+    // }
 
 
 	public function getAllJoggeursScoresOfSaison($saison){
@@ -30,7 +33,7 @@ class TdSScoring {
 		      	->findAllBySaison($saison);
 
 		$listeJoggeursScore = $this->sortScorebyTotal($listeJoggeursScore);
-
+        $this->em->clear();
 		return $listeJoggeursScore;
 	}
 
@@ -41,35 +44,30 @@ class TdSScoring {
 		          ->findAllByTheme($theme);
 
 		$listeJoggeursScore = $this->sortScorebyTotal($listeJoggeursScore);
-
+        $this->em->clear();
 		return $listeJoggeursScore;
 	}
 
 
 
-	public function getAllSaisonScoresOfJoggeur($saison, $joggeur){
-		$joggeurScore = $this->em
-                        ->getRepository('TdSMarathonBundle:JoggeurScore')
-                        ->findJoggeurBySaison($saison, $joggeur);
-
-
-        if($joggeurScore){
-            $joggeurScore=$joggeurScore[0];         
-            $joggeur->setJoggeurScore($joggeurScore);
-        }
-
-		return $joggeur;
-	}
+	
 
 
     public function getAllSaisonScoresOfJoggeurScore($saison, $joggeur){
-        $joggeurScore = $this->em
-                        ->getRepository('TdSMarathonBundle:JoggeurScore')
-                        ->findJoggeurBySaison($saison, $joggeur);
 
-        return $joggeurScore;
+        $joggeurScoreSaison = $this->em
+            ->getRepository('TdSMarathonBundle:JoggeurScore')
+            ->findJoggeurBySaison($saison, $joggeur);
+        $this->em->clear();
+        
+        return $joggeurScoreSaison;
     }
 
+
+
+
+
+    
 
 
 

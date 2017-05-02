@@ -26,13 +26,12 @@ class CoreController extends Controller{
 	public function IndexAction(Request $request){
 			$em = $this->getDoctrine()->getManager();
 
-
+			$tdsScoring = $this->container->get('tds_marathon.scoring');
+			$tdsSaison = $this->container->get('tds_marathon.saison');
 
 			$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
 						->findAllSaisonsWithThemes();
 
-
-			$tdsSaison = $this->container->get('tds_marathon.saison');
 	        $saison=$tdsSaison->getCurrSaison();
 
 
@@ -40,7 +39,7 @@ class CoreController extends Controller{
                    ->findSaisonWithThemes($saison->getId());
 
             $listeDernThemes=$em->getRepository('TdSMarathonBundle:Theme')
-            					->findDerniersThemes(5);
+            					->findDerniersThemes(8);
 
 
 	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
@@ -76,7 +75,6 @@ class CoreController extends Controller{
 			      			->findAllSortByLastLogin();
 
 
-	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 	        
 
@@ -103,9 +101,19 @@ class CoreController extends Controller{
 			$em = $this->getDoctrine()->getManager();
 
 			$tdsSaison = $this->container->get('tds_marathon.saison');
-	        $saison=$tdsSaison->getCurrSaison();		
+			$tdsTheme = $this->container->get('tds_marathon.theme');
+	      	$tdsScoring = $this->container->get('tds_marathon.scoring');
+
+	        $saison=$tdsSaison->getCurrSaison();
+
 	      	
+	      	$saison=$em->getRepository('TdSMarathonBundle:Saison')
+                   ->findSaisonWithThemes($saison->getId());
+            $saisonCurrent=$saison;
+
 	      	
+	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
+
 
 	      	$allThemes=$em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -126,7 +134,7 @@ class CoreController extends Controller{
 
 
 
-			$tdsTheme = $this->container->get('tds_marathon.theme');
+			
 			
 			$theme = $em
 	      			->getRepository('TdSMarathonBundle:Theme')
@@ -147,21 +155,27 @@ class CoreController extends Controller{
 			}
 
 			$user=$this->getUser();
-			$joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
-					->findJoggeurByUser($user);
-
+			
 
 			if(!empty($saison)){
-				$joggeurScore = $em
-		          ->getRepository('TdSMarathonBundle:JoggeurScore')
-		          ->findJoggeurBySaison($saison, $joggeur);
-		        
+		        $joggeurScore=$tdsScoring->getAllSaisonScoresOfJoggeurScore($saison, $user->getJoggeur());
 				if(empty($joggeurScore)){
 					$joggeurScore=new JoggeurScore;
 				}
 			}else{
 				$joggeurScore=new JoggeurScore;
-			}			        
+			}
+
+			
+			
+	        $i=0;
+	        $placeClassement=0;
+	        foreach($listeJoggeursScore as $joggeurScoreItem){
+	        	$i++;
+	        	if($joggeurScoreItem->getId() == $joggeurScore->getId()){
+	        		$placeClassement=$i;
+	        	}
+	        }			        
 
 
 			
@@ -169,11 +183,12 @@ class CoreController extends Controller{
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:indexAdmin.html.twig', array(
 					'saison'=>$saison,
 					'theme'=>$theme,
-					'joggeur'=>$joggeur,
-					'listeArticles'=>$listeArticles,
-					'joggeurScore'=>$joggeurScore,
+					'listeArticles'=>$listeArticles,					
+					'placeClassement'=>$placeClassement,
 					'allThemes'=>$allThemes,
 					'joggeurForDraftmodeTheme'=>$joggeurForDraftmodeTheme,
+					'listeJoggeursScore'=>$listeJoggeursScore,
+					'joggeurScoreSaison'=>$joggeurScore,
 					'websites'=>$websites,
 					'formWebsite'=>$formWebsite->createView()											
 			));

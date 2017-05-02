@@ -5,18 +5,25 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-		<h1 class="main-title man align-center">
-			<svg class="icon icon--m icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-			{% if joggeur == app.user.joggeur %}
-				<span>Modification de mon profil</span>
-			{% else %}
-				<span>Modification d'un joggeur</span>
-			{% endif %}
-			<span class="button btn btn-default btn-becky mbs" data-info="Ici tu peux ajouter ou modifier tes infos.<br/>Tu peux renseigner ton site et ton mail, ils seront tous les deux visibles publiquement.<br/>N'oublies pas que le plus important, c'est d'être fun!">
-	        	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-	        </span>
-		</h1>
+	<div id="content" class="form-container">
+		<div class="ma0 tc b--dashed b--black-20 bb bt-0 br-0 bl-0 pb3 mb3 ">
+	    	<div class="flex flex-auto justify-center w-100">
+		    	<h1 class="self-center pr2 ma0">
+					<svg class="dib v-mid icon icon--s"><use xlink:href="#icon-pencil"></use></svg>
+					{% if joggeur == app.user.joggeur %}
+						<span class="dib v-mid">Modification de mon profil</span>
+					{% else %}
+						<span class="dib v-mid">Modification d'un joggeur</span>
+					{% endif %}
+				</h1>
+				<div class="">
+					<span class="button-becky db" data-info="Ici tu peux ajouter ou modifier tes infos.<br/>Tu peux renseigner ton site et ton mail, ils seront tous les deux visibles publiquement.<br/>N'oublies pas que le plus important, c'est d'être fun!" data-btn-becky>
+	            		{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+	            		<img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">
+			        </span>
+		    	</div>				
+			</div>
+		</div>
 	    
 	    {{ include('TdSMarathonBundle:Joggeur:form.html.twig') }}
  	</div>

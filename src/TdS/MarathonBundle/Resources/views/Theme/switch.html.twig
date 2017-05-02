@@ -14,81 +14,76 @@
 
         
 
-   		<h3>Brief avant validation :</h3>
-            <div  class="line sep--dashed pbm clearfix">
-               <h4 class="pan man">Nouveau thème:</h4>
-               {% if draftmodeTheme is defined and draftmodeTheme is not null %}
-                  <div class='thumb-line bg-op--black'>
-                     <span class="">
-                        {% if draftmodeTheme.image is not null %}
-                           <img class='thumbnail' src='{{ draftmodeTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
-                        {% endif %} 
-                     </span>
-                     <span class="pas">
-                        thème d'attente masqué
-                     </span>
-                  </div>
-               {% else %}
-                  <div class="flex-container-h">
-                  <svg class="icon icon-warning"><use xlink:href="#icon-warning"></use></svg>
-                  <span class="flex-item-fluid mls">Attention, il n'y a pas de thème en attente pour l'instant.
-                  Il n'y aura donc aucun thème en cours.</span>
-                  </div>
+   		
+            <div  class="b--dashed bt bl-0 br-0 bb-0 b--black-20 mv3 pv3">
+               <h5 class="ma0 f5">Brief avant validation :</h5>
+               <div class="ph2 pt3">
+                  <h4 class="ma0">Nouveau thème:</h4>
+                  {% if draftmodeTheme is defined and draftmodeTheme is not null %}
+                     <div class='flex flex-auto bg-white-20 mt2'>
+                        <span class="thumbnail--m">
+                           {% if draftmodeTheme.image is not null %}
+                              <img class='' src='{{ draftmodeTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
+                           {% endif %} 
+                        </span>
+                        <span class="pl2 self-center">
+                           thème d'attente masqué
+                        </span>
+                     </div>
+                  {% else %}
+                     <div class="flex flex-auto w-100 mv2">
+                        <svg class="icon icon--s fill-black-60"><use xlink:href="#icon-warning"></use></svg>
+                        <span class="i black-60 self-center pl2">Attention, il n'y a pas de thème en attente pour l'instant.<br/>
+                        Il n'y aura donc aucun thème en cours.</span>
+                     </div>
+                  {% endif %}
+               
 
-                  <a class="button btn btn-action"  href="{{ path('tds_marathon_theme_add_draftmode') }}">
-                        <svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-                        <span class="btn__label">Ecrire un thème d'attente</span>
-                  </a>
-               {% endif %}
+                  {% if currentTheme is defined and currentTheme is not null %}
+            			<div class="pt3">
+            				<h4 class="ma0">Thème à fermer :</h4>
+                           <a class="no-underline near-black bg-white-20 br2 flex flex-auto mv2" href="{{ path('tds_marathon_joggeur_view', {'id': currentTheme.id}) }}">
+                              <span class="thumbnail--m">
+                                 {% if currentTheme.image is not null %}
+                                    <img class='w-100 db' src='{{ currentTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+                                 {% endif %}  
+                              </span>
+                              <span class="pl2 self-center">
+                                 {{ currentTheme.titre }}
+                              </span>
+                           </a> 
+            			</div>
+                  {% endif %}
+
+                  {% if postTheme is defined and postTheme is not null %}
+            			<div  class="mt2">
+            				<h4 class="ma0">Thème précédent à archiver :</h4>
+            				<span>(fermeture des attributions de points.)</span>
+                           <a class="no-underline near-black bg-white-20 br2 flex flex-auto mv2" href="{{ path('tds_marathon_joggeur_view', {'id': postTheme.id}) }}">
+                              <span class="thumbnail--m">
+                                 {% if postTheme.image is not null %}
+                                    <img class='w-100 db' src='{{ postTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+                                 {% endif %}  
+                              </span>
+                              <span class="pl2 self-center">
+                                 {{ postTheme.titre }}
+                              </span>
+                           </a>
+            			</div>
+                  {% endif %} 
+               
+      			 
+                   <div class="mt3">
+            			<a data-action="switch-validate" class="button mr2" href="{{ path('tds_marathon_theme_switch_validation') }}">
+                        <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
+                        <span>Valider</span>
+                     </a>
+
+                     <a data-action="switch-cancel" class="button">
+                        <svg class="icon icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                        <span>Annuler</span>
+                     </a>
+                  </div>
             </div>
-
-            {% if currentTheme is defined and currentTheme is not null %}
-      			<div class="line sep--dashed pbm">
-      				<h4 class="pan man">Thème à fermer :</h4>
-                  <div class='thumb-line bg-op--black'>
-                     <a href="{{ path('tds_marathon_joggeur_view', {'id': currentTheme.id}) }}">
-                        <span class="">
-                           {% if currentTheme.image is not null %}
-                              <img class='thumbnail' src='{{ currentTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-                           {% endif %}  
-                        </span>
-                        <span class="pas">
-                           {{ currentTheme.titre }}
-                        </span>
-                     </a>
-                  </div> 
-      			</div>
-            {% endif %}
-
-            {% if postTheme is defined and postTheme is not null %}
-      			<div  class="line sep--dashed pbm ptm">
-      				<h4 class="pan man">Thème précédent à archiver :</h4>
-      				<span>(fermeture des attributions de points.)</span>
-                  <div class='thumb-line bg-op--black'>
-                     <a href="{{ path('tds_marathon_joggeur_view', {'id': postTheme.id}) }}">
-                        <span class="">
-                           {% if postTheme.image is not null %}
-                              <img class='thumbnail' src='{{ postTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-                           {% endif %}  
-                        </span>
-                        <span class="pas">
-                           {{ postTheme.titre }}
-                        </span>
-                     </a>
-                  </div>
-      			</div>
-            {% endif %} 
-
-
-   			 
-
-   			<a data-action="switch-validate" class="button btn btn-action mts" href="{{ path('tds_marathon_theme_switch_validation') }}">
-               <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
-               <span>Valider</span>
-            </a>
-
-            <a type="button" data-action="switch-cancel" class="button btn btn-action-cancel mts">
-               <svg class="icon icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-               <span>Annuler</span>
-            </a>
+         </div>
    		

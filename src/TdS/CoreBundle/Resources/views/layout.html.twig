@@ -7,11 +7,11 @@
 	  <title>{% block title %}Le Marathon de la Semaine{% endblock %}</title>
 	  <meta name="description" content="Un morceau (poème, chanson, cri, blabla, instrumental, recette, râle, solo...) à composer en une semaine en fonction du thème. Parce ce que la musique, c'est un sport. Ad Vitam Mp3" />
 	  
-	  {# <link href='https://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'> #}
 	  
-   	  {# <link href="{{ asset('bundles/tdsmarathon/css/styles.css') }}" rel='stylesheet' type='text/css'> #} 
-   	  <link href="{{ asset('tachyons/css/tachyons.min.css') }}" rel='stylesheet' type='text/css'>   
+   	  <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Arsenal|Roboto" rel="stylesheet">
+   	  <link href="https://fonts.googleapis.com/css?family=Metal+Mania|New+Rocker" rel="stylesheet">
 
+   	  <link href="{{ asset('tachyons/css/tachyons.css') }}" rel='stylesheet' type='text/css'>   
    	  <link rel="icon" type="image/png" href="{{ asset('bundles/tdsmarathon/images/favicon.png') }}" />	  
 	  <link rel="apple-touch-icon" href="{{ asset('bundles/tdsmarathon/images/favicon-big.png') }}" />
 	  <script src="{{ asset('js/jquery-2.1.4.min.js') }}" type="text/javascript"></script> 
@@ -34,33 +34,47 @@
 
 	{% import "TdSCoreBundle:Macros:icons-svg.html.twig" as icons %}
 	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
+
+	{% import "TdSCoreBundle:Macros:form-elements.html.twig" as formElementsModule %}
+
 	{{ icons.svg() }} 
 
 	<body>
 		<div id="device"></div>
-		<div class="main-wrapper f6">
+		<div class="main-wrapper f6 roboto near-black">
 
-			{# <div id="becky-content">
-				<div class="becky-overlay" data-close-becky></div>
-				<div class="becky-infos animated bounceInRight">
-					<a class="button btn btn-close-becky" data-close-becky>
-						<svg class="icon icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+			<div id="becky-content" class="relative dn">
+				<div class="becky-overlay fixed aspect-ratio--object bg-black-40" data-close-becky></div>
+				<div class="becky-infos animated bounceInRight absolute right-0 w-50 bg-ms-vert z-100">
+					<a class="button" data-close-becky>
+						<svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
 					</a>
-					<div class="flex-container-h">
-						<span class="becky-img prm"><span></span></span> 
-						<span class="becky-text mlm pls"></span>
+					<div class="flex flex-auto">
+						<span class="w-30">
+							{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+                			<img class="w-100 db pr2" src="{{ webpath | imagine_filter('medium_thumb') }}" alt="becky">
+						</span> 
+						<span class="becky-text db"></span>
 					</div> 
 				</div>
-			</div> #}
-			
-			{% if saison is not defined %}
-				{% set saison = null %}
+			</div>
+
+
+			{% if saisonCurrent is not defined or saisonCurrent is  null %}
+		      	{% set saisonCurrent = saisonService.getCurrSaison() %}
 			{% endif %}
 
-			{{ headernavModule.header(saison) }} 
+			{% if saison is not defined or saison is  null %}
+		      	{% set saison = saisonCurrent %}
+			{% endif %}
+
+			{% if joggeurScoreSaison is not defined or joggeurScoreSaison is empty %}
+				{% set joggeurScoreSaison = null %}
+			{% endif %}
+			{{ headernavModule.header(saison,saisonCurrent,joggeurScoreSaison) }} 
 
 
-			<div class="flashbag tc relative">
+			<div class="flashbag tc relative bg-ms-vert">
 	      		{% for message in app.session.flashbag.get('notice') %}
 	        		<span class="db pa2">Info : {{ message }}</span>
 	      		{% endfor %}
@@ -77,16 +91,29 @@
 		</div>
 
 
-		{{ footerModule.footer() }} 
-       
-  
+		{{ footerModule.footer() }}
 
-	  {% block javascripts %} 
-	  	
+		<div id="popup" data-id="0" class="popup-wrapper z-999 ">		
+			<div class="flex flex-auto justify-center w-100 h-100">	
+				<div class='inner-popup bg-black w-90 w-70-sm w-50-m w-30-l self-center pointer'>
+					<btn class="popup-close" data-action="close-popup">
+						<svg class="icon icon--s fill-ms-fushia" ><use xlink:href="#icon-cancel"></use></svg>
+					</btn>
+					<div class="message ms-fushia pa3 pa4-l">Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.</div>
+				</div>
+			</div>
+		</div>
+		{# <div class="bg-ms-vert pa3 dn"> 
+			{{ loisModule.lois() }}
+		</div>  #}
+       
+  		{% if is_granted("ROLE_SUPER_ADMIN") %}
+			{{ formElementsModule.delete_popup() }}
+		{% endif %}
+
+	  {% block javascripts %} 	  	
 	  	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-	  	 
-	   	
+		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>	   	
 	   	<script src="{{ asset('js/jquery.jplayer.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('js/jplayer.playlist.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>

@@ -24,6 +24,7 @@ class ThemeType extends AbstractType
                     'multiple' => false,
                     'expanded' => false
             ))
+
             ->add('dateDebut','datetime',array(
                       'date_widget' => 'single_text',
                       'input' => 'datetime',
@@ -45,9 +46,9 @@ class ThemeType extends AbstractType
                 )
             ->add('image',new ImageType(),array('required'=>false))
             ->add('valider','submit');
-
+            
             if($options['statut'] != 0){
-                 $builder->add('statut','checkbox',array('required'=>false))
+                 $builder->add('statut','hidden',array('required'=>false))
                          ->add('joggeur', 'entity', array(
                                 'class'    => 'TdSMarathonBundle:Joggeur',
                                 'property' => 'pseudo',
@@ -106,7 +107,7 @@ class ThemeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'TdS\MarathonBundle\Entity\Theme',
-            'statut' => null,
+            'statut' => 0,
         ));
     }
 

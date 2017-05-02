@@ -1,0 +1,36 @@
+{% macro bisous(joggeurScore,postTheme) %}
+	{% if joggeurScore is defined %}
+		<div class="near-black">
+			<h4 class="fw4 ma0 pa3 f5">Points Bisous</h4>
+			<div class="flex flex-auto flex-wrap pa3 justify-center">
+				<div class="flex-item w-50 w-60-ns justify-center bg-white-20 pa2 flex flex-wrap">
+					<svg class="icon icon--s icon-heart self-center fill-near-black mr2"><use xlink:href="#icon-heart"></use></svg>
+					<span class="db self-center">Points bisous en stock</span>
+				</div>
+
+				<div class="w-40 w-10-ns bg-near-black ms-fushia flex no-underline ph2" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">				
+					<span class="f4 self-center tc">{{ joggeurScore.pointstogive }}</span>
+				</div>
+			</div>
+
+			<div class="b--dashed bl-0 bb-0 br-0 bt b--black-30 pa3">
+				<div>Thème ouvert à l'attribution de points :</div>
+				{% if postTheme is defined and postTheme is not null %}
+					<div class="mv2 pt3 flex flex-auto flex-wrap">
+						<div class="w-50 w-60-ns justify-center bg-white-20">
+							<img class='dib v-mid' src='{{ postTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
+	    					<span class='dib v-mid'>{{ postTheme.titre }}</span>
+						</div>
+
+						<a class="w-50 w-40-ns button flex flex-auto " href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+							<svg class="icon icon--s icon-heart self-center pr1"><use xlink:href="#icon-heartadd"></use></svg>
+							<span class="self-center">Attribuer des points bisous</span>
+						</a>
+					</div>
+				{% else %}
+					<div class="">Il n'y a pas de thème pour l'instant</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}	
+{% endmacro %}
