@@ -1,28 +1,36 @@
 {% macro article(article) %}
 
-	<div class="bg-white-30 pa3 mv2">
+	<div class="article-wrapper bg-white-10 mv2 shadow-subtle">
 		<div class="">
-			{% if is_granted("ROLE_SUPER_ADMIN") %}
-				<div class="tr">
-					<a class="button" href="{{ path('tds_marathon_article_edit', { 'id': article.id }) }}">
-						<svg class="icon icon--xs"><use xlink:href="#icon-pencil"></use></svg>
-					</a>
-					<a class='button' data-delete data-href="{{ path('tds_marathon_article_delete', {'id': article.id}) }} "  data-pseudo="{{ article.titre }}">
-			            <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
-			        </a>
-		     	</div>
-			{% endif %}
-			<h3 class="pa0 ma0">{{ article.titre }}</h3>
-			
-			<strong class="i fw1">le {{ article.datePost|date('d/m/Y à H:s') }}</strong>
-			<div class="article-image mt2">
-				{% if article.image is not null %}
-					<img class="" src="{{ article.image.webPath  | imagine_filter('big_image') }}" alt="{{ article.image.alt }}">
+			<div class="bb b--black-20 pa3">
+				{% if is_granted("ROLE_SUPER_ADMIN") %}
+					<div class="tr mb2">
+						<a class="button" href="{{ path('tds_marathon_article_edit', { 'id': article.id }) }}">
+							<svg class="icon icon--xs"><use xlink:href="#icon-pencil"></use></svg>
+						</a>
+						<a class='button' data-delete data-href="{{ path('tds_marathon_article_delete', {'id': article.id}) }} "  data-pseudo="{{ article.titre }}">
+				            <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
+				        </a>
+			     	</div>
 				{% endif %}
+
+				<div class="ms-subtitle">
+					<h3 class="ma0 pa0">{{ article.titre }}</h3>
+				</div>
+				
+				<strong class="i fw1">le {{ article.datePost|date('d/m/Y à H:s') }}</strong>
 			</div>
-			<div class="content">
-				{% set contenu = article.contenu|nl2br %}
-				{{ article.contenu|raw }}
+
+			<div class="pa3">
+				<div class="article-image mt2">
+					{% if article.image is not null %}
+						<img class="" src="{{ article.image.webPath  | imagine_filter('big_image') }}" alt="{{ article.image.alt }}">
+					{% endif %}
+				</div>
+				<div class="content">
+					{% set contenu = article.contenu|nl2br %}
+					{{ article.contenu|raw }}
+				</div>
 			</div>
 		</div>
 	</div>

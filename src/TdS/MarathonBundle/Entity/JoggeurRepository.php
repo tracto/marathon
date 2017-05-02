@@ -74,4 +74,5 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
  
         return $results;
     }
+
 }

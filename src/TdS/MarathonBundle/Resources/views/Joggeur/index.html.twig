@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="">
+	<div class="pb4">
 
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
 			<div class="">
@@ -16,27 +16,21 @@
 			</div>
 		{% endif %}
 
-		<h1 class="tc">joggeurs</h1>
-			
-			    
+		<div class="w-60-ns center tc">
+			<div class="ms-title pb3 flex-1">					
+		    	<h2><span class=""><span class="db pa3 ">Les joggeurs</span></span></h2>	
+		    </div>
+		</div>
+						    
 	    <div class="flex flex-auto flex-wrap">
 		    {% for joggeur in listeJoggeurs %}
 		    	{% if joggeur is not null %}
-			    	<div class='w-50 w-10-ns pa1'>
+			    	<div class='w-50 w-33-sm w-20-m w-10-l pa1'>
 					    {{ vignetteModule.vignette_joggeur(joggeur) }}
 					</div>
 			    {% endif %}
 		    {% endfor %}
 		</div>
 
-		{% if is_granted("ROLE_SUPER_ADMIN") %}
-			<div class='popup-delete-confirmation dn' data-popupdelete>
-	            <div>
-	                <p></p>
-	                <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-	                <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
-	            </div>
-	        </div>
-    	{% endif %}
 	</div> 
 {% endblock %}

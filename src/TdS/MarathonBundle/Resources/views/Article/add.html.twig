@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-		<h1 class="main-title man align-center">
-		<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-		<span>Ajout d'un article</span>
-	</h1>
-	{{ include('TdSMarathonBundle:Article:form.html.twig') }}
+	<div id="content" class="form-container">
+	    <h1 class="ma0 tc b--dashed b--black-20 bb bt-0 br-0 bl-0 pb3 mb3">
+			<svg class="dib v-mid icon icon--s"><use xlink:href="#icon-plus"></use></svg>
+			<span class="dib v-mid">Ajout d'un article</span>
+		</h1>
+		{{ include('TdSMarathonBundle:Article:form.html.twig') }}
 	</div>
 {% endblock %}

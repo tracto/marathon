@@ -1,4 +1,6 @@
 {% macro playlist(theme,joggeur) %}
+
+
 <div class='playlist-body'>
 	{# liste envoyée au jplayer / invisible #}
 	<div class='dn'>
@@ -43,9 +45,9 @@
 	<div id="" class="jp-jplayer"></div>
 		<div id="" class="jp-container jp-audio" role="application" aria-label="media player">
 			<div class="jp-type-playlist">
-				<div class="jp-gui jp-interface bb bt-0 bl-0 br-0 b--dashed dark-gray pb3 z-2">
-					<div class="jp-controls-holder pa2">
-						<div class="jp-controls flex flex-auto flex-wrap justify-center">
+				<div class="jp-gui jp-interface z-2 outset-frame_pl pa2 mv3" data-id="playlist-header">
+					<div class="jp-controls-holder outset-frame_inner_pl pv3 ph4">
+						<div class="jp-controls flex flex-auto flex-wrap justify-center mb3">
 							<button class="button-player jp-previous mh1" role="button" tabindex="0">
 								<svg class="icon icon--xs"><use xlink:href="#icon-first"></use></svg>
 							</button>
@@ -64,7 +66,9 @@
 						</div>
 
 						<div class="jp-timeline pv2">
-							<div class="jp-infos-title f5 tc" data-infostitle></div>
+							<div class="jp-infos-title f5 tc" data-infostitle>
+								{# contenu dynamique via marathon-jplayer.js #}
+							</div>
 							<div class="jp-progress w-100 h2">
 								<div class="jp-seek-bar bg-ms-turquoise h-100">
 									<div class="jp-play-bar bg-near-black h-100"></div>
@@ -87,7 +91,7 @@
 									</button>
 								</div>
 								<div class="jp-volume-bar h1 bg-dark-gray pointer">
-									<div class="jp-volume-bar-value bg-ms-bleu h-100"></div>
+									<div class="jp-volume-bar-value bg-ms-bleu-bright h-100"></div>
 								</div>
 							</div>
 
@@ -110,9 +114,7 @@
 						</ul>
 					</div>
 
-					<a class="creativec-lien" href="http://creativecommons.org/licenses/by-sa/4.0/">
-						<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
-					</a>
+					
 				</div>
 				<div class="jp-no-solution">
 					<span>Update Required</span>

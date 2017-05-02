@@ -11,8 +11,8 @@ $(document).ready(function(){
       }
 
       if(is_medium){
-        var refHeight=$(".col-playlist-gauche").height()-235;
-        $(".jp-playlist").css({"max-height":refHeight+"px"});
+        var refHeight=$("[data-id='col-gauche']").height()-$("[data-id='playlist-header']").height()-$("[data-id='playlist-footer']").height();
+        $(".jp-playlist-inner").css({"max-height":refHeight+"px"});
       }
 
 
@@ -53,18 +53,21 @@ $(document).ready(function(){
 
           createListItem=function(media){
                 var self = this;
-                var listItem = "<li class='playlist-item pa2'>";
+                var listItem = "<li class='playlist-item-wrapper pa2'>";
+                  listItem += "<div>";
                       listItem += "<a href='javascript:;' class='w-100 flex flex-auto no-underline near-black " + myPlaylist.options.playlistOptions.itemClass + "' data-tabindex='"+media.index+"'>";
                         listItem += "<span class='jp-thumb thumbnail--m flex-item'>";
                           listItem += "<img class='db w-100' src='"+media.thumb+"'/>";
                         listItem += "</span>";
+
                         listItem += "<div class='jp-title-artist flex-item pl2'>";
                             listItem += "<span class='jp-title db w-100'>" + media.title + "</span>";
                             listItem +=(media.artist ?" <span class='jp-artist db w-100 i dark-gray '>" + media.artist + "</span>" : "");
-                          
                         listItem += "</div>";
-                        listItem += "<span class='flex-item f2 v-mid pr1 ms-bleu'>" + media.index + "</span>";
+                        
+                        listItem += "<span class='jp-numero flex-item f2 v-mid pr1 ms-bleu-bright'>" + media.index + "</span>";
                       listItem += "</a>";
+                      listItem += "<div>";
                     listItem += "</li>";             
                 return listItem;
           };

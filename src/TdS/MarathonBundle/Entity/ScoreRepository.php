@@ -3,6 +3,7 @@
 namespace TdS\MarathonBundle\Entity;
 
 use TdS\MarathonBundle\Entity\Joggeur;
+use TdS\MarathonBundle\Entity\JoggeurScore;
 use TdS\MarathonBundle\Entity\Theme;
 use TdS\MarathonBundle\Entity\Saison;
 use Doctrine\ORM\EntityRepository;
@@ -49,6 +50,30 @@ class ScoreRepository extends \Doctrine\ORM\EntityRepository {
 		  return $queryBuilder
      		->getQuery()
      		->getResult();
+
+    }
+
+
+
+    public function findAllBySaisonAndJoggeurScore(Saison $saisonCurrent,JoggeurScore $joggeurScore){
+      $themesId = array();
+      foreach ($saisonCurrent->getThemes() as $theme) {
+          $themesId[] = $theme->getId();
+          echo "<br/>yo-".$theme->getTitre();
+      }
+
+
+      $queryBuilder=$this->_em->createQueryBuilder()
+      ->select('a')
+      ->where('a.joggeurScore = :joggeurScore')
+      ->setParameter('joggeurScore', $joggeurScore)
+      ->andWhere('a.theme IN (:theme)')
+      ->setParameter('theme', $themesId)
+      ->from($this->_entityName,'a');
+
+      return $queryBuilder
+        ->getQuery()
+        ->getResult();
 
     }
 

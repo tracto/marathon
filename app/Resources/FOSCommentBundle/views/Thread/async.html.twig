@@ -48,7 +48,7 @@
 
 
 		$("[data-action='show-comments']").on('click',function(){
-				$(".comment-action-buttons").show();
+				$(".fos-comment-header-buttons").show();
 				comment.launchComments();
 				comment.construct();
 				$("#playlist-comments").show();
@@ -62,7 +62,7 @@
 
 		
 		$("[data-action='hide-comments']").on('click',function(){
-				$(".comment-action-buttons").hide();
+				$(".fos-comment-header-buttons").hide();
 				$("#fos_comment_thread_wrapper").hide();
 				
 		});

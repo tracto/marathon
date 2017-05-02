@@ -16,6 +16,20 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
     }
 
 
+    public function findSaisonByStatut($statut){
+        $results = $this
+            ->createQueryBuilder('n')
+            ->addSelect('n','i')
+            ->leftJoin('n.image','i')           
+            ->orderBy('n.id', 'DESC')
+            ->where('n.statut = :statut')
+            ->setParameter('statut',$statut)
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
+        return $results;
+    }
+
+
 
     public function findLastOne(){
         $results = $this
@@ -32,10 +46,12 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
     public function findAllSaisonsWithThemes(){
         $results = $this
             ->createQueryBuilder('n')
-            ->addselect('n','t','i','it')
+            ->addselect('n','t','i','it','mt','partial th.{id,numComments}')
             ->leftJoin('n.image','i')
             ->leftJoin('n.themes','t')
+            ->leftJoin('t.musicTitles','mt')
             ->leftJoin('t.image','it')
+            ->leftJoin('t.thread','th')
             ->getQuery()->getResult();
  
         return $results;

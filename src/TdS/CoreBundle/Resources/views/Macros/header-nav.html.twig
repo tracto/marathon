@@ -1,8 +1,9 @@
-{% macro header(saison) %}
+{% macro header(saison,saisonCurrent,joggeurScoreSaison) %}
+	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
+	{% import "TdSCoreBundle:Macros:header-userpanel.html.twig" as headerUserPanel %}
 
-	
-	{% if saison is not defined or saison is  null %}
-      	{% set saison = saisonService.getCurrSaison() %}
+	{% if saison is not defined or saison is null or saison.titre is empty %}
+      	{% set saison = saisonCurrent %}
 	{% endif %}
 
 	{% set cssbg = "" %}
@@ -10,8 +11,14 @@
 		{% set cssbg =  saison.image.webPath | imagine_filter('header_image') %}
 	{% endif %}
 
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
+		{% if joggeurScoreSaison is not defined or joggeurScoreSaison is empty or joggeurScoreSaison is null or joggeurScoreSaison != app.user.joggeur.joggeurScore %}
+			{% set joggeurScoreSaison = scoreService.getAllSaisonScoresOfJoggeurScore(saisonCurrent, app.user.joggeur) %}
+		{% endif %}
+	{% endif %}
 
-	<header id="header" class="main-header relative cover bg-center w-100" style="background-image: url('{{ cssbg }}');" >
+
+	<header id="header" class="main-header relative w-100 bg-near-black fixed ph0 ph2-m ph3-l z-5">
 
 		{# PARTIE 1 : navigation #}
 		<input id="mobile-nav" type="checkbox" class="nav-toggler" />
@@ -21,110 +28,99 @@
 			</svg>
 		</label>
 
-		<nav class="navbar-header bg-black-90 fixed w-100 ph0 pv3 pv0-ns ph3-ns z-999">
-			<ul class="navbar-first list mh0 ph0 w-100 relative dn db-ns">
-				{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-            		<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
-            	{% endif %}
+		<div class="flex flex-auto flex-wrap justify-between">
+			<nav class="navbar-header self-center">
+				<ul class="navbar-first self-center list ma0 pa0 w-100 relative dn db-ns f7 flex-ns flex-auto-ns justify-between ">
+					{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
+	            		<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
+	            	{% endif %}
 
-				<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white db pv3 pv0-ns"  href="{{ path('tds_home') }}">Accueil</a></li>
-				<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white pv3 pv0-ns db"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
-				
-				<li class="navbar-second pv2 pv0-ns db dib-ns mr3-ns v-top bb bn-ns b--light-silver  tc"><span class="link white" >Saisons</span>
-					<ul class="list mh0 ph0">
-						{% for saisonListe in saisonService.allSaison() %}
-							{% for saisonItem in saisonListe %}
-								{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
-								<li class="tc"><a class="link white pv2 db" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
-								{% endif %}
+					<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns"  href="{{ path('tds_home') }}">Accueil</a></li>
+					<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+					
+					<li class="navbar-second pv2 pv0-ns db mr3-ns v-top bb bn-ns b--ms-bleu-bright self-center self-start-m pt2-m tc"><span class="link ms-bleu-bright" >Saisons</span>
+						<ul class="list mh0 ph0 pv0 absolute-ns">
+							{% for saisonListe in saisonService.allSaison() %}
+								{% for saisonItem in saisonListe %}
+									{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
+									<li class="tc bg-near-black pv2 ph3-ns b--ms-bleu-bright bb-ns"><a class="link ms-bleu-bright db" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
+									{% endif %}
+								{% endfor %}
 							{% endfor %}
-						{% endfor %}
-					</ul>
-				</li>
-				
-				
-				
+						</ul>
+					</li>
+					
+					
+					{% if is_granted("ROLE_SUPER_ADMIN") %}
+	            		<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
+	            	{% endif %}
+	            	<li class="button-lois lh-solid">
+	            		<a class="bg--marbre pv2 ph3 dib garamond f5 b">
+							les Lois du Marathon
+				  		</a> 
+	            	</li>		            	           		            	
+				</ul>
+			</nav>
 
-				{% if is_granted("ROLE_SUPER_ADMIN") %}
-            		<li class="db dib-ns mr3-ns v-top bb bn-ns b--light-silver tc"><a class="link white pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
-            	{% endif %}
-
-            	<li class="user db dib-ns mr3-ns v-top tc fr-ns" aria-label="user">
-		          	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}				   
-		          		<div class='thumb-line author pt3 pt0-ns'>
-							<div>										
-								<span class="author-name dib v-mid">
-									<a class="link white" href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
-										<span>{{ app.user.joggeur.pseudo }}</span> 
-									</a>
-									<a class="link white db f6" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-								</span>
-
-								<span class="thumb-line dib v-mid">
-									<span class="db thumbnail--s">
-										{% if app.user.joggeur.image is not null %}
-											<img class='db w-100' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-										{% else %}
-								  			<img class='db w-100' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">
-								  		{% endif %}
-									</span>   
-								</span>
-							</div>									
-						</div>
-						
-		            {% else %}
-		               <a href="{{ path('fos_user_security_login') }}">Connexion</a>		
-		            {% endif %}
-		        </li>
-			</ul>
-		</nav>
-
-		{# FIN PARTIE 1 #}
-
-
-        {# ///////////////////////////////////////////////////////// #}
-
-
-        {# PARTIE 2 / header bg +logo + saison #}				
-		<div class="dt w-100 mw8 center">
-			<div class="dtc v-mid relative">
-				<img class="main-logo tc center db" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
-
-				
-
-				<div class="saison-title tc relative">
-  					<h1 class="pa0 ma0">{{ saison.titre }}</h1>
-  					{% if saison.statut == 0 %}
-  						{% set statut = "pas encore activée" %}
-  					{% elseif saison.statut == 1 %}
-  						{% set statut = "en cours" %}
-  					{% elseif saison.statut == 2 %}
-  						{% set statut = "terminée" %}
-  					{% endif %}
-  					<h3 class="pa0 ma0">{{ statut }}</h3>
-  				</div>
-
-  				{% set hotFresh = hotfreshService.showContent() %} 
-
-  				<div class="hotfresh-wrapper tc relative center mw6">
-  					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
-	  					<div id="form-hotfresh" class="form-hotfresh dn">							
-	  						{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
-						</div>
-					{% endif %}
-					<div id="hotfresh-inner" class="tc">
-  						<div class="hotfresh-content bg-black white pa2 dib"> 
-  							{{ hotFresh.content }} 
-  						</div>
-  						{% if is_granted("ROLE_SUPER_ADMIN") %}
-							<a class="button btn-action dib pa2" data-action="show-hotfresh-form" href="#">
-			  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
-							</a>					
-						{% endif %}
-  					</div>
-  				</div>
+			<div class="self-center  flex-auto" aria-label="user">
+				{{ headerUserPanel.userpanel(saisonCurrent,joggeurScoreSaison) }}
 			</div>
 		</div>
-		{# FIN PARTIE 2 #}
 	 </header>
+
+	{# FIN PARTIE 1 #}
+
+
+    {# ///////////////////////////////////////////////////////// #}
+
+
+    {# PARTIE 2 / header bg +logo + saison #}				
+	<div class="hero logo-wrapper dt w-100 center cover bg-center" style="background-image: url('{{ cssbg }}');">
+		<div class="dtc v-mid relative">
+			<img class="main-logo tc center db" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
+
+			
+
+			<div class="saison-title tc relative pv3">
+					<h1 class="pa0 ma0">
+						<span class='saison-title-shadow db'>{{ saison.titre }}</span>
+						<span class='saison-title-gradient db'>{{ saison.titre }}</span>
+					</h1>
+
+					{% if saison.statut == 0 %}
+						{% set statut = "pas encore activée" %}
+					{% elseif saison.statut == 1 %}
+						{% set statut = "en cours" %}
+					{% elseif saison.statut == 2 %}
+						{% set statut = "terminée" %}
+					{% endif %}
+					<h3 class="pa0 ma0 new-rocker">{{ statut }}</h3>
+				</div>
+
+				{% set hotFresh = hotfreshService.showContent() %} 
+
+				<div class="hotfresh-wrapper tc relative center mw6">
+					{% if is_granted("ROLE_SUPER_ADMIN") %}  				
+  					<div id="form-hotfresh" class="form-hotfresh dn">							
+  						{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
+					</div>
+				{% endif %}
+				<div id="hotfresh-inner" class="tc">
+						<div class="hotfresh-content bg-black ms-vert pv2 ph3 dib code f7"> 
+							{{ hotFresh.content }} 
+						</div>
+						{% if is_granted("ROLE_SUPER_ADMIN") %}
+						<a class="button btn-action dib pa2" data-action="show-hotfresh-form" href="#">
+		  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
+						</a>					
+					{% endif %}
+					</div>
+
+				</div>
+
+				
+		</div>
+	</div>
+	{# FIN PARTIE 2 #}
+	 
  {% endmacro %}

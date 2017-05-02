@@ -39,7 +39,7 @@ class TdSSaison {
 	public function getCurrSaison(){
 		$saison=$this->em
 	      	->getRepository('TdSMarathonBundle:Saison')
-	      	->findOneBy(array('statut' => 1));
+	      	->findSaisonByStatut(1);
 
 
 	    if(!$saison){
@@ -47,6 +47,7 @@ class TdSSaison {
 	      	->getRepository('TdSMarathonBundle:Saison')
 	    	->findLastOne();
 	    }
+	    $this->em->clear();
 	    return $saison;	    	
 	}
 

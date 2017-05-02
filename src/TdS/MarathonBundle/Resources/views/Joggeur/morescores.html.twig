@@ -9,36 +9,22 @@
 				{% if saison is empty %}
 					{% set saison = score.theme.saison.titre %}
 					<div class="b--dashed bt br-0 bl-0 bb-0">
-					<h3 class="tc">{{ saison }}</h3>
+					<div class="w-100 pt4">
+						<h3 class="db f4 tc pa2 center ma0">{{ saison }}</h3>
+					</div>
 				{% endif %}
 
 
 				{% if saison != score.theme.saison.titre %}
 					{% set saison = score.theme.saison.titre %}
 					</div>
-					<div class="b--dashed bt br-0 bl-0 bb-0">
-					<h3 class="tc">{{ saison }}</h3>				
+					<div class="">
+						<div class="w-100 pt4">
+							<h3 class="db f4 tc pa2 center ma0">{{ saison }}</h3>
+						</div>			
 				{% endif %}
 
-				<a class="flex flex-wrap flex-row items-center mb2 no-underline near-black w-100"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
-							<div class="flex-item thumbnail--m">
-								<img class="" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
-							</div>
-																						
-							<span class="flex-item flex-auto ph2">{{ score.theme.titre }} : {{ score.totalTheme }}
-							</span>
-
-							<div class="self-center flex">
-
-
-								{{ scoresElementsModule.scores_miniblock_horizontal(score.fastpoints,"#icon-fast","ms-bleu","icon--s") }}
-								{{ scoresElementsModule.scores_miniblock_horizontal(score.heartpoints,"#icon-heart2","ms-bleu","icon--xs") }}
-								{% if score.takenpoints != 0 %}
-									{{ scoresElementsModule.scores_miniblock_horizontal(score.takenpoints,"#icon-minus","ms-bleu","icon--s") }}
-								{% endif %}
-
-							</div>
-				</a>							
+				{{ scoresElementsModule.ligne_score_theme(score) }}							
 			{% endfor %}
 			</div>
 		</div>

@@ -1,8 +1,14 @@
 {% macro becky(id) %}
-	<div class="becky-infos">
-
-		<span class="becky-img"></span>
-		<span class="becky-text"></span>          	
-			
+	<div class="becky-infos animated bounceInRight absolute right-0 w-50 bg-ms-vert z-100">
+		<a class="button" data-close-becky>
+			<svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
+		</a>
+		<div class="flex flex-auto">
+     		<span class="w-30">
+				{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+        		<img class="w-100 db pr2" src="{{ webpath | imagine_filter('medium_thumb') }}" alt="becky">
+			</span> 
+			<span class="becky-text db"></span>	
+		</div>
 	</div>
 {% endmacro %}		
