@@ -1,0 +1,1855 @@
+/*STYLES*/
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+a { color: inherit; }
+
+
+
+
+
+
+
+
+@media (--breakpoint-medium){
+	body{
+		border:solid 1px red;
+
+	}
+}
+
+
+@media (--breakpoint-small-medium){
+	body{
+		border:solid 1px blue;
+
+	}
+}
+
+
+@media (--breakpoint-large){
+	body{
+		border:solid 1px green;
+
+	}
+}
+
+
+/*detection du device pour le js*/
+#device{
+	display:block;
+}
+
+
+@media (--breakpoint-not-small){
+	#device{
+		display:none;
+	}
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: solid 1px var(--ms-fushia);
+}
+
+
+input[type='submit']:focus {
+    outline: none;	
+}
+
+
+.wrapper{
+	min-height:50vh;
+	width:100%;
+}
+
+
+.wrapper .container-center{
+	margin:0 auto;
+	max-width:1440px;
+	background-color:rgba(217, 239, 231, 0.5);
+	border:solid $grey4;
+	border-width:0 1px 0 1px;
+	width:100%;		
+
+}
+
+.container-border-left{
+	background-image:url('../../bundles/tdsmarathon/images/motif-border-g.png');
+	background-repeat:repeat-y;
+	background-position-x: right;
+}
+
+.container-border-right{
+	background-image:url('../../bundles/tdsmarathon/images/motif-border-d.png');
+	background-repeat:repeat-y;
+}
+
+
+
+
+
+
+/*BECKY*/
+.becky-infos{
+	top:80px;
+}
+
+
+
+
+
+
+
+/*HEADER*/
+
+.hero{
+	max-height:70vh;
+	overflow:hidden;
+}
+
+@media (--breakpoint-medium){
+	.hero{
+		background-position:50% 40px;
+	}
+}
+
+
+.navbar-header{
+	
+}
+
+
+.nav-toggler {
+    position: absolute;
+    top: -1000px;
+}
+
+.nav-toggler__label {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    z-index:10000;
+    width: 40px;
+    height: 40px;
+    padding:10px 6px;
+    margin:0;
+    cursor: pointer;
+
+
+}
+
+.nav-toggler:checked + .nav-toggler__label {
+	color: rgba(0,0,0,0.25);    
+}
+
+.nav-toggler:checked ~ .navbar-header ul{
+    display:block;
+}
+
+.nav-toggler:checked ~ .navbar-under{
+	top:560px;
+}
+
+
+.navbar-first > li{
+	line-height: 60px;
+}
+
+.navbar-second li{
+	line-height: 20px;
+}
+
+@media (--breakpoint-not-small){
+	.nav-toggler__label{
+		display: none;
+	}
+	.navbar-first li{
+		/*min-width: 4rem;*/
+		cursor:pointer;
+	}
+	.navbar-second ul {		
+		display:none;			
+	}
+	.navbar-second:hover ul{
+		display:block;
+	}
+}
+
+@media (--breakpoint-medium){
+	.navbar-second ul {	
+		margin-left: -0.7rem;
+	}
+}
+
+    
+
+@media (--breakpoint-large){
+	.navbar-first li{
+		cursor:pointer;
+		min-width: 6rem;
+	}
+}
+
+
+
+
+
+
+.button-connexion{
+	margin-top: -0.7rem;
+    padding-top: 0.7rem;
+    font-size:0.9rem;
+    width: 91px;
+    height: 37px;
+    background-image: url(../../bundles/tdsmarathon/images/header/button-connexion.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+} 
+
+
+.navbar-header_saison span{
+	display:flex;
+	flex:0 1 auto;
+	margin-bottom:0.1rem;
+}
+
+@media (--breakpoint-medium){
+	.navbar-header_saison span{
+		/*padding-right:0.5rem;*/
+	}
+}
+
+.navbar-header_saison span:before, .navbar-header_saison span:after{
+	content:' ';
+	background-color:var(--ms-fushia);
+	height:3px;
+	width:100%;
+	align-self: center;
+	flex:1;	
+}
+
+.navbar-header_saison span:before{
+	margin-right:0.5rem;
+}
+
+.navbar-header_saison span:after{
+	margin-left:0.5rem;
+}
+
+
+
+
+.button-lois,
+.nav-points-bisous {
+	position: absolute;
+    top: 100%;
+    margin-top: 3px;
+}
+
+
+.navbar-first li.button-lois{
+	line-height:20px;
+}
+
+
+.button-lois a{
+	border:outset 1px white;
+}
+
+
+
+
+
+
+.hero .saison-title{
+	bottom: 130px;
+    font-family: Metal Mania,cursive;
+    font-size: 2rem;
+    font-weight: 100;
+    line-height: 0rem;
+    width:100%;
+	
+}
+
+.hero .saison-title h1{
+	margin:0 auto;
+}
+
+.saison-title-shadow{
+	color: black;
+    position: absolute;
+    width:100%;
+    line-height: 6rem;
+    text-shadow: -1px -1px 5px black;
+    -webkit-text-stroke: #000 1px;
+}
+
+.saison-title-gradient{
+	background-image: -webkit-linear-gradient(#fffc00 20%,#f64aaa 65%,#c982d8 80%);
+    -webkit-background-clip: text;
+    z-index: 1;   
+    position: absolute;
+    width:100%;
+    line-height: 6rem;
+    -webkit-text-fill-color: rgba(0, 0, 0, 0);
+}
+
+.hero .saison-title h3{
+	position: relative;
+    z-index: 2;
+    color: #c982d8;
+    top: 82px;
+    font-size: 2.5rem;
+    text-shadow: 0 0 1px #000;
+    -webkit-text-stroke: .2px rgba(0,0,0,.7);
+}
+
+
+
+
+
+.hero .hotfresh-wrapper{
+	    bottom: 190px;
+}
+
+.hero .hotfresh-inner .button{
+	max-height: 30px;
+    padding: 0.2rem
+}
+
+
+@media (--breakpoint-medium){
+	.hero .logo-wrapper{
+		max-width:28rem;
+	}
+
+	.hero .main-logo{
+		margin-top:60px;
+	}
+
+	.hero .saison-title{
+    	font-size: 2rem;
+	}
+
+	.hero .hotfresh-wrapper{
+	    bottom: 180px;
+	}
+
+}
+
+
+
+@media (--breakpoint-large){
+	.hero .logo-wrapper{
+		max-width:32rem;
+	}
+
+	.hero .saison-title{
+    	font-size: 3rem;
+	}
+
+	.hero .saison-title h3{
+    	top: 100px;
+	}
+
+	.hero .hotfresh-wrapper{
+	    bottom: 40px;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+/* BUTTONS */
+button{
+	cursor:pointer;
+}
+
+.button{
+	background-color:var(--near-black);
+	border:none;
+	color:var(--ms-fushia);
+	text-decoration:none;
+	padding:0.5rem;
+	cursor:pointer;
+}
+
+
+.button svg{
+	fill:var(--ms-fushia);
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.button span{
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.button-special{
+	background-color:transparent;
+	color:var(--near-black);
+	padding:0;
+}
+
+.button-nude{
+	background-color:transparent;
+	color:var(--near-black);
+	border:none;
+	padding:0;
+}
+
+.button-comments{
+	width:30px;
+}
+
+.button-caret{
+	background-color:var(--white-10);
+	color:var(--near-black);
+
+}
+
+.button-caret svg{
+	fill:var(--near-black);
+	float:right;
+}
+
+.button-player{
+	background-image:url('../../bundles/tdsmarathon/images/playlist/playlist-bg.jpg');
+	border:outset 1px white;
+	border-radius:2px;
+	padding:0.5rem;
+}
+
+
+.button-player .icon{
+    display: inline-block;
+    vertical-align: middle;
+    fill:var(--near-black);
+}
+
+.button-becky{
+	background-color:var(--ms-fushia);
+	border:outset 1px white;
+	border-radius:8px;
+	text-decoration:none;
+	height:50px;
+	width:50px;
+	cursor:pointer;
+}
+
+
+.button-save{
+	position: relative;
+	margin:0 auto;
+    width: auto;
+    text-align:center;
+    display: inline-block;
+}
+
+
+.button-save button{
+	border:none;
+	background:transparent;
+	color:var(--ms-fushia);
+}
+
+.button-switch span{
+	margin-left:-8px;
+	padding:18px;
+	/*height:60px;*/
+}
+    
+
+
+
+
+
+
+
+
+/* ICONS */
+.icon--xxs{
+	width:10px;
+	height:10px;
+}
+
+.icon--xs{
+	width:20px;
+	height:20px;
+}
+
+.icon--s{
+	width:30px;
+	height:30px;
+}
+
+.icon--m{
+	width:45px;
+	height:45px;
+}
+
+.icon--l{
+	width:60px;
+	height:60px;
+}
+
+.icon-pencil{
+	width:20px;
+	height:30px;
+}
+
+.icon-points{
+	height:30px;
+}
+
+
+
+
+@media (--breakpoint-not-small){ 
+	.icon--xxs-ns{
+		width:10px;
+		height:10px;
+	}
+
+	.icon--xs-ns{
+		width:20px;
+		height:20px;
+	}
+
+	.icon--s-ns{
+		width:30px;
+		height:30px;
+	}
+
+	.icon--m-ns{
+		width:45px;
+		height:45px;
+	}
+
+	.icon--l-ns{
+		width:60px;
+		height:60px;
+	}
+
+	.icon-pencil-ns{
+		width:20px;
+		height:30px;
+	}
+}
+
+
+@media (--breakpoint-medium){ 
+	.icon--xxs-m{
+		width:10px;
+		height:10px;
+	}
+
+	.icon--xs-m{
+		width:20px;
+		height:20px;
+	}
+
+	.icon--s-m{
+		width:30px;
+		height:30px;
+	}
+
+	.icon--m-m{
+		width:45px;
+		height:45px;
+	}
+
+	.icon--l-m{
+		width:60px;
+		height:60px;
+	}
+
+	.icon-pencil-m{
+		width:20px;
+		height:30px;
+	}
+}
+
+
+@media (--breakpoint-large){ 
+	.icon--xxs-l{
+		width:10px;
+		height:10px;
+	}
+
+	.icon--xs-l{
+		width:20px;
+		height:20px;
+	}
+
+	.icon--s-l{
+		width:30px;
+		height:30px;
+	}
+
+	.icon--m-l{
+		width:45px;
+		height:45px;
+	}
+
+	.icon--l-l{
+		width:60px;
+		height:60px;
+	}
+
+	.icon-pencil-l{
+		width:20px;
+		height:30px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* THUMBNAILS */
+.thumbnail--s{
+	border:solid 1px var(--black-20);
+	width:30px;
+	height:30px;
+}
+
+.thumbnail--m{
+	border:solid 1px var(--black-20);
+	width:40px;
+	height:40px;
+}
+
+
+.thumbnail--ml{
+	border:solid 1px var(--black-20);
+	width:50px;
+	height:50px;
+}
+
+
+@media (--breakpoint-not-small){ 
+	.thumbnail--s-ns{
+		border:solid 1px var(--black-40);
+		width:30px;
+		height:30px;
+	}
+
+	.thumbnail--m-ns{
+		border:solid 1px var(--black-40);
+		width:40px;
+		height:40px;
+	}
+}
+
+
+
+
+
+/* GIFS */
+.gif-basket{
+	width:100px;
+}
+
+.sep-guitare{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/sep-guitare.gif');
+	background-size: cover;
+    background-repeat: no-repeat;
+    height: 45px;
+    width: 100%;
+}
+
+
+
+
+.gif-basket-g{
+	background-image:url('../../bundles/tdsmarathon/images/basket-g.png');
+	background-repeat: no-repeat;
+	background-size:100%;
+	height:40px;
+	width:80px;
+}
+
+.gif-basket-d{
+	background-image:url('../../bundles/tdsmarathon/images/basket-d.png');
+	background-repeat: no-repeat;
+	background-size:100%;
+	height:40px;
+	width:80px;
+}
+
+
+.sep-accordeonazteque .azteque{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/sep-asteque.gif');
+	background-repeat:repeat-x;
+	height:10px;
+	width:100%;
+}
+
+.sep-accordeonazteque .accordeon{	
+	margin-top:-50px;	
+}
+
+.sep-accordeonazteque .accordeon span{
+	display:block;
+	background-image:url('../../bundles/tdsmarathon/images/gifs/accordeon.gif');
+	background-repeat:no-repeat;
+	background-size:100%;
+	height:80px;
+	width:100px;
+	margin:0 auto;
+}
+
+.sep-flammes{
+	margin-top:-30px;
+	height:30px;
+}
+
+.sep-flammes .flammes{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/sep-flammes.gif');
+	background-repeat:repeat-x;
+	height:30px;
+	width:100%;
+}
+
+
+
+
+
+
+
+/* TITLES */
+.ms-title{
+	font-family: 'New Rocker', cursive;
+	color:var(--near-black);
+	display:flex;
+	justify-content:center;
+	width:100%;
+}
+
+.ms-title h2{
+	font-weight:100!important;
+	font-size:2.2rem;
+	margin:0;
+	padding:0;
+	line-height: 2rem;
+	text-align:center;
+	display:flex;
+	justify-content:space-between;
+}
+
+.ms-title h2>span{
+    padding: 0 1rem;
+}
+
+
+@media (--breakpoint-medium){ 
+	.ms-title h2>span{
+	    padding: 0 1rem;
+	}
+}
+
+@media (--breakpoint-large){ 
+	.ms-title h2>span{
+	    padding: 0 2rem;
+	}
+}
+
+
+
+
+
+
+
+.ms-title_spikes{
+	border-bottom: solid 3px var(--near-black);
+	justify-content:space-between;
+	height:50px;
+	margin:0px 1px 40px 1px;
+}
+
+.ms-title_spikes h2{
+	width:100%;
+	margin-top: 31px;
+	line-height: 2rem;
+}
+
+
+.ms-title_spikes h2:before, .ms-title_spikes h2:after{
+	background-size: cover;
+	width:60px;
+	height:35px;
+}
+
+@media (--breakpoint-large){ 
+	.ms-title_spikes h2:before, .ms-title_spikes h2:after{
+		background-size: cover;
+		width:60px;
+		height:35px;
+	}
+} 
+
+
+
+.ms-title_spikes h2:before{
+	content:' ';
+	background-image:url('../../bundles/tdsmarathon/images/icons/spike-left.svg');
+	margin-left:-3px;
+}
+
+.ms-title_spikes h2:after{
+	content:' ';
+	background-image:url('../../bundles/tdsmarathon/images/icons/spike-right.svg');
+	margin-right:-3px;
+}
+
+.ms-title_spikes h2>span{
+    display: block;
+    z-index: 3;
+    min-height: 35px;
+}
+
+
+.ms-title_spikes_light{
+	border-bottom: solid 3px var(--ms-light-gray);
+}
+
+
+.ms-title_spikes_light h2:before{
+	content:' ';
+	background-image:url('../../bundles/tdsmarathon/images/icons/spike-left-light.svg')!important;
+}
+
+.ms-title_spikes_light h2:after{
+	content:' ';
+	background-image:url('../../bundles/tdsmarathon/images/icons/spike-right-light.svg')!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+.ms-title_turfu{
+	font-family: 'Metal Mania', cursive;
+	flex-wrap:wrap;
+	flex:1 0 auto;
+	/*justify-content:space-between;*/
+	font-size:3rem;
+	padding:0 0 2rem 0;
+	height:auto;
+	margin:0 0 2rem 0;
+}
+
+.ms-title_turfu_inner{
+	margin-top: -50px;
+}
+
+
+
+.ms-title_turfu h2{
+	flex:none;
+	margin:0 auto;
+	font-size:3rem;
+}
+.ms-title_turfu h2>span{
+	margin:0 auto;
+}
+
+@media (--breakpoint-not-small){ 
+	.ms-title_turfu h2{
+		font-size:4rem;
+		margin:0;
+		align-self:flex-end;
+	}
+
+
+}
+
+.ms-title_turfu .turfu-apple{
+	margin:20px 0 20px 0;
+	width:100%;
+	height:44px;
+}
+
+.ms-title_turfu .turfu-apple span{
+	display:block;
+	background-image:url('../../bundles/tdsmarathon/images/turfu-apple.jpg');
+	background-repeat:no-repeat;
+	width:36px;
+	height:100%;
+	margin:0 auto;
+}
+
+@media (--breakpoint-not-small){
+	.ms-title_turfu .turfu-apple{
+		margin:-20px 0 20px 0;
+	}
+
+	.ms-title_turfu .turfu-apple span{
+		display:inline-block;
+		margin:0;
+	} 
+}
+
+
+
+
+.ms-title_turfu .turfu-netscape{
+	background-image:url('../../bundles/tdsmarathon/images/turfu-netscape.jpg');
+	background-repeat:no-repeat;
+	width:88px;
+	height:31px;
+	margin:0 auto 20px auto;
+
+}
+
+.ms-title_turfu .turfu-ie{
+	background-image:url('../../bundles/tdsmarathon/images/turfu-ie.jpg');
+	background-repeat:no-repeat;
+	width:88px;
+	height:31px;
+	margin:20px auto 0 auto;
+}
+
+
+@media (--breakpoint-not-small){ 
+	.ms-title_turfu .turfu-ie, .ms-title_turfu .turfu-netscape{
+		margin:0;
+	}
+}
+
+
+
+
+
+.ms-title_framed{
+	background-image:url('../../bundles/tdsmarathon/images/frame-saison.png');
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 90%;
+    max-width: 590px;
+    height: 100px;
+    padding: 0;
+    margin: 1rem auto 0 auto;
+}
+
+@media (--breakpoint-not-small){
+	.ms-title_framed{
+		padding: 4rem;
+	    margin: 2rem auto;
+	}
+}
+
+@media (--breakpoint-small-medium){
+	.ms-title_framed{
+		padding: 4rem;
+	}
+}
+
+@media (--breakpoint-medium){
+	.ms-title_framed{
+		padding: 2rem;
+	}
+}
+
+.ms-title_framed h2{
+	font-family: 'Metal Mania', cursive;
+	font-size:2rem;
+	margin-top:-2rem;
+}
+
+@media (--breakpoint-not-small){ 
+	.ms-title_framed h2{
+		font-size:3rem;
+		margin-top:0rem;
+	}
+}
+
+
+.ms-title_framed .joggeur-cd-g{
+	background-image:url('../../bundles/tdsmarathon/images/joggeur-cd-g.png');
+	background-repeat:no-repeat;
+	background-size: 100%;
+    width: 121px;
+    height: 71px;
+	align-self:center;
+}
+
+.ms-title_framed .joggeur-cd-d{
+	background-image:url('../../bundles/tdsmarathon/images/joggeur-cd-d.png');
+	background-repeat:no-repeat;
+	background-size: 100%;
+    width: 121px;
+    height: 71px;
+	align-self:center;
+}
+
+
+@media (--breakpoint-medium){
+	.ms-title_framed{
+		width: 100%;
+	}
+
+	.ms-title_framed h2{
+		font-size:2.5rem;
+	}
+
+	.ms-title_framed .joggeur-cd-g, .ms-title_framed .joggeur-cd-d {
+		width: 70px;
+    	height: 50px;
+	}
+
+}
+
+
+.ms-subtitle{
+	font-family: 'New Rocker', cursive;
+	color:var(--near-black);
+	font-size:1.5rem;
+	/*margin:1rem 0 0 0;*/
+}
+.ms-subtitle h3{
+	font-weight:100!important;
+}
+
+
+
+
+
+
+
+/* CADRES */
+.shadow-subtle{
+	border: outset 1px rgba(251, 249, 249, 0.25);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.outset-frame{
+	border:outset 1px #f9d5c3;
+}
+
+.outset-frame_inner{
+	border:inset 1px #f9d5c3;
+}
+
+.outset-frame_pl{
+	border:outset 1px #ded8d5;
+}
+
+.outset-frame_inner_pl{
+	border:inset 1px #ded8d5;
+}
+
+
+
+
+
+
+/* VIGNETTE */
+.vignette-theme-line{
+	margin-bottom:0.5rem;
+}
+
+.vignette-theme-line:last-child{
+	margin-bottom:0;
+}
+
+.vignette-theme-line_titre{
+	max-width: 76%;
+}
+
+
+
+.vignette-infos-theme{
+	min-height:90px;
+}
+
+.vignette-infos-joggeur{
+	min-height:50px;
+}
+
+
+
+
+
+
+
+
+/* PLAYLIST */
+
+
+
+@media (--breakpoint-medium){
+	.playlist-wrapper-cols_minify>div{
+		width:100%;
+	}
+}
+
+
+
+.col-playlist-droite{
+
+}
+.col-playlist-droite .jp-playlist-inner{
+	height:auto;
+	max-height:110vh;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+.col-playlist-gauche{}
+
+
+.playlist-fleches{
+	top:-20px;
+}
+
+.playlist-item-wrapper{
+	border-bottom: 1px solid var(--black-20);
+	background: linear-gradient(
+		to bottom,rgba(255, 255, 255, 0.9) -18%,
+		rgba(223, 227, 222, 0.5) 12%,
+		rgba(223, 227, 222, 0.3) 181%
+	);
+}
+
+.jp-title-artist{
+	flex-grow:2;
+}
+
+.playlist-index-body .playlist-item{
+	border:none;
+	background:transparent;
+}
+
+.playlist-index-body .jp-infos-title{
+	max-height:40px;
+}
+
+.playlist-index-body .button-player{
+	padding:0.2rem;
+}
+
+.playlist-index-body .jp-volume-bar{
+	height:5px;
+}
+
+.playlist-item-wrapper.jp-playlist-current{
+	background: linear-gradient(180deg,rgba(6, 161, 154, 0.5) -18%,rgba(139, 204, 198, 0.5) 12%,rgba(19, 181, 76, 0.3) 181%);
+}
+
+.playlist-item-wrapper.jp-playlist-current .jp-numero{
+	color:var(--near-black);
+}
+
+
+
+
+
+
+
+
+
+/* SCORES / General */
+.score-miniblock_vertical{
+  	padding-left:2px;
+}
+
+
+.score-miniblock_vertical:first{
+	padding-left:0px;
+}
+
+
+.score-miniblock_horizontal .typepoints{
+	min-width:2.2rem;
+}
+
+
+
+
+
+/* PODIUM */
+.podium-1, .podium-2{
+	padding-left:2px;
+}
+
+.podium-1>div{
+	min-height:420px;
+}
+
+
+.podium-2>div{
+	min-height:400px;
+}
+
+
+.podium-1 .medaillon-round{
+	width:140%;
+	margin-left:-20%;
+	z-index:20;
+}
+
+
+.podium-2 .medaillon-round{
+	width:130%;
+	margin-left:-15%;
+	z-index:19;
+}
+
+.podium-3 .medaillon-round{
+	width:120%;
+	margin-left:-10%;
+	z-index:18;
+}
+
+.podium-helmet{
+	margin-bottom:-4rem;
+	z-index:21;
+}
+
+.podium-celtic svg{
+	max-height:40px;
+}
+
+
+/* WALLS OF FAME */
+.medaillon-round{
+	display:block;
+	width:95%;
+	height:95%;
+	border-radius:50%;
+	overflow:hidden;
+	margin:1rem 0.5rem;
+
+}
+
+.medaillon-round img{
+	display:block;
+	width:100%;
+	min-height:100%;
+}
+
+.wof-item {
+	padding-left:3px;
+	
+}
+
+.wof-item:first{
+	padding-left:0px;
+}
+
+.wof-item_inner{
+	background-color: rgba(241, 247, 3, 0.42);
+}
+
+.wof-item .wof-intitule{
+	min-height: 140px;
+    border-bottom: dashed 1px rgba(0, 0, 0, 0.38);
+
+}
+
+.wof-item .wof-intitule h4{
+	font-size:1.2rem;
+	word-break: break-word;
+	line-height:1rem;
+}
+
+
+/* CLASSEMENT */
+.totale-score-item{
+	min-height:40px;
+}
+
+.totale-score-item_ordre{
+	min-width:40px;
+
+} 
+
+
+/* LISTE DES SAISONS */
+
+.saison-liste_image{
+	min-height:150px;
+	margin-bottom:0.5rem;
+}
+
+@media (--breakpoint-small-medium){
+	.saison-liste_image{
+		margin-bottom:0.5rem;
+	}
+}
+
+
+/* ACTUALITES */
+/*.article-wrapper{
+	border: solid 1px rgba(251, 249, 249, 0.25);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}*/
+
+
+.content img{
+	display:block;
+	margin:0 auto;
+	/*width:80%!important;
+	height:auto!important;*/
+}
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* COMMENTS */
+.comment-action-buttons{
+	margin-top:-20px;
+}
+
+    
+#fos_comment_thread_wrapper{
+    border: 1px solid var(--black-20);
+}
+
+
+	
+
+#fos_comment_thread >.fos_comment_comment_form_holder{
+	padding:0 0 20px 0;
+	margin-bottom:20px;
+	border-bottom:dashed 1px var(--black-30);
+}
+
+#fos_comment_thread .fos_comment_comment_form_holder{
+	width:100%;
+	padding-top:30px;
+
+}
+
+.fos_comment_comment_new_form{
+	margin: 0 auto;
+	text-align:center;
+}
+
+.fos_comment_comment_bulle .fos_comment_comment_new_form{
+    padding-right: 45px;
+    margin: 0 0px 10px 0px;
+    text-align:left;
+}
+
+
+.fos_comment_comment_form_content{
+	flex-grow: 3;
+    min-width: 25%;
+    width:auto;
+}
+
+
+.fos_comment_comment_form_content textarea{
+		background-color:var(--white-50);
+		border:none;
+		height:auto;
+		width:100%;
+}
+
+
+
+.fos_comment_comment_body_wrapper{
+	padding: 0 0 20px 0px;
+}
+
+
+.fos_comment_comment_body{
+	padding:10px;
+}
+
+
+.fos_comment_comment_show{
+	border-left:solid 2px  #bdbdbd;	
+	margin-left:25px;
+}
+
+
+.fos_comment_comment_show:before{
+		content: '';
+	    width: 14px;
+	    height: 2px;
+	    background: #bdbdbd;
+	    position: absolute;
+	    top: 25px;
+	    left: -39px;
+}
+
+
+
+@media (--breakpoint-not-small){
+	.fos_comment_comment_show:before{
+			left:-69px;
+			width: 45px;
+	}
+}
+
+.fos_comment_comment_show:first-child{
+	padding-top:0;
+}
+
+.fos_comment_comment_show:last-child:after{
+	content: '';
+    position: absolute;
+    background: #bdbdbd;
+    bottom: 0;
+    left: -5px;
+    width: 7px;
+    height: 7px;
+    border: 3px solid #bdbdbd;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+
+.fos_comment_comment_show:last-child .fos_comment_thread-inner{
+	padding-bottom:0;
+}
+
+	
+
+
+.fos_comment_comment_depth_0{
+	margin-left:2rem;
+}
+
+@media (--breakpoint-not-small){
+	.fos_comment_comment_depth_0{
+		margin-left:0;
+	}
+}
+	
+	
+.fos_comment_comment_depth_0:before{
+		background:transparent;
+}
+
+
+.fos_comment_comment_replies{
+	margin-left:10px;
+	padding-bottom: 20px;
+}
+
+@media (--breakpoint-not-small){
+	.fos_comment_comment_replies{
+		margin-left:40px;
+	}
+}
+
+.fos_comment_comment_authorImage{	
+	overflow:hidden;
+	margin-left:-25px;
+	flex:1 1 50px;
+	height:50px;
+	flex-grow: 0;
+}
+
+
+.fos_comment_comment_inner-bulle{
+	flex:1;
+	box-shadow:1px 1px 2px gray;
+	background-color: #E9EAE7;
+	margin-left:10px;
+	border-radius:0 0 5px 5px;
+}
+
+@media (--breakpoint-not-small){
+	.fos_comment_comment_inner-bulle{
+		margin-left:20px;
+	}
+}
+			
+
+.fos_comment_comment_inner-bulle:before{
+	content: '';
+	height: 0;
+	width: 0;
+	position: absolute;
+	display: block;
+	border-width: 10px 12px 10px 0;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0) #E9EAE7;
+	top: 8px;
+	left:24px;
+}
+
+@media (--breakpoint-not-small){
+	.fos_comment_comment_inner-bulle:before{
+		left:33px;
+	}
+}
+
+.fos_comment_comment_bulle .button-nude{
+	position: relative;
+    left: -25px;
+    top: 5px;
+}
+    
+
+
+
+
+
+.fos_comment_comment_body img{
+		display:block;
+		width:100%;
+
+}
+
+.fos_comment_comment_body a{
+	display:block;
+	text-decoration:underline;
+	width: 100%;
+	word-break: break-all;
+	white-space: pre-wrap;
+	overflow: hidden;
+}
+
+.fos_comment_comment_body iframe{
+	display:block;
+	width:100%;
+}
+
+.fos_comment_comment_body .video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+
+.fos_comment_comment_body .embedded-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+/* PANNEAU D'INFORMATION */
+.pi-wrapper h3{
+	margin-top: -1.5rem;
+    font-size: 2.3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* FORMS */
+.form-container{
+		margin:0 -0.5rem 0 -0.5rem;
+		padding:0.5rem 1rem;
+		min-height:100vh;
+		background-color:rgba(255,255,255,0.4);
+}
+
+@media (--breakpoint-not-small){
+	.form-container{
+		margin:0 -1rem 0 -1rem;
+		padding:1rem 3rem;
+	}
+}
+
+.form-group {
+	width:100%;
+	display:flex;
+	flex:1 1 auto;
+	/*flex-wrap:wrap;*/
+	background-color:rgba(255,255,255,0.3);
+	border-radius:10px;
+	border:solid 1px rgba(0,0,0,0.1);
+	padding:2rem;
+	margin-bottom:1rem;
+}
+
+.form-front-wrapper .form-group {
+	border-radius:0px;
+	width:100%;
+}
+
+
+@media (--breakpoint-medium){
+	.form-group {
+		width:90%;
+		margin:0 auto 1rem auto;
+	}
+}
+
+@media (--breakpoint-large){
+	.form-group {
+		width:70%;
+		margin:0 auto 1rem auto;
+	}
+}
+
+.form-label{
+	width:20%;
+	align-self: flex-start;
+	padding-right:1rem;
+	text-align:right;
+	
+}
+
+
+.form-widget{
+	padding-left:1rem;
+	border-left:solid 1px rgba(0,0,0,0.2);
+}
+
+.form-group input{
+	border-radius:5px;
+	padding:0.5rem;
+	color:var(--dark-gray);
+}
+
+.form-date div{
+	padding-left:1rem;
+	flex:1 1 auto;
+	align-self: center;
+}
+
+
+.heartPoints-icon.is-active svg,
+.heartPoints-icon.is-active ~ .heartPoints-icon svg{
+	fill:var(--ms-fushia);
+}
+
+
+
+/*POPUP*/
+#popup{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:rgba(28, 31, 32, 0.7);
+	display:none;
+}
+
+
+
+
+
+
+
+
+/*FOOTER*/
+
+.footer-wrapper{
+	min-height:200px;
+	box-shadow: 0 -4px 26px rgb(1, 73, 146);
+    border-top: solid 1px #292135;
+}
+
+.sep-herbe{
+	background-repeat:repeat-x;
+	height:20px;
+}
+
+
+.footer-kilometrage{
+	bottom:35px;
+}
+
+.kilometrage-wrapper{
+	position: absolute;
+    width: 100%;
+    bottom: 20px;
+}
+
+
+
+.kilometrage-borne span{
+	background-image:url('../../bundles/tdsmarathon/images/footer/footer-borne-km.png');
+	background-repeat:no-repeat;
+	background-size:100%;
+	display:block;
+	margin:0 auto;
+	width:68px;
+	height:100px;
+	top:0;
+}
+
+
+.footer-button {
+	border:outset 1px white;
+	z-index:400;
+}
+
+
+.footer-joggeurs{
+	width:100%;
+	pointer-events:none;
+}
+
+
+.jog{
+	position:absolute;
+	background-repeat:no-repeat;
+	background-size:100%;
+	width:60px;
+	height:100px;
+}
+
+
+/*.jog1{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog1.gif');
+	top:0px;
+
+}*/
+.jog2{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog2.gif');
+	top:0%;
+	right:20%;
+	width: 93px;
+    height: 100px;
+}
+.jog3{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog3.gif');
+	top:-12px;
+	left:8%;
+	width:92px;
+	height:100px;
+}
+.jog4{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog4.gif');
+	top: -27px;
+    right: 25%;
+	width:45px;
+	height:100px;
+}
+.jog5{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog5.gif');
+	top:-5px;
+	left:25%;
+	width:60px;
+	height:100px;
+}
+.jog6{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog6.gif');
+	top: 0;
+    right: 12%;
+    width: 90px;
+    height: 135px;
+}
+.jog7{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog7.gif');
+	top:-20px;
+	left:15%;
+	width:60px;
+	height:100px;
+}
+.jog8{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog8.gif');
+	top: -7px;
+    right: 2%;
+    width: 28px;
+    height: 96px;
+}
+
+.jog11{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog11.gif');
+	top:-15px;
+	left:2%;
+	width:60px;
+	height:160px;
+	
+}
+.jog12{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog12.gif');
+	top: -7px;
+    right: 30%;
+}
+
+.jog14{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog14.gif');
+	top: -25px;
+    right: 40%;
+    width: 32px;
+    height: 100px;
+}
+.jog15{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/joggeurs/jog15.png');
+	top:-20px;
+	left:20%;
+    width: 80px;
+    height: 130px;
+}
+
+
+
+
+
+
+
+
+
+
