@@ -280,7 +280,7 @@
 								<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
 						</a>
 
-						{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and  theme.statut == 1) %}					
+						{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and  theme.statut == 1 and app.user.joggeur is not empty) %}					
 							{% if joggeurInMusicList is null %}
 								<div class="flex flex-auto flex-wrap items-stretch justify-center">
 									<div class="tr pa2 bg-black-50 f7 ms-light-gray w-40">
@@ -480,18 +480,20 @@
 				  		</div>
 					{% endif %}
 
-					{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo) %}
-						<div class="bg-ms-orange-light pa3 cf">
-							<a class="button tr no-underline near-black fr" href="{{ path('tds_marathon_joggeur_edit', {'id': joggeur.id}) }}">
-				  				<svg class="icon icon--xs"><use xlink:href="#icon-pencil"></use></svg>
+					{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and app.user.joggeur is not empty) %}
+						{% if joggeur.pseudo == app.user.joggeur.pseudo %}
+							<div class="bg-ms-orange-light pa3 cf">
+								<a class="button tr no-underline near-black fr" href="{{ path('tds_marathon_joggeur_edit', {'id': joggeur.id}) }}">
+					  				<svg class="icon icon--xs"><use xlink:href="#icon-pencil"></use></svg>
 
-				  				{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
-				  					<span class="">Modifier mon profil</span>
-				  				{% elseif is_granted("ROLE_SUPER_ADMIN") and joggeur.pseudo != app.user.joggeur.pseudo %}
-				  					<span class="">Modifier le joggeur</span>
-				  				{% endif %}		  				
-							</a>
-						</div>
+					  				{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
+					  					<span class="">Modifier mon profil</span>
+					  				{% elseif is_granted("ROLE_SUPER_ADMIN") and joggeur.pseudo != app.user.joggeur.pseudo %}
+					  					<span class="">Modifier le joggeur</span>
+					  				{% endif %}		  				
+								</a>
+							</div>
+						{% endif %}
 					{% endif %}
 					{# présentation du joggeur #}	
 

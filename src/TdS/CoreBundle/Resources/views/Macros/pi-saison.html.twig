@@ -22,14 +22,14 @@
 	        		</div>
         		{% endif %}
 			{% else %} 
-				<div class="mv2">
-					<svg class="icon icon--s icon-warning dib v-mid"><use xlink:href="#icon-warning"></use></svg>
-					<span class="dark-gray i dib v-mid">Il n'y a pas de saison en cours.</span>
+				<div class="pa3 flex flex-auto justify-center">
+					<svg class="icon icon--s icon-warning self-center fill-near-black"><use xlink:href="#icon-warning"></use></svg>
+					<span class="dark-gray i self-center">Il n'y a pas de saison en cours.</span>
 				</div>
 
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<div class="block mv2">
-						<a class="button " data-action="" href="{{ path('tds_marathon_saison_add') }}">
+					<div class="flex flex-auto justify-center mb3">
+						<a class="button button-action" data-action="" href="{{ path('tds_marathon_saison_add') }}">
 								<svg class="icon icon--xs icon-plus"><use xlink:href="#icon-plus"></use></svg>
 								<span class="">Ajouter une saison</span>
 						</a>

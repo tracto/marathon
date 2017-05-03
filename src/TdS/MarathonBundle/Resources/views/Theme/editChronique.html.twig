@@ -5,12 +5,26 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-		<h1 class="main-title man align-center">
-			<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-			<span>Modification d'une chronique</span>
-		</h1>
-		<h2 class="sub-title align-center">Thème : {{ theme.titre }}</h2>
+	{% if theme is defined and theme is not null %}
+	<div id="content" class="form-container">
+		<div class="ms-title">
+			<h1 class="">
+				<svg class="self-center icon icon--s icon-plus mr2"><use xlink:href="#icon-plus"></use></svg>
+				<span class="self-center">Modification d'une chronique</span>
+			</h1>
+			{# <h2 class="sub-title align-center">Thème : {{ theme.titre }}</h2> #}
+
+			
+	    	<div class="w-100 pb3 flex flex-auto justify-center">
+			    <span class="self-center fw1 mr2 db">thème</span>
+			    <div class="w-100 w-80-sm w-60-m w-50-l">
+			    	{{ vignetteModule.vignette_line_theme(theme) }}
+			    </div>
+			</div>
+		</div>
+        
+    	{% endif %}
+
 		{{ include('TdSMarathonBundle:Theme:formChronique.html.twig') }}
 	</div>
 {% endblock %}

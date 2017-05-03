@@ -35,7 +35,7 @@
 	{% import "TdSCoreBundle:Macros:icons-svg.html.twig" as icons %}
 	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
 
-	{% import "TdSCoreBundle:Macros:form-elements.html.twig" as formElementsModule %}
+	{# {% import "TdSCoreBundle:Macros:form-elements.html.twig" as formElementsModule %} #}
 
 	{{ icons.svg() }} 
 
@@ -99,7 +99,7 @@
 					<btn class="popup-close" data-action="close-popup">
 						<svg class="icon icon--s fill-ms-fushia" ><use xlink:href="#icon-cancel"></use></svg>
 					</btn>
-					<div class="message ms-fushia pa3 pa4-l">Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.</div>
+					<div class="message ms-fushia pa3 pa4-l" data-message></div>
 				</div>
 			</div>
 		</div>
@@ -107,9 +107,9 @@
 			{{ loisModule.lois() }}
 		</div>  #}
        
-  		{% if is_granted("ROLE_SUPER_ADMIN") %}
+  		{# {% if is_granted("ROLE_SUPER_ADMIN") %}
 			{{ formElementsModule.delete_popup() }}
-		{% endif %}
+		{% endif %} #}
 
 	  {% block javascripts %} 	  	
 	  	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>

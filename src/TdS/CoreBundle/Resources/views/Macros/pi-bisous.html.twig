@@ -1,5 +1,5 @@
 {% macro bisous(joggeurScore,postTheme) %}
-	{% if joggeurScore is defined %}
+	{% if joggeurScore is defined  and app.user.joggeur is not empty %}
 		<div class="near-black">
 			<h4 class="fw4 ma0 pa3 f5">Points Bisous</h4>
 			<div class="flex flex-auto flex-wrap pa3 justify-center">

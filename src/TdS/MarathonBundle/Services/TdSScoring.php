@@ -54,12 +54,16 @@ class TdSScoring {
 
 
     public function getAllSaisonScoresOfJoggeurScore($saison, $joggeur){
-
-        $joggeurScoreSaison = $this->em
-            ->getRepository('TdSMarathonBundle:JoggeurScore')
-            ->findJoggeurBySaison($saison, $joggeur);
-        $this->em->clear();
+        if(!empty($joggeur)){
+           $joggeurScoreSaison = $this->em
+                ->getRepository('TdSMarathonBundle:JoggeurScore')
+                ->findJoggeurBySaison($saison, $joggeur);
+            $this->em->clear();
         
+         } else {
+            $joggeurScoreSaison = null;
+         }
+
         return $joggeurScoreSaison;
     }
 

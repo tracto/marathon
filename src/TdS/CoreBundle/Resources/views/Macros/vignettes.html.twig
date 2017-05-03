@@ -89,12 +89,11 @@
 		<a class="db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 
 			<div class="relative">
-				<div class="aspect-ratio aspect-ratio--1x1">
+				<div class="aspect-ratio aspect-ratio--1x1 z-0">
 					{% if joggeur.image is not null %}
 			  			<img class="aspect-ratio--object" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
 					{% else %}
 		  				<img class="aspect-ratio--object" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">	
-		  				{# db w-100 min-h-100 #} 
 		  			{% endif %}
 	  			</div>
 				
@@ -107,7 +106,7 @@
 					</div>
 				{% endif %} #}
 
-				<div class="absolute top-0 flex flex-auto flex-wrap justify-center w-100 z-200">
+				<div class="absolute top-0 flex flex-auto flex-wrap justify-center w-100 z-1">
 	    			<div class="flex flex-wrap {{ bgclass }} pa2 mr2">
 			    		<svg class="flex-item icon icon--xs fill-{{ colortextclass }} pr2"><use xlink:href="#icon-cd"></use></svg>
 			    		<span class="flex-item {{ colortextclass }}">{{ joggeur.musicTitles|length  }}</span>
