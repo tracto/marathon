@@ -3,34 +3,35 @@
 
     {{ form_errors(form) }}
 
-    <div class="form-group form-input-title f4">
+    <div class="form-group form-flex justify-center form-input-title f4">
       {{ form_label(form.titre, "titre", {'label_attr': {'class': 'form-label control-label'}}) }}
       {{ form_errors(form.titre) }}
-      <div class="form-widget">
+      <div class="form-widget w-40">
         {{ form_widget(form.titre) }}
       </div>       
     </div>
 
     <div class="form-group pv3">
-        <div class="form-label flex">
+        <div class="form-flex justify-center">
           {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'pr2 control-label'}}) }}
           {{ form_errors(form.image) }}
-          <div class="self-end">
+          <div class="mr2">
             <span class="button-becky db" data-info="Cette image viendra se placer dans le bandeau entête, sous la tête de mort. Il est important qu'elle soit d'assez bonne qualité. <br/> Taille recommandée : 1960px * 960px / 72dpi  (l'image sera centrée horizontalement) <br/>
             Sous photoshop, il est aussi préférable d'enregistrer pour le web et ses périphériques (menu fichier), en format jpeg." data-btn-becky>
                 {% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
                 <img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">
             </span>
           </div>
-        </div>
-        <div class='form-widget'>
-          {{ form_widget(form.image,{'attr':{'class':''}}) }}
+        
+          <div class='form-widget'>
+            {{ form_widget(form.image,{'attr':{'class':''}}) }}
+          </div>
         </div>
     </div>
 
 
 
-    <div class="form-group">
+    <div class="form-group form-flex justify-center">
         {{ form_label(form.bilan, "Bilan de la Saison", {'label_attr': {'class': 'form-label control-label'}}) }}
         {{ form_errors(form.bilan) }}
         <div class="form-widget">

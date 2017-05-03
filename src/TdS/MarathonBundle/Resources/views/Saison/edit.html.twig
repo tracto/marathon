@@ -6,10 +6,11 @@
 
 {% block tdsmarathon_body %}
 	<div id="content" class="form-container">
-	    <h1 class="ma0 tc b--dashed b--black-20 bb bt-0 br-0 bl-0 pb3 mb3">
-				<svg class="dib v-mid icon icon--s"><use xlink:href="#icon-pencil"></use></svg>
-				<span class="dib v-mid">Modifier une Saison</span>
+		<h1 class="ms-title">
+			<svg class="self-center icon icon--s mr3 fill-near-black"><use xlink:href="#icon-pencil"></use></svg>
+			<span class="self-center">Modifier une Saison</span>
 		</h1>
+		
 	    {% if app.request.get('_route') != app.request.headers.get('referer') %}    
 	    	<input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />    
 		{% endif %}

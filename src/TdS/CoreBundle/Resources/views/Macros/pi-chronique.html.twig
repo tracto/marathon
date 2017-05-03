@@ -64,7 +64,7 @@
 				<div class='chroniques-list mv2 dn'>
 					{% for theme in allThemes %}
 						{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
-							{% if app.user.joggeur == theme.joggeurChronique %}							<div class="pv2 db cf bb bt-0 bl-0 br-0 b--dashed b--black-30">
+							{% if app.user.joggeur is not empty and app.user.joggeur == theme.joggeurChronique %}							<div class="pv2 db cf bb bt-0 bl-0 br-0 b--dashed b--black-30">
 									<div class="dib v-mid">	
 										<strong>{{ theme.titre }}</strong>
 									</div>

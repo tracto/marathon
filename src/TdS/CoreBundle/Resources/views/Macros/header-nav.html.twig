@@ -11,7 +11,7 @@
 		{% set cssbg =  saison.image.webPath | imagine_filter('header_image') %}
 	{% endif %}
 
-	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined and app.user.joggeur is not empty %}
 		{% if joggeurScoreSaison is not defined or joggeurScoreSaison is empty or joggeurScoreSaison is null or joggeurScoreSaison != app.user.joggeur.joggeurScore %}
 			{% set joggeurScoreSaison = scoreService.getAllSaisonScoresOfJoggeurScore(saisonCurrent, app.user.joggeur) %}
 		{% endif %}

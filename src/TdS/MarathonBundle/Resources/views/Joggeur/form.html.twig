@@ -12,7 +12,7 @@
 
         <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />
 
-        <div class="form-group form-input-title f4">
+        <div class="form-group form-flex form-input-title f4">
             {{ form_label(form.pseudo, "Pseudo", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.pseudo) }}
             <div class="form-widget">
@@ -21,26 +21,28 @@
         </div>
 
         <div class="form-group">
-            {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'form-label control-label'}}) }}
-            {{ form_errors(form.image) }}
-            <div class='form-widget'>
-                {{ form_widget(form.image,{'attr':{'class':''}}) }}
-            </div>
-        </div>
+          <div class="form-flex pb3">
+              {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'form-label control-label'}}) }}
+              {{ form_errors(form.image) }}
+              <div class='form-widget'>
+                  {{ form_widget(form.image,{'attr':{'class':''}}) }}
+              </div>
+          </div>
 
-        <div class="form-group">
-            {{ form_label(form.presentation, "presentation", {'label_attr': {'class': 'form-label control-label'}}) }}
-            {{ form_errors(form.presentation) }}
-            <div class="form-widget">
-                {{ form_widget(form.presentation) }}
-            </div>
+          <div class="form-flex">
+              {{ form_label(form.presentation, "presentation", {'label_attr': {'class': 'form-label control-label'}}) }}
+              {{ form_errors(form.presentation) }}
+              <div class="form-widget">
+                  {{ form_widget(form.presentation) }}
+              </div>
+          </div>
         </div>
 
         
 
 
         <fieldset class="form-group">
-          <div class="flex flex-auto w-100">
+          <div class="form-flex">
               <div class="form-label flex flex-auto">
                   <span class="self-center pr2">Site Web</span>
                   <div class="self-end">
@@ -50,26 +52,26 @@
                       </span>
                   </div>
               </div>
-              <div class="flex flex-auto w-80">
-                  <div class="w-40 flex flex-auto">
+              <div class="form-flex justify-center">
+                  <div class="form-flex">
                       {{ form_label(form.website.name, "nom", {'label_attr': {'class': 'form-label control-label'}}) }}
                       {{ form_errors(form.website.name) }}
-                      <div class="form-widget">
+                      <div class="form-widget self-center">
                         {{ form_widget(form.website.name, {'attr': {'class': 'form-joggeur-website'}}) }}
                       </div>
                   </div>
 
-                  <div class="w-60 flex flex-auto">
+                  <div class="form-flex">
                       {{ form_label(form.website.url, "url", {'label_attr': {'class': 'form-label control-label'}}) }}
                       {{ form_errors(form.website.url) }}
-                      <div class="form-widget">
+                      <div class="form-widget self-center">
                         {{ form_widget(form.website.url, {'attr': {'class': 'form-joggeur-website w-100'}}) }}
                       </div>
                   </div>
               </div>
           </div>
 
-          <div class="w-100 flex flex-auto mt4">
+          <div class="form-flex mt4">
               {{ form_label(form.mail, "Email", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.mail) }}
               <div class="form-widget w-70">

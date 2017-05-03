@@ -4,49 +4,54 @@
 
     {{ form_errors(form) }}
 
-    <div class="form-group form-input-title f4">
-      {{ form_label(form.titre, "Titre", {'label_attr': {'class': 'form-label  control-label'}}) }}
-      {{ form_errors(form.titre) }}
-      <div class="form-widget">
-        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-    {% if is_granted("ROLE_SUPER_ADMIN")  %}
-      {% if form.saison is defined %}
-        <div class="form-group">
-          {{ form_label(form.saison, "Saison", {'label_attr': {'class': 'form-label control-label'}}) }}
-          {{ form_errors(form.saison) }}
-          <div class="form-widget">
-            {{ form_widget(form.saison, {'attr': {'class': 'form-control'}}) }}
-          </div>
+    <div class="form-group">
+      <div class="form-flex justify-center form-input-title f4">
+        {{ form_label(form.titre, "Titre", {'label_attr': {'class': 'form-label  control-label'}}) }}
+        {{ form_errors(form.titre) }}
+        <div class="form-widget w-40">
+          {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
         </div>
-      {% endif %}
+      </div>
+    
 
+      {% if is_granted("ROLE_SUPER_ADMIN")  %}
+        {% if form.saison is defined %}
+          <div class="form-flex justify-center mt3">
+            {{ form_label(form.saison, "Saison", {'label_attr': {'class': 'form-label control-label'}}) }}
+            {{ form_errors(form.saison) }}
+            <div class="form-widget w-40">
+              {{ form_widget(form.saison, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+        {% endif %}
+      
 
-      {% if form.joggeur is defined %}
-          <div class="form-group">
+        {% if form.joggeur is defined %}
+          <div class="form-flex justify-center mt3">
               {{ form_label(form.joggeur, "Joggeur auteur", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.joggeur) }}
-              <div class="form-widget">
+              <div class="form-widget w-40">
                   {{ form_widget(form.joggeur, {'attr': {'class': 'form-control'}}) }}
               </div>
           </div>
+        {% endif %}
       {% endif %}
-    {% endif %}
+    </div>
+
+
 
     
     {% if form.dateDebut is defined and form.dateFin is defined %}
       <fieldset class="form-group">
-        <div class="flex flex-auto">
+        <div class="form-flex justify-center">
           {{ form_label(form.dateDebut, "date de début", {'label_attr': {'class': 'form-label control-label'}}) }}
           {{ form_errors(form.dateDebut) }}
-          <div class="form-widget ">
+          <div class="form-widget">
               {{ form_widget(form.dateDebut,{'attr':{'class':'form-control form-date flex flex-auto content-center'}}) }} 
           </div>
         </div>
 
-        <div class="flex flex-auto pt3">
+        <div class="form-flex justify-center mt3">
           {{ form_label(form.dateFin, "date de fin", {'label_attr': {'class': 'form-label control-label'}}) }}
           {{ form_errors(form.dateFin) }}
           <div class="form-widget">       
@@ -55,7 +60,7 @@
       </fieldset>
     {% endif %}
 
-    <div class="form-group">
+    <div class="form-group form-flex justify-center">
         {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'form-label control-label'}}) }}
         {{ form_errors(form.image) }}
         <div class='form-widget'>
@@ -67,20 +72,20 @@
     
         {% if form.chronique is defined %}
           <fieldset class="form-group">
-            <div class="flex flex-auto w-100">
+            <div class="form-flex justify-center">
               {{ form_label(form.chronique, "Chronique", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.chronique) }}
-              <div class="form-widget">
+              <div class="form-widget w-70">
                 {{ form_widget(form.chronique) }}
               </div>
             </div>
         
 
             {% if form.joggeurChronique is defined %}
-                <div class="flex flex-auto w-100 pt3">
+                <div class="form-flex justify-center pt3">
                   {{ form_label(form.joggeurChronique, "Joggeur de la Chronique", {'label_attr': {'class': 'form-label control-label'}}) }}
                   {{ form_errors(form.joggeurChronique) }}
-                  <div class="form-widget">
+                  <div class="form-widget w-70">
                     {{ form_widget(form.joggeurChronique, {'attr': {'class': 'form-control'}}) }}
                   </div>
                 </div>

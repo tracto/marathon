@@ -38,7 +38,8 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 		joggeurId=$("#popup").attr('data-id');
 		$(this).removeClass('is-active');
 		remainingHearts = remainingHearts - (givenHearts - $('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val());		
-		$('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val(0);				
+		$('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val(0);
+		$("#popup").find('[data-message]').html("Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.");				
 		$("#popup").show();		
 	}
 

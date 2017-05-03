@@ -83,7 +83,7 @@
 				        		{{ playlistWrapperModule.pl_theme(theme,null,null,true,false,null,1) }}
 							{% else %}
 				        		<div>
-				        			<h3 class="near-black i tc">Il n'y a pas de thème en cours</h3>
+				        			<h3 class="near-black i tc bg--pierre pa3 ma0">Il n'y a pas de thème en cours</h3>
 				        		</div>
 				        	{% endif %}
 				        {% else %} 
@@ -96,83 +96,90 @@
 
         		
 					{# colonne profil #}
-		        	<div class="w-100 pa3 pa4-l bg-near-black ms-light-gray">
-		        			<div class="ms-title ms-title_spikes ms-title_spikes_light">
-			    				<h2><span class="bg-near-black ms-light-gray metal-mania f2 f1-ns">Mon Profil</span></h2>
-			    			</div>
-							<div class="mt3 flex flex-auto flex-wrap pa2 pa3-l">
-								<div class="flex-item w-100 w-50-ns">	
-				    				{{ vignetteModule.vignette_joggeur(joggeurScoreSaison.joggeur,"bg-ms-turquoise") }}
-								</div>
+					{% if app.user.joggeur is defined and app.user.joggeur is not empty %}
+						{% if joggeurScoreSaison.joggeur is defined and joggeurScoreSaison.joggeur is not empty %}
+						 	{% set joggeur = joggeurScoreSaison.joggeur %}
+						{% else %}
+							{% set joggeur = app.user.joggeur %}
+						{% endif %}
+			        	<div class="w-100 pa3 pa4-l bg-near-black ms-light-gray min-h-100">
+			        			<div class="ms-title ms-title_spikes ms-title_spikes_light">
+				    				<h2><span class="bg-near-black ms-light-gray metal-mania f2 f1-ns">Mon Profil</span></h2>
+				    			</div>
+								<div class="mt3 flex flex-auto flex-wrap pa2 pa3-l">
+									<div class="flex-item w-100 w-50-ns">	
+					    				{{ vignetteModule.vignette_joggeur(joggeur,"bg-ms-turquoise") }}
+									</div>
 
-								<div class="w-100 w-50-ns pa4 bg-white-10">
-									{% if saison is defined and saison is not null %}
-										<div class="tc tl-ns">
-											<h4 class="ma0 f3">Score</h4>
-											<span class="f4">{{ saison.titre }}</span>
-										</div>
-
-										{% if joggeurScoreSaison.total is defined %}
-	        								{% set scoreTotal = joggeurScoreSaison.total %}
-	        							{% endif %}
-
-										<div class="db f4 ms-turquoise mv2 tc tl-ns">{{ scoreTotal }} points </div>
-
-										{% set totalHeartpoints = 0 %}
-										{% set totalTakenpoints = 0 %}
-										{% set totalFastpoints = 0 %}	
-										{% for score in joggeurScoreSaison.scores %} 
-											{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
-											{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
-											{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
-										{% endfor %}
-
-
-
-										<div class="flex flex-auto items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns mt2 mt0-ns">
-											{{ scoresElementsModule.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","near-black","icon--s","bg-ms-gold") }}
-											{{ scoresElementsModule.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","near-black","icon--s","bg-ms-gold") }}
-											{{ scoresElementsModule.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","near-black","icon--s","bg-ms-gold") }}
-										</div>
-
-										<div class="flex flex-auto mv3 ml1">
-											<div class="flex flex-auto bg-near-black pa2 self-center">
-												<svg class="icon icon--s flex-0 fill-ms-light-violet self-center"><use xlink:href="#icon-cup"></use></svg>
-												<span class="db self-center ms-light-violet">Place dans le Classement</span>
+									<div class="w-100 w-50-ns pa4 bg-white-10">
+										{% if saison is defined and saison is not null %}
+											<div class="tc tl-ns">
+												<h4 class="ma0 f3">Score</h4>
+												<span class="f4">{{ saison.titre }}</span>
 											</div>
-											<div class="bg-ms-light-violet near-black f3 self-center pa2">{{ placeClassement }}</div>
-										</div>
 
-										<div class="db dib-ns  tc tl-ns mv2 center w-100">
-											<a class="button-action bg-ms-fushia near-black no-underline pa2 flex flex-auto justify-center" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScoreSaison.joggeur.id}) }}">
+											{% if joggeurScoreSaison.total is defined %}
+		        								{% set scoreTotal = joggeurScoreSaison.total %}
+		        							{% endif %}
+
+											<div class="db f4 ms-turquoise mv2 tc tl-ns">{{ scoreTotal }} points </div>
+
+											{% set totalHeartpoints = 0 %}
+											{% set totalTakenpoints = 0 %}
+											{% set totalFastpoints = 0 %}	
+											{% for score in joggeurScoreSaison.scores %} 
+												{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
+												{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
+												{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
+											{% endfor %}
+
+
+
+											<div class="flex flex-auto items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns mt2 mt0-ns">
+												{{ scoresElementsModule.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","near-black","icon--s","bg-ms-gold") }}
+												{{ scoresElementsModule.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","near-black","icon--s","bg-ms-gold") }}
+												{{ scoresElementsModule.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","near-black","icon--s","bg-ms-gold") }}
+											</div>
+
+											<div class="flex flex-auto mv3 ml1">
+												<div class="flex flex-auto bg-near-black pa2 self-center">
+													<svg class="icon icon--s flex-0 fill-ms-light-violet self-center"><use xlink:href="#icon-cup"></use></svg>
+													<span class="db self-center ms-light-violet">Place dans le Classement</span>
+												</div>
+												<div class="bg-ms-light-violet near-black f3 self-center pa2">{{ placeClassement }}</div>
+											</div>
+
+											<div class="db dib-ns  tc tl-ns mv2 center w-100">
+												<a class="button-action bg-ms-fushia near-black no-underline pa2 flex flex-auto justify-center" href="{{ path('tds_marathon_joggeur_view', {'id':joggeur.id}) }}">
+													<svg class="icon icon--s icon-eye fill-near-black"><use xlink:href="#icon-eye"></use></svg>
+							        				<span class="self-center">Voir le classement</span>								
+												</a>
+											</div>
+
+										{% endif %}
+
+									
+									</div>
+
+									<div class="flex flex-auto justify-center w-100">
+										<div class="db tl mv2">
+											<a class="button-action bg-ms-fushia near-black no-underline pa2 flex flex-auto" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 												<svg class="icon icon--s icon-eye fill-near-black"><use xlink:href="#icon-eye"></use></svg>
-						        				<span class="self-center">Voir le classement</span>								
+						        				<span class="self-center">Voir mon profil</span>								
 											</a>
 										</div>
 
-									{% endif %}
-
-								
-								</div>
-
-								<div class="flex flex-auto justify-center w-100">
-									<div class="db tl mv2">
-										<a class="button-action bg-ms-fushia near-black no-underline pa2 flex flex-auto" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScoreSaison.joggeur.id}) }}">
-											<svg class="icon icon--s icon-eye fill-near-black"><use xlink:href="#icon-eye"></use></svg>
-					        				<span class="self-center">Voir mon profil</span>								
-										</a>
-									</div>
-
-								    <div class="db tl mv2 pl2">
-									    <a class="button-action bg-ms-fushia near-black no-underline pa2 flex flex-auto" href="{{ path('fos_user_profile_show') }}">
-									    	<svg class="icon icon--s icon-locked fill-near-black self-center"><use xlink:href="#icon-locked"></use></svg>
-									    	<span class="self-center">Paramètres de connexion</span> 
-									    </a>
-								    </div>
-							    </div>	
-													    
-						</div>
-		        	</div>
+									    <div class="db tl mv2 pl2">
+										    <a class="button-action bg-ms-fushia near-black no-underline pa2 flex flex-auto" href="{{ path('fos_user_profile_show') }}">
+										    	<svg class="icon icon--s icon-locked fill-near-black self-center"><use xlink:href="#icon-locked"></use></svg>
+										    	<span class="self-center">Paramètres de connexion</span> 
+										    </a>
+									    </div>
+								    </div>	
+														    
+							</div>
+			        	</div>
+		        	{% endif %}
 		        </div>
 	        	{# fin colonne profil #}
 	        {# </div> #}

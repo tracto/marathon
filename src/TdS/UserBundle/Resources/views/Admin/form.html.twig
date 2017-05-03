@@ -1,32 +1,34 @@
 
-<div class="form-wrapper bg-op--white bd--light pam">
+<div class="form-wrapper">
    {{ form_start(formUser, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(formUser) }}
 
     <div class="form-group">
-      {{ form_label(formUser.joggeur, "Joggeur lié", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-      {{ form_errors(formUser.joggeur) }}
-      <div class="col-xs-12 col-sm-6">
-        {{ form_widget(formUser.joggeur, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-    <div class="flex-container-h block">
-      <div class="btn__info flex-item-fluid align-right prm mrn pts pbs">
-        <span>Le joggeur n'existe pas encore ?</span>
+      <div class="form-flex justify-center">
+        {{ form_label(formUser.joggeur, "Joggeur lié", {'label_attr': {'class': 'form-label control-label'}}) }}
+        {{ form_errors(formUser.joggeur) }}
+        <div class="form-widget">
+          {{ form_widget(formUser.joggeur, {'attr': {'class': 'form-control'}}) }}
+        </div>
       </div>
 
-      <a class='button btn btn-action btn-create-joggeur' href="{{ path('tds_marathon_joggeur_add') }}">
-        <svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-        <span>créer un joggeur</span>
-      </a>
+      <div class="form-flex justify-center mv3">
+        <div class="self-center mr2">
+          <span>Le joggeur n'existe pas encore ?</span>
+        </div>
+
+        <a class='button button-action' href="{{ path('tds_marathon_joggeur_add') }}">
+          <svg class="icon icon--xs icon-plus"><use xlink:href="#icon-plus"></use></svg>
+          <span>créer un joggeur</span>
+        </a>
+      </div>
     </div>
      
-    <div class="align-center">
-      <div class="button btn btn-action mts">
-        <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
-           {{ form_widget(formUser.save, {'attr': {'class': 'btn btn-primary'}}) }}
+    <div class="tc">
+      <div class="button button-save">
+        <svg class="icon icon--xs icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+           {{ form_widget(formUser.save, {'attr': {'class': ''}}) }}
       </div>
     </div>
 
