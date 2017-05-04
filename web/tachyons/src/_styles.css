@@ -17,7 +17,7 @@ a { color: inherit; }
 
 
 
-@media (--breakpoint-medium){
+/*@media (--breakpoint-medium){
 	body{
 		border:solid 1px red;
 
@@ -38,7 +38,7 @@ a { color: inherit; }
 		border:solid 1px green;
 
 	}
-}
+}*/
 
 
 /*detection du device pour le js*/
@@ -101,12 +101,115 @@ input[type='submit']:focus {
 
 
 /*BECKY*/
-.becky-infos{
-	top:80px;
+
+.button-becky{
+	background-color:var(--ms-fushia);
+	border:outset 1px white;
+	border-radius:8px;
+	text-decoration:none;
+	height:50px;
+	width:50px;
+	cursor:pointer;
+}
+
+#button-becky-fixed{
+	position:fixed;
+	bottom:5px;
+	left:0;
+	background-color:rgba(253, 98, 116, 0.8);
+	padding:0.5rem 0.5rem 0 0.5rem;
+	margin:0 0 0 1rem;
+}
+
+#button-becky-fixed .becky-img{
+	background-image:url('../../bundles/tdsbecky/images/rebecca-hot.png');
+	background-size:cover;
+	width:70px;
+	height:94px;
 }
 
 
 
+#becky-wrapper .becky-img{
+	background-image:url('../../bundles/tdsbecky/images/rebecca.png');
+	background-size:cover;
+	width:100px;
+	height:134px;
+}
+
+
+
+/*POPUP*/
+#popup{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:rgba(28, 31, 32, 0.7);
+	display:none;
+}
+
+
+
+
+
+/*LOIS DU MARATHON*/
+#lois-wrapper{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:rgba(28, 31, 32, 0.7);
+	z-index:10;
+	display:none;
+}
+
+
+.balance{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/balance.gif');
+	background-size: cover;
+    background-repeat: no-repeat;
+    width:75px;
+    height:60px;
+}
+
+.justice{
+	background-image:url('../../bundles/tdsmarathon/images/gifs/justice.jpg');
+	background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 210px;
+}
+
+
+
+
+
+
+
+
+
+/*BOUTON CHAT*/
+#chat-wrapper{
+	margin-right:1rem;
+}
+
+
+#chat-wrapper .button-chat{
+	display:block;
+	background: linear-gradient(
+		to bottom,#fffc00 20%,
+		#f64aaa 65%,
+		#c982d8 80%
+	);
+	border:inset 2px rgba(255,255,255,0.5);
+	padding:0.5rem;
+	width:100%;
+
+	/*background-image: -webkit-linear-gradient(#fffc00 20%,#f64aaa 65%,#c982d8 80%);*/
+}
 
 
 
@@ -447,15 +550,7 @@ button{
     fill:var(--near-black);
 }
 
-.button-becky{
-	background-color:var(--ms-fushia);
-	border:outset 1px white;
-	border-radius:8px;
-	text-decoration:none;
-	height:50px;
-	width:50px;
-	cursor:pointer;
-}
+
 
 
 .button-save{
@@ -1701,16 +1796,9 @@ button{
 
 
 
-/*POPUP*/
-#popup{
-	position:fixed;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	background-color:rgba(28, 31, 32, 0.7);
-	display:none;
-}
+
+
+
 
 
 
