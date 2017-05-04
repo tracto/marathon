@@ -2073,6 +2073,28 @@ code, .code { font-family: Consolas, monaco, monospace; }
 html { box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
 a { color: inherit; }
+/*@media (--breakpoint-medium){
+	body{
+		border:solid 1px red;
+
+	}
+}
+
+
+@media (--breakpoint-small-medium){
+	body{
+		border:solid 1px blue;
+
+	}
+}
+
+
+@media (--breakpoint-large){
+	body{
+		border:solid 1px green;
+
+	}
+}*/
 /*detection du device pour le js*/
 #device { display: block; }
 input:focus { outline: solid 1px #fd6274; }
@@ -2085,7 +2107,19 @@ input[type='submit']:focus { outline: none; }
 .container-border-left { background-image: url( '../../bundles/tdsmarathon/images/motif-border-g.png' ); background-repeat: repeat-y; background-position-x: right; }
 .container-border-right { background-image: url( '../../bundles/tdsmarathon/images/motif-border-d.png' ); background-repeat: repeat-y; }
 /*BECKY*/
-.becky-infos { top: 80px; }
+.button-becky { background-color: #fd6274; border: outset 1px white; border-radius: 8px; text-decoration: none; height: 50px; width: 50px; cursor: pointer; }
+#button-becky-fixed { position: fixed; bottom: 5px; left: 0; background-color: rgba( 253, 98, 116, .8 ); padding: .5rem .5rem 0 .5rem; margin: 0 0 0 1rem; }
+#button-becky-fixed .becky-img { background-image: url( '../../bundles/tdsbecky/images/rebecca-hot.png' ); background-size: cover; width: 70px; height: 94px; }
+#becky-wrapper .becky-img { background-image: url( '../../bundles/tdsbecky/images/rebecca.png' ); background-size: cover; width: 100px; height: 134px; }
+/*POPUP*/
+#popup { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba( 28, 31, 32, .7 ); display: none; }
+/*LOIS DU MARATHON*/
+#lois-wrapper { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba( 28, 31, 32, .7 ); z-index: 10; display: none; }
+.balance { background-image: url( '../../bundles/tdsmarathon/images/gifs/balance.gif' ); background-size: cover; background-repeat: no-repeat; width: 75px; height: 60px; }
+.justice { background-image: url( '../../bundles/tdsmarathon/images/gifs/justice.jpg' ); background-size: cover; background-repeat: no-repeat; width: 50%; height: 210px; }
+/*BOUTON CHAT*/
+#chat-wrapper { margin-right: 1rem; }
+#chat-wrapper .button-chat { display: block; background: linear-gradient( to bottom, #fffc00 20%, #f64aaa 65%, #c982d8 80% ); border: inset 2px rgba( 255, 255, 255, .5 ); padding: .5rem; width: 100%; /*background-image: -webkit-linear-gradient(#fffc00 20%,#f64aaa 65%,#c982d8 80%);*/ }
 /*HEADER*/
 .hero { max-height: 70vh; overflow: hidden; }
 .navbar-header { }
@@ -2124,7 +2158,6 @@ button { cursor: pointer; }
 .button-caret svg { fill: #1c1f20; float: right; }
 .button-player { background-image: url( '../../bundles/tdsmarathon/images/playlist/playlist-bg.jpg' ); border: outset 1px white; border-radius: 2px; padding: .5rem; }
 .button-player .icon { display: inline-block; vertical-align: middle; fill: #1c1f20; }
-.button-becky { background-color: #fd6274; border: outset 1px white; border-radius: 8px; text-decoration: none; height: 50px; width: 50px; cursor: pointer; }
 .button-save { position: relative; margin: 0 auto; width: auto; text-align: center; display: inline-block; }
 .button-save button { border: none; background: transparent; color: #fd6274; }
 .button-switch span { margin-left: -8px; padding: 18px; /*height:60px;*/ }
@@ -2277,8 +2310,6 @@ button { cursor: pointer; }
 .form-date div { padding-left: 1rem; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
 .heartPoints-icon.is-active svg { fill: #fd6274; }
 .heartPoints-icon.is-active ~ .heartPoints-icon svg { fill: #fd6274; }
-/*POPUP*/
-#popup { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba( 28, 31, 32, .7 ); display: none; }
 /*FOOTER*/
 .footer-wrapper { min-height: 200px; box-shadow: 0 -4px 26px rgb( 1, 73, 146 ); border-top: solid 1px #292135; }
 .sep-herbe { background-repeat: repeat-x; height: 20px; }
@@ -3232,7 +3263,6 @@ button { cursor: pointer; }
  .v-mid-m { vertical-align: middle; }
  .v-top-m { vertical-align: top; }
  .v-btm-m { vertical-align: bottom; }
- body { border: solid 1px red; }
  .hero { background-position: 50% 40px; }
  .navbar-second ul { margin-left: -0.7rem; }
  .navbar-header_saison span {/*padding-right:0.5rem;*/ }
@@ -3663,7 +3693,6 @@ button { cursor: pointer; }
  .v-mid-l { vertical-align: middle; }
  .v-top-l { vertical-align: top; }
  .v-btm-l { vertical-align: bottom; }
- body { border: solid 1px green; }
  .navbar-first li { cursor: pointer; min-width: 6rem; }
  .hero .logo-wrapper { max-width: 32rem; }
  .hero .saison-title { font-size: 3rem; }
@@ -3704,7 +3733,6 @@ button { cursor: pointer; }
  .w-third-sm { width: calc( 100% / 3 ); }
  .w-two-thirds-sm { width: calc( 100% / 1.5 ); }
  .w-auto-sm { width: auto; }
- body { border: solid 1px blue; }
  .ms-title_framed { padding: 4rem; }
  .saison-liste_image { margin-bottom: .5rem; }
 }

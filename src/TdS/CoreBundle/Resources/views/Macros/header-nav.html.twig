@@ -54,10 +54,19 @@
 					{% if is_granted("ROLE_SUPER_ADMIN") %}
 	            		<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
 	            	{% endif %}
-	            	<li class="button-lois lh-solid">
-	            		<a class="bg--marbre pv2 ph3 dib garamond f5 b">
-							les Lois du Marathon
-				  		</a> 
+
+	            	<li class="button-lois lh-solid" data-action="button-lois">
+	            		<a class="bg--marbre dib garamond flex flex-auto flex-wrap cursor">
+	            			<span class="bg-near-black pa1 self-center">
+								<svg class="db icon icon--m fill-ms-fushia "><use xlink:href="#icon-caducee"></use>
+								</svg>
+							</span>
+							<span class="f5 b self-center ph2">les Lois du Marathon</span>
+
+				  		</a>
+				  		<audio id="audio" >
+    						<source src="../bundles/tdsmarathon/sounds/lawandorder-sound.mp3" type="audio/mpeg" />    
+						</audio>
 	            	</li>		            	           		            	
 				</ul>
 			</nav>
