@@ -20,13 +20,13 @@
                        
                             {% if comment.author.joggeur is defined %}
                                 {% if comment.author.joggeur.image is not null %}
-                                    <div class="fos_comment_comment_authorImage flex-item overflow-hidden br0 b--solid bw1 gray thumbnail--m">
-                                        <img class="" src="{{ comment.author.joggeur.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ comment.author.joggeur.image.alt }}">
+                                    <div class="fos_comment_comment_authorImage overflow-hidden br0 b--solid bw1 gray thumbnail--m">
+                                        <img class="h-100" src="{{ comment.author.joggeur.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ comment.author.joggeur.image.alt }}">
                                     </div>
                                 {% endif %}
                             {% else %}
-                                    <div class="fos_comment_comment_authorImage flex-item overflow-hidden br0 b--solid bw1 gray thumbnail--m">
-                                        <img class="" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="anonymous img">
+                                    <div class="fos_comment_comment_authorImage overflow-hidden br0 b--solid bw1 gray thumbnail--m">
+                                        <img class="h-100" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="anonymous img">
                                     </div>               
                             {% endif %}
                         

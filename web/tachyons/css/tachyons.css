@@ -2270,26 +2270,27 @@ button { cursor: pointer; }
 	height:auto!important;*/ }
 /* COMMENTS */
 .comment-action-buttons { margin-top: -20px; }
-#fos_comment_thread_wrapper { border: 1px solid rgba( 0, 0, 0, .2 ); }
+#fos_comment_thread_wrapper { border: 1px solid rgba( 0, 0, 0, .1 ); background-color: rgba( 233, 234, 231, .3 ); }
 #fos_comment_thread >.fos_comment_comment_form_holder { padding: 0 0 20px 0; margin-bottom: 20px; border-bottom: dashed 1px rgba( 0, 0, 0, .3 ); }
 #fos_comment_thread .fos_comment_comment_form_holder { width: 100%; padding-top: 30px; }
 .fos_comment_comment_new_form { margin: 0 auto; text-align: center; }
 .fos_comment_comment_bulle .fos_comment_comment_new_form { padding-right: 45px; margin: 0 0 10px 0; text-align: left; }
 .fos_comment_comment_form_content { -ms-flex-positive: 3; flex-grow: 3; min-width: 25%; width: auto; }
-.fos_comment_comment_form_content textarea { background-color: rgba( 255, 255, 255, .5 ); border: none; height: auto; width: 100%; }
+.fos_comment_comment_form_body { height: 50px; }
+.fos_comment_comment_form_content textarea { background-color: rgba( 255, 255, 255, .5 ); border: none; height: auto; width: 100%; height: 100%; }
 .fos_comment_comment_body_wrapper { padding: 0 0 20px 0; }
 .fos_comment_comment_body { padding: 10px; }
-.fos_comment_comment_show { border-left: solid 2px #bdbdbd; margin-left: 25px; }
-.fos_comment_comment_show:before { content: ''; width: 14px; height: 2px; background: #bdbdbd; position: absolute; top: 25px; left: -39px; }
+.fos_comment_comment_show { border-left: solid 2px rgba( 0, 0, 0, .2 ); margin-left: 25px; }
+.fos_comment_comment_show:before { content: ''; width: 14px; height: 2px; background: rgba( 0, 0, 0, .2 ); position: absolute; top: 25px; left: -39px; }
 .fos_comment_comment_show:first-child { padding-top: 0; }
-.fos_comment_comment_show:last-child:after { content: ''; position: absolute; background: #bdbdbd; bottom: 0; left: -5px; width: 7px; height: 7px; border: 3px solid #bdbdbd; border-radius: 50%; }
+.fos_comment_comment_show:last-child:after { content: ''; position: absolute; background: #bdbdbd; bottom: 0; left: -5px; width: 7px; height: 7px; border: 3px solid rgba( 0, 0, 0, .2 ); border-radius: 50%; }
 .fos_comment_comment_show:last-child .fos_comment_thread-inner { padding-bottom: 0; }
 .fos_comment_comment_depth_0 { margin-left: 2rem; }
 .fos_comment_comment_depth_0:before { background: transparent; }
 .fos_comment_comment_replies { margin-left: 10px; padding-bottom: 20px; }
 .fos_comment_comment_authorImage { overflow: hidden; margin-left: -25px; -ms-flex: 1 1 50px; flex: 1 1 50px; height: 50px; -ms-flex-positive: 0; flex-grow: 0; }
-.fos_comment_comment_inner-bulle { -ms-flex: 1; flex: 1; box-shadow: 1px 1px 2px gray; background-color: #e9eae7; margin-left: 10px; border-radius: 0 0 5px 5px; }
-.fos_comment_comment_inner-bulle:before { content: ''; height: 0; width: 0; position: absolute; display: block; border-width: 10px 12px 10px 0; border-style: solid; border-color: rgba( 0, 0, 0, 0 ) #e9eae7; top: 8px; left: 24px; }
+.fos_comment_comment_inner-bulle { -ms-flex: 1; flex: 1; box-shadow: 1px 1px 2px gray; background-color: rgba( 233, 234, 231, .5 ); margin-left: 10px; border-radius: 0 0 5px 5px; }
+.fos_comment_comment_inner-bulle:before { content: ''; height: 0; width: 0; position: absolute; display: block; border-width: 10px 12px 10px 0; border-style: solid; border-color: rgba( 0, 0, 0, 0 ) rgba( 233, 234, 231, .5 ); top: 8px; left: 24px; }
 .fos_comment_comment_bulle .button-nude { position: relative; left: -25px; top: 5px; }
 .fos_comment_comment_body img { display: block; width: 100%; }
 .fos_comment_comment_body a { display: block; text-decoration: underline; width: 100%; word-break: break-all; white-space: pre-wrap; overflow: hidden; }
@@ -2310,6 +2311,8 @@ button { cursor: pointer; }
 .form-date div { padding-left: 1rem; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
 .heartPoints-icon.is-active svg { fill: #fd6274; }
 .heartPoints-icon.is-active ~ .heartPoints-icon svg { fill: #fd6274; }
+/*ACCORDION*/
+.ui-accordion-header-active .icon-arrow-left { transform: rotate( -90deg ); }
 /*FOOTER*/
 .footer-wrapper { min-height: 200px; box-shadow: 0 -4px 26px rgb( 1, 73, 146 ); border-top: solid 1px #292135; }
 .sep-herbe { background-repeat: repeat-x; height: 20px; }

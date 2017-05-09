@@ -185,8 +185,12 @@
 
 
 {# MACRO LISTE LIGNE SCORE #}
-{% macro ligne_score_theme(score) %}
+{% macro ligne_score_theme(score,color) %}
 	{% import _self as self %}
+
+	{% if color is not defined or color is empty %}
+		{% set color = 'ms-gold' %}
+	{% endif %}
 
 	<a class="flex flex-wrap flex-row items-center mb2 no-underline near-black w-100 bg-white-10 shadow-subtle"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
 		<div class="flex flex-auto justify-start self-center items-stretch w-70 w-40-ns">
@@ -201,17 +205,17 @@
 		</div>
 
 
-		<div class=" flex flex-auto self-stretch justify-end bl bw2 b--ms-gold w-30 w-10-ns">
+		<div class=" flex flex-auto self-stretch justify-end bl bw2 b--{{ color }} w-30 w-10-ns">
 			<span class="f6 self-center ph2 b"> {{ score.totalTheme }} pts</span>
 		</div>
 		
 
 		{# <div class="self-center flex"> #}
-		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns mt2 mt0-ns b--ms-light-violet bw2 bw0-ns  bt bt0-ns">
-			{{ self.scores_miniblock_horizontal(score.fastpoints,"#icon-fast","ms-gold","icon--xs") }}
-			{{ self.scores_miniblock_horizontal(score.heartpoints,"#icon-heart","ms-gold","icon--xs") }}
+		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns mt2 mt0-ns b--{{ color }} bw2 bw0-ns  bt bt0-ns">
+			{{ self.scores_miniblock_horizontal(score.fastpoints,"#icon-fast",color,"icon--xs") }}
+			{{ self.scores_miniblock_horizontal(score.heartpoints,"#icon-heart",color,"icon--xs") }}
 			{# {% if score.takenpoints != 0 %} #}
-				{{ self.scores_miniblock_horizontal(score.takenpoints,"#icon-minus","ms-gold","icon--xs") }}
+				{{ self.scores_miniblock_horizontal(score.takenpoints,"#icon-minus",color,"icon--xs") }}
 			{# {% endif %} #}
 		</div>
 	</a>

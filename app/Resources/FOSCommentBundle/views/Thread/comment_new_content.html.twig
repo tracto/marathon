@@ -33,8 +33,8 @@
                     </div>
 
 
-                    <div class="fos_comment_comment_form_body flex flex-auto flex-wrap justify-center ba br3 black-30 mw6 w-100 ma3">
-                        <div class="flex-item thumbnail--m">
+                    <div class="fos_comment_comment_form_body flex flex-auto flex-wrap justify-between ba br3 black-30 mw6 w-100 ma3 center overflow-hidden">
+                        <div class="">
                             {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
                                 <img class="db bn" src="{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ app.user.joggeur.image.alt }}"/>
                             {% else %}
@@ -42,18 +42,18 @@
                             {% endif %}
                         </div>
 
-                        <div class="flex-item fos_comment_comment_form_content">
-                            {{ form_widget(form.body) }}
+                        <div class="fos_comment_comment_form_content">
+                            {{ form_widget(form.body,{'attr':{'class':'h-100'}}) }}
                         </div>
 
-                        <div class="fos_comment_submit flex-item tr">
+                        <div class="fos_comment_submit tr">
                             {% block fos_comment_form_submit %}
-                                <button class='button' type="submit" class="button btn fos_comment_comment_validate">
+                                <button class='button h-100' type="submit" class="button btn fos_comment_comment_validate">
                                     <svg class="icon icon--xs"><use xlink:href="#icon-checkmark"></use></svg>
                                 </button>
                                 
                                 {% if parent is not null %}
-                                    <button type="button"  class="button">
+                                    <button class="button h-100" type="button">
                                         <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
                                     </button>
                                 {% endif %}                               
