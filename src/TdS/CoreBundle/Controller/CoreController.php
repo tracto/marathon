@@ -264,10 +264,13 @@ class CoreController extends Controller{
 
 	public function kilometrageAction(){
 		$em = $this->getDoctrine()->getManager();
-		$duree=$em
-	      			->getRepository('TdSMarathonBundle:MusicTitle')
+		$infosMusicTitle=$em->getRepository('TdSMarathonBundle:MusicTitle')
 	      			->findAllDurations();
+	      			
+	    $kilometres=round($infosMusicTitle['kilometrage'],2);
+	    $duree=date('H\h i\m\i\n', $infosMusicTitle['temps']);
 
-		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array("duree"=>$duree));
+		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array("duree"=>$duree,
+			"kilometres"=>$kilometres));
 	}
 }
