@@ -5,51 +5,51 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-		<div class="classement">
-			<h1 class="main-title man pbm align-center">
-				<span>Classement</span><br/>
-				<div class="dropdown-saison align-center mbs">
-					<div class="dropdown-saison-wrapper">
-						<div class="dropdown-saison-item select pas sep">
-							<span>{{ saison.titre }}</span>
-							<svg class="icon icon--s icon-arrow-left pull-right" ><use xlink:href="#icon-arrow-left"></use></svg>
-						</div>
-						{% for saisonItem in listeSaisons %}
-							{% if saison != saisonItem %}
-								<div class="dropdown-saison-item pas sep--dashed"><a href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saisonItem.id }) }}">{{ saisonItem.titre }}</a></div>
-							{% endif %}
-						{% endfor %}
+	<div id="content" class="">
+		<div class="classement pa3 pa4-l">
+			
+			<div class="ms-title justify-center">
+				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-auto-ns flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
+				<h1 class="self-center f1 metal-mania">Classement</h1>
+				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-auto-ns flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
+			</div>
+				
+			<div id="dropdown-saison" class="dropdown-saison tc w-100">
+				<div class="dropdown-saison-wrapper center w-40">
+					<div class="dropdown-saison-item flex flex-auto justify-center bg-white-20 b--black-20 bw1 b--solid pv2" data-action="dropdown-saison">
+						<span class="self-center f4 pr2">{{ saison.titre }}</span>
+						<svg class="self-center icon icon--xs icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
 					</div>
+					{% for saisonItem in listeSaisons %}
+						{% if saison != saisonItem %}
+							<div class="dropdown-saison-item dn bg-white-20 b--black-20 bw1 bb pv2"><a class="no-underline" href="{{ path('tds_marathon_joggeur_classement', {'saisonid' : saisonItem.id }) }}">{{ saisonItem.titre }}</a></div>
+						{% endif %}
+					{% endfor %}
 				</div>
-			</h1>
-
-			<div class="legende align-center pas mbs mtl">
-				<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg> -> points bisous
-				<svg class="icon icon--m icon-fast mls" ><use xlink:href="#icon-fast"></use></svg> -> points vitesse 
-				<svg class="icon icon--m icon-minus mls" ><use xlink:href="#icon-minus"></use></svg> -> points retirés
 			</div>
 			
-			<div class="sep accordion-joggeur">
+
+			<div class="pt3">						
+				{{ scoresElementsModule.scores_legende() }}
+			</div>
+			
+			<div class="accordion-joggeur" data-action="accordion">
 				
       			{% for joggeurScore in listeJoggeursScore %}
-	      				<div class="accordion-header flex-container flex-align pas">
-	      					<h2 class="sub-title man mrs">{{ loop.index }} {{ joggeurScore.joggeur.pseudo }}</h2> 
-	      				    <span class="score">Score Total : {{ joggeurScore.total }}</span>
-	      				    <svg class="icon icon--s icon-arrow-left mlauto" ><use xlink:href="#icon-arrow-left"></use></svg>
+	      				<div class="accordion-header flex flex-auto flex-wrap w-100 justify-between bb bt-0 bl-0 br-0 b--dashed ">
+	      					<div class="self-center flex flex-auto flex-wrap justify-between">
+	      						<div class="self-center flex flex-auto">
+	      							<span class="f4 self-center pr2">{{ loop.index }}</span>
+		      						<h2 class="ms-subtitle self-center "> {{ joggeurScore.joggeur.pseudo }}</h2> 
+		      					</div>
+		      				    <span class="score self-center bg-ms-turquoise pa2 mr2">{{ joggeurScore.total }} pts</span>
+	      					</div>
+	      				    <svg class="icon icon--xs icon-arrow-left self-center" ><use xlink:href="#icon-arrow-left"></use></svg>
 	      				    
 	      				</div>
 	      				<div class="accordion-body">
 		      				{% for score in joggeurScore.scores %}
-		      					<div class="pbs flex-container flex-align">
-		      						<div class="pls mls prm sub-sub-title">{{ score.theme.titre }} : {{ score.totalTheme }}</div>
-
-		      						<span>
-		      						(<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>{{ score.heartpoints }} 
-		      						<svg class="icon icon--m icon-fast mls" ><use xlink:href="#icon-fast"></use></svg>
-		      						{{ score.fastpoints }} 
-		      						<svg class="icon icon--m icon-minus mls" ><use xlink:href="#icon-minus"></use></svg>{{ score.takenpoints }} )</span>
-		      					</div>
+		      					{{ scoresElementsModule.ligne_score_theme(score) }}
 			      			{% endfor %}
 		      			</div>
       			{% endfor %}
