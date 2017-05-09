@@ -32,18 +32,10 @@ $(function() {
         complete: function () {
         	
         }
-    }); 
-
-
-
-  
-
-  //   $("[data-close-becky]").on("click",function(){
-  //       $("#becky-wrapper").hide();
-  //   });
-
-    			
+    });    			
 });
+
+
 
 
 
@@ -122,9 +114,7 @@ var audio = document.getElementById('audio');
 // OUVERTURE / FERMETURE POPUP LOIS
 $('body').on('click', '[data-action="button-lois"]', function(){
   $("#lois-wrapper").show();
-    // var audio = $("#audio");
       audio.play(); 
-     // setTimeout(window.location.replace('inscription.php'), 3000);
 });
 
 
