@@ -24,7 +24,7 @@ class MusicTitleController extends Controller{
 
 		if($joggeur_id){
 			$joggeur = $em->getRepository('TdSMarathonBundle:Joggeur')
-		      			->find($joggeur_id);
+		      			->findJoggeurById($joggeur_id);
 		}
 
 		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
@@ -45,7 +45,7 @@ class MusicTitleController extends Controller{
 			if($theme_id){
 				$theme = $em
 		      			->getRepository('TdSMarathonBundle:Theme')
-		      			->find($theme_id);
+		      			->findOneThemeById($theme_id);
 		      	$musicTitle->setTheme($theme);
 		   	}
 

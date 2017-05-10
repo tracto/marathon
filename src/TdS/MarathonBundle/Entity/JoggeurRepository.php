@@ -41,6 +41,19 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
     }
 
 
+
+    public function findAllJoggeursWithUsers(){
+        $queryBuilder = $this->createQueryBuilder('c')
+          ->addSelect('c','u')
+          ->leftJoin('c.user', 'u');
+          
+
+        return $queryBuilder
+        ->getQuery()
+        ->getResult();
+    }
+
+
     public function findJoggeurById($id){
         $results = $this->createQueryBuilder('j')
           ->addSelect('j','i','m','mt','mti','u','js','jss')

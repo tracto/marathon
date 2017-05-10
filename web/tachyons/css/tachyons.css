@@ -2309,6 +2309,8 @@ button { cursor: pointer; }
 .form-widget { padding-left: 1rem; border-left: solid 1px rgba( 0, 0, 0, .2 ); }
 .form-group input { border-radius: 5px; padding: .5rem; color: #333; }
 .form-date div { padding-left: 1rem; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
+.form-error ul { width: 100%; background-color: #fd6274; padding: .4rem; font-style: italic; font-size: .7rem; margin-top: .5rem; }
+.form-error ul li { list-style: none; }
 .heartPoints-icon.is-active svg { fill: #fd6274; }
 .heartPoints-icon.is-active ~ .heartPoints-icon svg { fill: #fd6274; }
 /*ACCORDION*/

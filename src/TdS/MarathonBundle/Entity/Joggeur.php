@@ -40,7 +40,8 @@ class Joggeur
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\Image", cascade={"persist","remove"})
+     * @Assert\Valid()
      */
     private $image;
 

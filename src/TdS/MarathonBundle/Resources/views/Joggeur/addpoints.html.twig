@@ -6,13 +6,7 @@
 
 {% block tdsmarathon_body %}
 	<div id="content" class="pa3 pa4-l">
-		{# <h1 class="main-title man pan align-center">
-			<svg class="icon icon--m icon-heart"><use xlink:href="#icon-heart"></use></svg>
-			<span>Attribuer des points bisous</span>
-			<span class="button btn btn-default btn-becky" data-info="C'est ici que tu répartis tes points coeurs, tu as une semaine pour le faire.<br/>Prends ton temps et sinon, c'est en faisant des erreurs qu'on apprend.<br/>Par contre, si tu as oublié de les dépenser ils seront retirés de ton score et un mail sera directement envoyé à la CAF de ta région pour un rendez-vous de contrôle.">
-	        	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-	        </span>
-		</h1> #}
+		
 	<div class="ma0 tc b--dashed b--black-20 bb bt-0 br-0 bl-0 pb3 mb3">
 		<div class="flex flex-auto justify-center w-100 mt4">	
 			<h1 class="self-center pr2 ma0 new-rocker f2">
@@ -31,10 +25,9 @@
         	<div class="w-100 pt2">
         		<div class="pb3">
 			    	<h2 class="ma0 fw1">theme</h2>
-			    <div class="w-100 w-80-sm w-60-m w-50-l center">
-			    	{{ vignetteModule.vignette_line_theme(themePost) }}
-			    </div>
-
+			    	<div class="w-100 w-80-sm w-60-m w-50-l center">
+			    		{{ vignetteModule.vignette_line_theme(themePost) }}
+			    	</div>
 				</div>
 			    <div class="pl4 f5">
 			    	<span>nombre de points disponibles :</span>
@@ -60,7 +53,7 @@
 				<div class='flex flex-auto flex-wrap justify-between'>
 					{% for musicTitle in themePost.musicTitles %}					
 						{% if musicTitle is not null %}
-							{% if musicTitle.joggeur != app.user.joggeur %}
+							{% if musicTitle.joggeur.id != app.user.joggeur.id %}
 								<div class='w-100 w-100-sm w-50-m w-33-l pa2'>
 									<div class="flex flex-auto flex-wrap justify-between bg-white-40 pa2">
 										<div class="w-100 w-30-l">

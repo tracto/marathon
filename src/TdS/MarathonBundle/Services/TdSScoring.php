@@ -163,12 +163,14 @@ class TdSScoring {
 
     public function setTakenPointsToJoggeurs(Saison $saison,Theme $postTheme){
         $scoresPostTheme=$this->em->getRepository('TdSMarathonBundle:Score')
-                            ->findBy(array('theme' => $postTheme));
+            ->findBy(array('theme' => $postTheme));
+
         if(!empty($scoresPostTheme)){
             foreach($scoresPostTheme as $scorePostTheme){
                 $joggeurScore=$scorePostTheme->getJoggeurScore();
-                if($postTheme->getSaison()==$saison){
+                if($postTheme->getSaison()->getId()==$saison->getId()){
                     $scorePostTheme->setTakenpoints($joggeurScore->getPointstogive());
+                    $this->em->persist($scorePostTheme);
                 }
                 $joggeurScore->setPointstogive(0);    
             }

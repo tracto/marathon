@@ -12,9 +12,15 @@
     </div>
 
     <div class="form-group pv3">
+        {% if saison.image is defined and saison.image is not null %}
+          <div class="form-flex mb2">
+            <span class="form-label control-label self-center">Image précédemment uploadée</span>
+            <img class='form-widget self-center w-100 db flex-1 overflow-hidden' src='{{ saison.image.webPath | imagine_filter('header_image') }}'/>
+          </div>
+        {% endif %}
+
         <div class="form-flex justify-center">
           {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'pr2 control-label'}}) }}
-          {{ form_errors(form.image) }}
           <div class="mr2">
             <span class="button-becky db" data-info="Cette image viendra se placer dans le bandeau entête, sous la tête de mort. Il est important qu'elle soit d'assez bonne qualité. <br/> Taille recommandée : 1960px * 960px / 72dpi  (l'image sera centrée horizontalement) <br/>
             Sous photoshop, il est aussi préférable d'enregistrer pour le web et ses périphériques (menu fichier), en format jpeg." data-btn-becky>

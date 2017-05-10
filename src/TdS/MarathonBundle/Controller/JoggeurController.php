@@ -225,13 +225,15 @@ class JoggeurController extends Controller{
       	   $em=$this->getDoctrine()->getManager();
 
           $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
-                             ->findOneBy(array('id' => $id));
+                             // ->findOneBy(array('id' => $id));
+                             ->findJoggeurById($id);
 
           $tdsSaison = $this->container->get('tds_marathon.saison');
           $saison=$tdsSaison->getCurrSaison();
 
-      	  $themePost=$em->getRepository('TdSMarathonBundle:Theme')
-      					   ->findOneBy(array('statut' => 2));
+      	 
+          $themePost=$em->getRepository('TdSMarathonBundle:Theme')
+                        ->findOneThemeByStatut(2);
 
           $joggeursDuTheme= new ArrayCollection();
 
