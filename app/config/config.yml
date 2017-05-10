@@ -115,6 +115,7 @@ fos_user:
             type: app_user_registration
 
 
+
 fos_comment:
     db_driver: orm
     class:
@@ -144,6 +145,11 @@ liip_imagine:
             filters:
                 crop: { size: [140, 140], start: [ 0,0 ] }
                 thumbnail: { size: [80, 80] }
+
+        small_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 100], mode: outbound }
 
         medium_thumb:
             quality: 75

@@ -3,6 +3,8 @@
 namespace TdS\MarathonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -34,7 +36,13 @@ class Image{
      */
     private $alt;
 
-
+    /**
+    * @Assert\File(
+    *     maxSize = "2000000",
+    *     mimeTypes = {"image/jpeg","image/jpg", "image/gif", "image/png"},
+    *     mimeTypesMessage = "Tu n'as pas uploadé un fichier .jpeg, .gif ou .png valide"
+    * )
+    */
     private $file;
 
     private $tempFilename;

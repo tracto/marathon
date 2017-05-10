@@ -42,7 +42,7 @@
                   {% if currentTheme is defined and currentTheme is not null %}
             			<div class="pt3">
             				<h4 class="ma0">Thème à fermer :</h4>
-                           <a class="no-underline near-black bg-white-20 br2 flex flex-auto mv2" href="{{ path('tds_marathon_joggeur_view', {'id': currentTheme.id}) }}">
+                           <a class="no-underline near-black bg-white-20 br2 flex flex-auto mv2" href="{{ path('tds_marathon_theme_view', {'id': currentTheme.id}) }}">
                               <span class="thumbnail--m">
                                  {% if currentTheme.image is not null %}
                                     <img class='w-100 db' src='{{ currentTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>
@@ -59,7 +59,7 @@
             			<div  class="mt2">
             				<h4 class="ma0">Thème précédent à archiver :</h4>
             				<span>(fermeture des attributions de points.)</span>
-                           <a class="no-underline near-black bg-white-20 br2 flex flex-auto mv2" href="{{ path('tds_marathon_joggeur_view', {'id': postTheme.id}) }}">
+                           <a class="no-underline near-black bg-white-20 br2 flex flex-auto mv2" href="{{ path('tds_marathon_theme_view', {'id': postTheme.id}) }}">
                               <span class="thumbnail--m">
                                  {% if postTheme.image is not null %}
                                     <img class='w-100 db' src='{{ postTheme.image.webPath | imagine_filter('tiny_thumb')  }}'/>

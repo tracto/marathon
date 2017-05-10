@@ -21,13 +21,24 @@
         </div>
 
         <div class="form-group">
-          <div class="form-flex pb3">
-              {{ form_label(form.image, "Ajouter une photo", {'label_attr': {'class': 'form-label control-label'}}) }}
-              {{ form_errors(form.image) }}
-              <div class='form-widget'>
-                  {{ form_widget(form.image,{'attr':{'class':''}}) }}
+          <div class="mb4">
+              {% if joggeur.image is defined and joggeur.image is not null %}
+                <div class="form-flex mb2">
+                  <span class="form-label control-label self-center w-40">Image précédemment uploadée</span>
+                  <img class='form-widget self-center' src='{{ joggeur.image.webPath | imagine_filter('small_thumb')  }}'/>
+                </div>
+              {% endif %}
+              <div class="form-flex">
+                  {{ form_label(form.image, "Ajouter/Modifier une image", {'label_attr': {'class': 'form-label control-label w-40'}}) }}
+                  
+                  <div class='form-widget'>
+                    {{ form_widget(form.image,{'attr':{'class':''}}) }}
+                  </div>
               </div>
+
           </div>
+          
+
 
           <div class="form-flex">
               {{ form_label(form.presentation, "presentation", {'label_attr': {'class': 'form-label control-label'}}) }}

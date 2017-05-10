@@ -2,7 +2,7 @@
    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
     {{ form_errors(form) }}
 
-      <div class="form-group form-input-title f4">     
+      <div class="form-group form-flex form-input-title f4">     
         {{ form_label(form.titre, "titre", {'label_attr': {'class': 'form-label control-label'}}) }}
         {{ form_errors(form.titre) }}
         <div class="form-widget">
@@ -11,8 +11,8 @@
       </div>
 
       {% if is_granted("ROLE_SUPER_ADMIN") %} 
-        <div class="form-group pv3 flex-wrap">
-          <div class="w-100 flex flex-auto">
+        <div class="form-group">
+          <div class="w-100 form-flex">
             {{ form_label(form.theme, "thème", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.theme) }}
             <div class="form-widget">
@@ -22,7 +22,7 @@
       
 
       
-          <div class="w-100 flex flex-auto pt2">
+          <div class="w-100 form-flex mt3">
             {{ form_label(form.joggeur, "joggeur", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.joggeur) }}
             <div class="form-widget">
@@ -34,12 +34,15 @@
     
 
 
-      <div class="form-group">
-        {{ form_label(form.file, "fichier audio", {'label_attr': {'class': 'form-label control-label'}}) }}
-        {{ form_errors(form.file) }}
-        <div class='form-widget'>
-          {{ form_widget(form.file) }}
+      <div class="form-group">        
+        <div class="form-flex">
+            {{ form_label(form.file, "fichier audio", {'label_attr': {'class': 'form-label control-label'}}) }}
+            
+            <div class='form-widget'>
+              {{ form_widget(form.file) }}
+            </div>
         </div>
+        <div class="w-100 form-error">{{ form_errors(form.file) }}</div>
       </div>
 
 

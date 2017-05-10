@@ -10,7 +10,7 @@ $("[data-action='show-more-articles']").on('click',function(){
 	    	  data:'',
 	          cache: false,
 	          success: function(data){
-	   			$('.articles-liste').append(data);
+	   			$('#articles-liste').append(data);
 	   			offset = parseInt(offset) + 4;
 	   			$("[data-action='show-more-articles']").attr("data-offset",offset);
 	         }

@@ -1796,6 +1796,20 @@ button{
 }
 
 
+
+.form-error ul{
+	width:100%;
+	background-color:var(--ms-fushia);
+	padding:0.4rem;
+	font-style:italic;
+	font-size:0.7rem;
+	margin-top:0.5rem;
+}
+
+.form-error ul li{
+	list-style:none;
+}
+
 .heartPoints-icon.is-active svg,
 .heartPoints-icon.is-active ~ .heartPoints-icon svg{
 	fill:var(--ms-fushia);

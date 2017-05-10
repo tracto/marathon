@@ -37,6 +37,7 @@ class MusicTitle
      * @var \DateTime
      *
      * @ORM\Column(name="dateUpload", type="datetime")
+     * @Assert\DateTime()
      */
     private $dateUpload;
 
@@ -77,7 +78,13 @@ class MusicTitle
 
     private $theme;
 
-
+    /**
+    * @Assert\File(
+    *     maxSize = "2000000",
+    *     mimeTypes = {"audio/mpeg", "audio/mp3"},
+    *     mimeTypesMessage = "Tu n'as pas uploadé un fichier .mp3 valide"
+    * )
+    */
     private $file;
 
     private $tempFilename;
