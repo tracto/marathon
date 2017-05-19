@@ -41,6 +41,9 @@ tds_participate_validation:
     path:    /participate-validation
     defaults: { _controller: TdSCoreBundle:Core:participate }
 
+tds_chat:
+    path:   /chat
+    defaults: { _controller: TdSCoreBundle:Core:chat }
 
 
 
@@ -138,3 +141,4 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
