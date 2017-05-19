@@ -273,8 +273,9 @@ class CoreController extends Controller{
 		return $this->render('TdSCoreBundle:Core:kilometrage.html.twig',array("duree"=>$duree,
 			"kilometres"=>$kilometres));
 	}
-}
-    public function chatAction() {
+
+
+	public function chatAction() {
         return $this->render('TdSCoreBundle:Core:chat.html.twig');
     }
 
