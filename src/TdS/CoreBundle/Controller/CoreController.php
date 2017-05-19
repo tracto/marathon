@@ -274,3 +274,9 @@ class CoreController extends Controller{
 			"kilometres"=>$kilometres));
 	}
 }
+    public function chatAction() {
+        return $this->render('TdSCoreBundle:Core:chat.html.twig');
+    }
+
+}
+
