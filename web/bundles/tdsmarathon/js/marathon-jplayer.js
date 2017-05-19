@@ -10,10 +10,23 @@ $(document).ready(function(){
           is_medium= true;       
       }
 
+
+
       if(is_medium){
         var refHeight=$("[data-id='col-gauche']").height()-$("[data-id='playlist-header']").height()-$("[data-id='playlist-footer']").height();
-        $(".jp-playlist-inner").css({"max-height":refHeight+"px"});
+        $(".jp-playlist-inner").css({"max-height":refHeight+"px"}); 
+
+        $('body').on('mouseover',"[data-action='theme-nav-infos-hover']",function(){
+            $(this).find("[data-action='show']").addClass("active");
+        });
+
+        $('body').on('mouseout',"[data-action='theme-nav-infos-hover']",function(){
+            $(this).find("[data-action='show']").removeClass("active");
+        });
+
       }
+
+
 
 
       playlistBody.each(function(){
@@ -154,3 +167,10 @@ $(document).ready(function(){
           i++;
       });
 });
+
+
+
+// $('body').on('mouseover',"[data-action='theme-nav-infos-hover']",function(){
+//     console.log("yo");
+//     $(this).find("[data-action='show']").addClass("active");
+// });

@@ -1,7 +1,7 @@
 {% macro userpanel(saisonCurrent,joggeurScoreSaison) %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
-	<div class="user-panel flex flex-wrap flex-1-m justify-center justify-end-ns pt3 pt0-ns">
+	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pt0-ns">
   	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
 	  	{% if app.user.joggeur is defined and app.user.joggeur is not empty %}	  	
 			<div class="author-name self-center justify-end-m pr2 tr w-85-m">
@@ -74,11 +74,11 @@
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined and app.user.joggeur is not empty %}
 			{% if joggeurScoreSaison is defined and joggeurScoreSaison is not null or joggeurScoreSaison != app.user.joggeur.joggeurScore %}
 				<div class="nav-points-bisous ms-fushia">
-					{# <div class="w-100 flex justify-end"> #}
-						<div class="dib v-mid bg-ms-fushia ph2 pv1">
+					<div class="w-100 flex justify-end">
+						<div class="bg-ms-fushia ph2 pv1">
 							<svg class="icon icon--s fill-near-black"><use xlink:href="#icon-warning"></use></svg>
 						</div>
-						<a class="dib v-mid bg-near-black ph2 pv1 no-underline" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+						<a class="bg-near-black ph2 pv1 no-underline" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
 							<svg class="dib v-mid icon icon--s fill-ms-fushia pr1"><use xlink:href="#icon-heartadd"></use></svg>
 							{% if joggeurScoreSaison.pointstogive is defined and joggeurScoreSaison.pointstogive is not empty %}
 								{{ joggeurScoreSaison.pointstogive }}
@@ -86,7 +86,7 @@
 								0
 							{% endif %}
 						</a>
-					{# </div> #}
+					</div> 
 				</div>
 			{% endif %}
 	{% endif %}		

@@ -114,11 +114,13 @@ var audio = document.getElementById('audio');
 // OUVERTURE / FERMETURE POPUP LOIS
 $('body').on('click', '[data-action="button-lois"]', function(){
   $("#lois-wrapper").show();
-      audio.play(); 
+  $("body").addClass('overflow-hidden');
+  audio.play(); 
 });
 
 
 $('body').on('click', "#lois-wrapper", function(){
   $("#lois-wrapper").hide();
+  $("body").removeClass('overflow-hidden');
 });
 

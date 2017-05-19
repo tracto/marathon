@@ -110,6 +110,7 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
     }
 
 
+
     public function findThemeOrderByDateFinOnlyId(){
       $queryBuilder=$this->_em->createQueryBuilder('a')
         ->addselect('partial a.{id, dateFin, statut}')
@@ -122,6 +123,13 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
             ->getQuery()
             ->getResult();
     }
+
+
+    
+
+
+
+
 
     
 }

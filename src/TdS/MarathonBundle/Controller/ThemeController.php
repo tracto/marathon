@@ -45,14 +45,15 @@ class ThemeController extends Controller{
 	    	
 
 
-	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
-	    			->findOneThemeById($id); 
+	    	// $theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    	// 		->findOneThemeById($id); 
 
 	    	$saison=$theme->getSaison();
 	    	              
 	        $tabIdTheme=array();
 	        $listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
 	        		  ->findThemeOrderByDateFinOnlyId();
+	        $em->clear();
 
 	        foreach ($listeThemes as $themeItem){
          		if($themeItem->getStatut() != 0){
@@ -63,7 +64,37 @@ class ThemeController extends Controller{
          		}	    		
 	        }
 
-			
+	        // $idThemeCurrent=$id;
+	        $idThemePrec=null;
+	        $idThemeSuiv=null;
+
+
+	        $found_index = array_search($id, $tabIdTheme);
+	        if ($found_index === 0){
+	          $idThemePrec=end($tabIdTheme);
+	        }else{
+	          $idThemePrec=$tabIdTheme[$found_index-1];
+	        }
+	        
+	        if ($found_index === sizeOf($tabIdTheme)-1){
+	          $idThemeSuiv=$tabIdTheme[0];
+	        }else{
+	          $idThemeSuiv=$tabIdTheme[$found_index+1];
+	        }
+	        $current=$tabIdTheme[$found_index];
+	        
+
+
+	        $themePrec=$em->getRepository('TdSMarathonBundle:Theme')
+	                          ->findOneThemeById($idThemePrec);
+
+	        $themeSuiv=$em->getRepository('TdSMarathonBundle:Theme')
+	                          ->findOneThemeById($idThemeSuiv);
+
+	        
+	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    			->findOneThemeById($id);
+	    	$em->clear();
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfTheme($theme);
@@ -72,7 +103,8 @@ class ThemeController extends Controller{
 		    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
 		      'saison' => $saison,
 		      'listeJoggeursScore'=>$listeJoggeursScore,
-		      'tabIdTheme'=>$tabIdTheme,
+		      'themePrec'=>$themePrec,
+		      'themeSuiv'=>$themeSuiv,
 		      'theme' => $theme,     
 		    ));
 

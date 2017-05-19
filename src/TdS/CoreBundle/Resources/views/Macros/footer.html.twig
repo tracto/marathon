@@ -2,7 +2,7 @@
 	<footer class="footer-wrapper w-100 bg--pierre near-black f7  center tc relative">
 		<div class="sep-herbe bg--herbe"></div>
 
-		<div class="pt5">
+		<div class="pt5 z-2">
 	    	<div class="flex flex-auto flex-wrap justify-end w-100">
 		    	<div class="w-50 flex justify-end">
 		    		<a class='footer-button no-underline near-black bg--pierre db pa3 mr5' href='mailto:lemarathondelasemaine@gmail.com'>Je veux jogger</a>
@@ -14,10 +14,10 @@
 	    	</div>
 	    		  	
 
-			<div class="footer-credits db absolute bottom-0 w-100 tc pb3">
+			<div class="footer-credits db absolute bottom-0 w-100 tc pb3 pointer">
 	      		<span class="">&copy;&nbsp;2017 - Tiret du Six </span>
 	      		<span class="" data-action="credits">Crédits</span>
-	      		<div class="credits-wrapper" data-credits></div>
+	      		
 		    </div>
 
 		</div>
@@ -36,10 +36,11 @@
 	    	<div class="jog jog15"></div>
 	    </div>
 
-		<div class="footer-kilometrage w-100 absolute left-0 z-9999">
+		<div class="footer-kilometrage w-100 absolute left-0 z-1">
 			<div id="kilometrage-wrapper" class="kilometrage-wrapper near-black fw4 f7"></div>
 			<div class="kilometrage-borne w-100"><span></span></div>
-		</div>
-
+		</div>		
 	</footer>
+	
+	<div class="credits-wrapper z-5" data-credits></div>
 {% endmacro %}

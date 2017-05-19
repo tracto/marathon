@@ -157,6 +157,7 @@ input[type='submit']:focus {
 /*LOIS DU MARATHON*/
 #lois-wrapper{
 	position:fixed;
+	overflow:scroll;
 	top:0;
 	left:0;
 	right:0;
@@ -165,6 +166,15 @@ input[type='submit']:focus {
 	z-index:10;
 	display:none;
 }
+
+
+/*@media (--breakpoint-not-small){
+	#lois-wrapper{
+		position:fixed;
+	}
+}*/
+
+
 
 
 .balance{
@@ -228,9 +238,7 @@ input[type='submit']:focus {
 }
 
 
-.navbar-header{
-	
-}
+
 
 
 .nav-toggler {
@@ -252,21 +260,30 @@ input[type='submit']:focus {
 
 }
 
-.nav-toggler:checked + .nav-toggler__label {
+.nav-toggler:checked +  .nav-toggler__label {
 	color: rgba(0,0,0,0.25);    
 }
 
-.nav-toggler:checked ~ .navbar-header ul{
+.nav-toggler:checked ~ div nav.navbar-header ul{
     display:block;
 }
 
-.nav-toggler:checked ~ .navbar-under{
-	top:560px;
+
+select.mobile-nav{
+	width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(data:image/svg+xml,%3Csvg%20%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20version%3D%221.1%22%20%20viewBox%3D%220%200%2032%2032%22%3E%0A%09%09%09%20%20%3Cpath%20fill%3D%22white%22%20d%3D%22M0%200v3h32v-3h-32zm0%2010v3h32v-3h-32zm0%2010v3h32v-3h-32z%22/%3E%0A%09%09%09%3C/svg%3E) no-repeat center/60%;
+    font-size: 0;
 }
 
 
+
+
 .navbar-first > li{
-	line-height: 60px;
+	line-height: 10px;
 }
 
 .navbar-second li{
@@ -277,6 +294,11 @@ input[type='submit']:focus {
 	.nav-toggler__label{
 		display: none;
 	}
+
+	.navbar-first > li{
+		line-height: 60px;
+	}
+
 	.navbar-first li{
 		/*min-width: 4rem;*/
 		cursor:pointer;
@@ -354,12 +376,26 @@ input[type='submit']:focus {
 
 
 
-.button-lois,
+
 .nav-points-bisous {
 	position: absolute;
     top: 100%;
     margin-top: 3px;
 }
+
+.button-lois{
+	position: absolute;
+    top: 100%;
+	margin-top: 100px;
+}
+
+@media (--breakpoint-not-small){
+	.button-lois{
+	    margin-top: 3px;
+	}
+}
+
+
 
 
 .navbar-first li.button-lois{
@@ -608,6 +644,12 @@ button{
 	height:60px;
 }
 
+
+.icon--xl{
+	width:100px;
+	height:100px;
+}
+
 .icon-pencil{
 	width:20px;
 	height:30px;
@@ -645,6 +687,12 @@ button{
 		width:60px;
 		height:60px;
 	}
+
+	.icon--xl-ns{
+		width:100px;
+		height:100px;
+	}
+
 
 	.icon-pencil-ns{
 		width:20px;
@@ -855,7 +903,7 @@ button{
 
 .ms-title h2{
 	font-weight:100!important;
-	font-size:2.2rem;
+	font-size:1.8rem;
 	margin:0;
 	padding:0;
 	line-height: 2rem;
@@ -864,8 +912,14 @@ button{
 	justify-content:space-between;
 }
 
+@media (--breakpoint-not-small){ 
+	.ms-title h2{
+	    font-size:2.2rem;
+	}
+}
+
 .ms-title h2>span{
-    padding: 0 1rem;
+    padding: 0 0.5rem;
 }
 
 
@@ -1232,9 +1286,7 @@ button{
 .col-playlist-gauche{}
 
 
-.playlist-fleches{
-	top:-20px;
-}
+
 
 .playlist-item-wrapper{
 	border-bottom: 1px solid var(--black-20);
@@ -1273,6 +1325,45 @@ button{
 .playlist-item-wrapper.jp-playlist-current .jp-numero{
 	color:var(--near-black);
 }
+
+
+
+.playlist-fleches{
+	top:-20px;
+}
+
+.playlist-fleche{
+	width:50px;
+	height:50px;
+}
+
+.theme-nav-infos_left{	
+	height:50px;
+	top:0;
+	left:-250px;
+	overflow:hidden;
+	transition:left 0.5s linear;
+}
+
+.theme-nav-infos_left.active{
+	left:0px;
+}
+
+
+
+.theme-nav-infos_right{	
+	height:50px;
+	top:0;
+	right:-250px;
+	overflow:hidden;
+	transition:right 0.5s linear;
+}
+
+.theme-nav-infos_right.active{
+	right:0px;
+}
+
+
 
 
 
@@ -1369,6 +1460,10 @@ button{
 
 .wof-item:first{
 	padding-left:0px;
+}
+
+.wof-item:last{
+	padding-right:0px;
 }
 
 .wof-item_inner{
@@ -1872,7 +1967,7 @@ button{
 
 .footer-button {
 	border:outset 1px white;
-	z-index:400;
+	z-index:1;
 }
 
 
@@ -1973,6 +2068,13 @@ button{
 	left:20%;
     width: 80px;
     height: 130px;
+}
+
+
+
+
+.pastis-lien{
+	width:150px;
 }
 
 

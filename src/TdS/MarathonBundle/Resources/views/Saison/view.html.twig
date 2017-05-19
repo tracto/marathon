@@ -27,7 +27,7 @@
 				{% endif %}
 
 				{% if saison.bilan is defined and saison.bilan is not empty and saison.bilan is not null %} 
-				<div class="w-100 bg-ms-orange-light pa4">
+				<div class="w-100 bg-ms-orange-light pa3 pa4-l">
 					
 
 					<div class="ms-title ms-title_turfu">
@@ -35,11 +35,11 @@
 							<svg class="db icon fill-near-black tc w-30 center"><use xlink:href="#icon-flags"></use></svg>
 						</div>
 						<div class="ms-title_turfu_inner w-100 flex-ns justify-center">
-							<div class="">
+							<div class="dn db-ns">
 								<div class="turfu-apple cf"><span class="fr-ns"></span></div>
 								<div class="turfu-netscape"></div>
 							</div>					
-						    <h2><span class="">Bilan</span></h2>
+						    <h2 class="mt2 mt0-ns"><span class="">Bilan</span></h2>
 						    <div class="">
 						    	<div class="turfu-apple dn db-ns"><span class=""></span></div>
 						    	<div class="turfu-ie"></div>				    	
@@ -51,7 +51,7 @@
 				</div>
 			{% endif %}
 
-				<div class="pa4">
+				<div class="pa3 pa4-l">
 					<div class="ms-title pt4">
 							<div class="">
 								<div class="gif-basket-g"></div>
@@ -82,7 +82,7 @@
 						<div class="ms-title ms-title_spikes">
 				    		<h2><span class="bg-ms-gold">Podium</span></h2>
 				    	</div>
-						<div class="pa2">
+						<div class="pa0 pa2-ns">
 							<div class="podium-wrapper flex items-end mb4">
 								{% for joggeurScore in joggeursScoresOfSaison %}
 									{% if loop.index <= 3 %}
@@ -158,10 +158,10 @@
 		{# PARTIE 2 / bilan + la totale #}
 		<div class="flex flex-auto flex-wrap">			
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
-				<div class="w-100 bg-ms-light-violet pa4">		
+				<div class="w-100 bg-ms-light-violet pa3 pa4-l">		
 					<div class="flex flex-auto flex-wrap mb3">
-						<svg class="icon icon--l icon--m-m icon--l-l db w-100 center tc w-auto-ns flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
-						<div class="ms-title ms-title_spikes flex-1">					
+						<svg class="icon icon--l icon--m-m icon--l-l db w-100 center tc w-auto-ns flex-0 fill-near-black mt3 mb0 mb3-ns"><use xlink:href="#icon-cup"></use></svg>
+						<div class="ms-title ms-title_spikes flex-0 flex-1-ns">					
 					    	<h2><span class="bg-ms-light-violet">Classement</span></h2>			    	
 					    </div>
 					    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>

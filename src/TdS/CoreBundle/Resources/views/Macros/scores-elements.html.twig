@@ -211,7 +211,7 @@
 		
 
 		{# <div class="self-center flex"> #}
-		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns mt2 mt0-ns b--{{ color }} bw2 bw0-ns  bt bt0-ns">
+		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns pr1 pr0-ns  mt0 b--{{ color }} bw2 bw0-ns  bt bt0-ns">
 			{{ self.scores_miniblock_horizontal(score.fastpoints,"#icon-fast",color,"icon--xs") }}
 			{{ self.scores_miniblock_horizontal(score.heartpoints,"#icon-heart",color,"icon--xs") }}
 			{# {% if score.takenpoints != 0 %} #}
@@ -271,7 +271,7 @@
 			<span class="f6 self-center ph2 b">{{ joggeurScore.total }} pts</span>
 		</div>
 			
-		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns mt2 mt0-ns b--ms-light-violet bw2 bw0-ns  bt bt0-ns">				
+		<div class="flex items-stretch justify-between justify-end-ns w-100 w-auto-ns pv2 pv0-ns pr1 pr0-ns  mt0 b--ms-light-violet bw2 bw0-ns  bt bt0-ns ">				
 				{{ self.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","ms-light-violet","icon--xs") }}
 				{{ self.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","ms-light-violet","icon--xs") }}
 				{{ self.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","ms-light-violet","icon--xs") }}
@@ -314,8 +314,8 @@
 	{% if bordercolor is not defined or bordercolor is null %}
 		{% set bordercolor = color %}
 	{% endif %}
-	<div class="score-miniblock_horizontal content-center flex w-100-ns">
-		<div class="{{ bgcolor }} bl br b--{{ bordercolor }} ml1 flex items-center">
+	<div class="score-miniblock_horizontal content-stretch content-center-ns flex w-33 w-100-ns">
+		<div class="{{ bgcolor }} bl br b--{{ bordercolor }} ml1 flex items-center w-100">
 			<div class="w-100 br b--{{ color }} flex-auto ph1">
 				<svg class=" icon {{ extraclass }} fill-{{ color }}"><use xlink:href="{{ icon }}"></use></svg>
 			</div>

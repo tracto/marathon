@@ -18,25 +18,31 @@
 	{% endif %}
 
 
-	<header id="header" class="main-header relative w-100 bg-near-black fixed ph0 ph2-m ph3-l z-5">
+	<header id="header" class="main-header relative w-100 bg-near-black fixed-ns ph0 ph2-m ph3-l z-5">
 
 		{# PARTIE 1 : navigation #}
 		<input id="mobile-nav" type="checkbox" class="nav-toggler" />
 		<label for="mobile-nav" class="nav-toggler__label button">
-			<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" version="1.1"  viewBox="0 0 32 32">
-			  <path d="M0 0v3h32v-3h-32zm0 10v3h32v-3h-32zm0 10v3h32v-3h-32z"/>
+			<svg  xmlns="http://www.w3.org/2000/svg" version="1.1"  viewBox="0 0 32 32">
+			  <path fill="white" d="M0 0v3h32v-3h-32zm0 10v3h32v-3h-32zm0 10v3h32v-3h-32z"/>
 			</svg>
 		</label>
 
-		<div class="flex flex-auto flex-wrap justify-between">
+		{# <select class="mobile-nav">
+			<option>coucou</option>
+			<option>coucou</option>
+			<option>coucou</option>
+		</select> #}
+
+		<div class="flex-ns flex-auto-ns flex-wrap-ns justify-between-ns w-100">
 			<nav class="navbar-header self-center">
 				<ul class="navbar-first self-center list ma0 pa0 w-100 relative dn db-ns f7 flex-ns flex-auto-ns justify-between ">
 					{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-	            		<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
+	            		<li class="db mr2-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
 	            	{% endif %}
 
-					<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns"  href="{{ path('tds_home') }}">Accueil</a></li>
-					<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+					<li class="db mr2-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns"  href="{{ path('tds_home') }}">Accueil</a></li>
+					<li class="db mr2-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
 					
 					<li class="navbar-second pv2 pv0-ns db mr3-ns v-top bb bn-ns b--ms-bleu-bright self-center self-start-m pt2-m tc"><span class="link ms-bleu-bright" >Saisons</span>
 						<ul class="list mh0 ph0 pv0 absolute-ns">
@@ -52,7 +58,7 @@
 					
 					
 					{% if is_granted("ROLE_SUPER_ADMIN") %}
-	            		<li class="db mr1-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
+	            		<li class="db mr0-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
 	            	{% endif %}
 
 	            	<li class="button-lois lh-solid" data-action="button-lois">
