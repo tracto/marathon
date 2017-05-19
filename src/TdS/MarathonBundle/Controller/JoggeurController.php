@@ -47,15 +47,46 @@ class JoggeurController extends Controller{
 
         $tdsSaison = $this->container->get('tds_marathon.saison');
         $saison=$tdsSaison->getCurrSaison();
-        
-        $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
-                         ->findAllOnlyId();
 
+        
+
+
+        $listeJoggeurs=$em->getRepository('TdSMarathonBundle:Joggeur')
+                         ->findAllSortByLastLogin();
+        $em->clear();
 
         $tabIdJoggeur=array();
         foreach($listeJoggeurs as $itemJoggeur){
-            $tabIdJoggeur[]=$itemJoggeur->getId();
+              $tabIdJoggeur[]=$itemJoggeur->getId();
         }
+
+
+
+        $idJoggeurPrec=null;
+        $idJoggeurSuiv=null;
+
+
+        $found_index = array_search($id, $tabIdJoggeur);
+        if ($found_index === 0){
+          $idJoggeurPrec=end($tabIdJoggeur);
+        }else{
+          $idJoggeurPrec=$tabIdJoggeur[$found_index-1];
+        }
+        
+        if ($found_index === sizeOf($tabIdJoggeur)-1){
+          $idJoggeurSuiv=$tabIdJoggeur[0];
+        }else{
+          $idJoggeurSuiv=$tabIdJoggeur[$found_index+1];
+        }
+        $current=$tabIdJoggeur[$found_index];
+        
+
+
+        $joggeurPrec=$em->getRepository('TdSMarathonBundle:Joggeur')
+                          ->findJoggeurById($idJoggeurPrec);
+
+        $joggeurSuiv=$em->getRepository('TdSMarathonBundle:Joggeur')
+                          ->findJoggeurById($idJoggeurSuiv);
 
 
         $tdsScoring = $this->container->get('tds_marathon.scoring');
@@ -64,12 +95,13 @@ class JoggeurController extends Controller{
         $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
                     ->findJoggeurById($id);
 
-	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
-          'saison'=>$saison,
-          'tabIdJoggeur'=>$tabIdJoggeur,
-	        'joggeur' => $joggeur,
-          'joggeurScoreSaison'=>$joggeurScoreSaison,
-	    ));
+  	    return $this->render('TdSMarathonBundle:Joggeur:view.html.twig', array(
+            'saison'=>$saison,
+            'joggeurPrec'=>$joggeurPrec,
+            'joggeurSuiv'=>$joggeurSuiv,
+  	        'joggeur' => $joggeur,
+            'joggeurScoreSaison'=>$joggeurScoreSaison,
+  	    ));
 	}
 
 

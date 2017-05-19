@@ -1,31 +1,9 @@
-{#MACRO PLAYLIST WRAPPER DE THEME #}
-{% macro pl_theme(theme,joggeur,tabIdTheme,enCours,autoplay,listeJoggeursScore,minify) %}
+{# MACRO PLAYLIST WRAPPER DE THEME #}
+{% macro pl_theme(theme,joggeur,themePrec,themeSuiv,enCours,autoplay,listeJoggeursScore,minify) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %} 
 
 
-	{% if tabIdTheme is not null %}
-		{% set keyThemePrec ='' %}
-		{% set keyThemeCurr='' %}
-		{% set keyThemeSuiv='' %}
-		{% set tabSize = tabIdTheme | length %}
-
-		{% for key, idTheme in tabIdTheme %}
-			{% if idTheme == theme.id %}
-				{% set keyThemeCurr = key %}
-				{% if keyThemeCurr == 0 %}
-					{% set keyThemeSuiv = tabSize-1 %}
-				{% else %}
-					{% set keyThemeSuiv = key-1 %}
-				{% endif %}
-				{% if keyThemeCurr == tabSize-1 %}
-					{% set keyThemePrec = 0 %}
-				{% else %}
-					{% set keyThemePrec = key+1 %}
-				{% endif %}	
-			{% endif %} 		
-		{% endfor %}
-	{% endif %}
 	
 	{% set playlistWrapperColumns = "playlist-wrapper-cols" %}
 	
@@ -41,15 +19,33 @@
 	<div class='playlist-wrapper bg--pierre relative w-100' data-type="theme" data-autoplay={{ autoplay }}>
 		<div class="bg-gradient_pl">
 			{# flèches theme precedent / thème suivant #}
-			{% if tabIdTheme is not null %}
+			{% if themePrec is not null  and themeSuiv is not null %} 
 				<div class="playlist-fleches w-100 absolute z-1 cf pe-n">
-					<a class="pa2 bg-near-black fl pe-a" data-id="{{ tabIdTheme[keyThemePrec] }}" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemePrec]}) }}">
-						<svg class="icon icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
+					<a class="fl pe-a ms-turquoise flex flex-auto no-underline relative overflow-hidden" data-action="theme-nav-infos-hover" href="{{ path('tds_marathon_theme_view', {'id': themePrec.id}) }}">
+						<svg class="playlist-fleche pa2 icon  fill-ms-fushia self-center bg-near-black db z-2"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
+
+						<div class="theme-nav-infos theme-nav-infos_left relative flex-ns dn flex-auto self-center pl2 bl b--ms-fushia bg-near-black z-1" data-action='show'>
+							<span class="self-center">
+								<span class="db">{{ themePrec.titre }}</span>
+								<i class="db f7">par : {{ themePrec.joggeur.pseudo }}</i>
+							</span>
+							<img class="img-aspect-ratio self-center pl2" src="{{ themePrec.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ themePrec.image.alt }}">
+						</div>
 					</a>
-					<a class="pa2 bg-near-black fr pe-a" href="{{ path('tds_marathon_theme_view', {'id': tabIdTheme[keyThemeSuiv]}) }}">
-						<svg class="icon icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
+					<a class="fr pe-a ms-turquoise flex flex-auto no-underline relative overflow-hidden" data-action="theme-nav-infos-hover" href="{{ path('tds_marathon_theme_view', {'id': themeSuiv.id}) }}" >
+						<div class="theme-nav-infos theme-nav-infos_right relative flex-ns dn flex-auto self-center pr2 br b--ms-fushia bg-near-black z-1" data-action='show'>
+							<img class="img-aspect-ratio self-center pr2 " src="{{ themeSuiv.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ themeSuiv.image.alt }}">
+							<span class="self-center">
+								<span class="db">{{ themeSuiv.titre }}</span>
+								<i class="db f7">par : {{ themeSuiv.joggeur.pseudo }}</i>
+							</span>
+						</div>
+						
+						<svg class="playlist-fleche pa2 icon fill-ms-fushia self-center bg-near-black z-2"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
+						
 					</a>
 				</div>
+
 			{% endif %}
 			{# fin flèches #}
 
@@ -188,7 +184,7 @@
 						<div class="playlist-scores walloffame tc pa2 pa2-sm pa3-m pa4-l bg-ms-gold flex-1">
 							<div class="ms-title ms-title_spikes">
 								<h2>
-									<span class="bg-ms-gold">Wall of Fame du Thème</span>
+									<span class="bg-ms-gold">Wall of Fame</span>
 								</h2>
 							</div>
 
@@ -201,7 +197,7 @@
 									{{ scoresElementsModule.wof_medaillon(jogWinner,"Le Total Winner","Celui qui a gagné ce thème") }}
 								</div>
 
-								<div class="wof-item wof_jogLoser pa2 w-33">
+								<div class="wof-item wof_jogLoser pl2 pt2 pb2 w-33">
 									{{ scoresElementsModule.wof_medaillon(jogLoser,"Le Total Loser","Celui qui a pas compris") }}
 								</div>					
 							</div>
@@ -213,7 +209,7 @@
 
 					{# chronique du thème #}
 					{% if theme.chronique is defined and theme.chronique is not null %}
-						<div class="playlist-chronique pa4 bg-ms-orange-light flex-1">
+						<div class="playlist-chronique pa3 pa4-l bg-ms-orange-light flex-1">
 								{% if theme.chronique != '' and theme.joggeurChronique is not null %}
 										<div class="playlist-chronique-header pb2 mb2 b--dashed bt-0 br-0 bl-0 bb">
 											<div class="flex flex-wrap flex-auto justify-between w-100">
@@ -364,33 +360,22 @@
 
 
 {# MACRO PLAYLIST WRAPPER DE JOGGEUR #}
-{% macro pl_joggeur(theme,joggeur,tabIdJoggeur,autoplay,saison,joggeurScoreSaison) %}
+{% macro pl_joggeur(theme,joggeur,joggeurPrec,joggeurSuiv,autoplay,saison,joggeurScoreSaison) %}
 	{% import "TdSCoreBundle:Macros:playlist.html.twig" as playlistModule %} 
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
 
-	{% if tabIdJoggeur is not null %}
-		{% set keyJoggeurPrec ='' %}
-		{% set keyJoggeurCurr='' %}
-		{% set keyJoggeurSuiv='' %}
-		{% set tabSize = tabIdJoggeur | length %}
-
-		{% for key, idJoggeur in tabIdJoggeur %}
-			{% if idJoggeur == joggeur.id %}
-				{% set keyJoggeurCurr = key %}
-				{% if keyJoggeurCurr == 0 %}
-					{% set keyJoggeurSuiv = tabSize-1 %}
-				{% else %}
-					{% set keyJoggeurSuiv = key-1 %}
-				{% endif %}
-				{% if keyJoggeurCurr == tabSize-1 %}
-					{% set keyJoggeurPrec = 0 %}
-				{% else %}
-					{% set keyJoggeurPrec = key+1 %}
-				{% endif %}	
-			{% endif %} 		
+	{# {% set joggeurPrec = null %}
+	{% set joggeurSuiv = null %}
+	{% if joggeursPrecSuiv is not null %} 
+		{% for joggeurPrecSuivItem in joggeursPrecSuiv %}
+			{% if loop.index == 1 %}
+				{% set joggeurPrec = joggeurPrecSuivItem %}
+			{% elseif loop.index == 2 %}
+				{% set joggeurSuiv = joggeurPrecSuivItem %}
+			{% endif %}
 		{% endfor %}
-	{% endif %}
+	{% endif %} #}
 
 	{% if autoplay is null or autoplay is not defined %}
 		{% set autoplay = "false" %}
@@ -399,13 +384,27 @@
 	<div class='playlist-wrapper relative bg--pierre  w-100' data-type="joggeur" data-autoplay={{ autoplay }}>
 		<div class="bg-gradient_pl">
 			{# flèches joggeur precedent / joggeur suivant #}
-			{% if tabIdJoggeur is not null %}
+			{% if joggeurPrec is not null and joggeurSuiv is not null%}
 				<div class="playlist-fleches w-100 absolute z-1 cf pe-n">
-					<a class="pa2 bg-near-black fl pe-a" data-id="{{ tabIdJoggeur[keyJoggeurPrec] }}" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurPrec]}) }}">
-						<svg class="icon icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
+					<a class="fl pe-a ms-turquoise flex flex-auto no-underline relative overflow-hidden" data-action="theme-nav-infos-hover" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurPrec.id}) }}">
+						<svg class="playlist-fleche pa2 icon  fill-ms-fushia self-center bg-near-black db z-2"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
+
+						<div class="theme-nav-infos theme-nav-infos_left relative flex-ns dn flex-auto self-center pl2 bl b--ms-fushia bg-near-black z-1" data-action='show'>
+							<span class="self-center">
+								<span class="db">{{ joggeurPrec.pseudo }}</span>
+								
+							</span>
+							<img class="img-aspect-ratio self-center pl2" src="{{ joggeurPrec.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ joggeurPrec.image.alt }}">
+						</div>
 					</a>
-					<a class="pa2 bg-near-black fr pe-a" href="{{ path('tds_marathon_joggeur_view', {'id': tabIdJoggeur[keyJoggeurSuiv]}) }}">
-						<svg class="con icon--s fill-ms-fushia"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>
+					<a class="fr pe-a ms-turquoise flex flex-auto no-underline relative overflow-hidden" data-action="theme-nav-infos-hover" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurSuiv.id}) }}" >
+						<div class="theme-nav-infos theme-nav-infos_right relative flex-ns dn flex-auto self-center pr2 br b--ms-fushia bg-near-black z-1" data-action='show'>
+							<img class="img-aspect-ratio self-center pr2 " src="{{ joggeurSuiv.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ joggeurSuiv.image.alt }}">
+							<span class="self-center">
+								<span class="db">{{ joggeurSuiv.pseudo }}</span>
+							</span>
+						</div>
+						<svg class="playlist-fleche pa2 icon fill-ms-fushia self-center bg-near-black z-2"><use xlink:href="#icon-playlist-arrow-suiv"></use></svg>						
 					</a>
 				</div>
 			{% endif %}

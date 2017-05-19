@@ -44,7 +44,7 @@
             {% for user in users %}
             	<tr>
             		<td class='pv3 pr3 bb b--black-20'>{{ user.username }}</td>
-            		<td class='pv3 pr3 bb b--black-20'>{{ user.email }}</td>
+            		<td class='pv3 pr3 bb b--black-20 word-wrap'>{{ user.email }}</td>
             		{% if user.joggeur is not null %}
             			<td class='pv3 pr3 bb b--black-20'>{{ user.joggeur.pseudo }}</td>
             			{% else %}

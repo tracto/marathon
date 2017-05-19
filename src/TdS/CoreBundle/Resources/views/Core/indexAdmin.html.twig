@@ -76,11 +76,11 @@
 
 	        	{# PARTIE 2 / playlist + profil du joggeur #}
 				{# colonne playlist #}
-				<div class="w-100 w-100 w-100-sm w-55-m w-60-l order-2-ns">
+				<div class="w-100 w-100 w-100-sm w-55-m w-60-l bg-near-black order-2-ns">
 					<div class="col-playlist flex-item ">		        		
 	      				{% if saison is defined and saison is not null %}
 				        	{% if theme is defined and theme is not null %}
-				        		{{ playlistWrapperModule.pl_theme(theme,null,null,true,false,null,1) }}
+				        		{{ playlistWrapperModule.pl_theme(theme,null,null,null,true,false,null,1) }}
 							{% else %}
 				        		<div>
 				        			<h3 class="near-black i tc bg--pierre pa3 ma0">Il n'y a pas de thème en cours</h3>
@@ -102,7 +102,7 @@
 						{% else %}
 							{% set joggeur = app.user.joggeur %}
 						{% endif %}
-			        	<div class="w-100 pa3 pa4-l bg-near-black ms-light-gray min-h-100">
+			        	<div class="w-100 pa2 pa4-l bg-near-black ms-light-gray">
 			        			<div class="ms-title ms-title_spikes ms-title_spikes_light">
 				    				<h2><span class="bg-near-black ms-light-gray metal-mania f2 f1-ns">Mon Profil</span></h2>
 				    			</div>

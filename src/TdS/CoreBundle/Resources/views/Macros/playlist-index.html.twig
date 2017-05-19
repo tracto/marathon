@@ -1,5 +1,5 @@
 {% macro playlist(musicTitles) %}
-	<div class='playlist-index-body relative fixed-ns top-2-ns left-0 pt3-ns mt1 center w-100 z-4'>
+	<div class='playlist-index-body relative fixed-ns top-2-ns left-0 pt3-ns mt0 mt1-ns center w-100 z-4'>
 		{# liste envoyée au jplayer / invisible #}
 		{% if musicTitles is not null %}
 			<ul class='dn'>
@@ -52,7 +52,7 @@
 					{# Boutons / control #}
 					<div class="jp-controls-wrapper flex-0 flex-auto-ns flex-wrap  w-100 w-20-ns center justify-between self-end-ns pt2 pt0-ns">
 						<div class="jp-controls  flex flex-0-ns w-100  flex-auto flex-wrap justify-between justify-end-ns">
-							<div class="jp-controls-buttons flex flex-auto flex-wrap  justify-end-ns w-70 w-100-ns"> 
+							<div class="jp-controls-buttons flex flex-auto flex-wrap justify-center  justify-end-ns w-70 w-100-ns"> 
 								<button class="button-player jp-previous " role="button" tabindex="0">
 									<svg class="icon icon--xs"><use xlink:href="#icon-first"></use></svg>
 								</button>
@@ -70,7 +70,7 @@
 								</button>
 							</div>
 
-							<div class="jp-volume-toggles w-100 flex justify-end"> 
+							<div class="jp-volume-toggles w-100 flex justify-center justify-end-ns mt2 mt0-ns"> 
 								<div class="jp-volume-controls w-40 ">
 									<div class="cf">
 										<button class="jp-mute button-nude fl" role="button" tabindex="0">
@@ -81,7 +81,7 @@
 										</button>
 									</div>
 									<div class="jp-volume-bar h1 bg-dark-gray pointer">
-										<div class="jp-volume-bar-value bg-ms-bleu-bright h-100"></div>
+										<div class="jp-volume-bar-value bg-ms-turquoise h-100"></div>
 									</div>
 								</div>					
 							</div>
