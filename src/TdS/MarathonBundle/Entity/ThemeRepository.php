@@ -26,8 +26,6 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
        		->orderBy('a.dateFin','DESC')
             ;
 			
-
-
 		return $queryBuilder
     		->getQuery()
     		->getResult();

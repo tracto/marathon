@@ -78,6 +78,8 @@ class MusicTitle
 
     private $theme;
 
+    
+
     /**
     * @Assert\File(
     *     maxSize = "2000000",
@@ -319,6 +321,10 @@ class MusicTitle
     {
         return $this->theme;
     }
+
+
+    
+
 
     /**
      * Set url

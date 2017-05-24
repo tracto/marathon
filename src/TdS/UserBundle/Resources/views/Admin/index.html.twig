@@ -7,19 +7,11 @@
 {% block tdsadmin_body %}
     <div id="content" class="mv4">
 
-    	
-        
-        {# <h1 class="main-title man">
-            <svg class="icon icon-user"><use xlink:href="#icon-user"></use></svg>
-            <span>Utilisateurs</span>
-        </h1> #}
-
         <div class="flex flex-auto justify-center w-100 mt4">   
             <h1 class="self-center pr2 ma0 mb3 new-rocker f2">
                 <svg class="icon icon--s fill-near-black"><use xlink:href="#icon-user"></use></svg>
                 <span>Utilisateurs</span>
-            </h1>
-        
+            </h1>        
         </div>
 
         <div class="w-100 mb4 tc">
@@ -41,27 +33,28 @@
             </thead>
 
             <tbody class="lh-copy">
-            {% for user in users %}
-            	<tr>
-            		<td class='pv3 pr3 bb b--black-20'>{{ user.username }}</td>
-            		<td class='pv3 pr3 bb b--black-20 word-wrap'>{{ user.email }}</td>
-            		{% if user.joggeur is not null %}
-            			<td class='pv3 pr3 bb b--black-20'>{{ user.joggeur.pseudo }}</td>
-            			{% else %}
-            			<td class='pv3 pr3 bb b--black-20 ms-fushia'>pas de joggeur</td>
-            		{% endif %}
-                    <td class='pv3 pr3 bb b--black-20'>
-                        <a class='button button-action mr2' href="{{ path('tds_admin_user_edit', {'id': user.id}) }}">
-                            <svg class="icon icon-alone icon--xs icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-                        </a>
-                        {% if user != app.user %}
-                            <a class='button button-action btn-user-delete' data-delete data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
-                                <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                {% for user in users %}
+                	<tr>
+                		<td class='pv3 pr3 bb b--black-20'>{{ user.username }}</td>
+                		<td class='pv3 pr3 bb b--black-20 word-wrap'>{{ user.email }}</td>
+                		{% if user.joggeur is not null %}
+                			<td class='pv3 pr3 bb b--black-20'>{{ user.joggeur.pseudo }}</td>
+                			{% else %}
+                			<td class='pv3 pr3 bb b--black-20 ms-fushia'>pas de joggeur</td>
+                		{% endif %}
+                        <td class='pv3 pr3 bb b--black-20'>
+                            <a class='button button-action mr2' href="{{ path('tds_admin_user_edit', {'id': user.id}) }}">
+                                <svg class="icon icon-alone icon--xs icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
                             </a>
-                        {% endif %}
-                    </td>
-            	</tr>
-            {% endfor %}
+                            {% if user != app.user %}
+                                <a class='button button-action btn-user-delete' data-delete data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
+                                    <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                                </a>
+                            {% endif %}
+                        </td>
+                	</tr>
+                {% endfor %}
+            </tbody>
         </table>
         
     </div>
