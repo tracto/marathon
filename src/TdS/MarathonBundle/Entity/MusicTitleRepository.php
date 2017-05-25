@@ -82,7 +82,7 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 			->select("SUM(a.duration) * 10 / 3600 as kilometrage, SUM(a.duration) as temps")
 			->from($this->_entityName,'a');
         	
-
+    
 		return $queryBuilder->getQuery()->getOneOrNullResult();
 	}
 

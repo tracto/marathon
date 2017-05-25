@@ -5,24 +5,25 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-		{% if statut == 0 %}			
-			<h1 class="main-title man align-center">
-				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-				<span>Nouveau thème d'attente</span>
-				<span class="button btn btn-default btn-becky pull-left" data-info="Tu es sur le point de créer le thème d'attente, c'est à dire le thème de la semaine prochaine. Il sera considéré comme brouillon et sera invisible des autres joggeurs jusqu'à son activation.<br/>N'oublie pas d'ajouter une image, c'est très important.">
-	        		<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-	        	</span>
-	        </h1>
-		{% elseif statut != 0 %}
-			
-	    	<h1 class="main-title man align-center">
-
-				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-				<span>Nouveau thème</span>
+	<div id="content" class="form-container">
+    	<h1 class="ms-title">
+			{% if statut == 0 %}
+				<svg class="self-center icon icon--s icon-plus fill-near-black mr2"><use xlink:href="#icon-plus"></use></svg>			
+				<span class="self-center">Nouveau thème d'attente</span>
 				
-			</h1>
-		{% endif %}
-	    {{ include('TdSMarathonBundle:Theme:form.html.twig') }}
+				<div class="self-center ml2">
+					<span class="button-becky db" data-info="Tu es sur le point de créer le thème d'attente, c'est à dire le thème de la semaine prochaine. Il sera considéré comme brouillon et sera invisible des autres joggeurs jusqu'à son activation.<br/>N'oublie pas d'ajouter une image, c'est très important." data-btn-becky>
+		        		{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+            			<img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">
+		        	</span>
+		        </div>
+		        
+			{% else %}
+				<svg class="self-center icon icon--s fill-near-black mr2"><use xlink:href="#icon-plus"></use></svg>
+				<span class="self-center">Nouveau thème</span>				
+			{% endif %}
+		    
+		</h1>
+		{{ include('TdSMarathonBundle:Theme:form.html.twig') }}
  	</div>
 {% endblock %}

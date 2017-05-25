@@ -4,80 +4,106 @@
 {% block body %}
 
 {% set currentTheme = null %}
-{% set classColFlex = null %}
-{% set classColThemeLarge = "col-large" %}
+{% set classColPlaylistTheme = "w-100 w-100-sm w-55-m w-60-l" %}
+{% set classColPlaylist="flex-auto" %}
+{% set classColTheme = "flex-auto" %}
+{% set classThemeItem = "w-50 w-25-ns" %}
 {% set detectDerniersThemes = null %}
 {% for theme in saison.themes %}	        		      				
 	{% if theme is defined and theme is not null %}
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
-			{% set classColThemeLarge = "" %}
-			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}
-				
-				{% set classColFlex = "col-index-flex" %}
+			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				
+				{% set classColPlaylistTheme = "w-100" %}
+				{% set classColPlaylist="w-100 w-60-ns" %}
+				{% set classColTheme = "w-100 w-40-ns" %}
+				{% set classThemeItem = "w-50 w-33-ns" %} 
 			{% endif %}
 		{% else %}
 			{% set detectDerniersThemes = 1 %}
+			{% set classThemeItem = "w-50 w-50-sm w-33-m w-25-l" %}
 		{% endif %}
 	{% endif %}
 {% endfor %}
    
 <div class="index-wrapper">
+	{# lecteur fixe (si pas de thème en cours) #}
 	{% if currentTheme is not defined or currentTheme is null %}
 		{% if musicTitles is defined and musicTitles is not null and musicTitles is not empty %}
-		    <div class="playlist-body-wrapper playlist-index-wrapper">
+		    <div class="playlist-body-wrapper playlist-index-wrapper ">
 			  	{{ playlistIndexModule.playlist(musicTitles) }}
 			</div>
 		{% endif %}
 	{% endif %}
+	{# fin lecteur fixe  #}
       
 
-  	<div class='flex-container-h'>
+	{# PARTIE 1 : playlist du thème en cours + les derniers thèmes + podium #}
+  	<div class='flex flex-auto flex-wrap'>
   		{% if saison is defined and saison.statut is not null %}
       					
-			<div class="flex-item col-themes man pan {{ classColFlex }}">
+			<div class="{{ classColPlaylistTheme }} bg-ms-turquoise">
+				{# colonne playlist theme en cours #}
 				{% if currentTheme is defined and currentTheme is not null %}
-					<div class="col-curr-theme">
-						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,true,false,null,1) }}
+					<div class="{{ classColPlaylist }} flex flex-wrap flex-auto">
+						{{ playlistWrapperModule.pl_theme(currentTheme,null,null,null,true,false,null,1) }}
 					</div>	
         		{% endif %}	
-
-
-
+       			{# fin playlist #}
         		
-        			
-        		
+
+       			{# colonne derniers thèmes #}
         		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
-	        		<div class="col-other-themes {{ classColThemeLarge }}">
-						<h2 class="align-center">Les derniers thèmes</h2>
-						<div class='flex-container-h'>	
+	        		<div class="{{ classColTheme }} bg-ms-turquoise pa2 pa3-l">
+
+						<div class="ms-title pt4">
+							<div class="">
+								<div class="gif-basket-g"></div>
+							</div>
+			    			<h2><span class="">Les derniers Thèmes</span></h2>
+			    			<div class="">
+			    				<div class="gif-basket-d"></div>
+							</div>
+			    		</div>
+
+			    		<div class="w-90 w-70-m w-50-l center pb2 tc">
+			    			<div class="sep-guitare"></div>
+						</div>
+
+						<div class='flex flex-auto flex-wrap justify-center'>	
 						    {% for theme in listeDernThemes %}
 						    	{% if theme is defined and theme is not null and theme != currentTheme %}
-						      		{{ vignetteModule.vignette(theme) }}
+						    		<div class="{{ classThemeItem }} pa2"> {# w-100 w-50-ns #} 
+						      			{{ vignetteModule.vignette_theme(theme) }}
+						      		</div>
 						      	{% endif %}
 						    {% endfor %} 
 						</div>
 					</div>
-				{% endif %}				
+				{% endif %}
+				{# colonne derniers thèmes #}				
 		    </div>
 
-
+		    {# colonne podium + wall of fame #}
 		    {% if listeJoggeursScore is defined and listeJoggeursScore is not empty %} 
-		    	<div class="col-podium-wof bg--marathonchanteurs">
-			    	
-					<div class="bg-op--white-5 pbn">
-						<h2 class="align-center">Podium</h2>
-						<div class="flex-container podium-wrapper mbl">
+		    	<div class="w-100 w-100-sm w-45-m w-40-l bg-ms-gold pa3">
+		    		<div class="ms-title ms-title_spikes">
+			    		<h2><span class="bg-ms-gold">Podium</span></h2>
+			    	</div>
+
+					<div class="pa2">						
+						<div class="podium-wrapper flex items-end mb4">
 							{% for joggeurScore in listeJoggeursScore %}
 								{% if loop.index <= 3 %}
-									{{ scoresElementsModule.podium_medaillon(joggeurScore,loop.index) }}												
+									{{ scoresElementsModule.podium_medaillon(joggeurScore,loop.index) }}			
 								{% endif %}									 
 							{% endfor %}
 						</div>
-
-						{{ scoresElementsModule.scores_legende() }}
 					</div>
 
+					<div class="w-100 pt2">
+						<img src="{{ '../bundles/tdsmarathon/images/gifs/sep-clavier.gif' }}" alt="">
+					</div>
 
 					
 					{% set jogEgoiste = "" %}
@@ -106,63 +132,100 @@
 					{% endfor %}
 
 					
-					<div class="walloffame bg-op--white-5 align-center mtm">
-						<h2>Wall of Fame</h2>
-						<div class="wof-wrapper  flex-container flex-start flex-justify">
-							
-							{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous","wof_jogEgoiste") }}
+					<div class="walloffame pt4">
+						<div class="ms-title ms-title_spikes">
+			    			<h2><span class="bg-ms-gold">Wall of Fame</span></h2>
+			    		</div>
+						<div class="wof-wrapper  flex flex-wrap flex-auto flex-justify pt2">
+							<div class="wof-item wof_jogEgoiste flex-item w-50 w-50-m w-25-l mt3 mt0-l">
+								{{ scoresElementsModule.wof_medaillon(jogEgoiste,"L'égoïste","Celui qui n'aime pas donner de points bisous") }}
+							</div>
 
-							{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous","wof_jogDonJuan") }}
+							<div class="wof-item wof_jogDonJuan flex-item w-50 w-50-m w-25-l mt3 mt0-l">
+								{{ scoresElementsModule.wof_medaillon(jogDonJuan,"Le mononucléose","Celui qui a récolté le plus de points bisous") }}
+							</div>
 
+							<div class="wof-item wof_jogPetitGros flex-item w-50 w-50-m w-25-l mt3 mt0-l">
+								{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse") }}
+							</div>
 
-							{{ scoresElementsModule.wof_medaillon(jogPetitGros,"Le petit gros à la traîne","Celui qui possède le moins de points vitesse","wof_jogPetitGros") }}
-
-							{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse","wof_jogLfdy") }}						
+							<div class="wof-item wof_jogLfdy flex-item w-50 w-50-m w-25-l mt3 mt0-l">
+								{{ scoresElementsModule.wof_medaillon(jogLfdy,"Le Live fast die Young","Celui qui possède le plus de points vitesse") }}	
+							</div>					
 						</div>
+					</div>
+					<div class="pt4">
+						{{ scoresElementsModule.scores_legende() }}
 					</div>
 				</div>
 			{% endif %}
-			
+			{# fin colonne podium + wall of fame #}
   		{% endif %}	  				
 	</div>
+	{# FIN PARTIE 1 #}
 
-	<div class="flex-container-h">
-		<div class="col-lois-totale">
-			{{ loisModule.lois() }}
-			<div class="col-classement bg--marathonchanteurs align-center">
-				<h2 class="sub-title align-center">Classement</h2>
-				{% if listeJoggeursScore|length >= 3 %} 				
-					<div class="latotale bg-op--white-5 pam pbn mtm">						
-						<div class="latotale-wrapper flex-container-h">
-							<div class="flex-item-fluid align-left">
-								{% for joggeurScore in listeJoggeursScore %}
-									{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
-								{% endfor %}
-							</div>
-						</div>
-						
-						{{ scoresElementsModule.scores_legende() }}
-					</div>
 
-				{% endif %}
+	{# ///////////////////////////////////////////////////////// #}
+
+
+	{# PARTIE 2 / classement + actus #}
+	<div class="flex flex-auto flex-wrap">
+		<div class="flex-item w-100 w-100-sm w-50-ns bg-ms-light-violet pa3 pa4-l">
+			<div class="flex flex-auto flex-wrap mb3">
+				<svg class="icon icon--l icon--m-m icon--l-l db w-100 center tc w-auto-ns flex-0 fill-near-black mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
+				<div class="ms-title ms-title_spikes flex-0 flex-1-ns w-100">					
+			    	<h2 class="mt0"><span class="bg-ms-light-violet">Classement</span></h2>			    	
+			    </div>
+			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
 			</div>
-		</div>
 
-		<div class="flex-item col-articles">
-			<h2 class="align-center">Actus</h2>	
+			{% if listeJoggeursScore|length >= 3 %} 										
+				<div class="">
+					{% for joggeurScore in listeJoggeursScore %}
+						{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
+					{% endfor %}
+				</div>
+
+				<div class="pt3">						
+					{{ scoresElementsModule.scores_legende() }}
+				</div>
+			{% endif %}
+		</div>
+		
+
+		<div class="w-100 w-100-sm w-50-ns bg-ms-orange-light pa3 pa4-l">
+			<div class="ms-title ms-title_turfu">
+				<div class="w-100 flex-none">
+					<svg class="db icon fill-near-black tc w-30 center"><use xlink:href="#icon-flags"></use></svg>
+				</div>
+				<div class="ms-title_turfu_inner w-100 flex-ns justify-center">
+					<div class="">
+						<div class="turfu-apple cf"><span class="fr-ns"></span></div>
+						<div class="turfu-netscape"></div>
+					</div>					
+				    <h2><span class="">Actualités</span></h2>
+				    <div class="">
+				    	<div class="turfu-apple dn db-ns"><span class=""></span></div>
+				    	<div class="turfu-ie"></div>				    	
+					</div>
+				</div>			    	
+			</div>	
 			{% if listeArticles is defined and listeArticles is not null %}
-				<div class="articles-liste">
+				<div id="articles-liste" class="">
     				{% for article in listeArticles %}
         				{{ articleWrapperModule.article(article) }}
+        				<div class="w-100">
+							<svg class="db icon fill-near-black tc w-60 w-50-l center"><use xlink:href="#icon-spare"></use></svg>
+						</div>
     				{% endfor %}
+    				
 				</div>
 
 				<div class="more-articles-content"></div>
-
     			{% if listeArticles|length >= 3 %} 
-	        		<button href="" class="button btn-more btn pull-right mas" data-action="show-more-articles" data-offset="3">
-		        		<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-				  		<span class="btn__label">Plus d'articles</span>
+	        		<button href="" class="button" data-action="show-more-articles" data-offset="3">
+		        		<svg class="icon icon--xs"><use xlink:href="#icon-plus"></use></svg>
+				  		<span class="">Plus d'articles</span>
 		        	</button>
         		{% endif %}
 				
@@ -176,112 +239,112 @@
 			
 
 			{% if is_granted("ROLE_SUPER_ADMIN")  %}
-    			<a href="{{ path('tds_marathon_article_add') }}" class="button btn pull-right btn-action mas">
-    				<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-	  				<span class="btn__label">Ajouter un Article</span>
+    			<a href="{{ path('tds_marathon_article_add') }}" class="button">
+    				<svg class="icon icon--xs"><use xlink:href="#icon-plus"></use></svg>
+	  				<span class="">Ajouter un Article</span>
     			</a>
 			{% endif %}
 		</div>
 
 	</div>	
+	{# FIN PARTIE 2 #}
 
 
-	<div class="flex-container-h">
-		<div class='pbxxl-screen col-saisons pas flex-item'>
+	{# ///////////////////////////////////////////////////////// #}
+
+
+	{# PARTIE 3 / liste saisons + joggeurs/liens #}
+	<div class="flex flex-auto flex-wrap">
+		<div class='w-100 w-100-sm w-60-ns bg-ms-bleu-bright pa3 pa4-l'>
+			<div class="ms-title ms-title_framed flex flex-auto">
+					<div class="joggeur-cd-g dn db-ns"></div>					
+			    	<h2 class="self-center"><span class="">Les Saisons</span></h2>
+			    	<div class="joggeur-cd-d dn db-ns"></div>			    	
+			    </div>
 			<div class="">
-				<h2 class="sub-title align-center">Les Saisons</h2>
-				
-					{% for saisonItem in listeSaisons %}
-						<div class="flex-container-h pas mbl saison-vignette">
-							<a class="saison-vignette-inner flex-item w-100 w-50-m" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
-								<h3 class="pas man align-center">{{ saisonItem.titre }}</h3>
-								<div class="saison-img">
-									{% if saisonItem.image is defined and saisonItem.image is not empty %}
-										<img class="" src="{{ saisonItem.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ saisonItem.image.alt }}">
-									{% else %}
-											<img class="" src="" alt="">
-									{% endif %}
-								</div>
-							</a>
+				{% for saisonItem in listeSaisons %}
+					<div class="flex flex-wrap mv4 pa2 shadow-subtle">
+						<a class="flex flex-auto flex-wrap no-underline near-black w-100 w-100-sm w-40-ns relative" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
+							<div class="ms-subtitle w-100 absolute">
+								<h3 class="tc pv3 w-100 bg-near-black ms-bleu-bright ma0">{{ saisonItem.titre }}</h3>
+							</div>
+							<div class="w-100 saison-liste_image">
+								{% if saisonItem.image is defined and saisonItem.image is not empty %}
+									<img class="db w-100 min-h-100 cover" style='background-image:url("{{ saisonItem.image.webPath | imagine_filter('medium_thumb') }}")' alt="{{ saisonItem.image.alt }}">
+								{% else %}
+										<img class="db w-100" src="" alt="">
+								{% endif %}
+							</div>
+						</a>
 
-							{% if saisonItem.themes is defined and saisonItem.themes is not empty %}
-								<div class="flex-item w-100 w-50-m">
-									{% for themeItem in saisonItem.themes %}
-										<div class="saison-theme-vignette">
-											<a href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
-												<img class="" src="{{ themeItem.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ themeItem.image.alt }}">
-												<span>{{ themeItem.titre }}</span>
-											</a>
-										</div>
-									{% endfor %}
-								</div>
-							{% endif %}
-						</div>	
-					{% endfor %}
-				
+						{% if saisonItem.themes is defined and saisonItem.themes is not empty %}
+							<div class="w-100 w-100-sm w-60-ns pt2 pt0-ns pl2-ns">
+								{% for themeItem in saisonItem.themes %}
+									{{ vignetteModule.vignette_line_theme(themeItem) }}
+								{% endfor %}
+							</div>
+						{% endif %}
+					</div>	
+				{% endfor %}				
 			</div>				
 		</div>
 
 
 
 
-		<div class='col-joggeurs-liens flex-item'>
-			<div class="list col-joggeurs pas">
-				<h2 class="sub-title align-center">Les joggeurs</h2>
-				<div class="block clearfix">
+		<div class='flex-item w-100 w-100-sm w-40-ns bg-green'>
+			<div class="sep-accordeonazteque w-100 relative">
+					<div class="azteque"></div>
+					<div class="accordeon absolute w-100"><span class=""></span></div>
+			</div>
+			<div class="bg-ms-violet pa3 pa4-l">								
+				{# <div class="ms-title ms-title_spikes flex-1">					
+			    	<h2><span class="bg-ms-violet">Les joggeurs</span></h2>	
+			    </div> #}
+
+			    <div class="ms-title ms-title_spikes ms-title_spikes_light">
+    				<h2><span class="bg-ms-violet ms-light-gray">Les joggeurs</span></h2>
+    			</div>
+				<div class="flex flex-auto flex-wrap">
 				    {% for joggeur in listeJoggeurs %}
 				    	{% if joggeur is not null %}
-				    		
-
 				    		{% if loop.index <= 9 %}
-					    		<div class='col col-xs-6 col-sm-4 col-lg-4 list-item vignette-item man pan'>
-						    		<a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
-								    	<div class="square">
-										    {% if joggeur.image is not null %}
-									  			<img class="" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
-											{% else %}
-								  				<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
-											{% endif %}										
-
-										    <div class='inner-item-text'>
-										    	<div class="relative">
-											    	<h3 class="man pls prs">{{ joggeur.pseudo }}</h3>				
-											    	<div class="musictitle-count">
-												    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-												    	<span>{{ joggeur.musicTitles|length  }}</span>
-												    </div>
-										    	</div>
-										    </div>	
-										</div>					    		
-								    </a>
-								</div>
+				    			<div class="w-50 w-33-ns pa1">
+				    				{{ vignetteModule.vignette_joggeur(joggeur) }}
+				    			</div>
 							{% endif %}
 					    {% endif %}
 				    {% endfor %}
 				</div>
 
-			    <div class="block align-center clearfix mtm mbs">
+			    <div class="tc pt2">
 				    <a class="button" href="{{ path('tds_marathon_joggeur_home') }}">
-				    	<svg class="icon icon-alone icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				    	<svg class="icon icon--xs pa1"><use xlink:href="#icon-plus"></use></svg>
 				    </a>
 				</div>
 			</div>
+
+			<div class="sep-flammes w-100 relative">
+					<div class="flammes"></div>
+			</div>
 				
-			<div class="pal pbxxl align-center col-liens bg--marathonchanteurs ">
-				<h2 class="sub-title">Pas loin</h2>
-				<ul class="unstyled">
+			<div class="pa3 pa4-l">
+				<div class="ms-title ms-title_spikes flex-1">					
+			    	<h2><span class="bg-green">Pas Loin</span></h2>	
+			    </div>
+				<ul class="list ma0 pa0">
 					{% for website in websites %}
-						<li class="mts"><a href="{{ website.url }}">{{ website.name }}</a></li>
+						<li class="mv1 mh0 mh3-ns tc pv2 bg-white-30"><a class="no-underline near-black" href="{{ website.url }}">{{ website.name }}</a></li>
 					{% endfor %}						
 				</ul>
 
 				{% if is_granted("ROLE_SUPER_ADMIN")  %}
-					<a class="button btn btn-action align-center mbs mts" data-action="show-website-form" href="#">
-	  					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-	  					<span class="btn__label">Ajouter un lien</span>
+					<a class="dib button center mt3 tc" data-action="show-website-form" href="#">
+	  					<svg class="icon icon--xs"><use xlink:href="#icon-plus"></use></svg>
+	  					<span class="pl2">Ajouter un lien</span>
 					</a>
 
-					<div class="form-website pts mts">
+					<div id="form-addliens" class="form-front-wrapper pt2 mt2 dn">
 						{{ include('TdSMarathonBundle:Website:form.html.twig') }}
 					</div>
 					<div id="anchorLiens"></div>
@@ -289,18 +352,8 @@
 			</div>				
 		</div>
 	</div>
+	{# FIN PARTIE 3 #}
 </div>		
 		
-    
-
-{% if is_granted("ROLE_SUPER_ADMIN") %}
-	<div class='popup-delete-confirmation' data-popupdelete>
-        <div>
-            <p></p>
-            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
-        </div>
-    </div>
-{% endif %}
 
 {% endblock %}

@@ -7,6 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Joggeur
+/**
+ * @ORM\Entity(repositoryClass="TdS\UserBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="user")
+ */
 
 class User extends BaseUser{
 	/**

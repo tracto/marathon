@@ -1,8 +1,8 @@
 {% macro playlist(musicTitles) %}
-	<div class='playlist-index-body'>
-		
+	<div class='playlist-index-body relative fixed-ns top-2-ns left-0 pt3-ns mt0 mt1-ns center w-100 z-4'>
+		{# liste envoyée au jplayer / invisible #}
 		{% if musicTitles is not null %}
-			<ul class='musicTitlesListe'>
+			<ul class='dn'>
 				{% for musicTitle in musicTitles %}
 					{% if musicTitle.theme.image is null %}
 						{% set imageThemePlaylist = "" %}
@@ -22,84 +22,86 @@
 				{% endfor %}
 			</ul>
 		{% endif %}
-
+		{# fin liste envoyée au jplayer #}
 
 
 						
 		<div id="jp-jplayer_index" class="jp-jplayer_index"></div>
-			<div id="jp-container_index" class="jp-container_index jp-audio" role="application" aria-label="media player">
-				<div class="jp-type-playlist">
-					<div class="jp-gui jp-interface ">
-						<div class="jp-controls-holder flex-container-h">
-							<div class="jp-thumb-theme flex-item">
-							</div>
 
-							<div class="jp-timeline flex-item-fluid">
-								<div class="jp-infos-title" data-infostitle></div>
-								<div class="jp-progress">
-									<div class="jp-seek-bar">
-										<div class="jp-play-bar"></div>
-									</div>
-								</div>								
-							</div>
-
-							
-
-							<div class="jp-controls-wrapper flex-item pull-right">
-								<div class="jp-controls flex-container-v mbm clearfix plm prm">
-									<div class="jp-controls-buttons flex-item align-right"> 
-										<button class="jp-previous" role="button" tabindex="0">
-											<svg class="icon icon-alone icon--s icon-first"><use xlink:href="#icon-first"></use></svg>
-										</button>
-										<button class="jp-play" role="button" tabindex="0">
-											<svg class="icon icon-alone icon--s icon-play"><use xlink:href="#icon-play"></use></svg>
-										</button>
-										<button class="jp-pause">
-											<svg class="icon icon-alone icon--s icon-pause"><use xlink:href="#icon-pause"></use></svg>
-										</button>
-										<button class="jp-stop" role="button" tabindex="0">
-											<svg class="icon icon-alone icon--s icon-stop"><use xlink:href="#icon-stop"></use></svg>
-										</button>
-										<button class="jp-next" role="button" tabindex="0">
-											<svg class="icon icon-alone icon--s icon-last"><use xlink:href="#icon-last"></use></svg>
-										</button>
-									</div>
-
-									<div class="jp-volume-toggles flex-item align-right"> 
-										<div class="jp-volume-controls">
-											<div class="block clearfix">
-												<button class="jp-mute btn btn-default pull-left" role="button" tabindex="0">
-													<svg class="icon icon--xs  icon-volume-off"><use xlink:href="#icon-volume-off"></use></svg>
-												</button>
-												<button class="jp-volume-max btn btn-default align-right pull-right" role="button" tabindex="0">
-													<svg class="icon icon--xs  icon-volume-up"><use xlink:href="#icon-volume-up"></use></svg>
-												</button>
-											</div>
-											<div class="jp-volume-bar">
-												<div class="jp-volume-bar-value"></div>
-											</div>
-										</div>
-								
-									</div>
+		<div id="jp-container_index" class="jp-container_index jp-audio flex flex-auto flex-wrap bg--pierre shadow-subtle w-100 w-60-m w-60-l center pa2 pt3" role="application" aria-label="media player">
+			<div class="jp-type-playlist w-100">
+				<div class="jp-gui jp-interface flex flex-auto flex-wrap justify-between w-100">
+					{# infos titre en cours #}
+					<div class="jp-controls-holder pr2 flex flex-auto w-100 w-80-ns f7 ">
+						<div class="flex w-100">
+							<div class='jp-thumb-theme self-start'></div>
+							<div class="jp-timeline pl2 self-stretch w-100 flex flex-wrap">
+								<div class="jp-infos-title w-100 self-center" data-infostitle>
+									{# contenu dynamique via index-jplayer.js #}
 								</div>
+								<div class='jp-progress h1 w-100 self-end'>
+	                            	<div class='jp-seek-bar bg-ms-turquoise h-100'>
+	                            		<div class='jp-play-bar bg-near-black h-100'></div>
+	                            	</div>
+	                			</div>															
 							</div>
-							
-						</div>
-						
-					
-					</div>
-					<div class="jp-playlist">
-						<div class="jp-playlist-inner">
-							<ul class="unstyled">
-								<li>&nbsp;</li>
-							</ul>
 						</div>
 					</div>
-					<div class="jp-no-solution">
-						<span>Update Required</span>
-						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+					{# fin infos titre en cours #}	
+
+					{# Boutons / control #}
+					<div class="jp-controls-wrapper flex-0 flex-auto-ns flex-wrap  w-100 w-20-ns center justify-between self-end-ns pt2 pt0-ns">
+						<div class="jp-controls  flex flex-0-ns w-100  flex-auto flex-wrap justify-between justify-end-ns">
+							<div class="jp-controls-buttons flex flex-auto flex-wrap justify-center  justify-end-ns w-70 w-100-ns"> 
+								<button class="button-player jp-previous " role="button" tabindex="0">
+									<svg class="icon icon--xs"><use xlink:href="#icon-first"></use></svg>
+								</button>
+								<button class="button-player jp-play ml1" role="button" tabindex="0">
+									<svg class="icon icon--xs"><use xlink:href="#icon-play"></use></svg>
+								</button>
+								<button class="button-player jp-pause ml1">
+									<svg class="icon icon--xs"><use xlink:href="#icon-pause"></use></svg>
+								</button>
+								<button class="button-player jp-stop ml1" role="button" tabindex="0">
+									<svg class="icon icon--xs"><use xlink:href="#icon-stop"></use></svg>
+								</button>
+								<button class="button-player jp-next ml1" role="button" tabindex="0">
+									<svg class="icon icon--xs"><use xlink:href="#icon-last"></use></svg>
+								</button>
+							</div>
+
+							<div class="jp-volume-toggles w-100 flex justify-center justify-end-ns mt2 mt0-ns"> 
+								<div class="jp-volume-controls w-40 ">
+									<div class="cf">
+										<button class="jp-mute button-nude fl" role="button" tabindex="0">
+											<svg class="icon icon--xxs"><use xlink:href="#icon-volume-off"></use></svg>
+										</button>
+										<button class="jp-volume-max button-nude fr" role="button" tabindex="0">
+											<svg class="icon icon--xxs"><use xlink:href="#icon-volume-up"></use></svg>
+										</button>
+									</div>
+									<div class="jp-volume-bar h1 bg-dark-gray pointer">
+										<div class="jp-volume-bar-value bg-ms-turquoise h-100"></div>
+									</div>
+								</div>					
+							</div>
+						</div>
+					</div>
+					{# fin boutons #}									
+				</div>
+
+				<div class="jp-playlist">
+					<div class="jp-playlist-inner dn">
+						<ul class="unstyled">
+							<li>&nbsp;</li>
+						</ul>
 					</div>
 				</div>
+				<div class="jp-no-solution">
+					<span>Update Required</span>
+					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+				</div>
+			</div>
 		</div>
 	</div>
 {% endmacro %}

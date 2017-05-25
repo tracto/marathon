@@ -32,39 +32,59 @@ $(function() {
         complete: function () {
         	
         }
-    }); 
+    });    			
+});
 
-    $(".btn-becky").each(function(){
+
+
+
+
+
+// BECKY
+$('body').on('click', '[data-action="becky-who"]', function(){
+  $('#becky-wrapper').show();
+  $('#becky-wrapper').find(".becky-text").html("Salut, je suis Becky, une meuf tout droit sortie d'un algorithme, comme dans Code Lisa mais en moins bien détourée. Je suis là pour vous aider à vous y retrouver dans ce site, en gros je suis la trombi du Marathon de la Semaine, quoi.");
+});
+
+
+
+$('body').on('click','[data-btn-becky-main]',function(){
       if($(this).data("random")=="1"){
-        $('#becky-content').show();
+        $('#becky-wrapper').show();
         $.ajax({
           type: "GET",
           url: Routing.generate('tds_becky_infos'),
           data:'',
           cache: false,
           success: function(data){
-             $('#becky-content').find(".becky-text").html(data);     
+             $('#becky-wrapper').find(".becky-text").html(data);     
           },
         });
       }
-    });
-
-    $("[data-close-becky]").on("click",function(){
-        $("#becky-content").hide();
-    });
-
-    			
 });
 
 
-$(".btn-becky").on('click',function(){
-  $('#becky-content').show();
-  $('#becky-content').find(".becky-text").html($(this).data('info'));
+
+$('body').on('click','[data-btn-becky]',function(){
+  $('#becky-wrapper').show();
+  $('#becky-wrapper').find(".becky-text").html($(this).data('info'));
 });
 
 
-$("[data-action='credits']").on('click',function(){ 
-  
+
+$('body').on("click","[data-close-becky]",function(){
+  $("#becky-wrapper").hide();
+});
+
+
+
+
+
+
+
+
+// CREDITS / MENTIONS LEGALES
+$('body').on('click',"[data-action='credits']",function(){  
   $.ajax({
     type: "GET",
     url: Routing.generate('tds_credits'),
@@ -76,8 +96,31 @@ $("[data-action='credits']").on('click',function(){
        $("html, body").animate({ scrollTop: $(document).height() }, 500);    
     },
   });
+});
 
 
 
+
+
+
+// FERMETURE POPUP
+$('body').on('click', '[data-action="close-popup"]', function(){
+    $("#popup").hide();
+});
+
+
+
+var audio = document.getElementById('audio');
+// OUVERTURE / FERMETURE POPUP LOIS
+$('body').on('click', '[data-action="button-lois"]', function(){
+  $("#lois-wrapper").show();
+  $("body").addClass('overflow-hidden');
+  audio.play(); 
+});
+
+
+$('body').on('click', "#lois-wrapper", function(){
+  $("#lois-wrapper").hide();
+  $("body").removeClass('overflow-hidden');
 });
 

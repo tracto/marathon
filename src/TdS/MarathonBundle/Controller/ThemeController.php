@@ -45,14 +45,15 @@ class ThemeController extends Controller{
 	    	
 
 
-	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
-	    			->findOneThemeById($id); 
+	    	// $theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    	// 		->findOneThemeById($id); 
 
 	    	$saison=$theme->getSaison();
 	    	              
 	        $tabIdTheme=array();
 	        $listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
 	        		  ->findThemeOrderByDateFinOnlyId();
+	        $em->clear();
 
 	        foreach ($listeThemes as $themeItem){
          		if($themeItem->getStatut() != 0){
@@ -63,7 +64,37 @@ class ThemeController extends Controller{
          		}	    		
 	        }
 
-			
+	        // $idThemeCurrent=$id;
+	        $idThemePrec=null;
+	        $idThemeSuiv=null;
+
+
+	        $found_index = array_search($id, $tabIdTheme);
+	        if ($found_index === 0){
+	          $idThemePrec=end($tabIdTheme);
+	        }else{
+	          $idThemePrec=$tabIdTheme[$found_index-1];
+	        }
+	        
+	        if ($found_index === sizeOf($tabIdTheme)-1){
+	          $idThemeSuiv=$tabIdTheme[0];
+	        }else{
+	          $idThemeSuiv=$tabIdTheme[$found_index+1];
+	        }
+	        $current=$tabIdTheme[$found_index];
+	        
+
+
+	        $themePrec=$em->getRepository('TdSMarathonBundle:Theme')
+	                          ->findOneThemeById($idThemePrec);
+
+	        $themeSuiv=$em->getRepository('TdSMarathonBundle:Theme')
+	                          ->findOneThemeById($idThemeSuiv);
+
+	        
+	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    			->findOneThemeById($id);
+	    	$em->clear();
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfTheme($theme);
@@ -72,7 +103,8 @@ class ThemeController extends Controller{
 		    return $this->render('TdSMarathonBundle:Theme:view.html.twig', array(
 		      'saison' => $saison,
 		      'listeJoggeursScore'=>$listeJoggeursScore,
-		      'tabIdTheme'=>$tabIdTheme,
+		      'themePrec'=>$themePrec,
+		      'themeSuiv'=>$themeSuiv,
 		      'theme' => $theme,     
 		    ));
 
@@ -129,12 +161,12 @@ class ThemeController extends Controller{
 		    }
     }
 
-    public function editAction(Theme $theme, $id, Request $request){
+    public function editAction(Request $request, Theme $theme, $id){
     	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $theme->getJoggeur()->getUser() ){
 	    	$em=$this->getDoctrine()->getManager();
 
-		  	
-		  	$form=$this->createForm(new ThemeEditType(),$theme);
+		  	$statut=$theme->getStatut();
+		  	$form=$this->createForm(new ThemeEditType(),$theme, array('statut' => $statut));
 
 		  	if($form->handleRequest($request)->isValid()){
 
@@ -147,7 +179,8 @@ class ThemeController extends Controller{
 
 		  	return $this->render('TdSMarathonBundle:Theme:edit.html.twig',array(
 		  		'form'=>$form->createView(),
-		  		'theme'=>$theme));
+		  		'theme'=>$theme,
+		  		'statut'=>$statut));
 		  	}
 
 		}else{

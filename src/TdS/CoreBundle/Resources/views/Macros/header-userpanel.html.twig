@@ -1,0 +1,94 @@
+{% macro userpanel(saisonCurrent,joggeurScoreSaison) %}
+	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
+
+	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pt0-ns">
+  	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
+	  	{% if app.user.joggeur is defined and app.user.joggeur is not empty %}	  	
+			<div class="author-name self-center justify-end-m pr2 tr w-85-m">
+				<a class="link ms-light-gray" href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
+					<span class="f6">{{ app.user.joggeur.pseudo }}</span> 
+				</a>
+				<a class="link ms-light-gray db f7 tr" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+			</div>
+
+			<div class="mr1">
+				<div class="navbar-header_saison w-100 justify-end-m">
+					<span class="center tc bg-near-black ms-fushia">{{ saisonCurrent.titre }}</span>
+				</div>	
+				{% set scoreTotal = 0 %}
+				{% if joggeurScoreSaison.total is defined and joggeurScoreSaison.total is not null %}
+					{% set scoreTotal = joggeurScoreSaison.total %}
+				{% endif %}
+
+				<div class="flex justify-end-m">
+					<div class="f5 bg-ms-turquoise near-black self-stretch flex">
+						<span class="db self-center ph1">{{ scoreTotal }} points</span> 
+					</div>
+
+					{% set totalHeartpoints = 0 %}
+					{% set totalTakenpoints = 0 %}
+					{% set totalFastpoints = 0 %}
+
+					{% if joggeurScoreSaison is defined and joggeurScoreSaison is not null %}	
+						{% for score in joggeurScoreSaison.scores %} 
+							{% set totalFastpoints =  totalFastpoints + score.fastpoints %}
+							{% set totalHeartpoints =  totalHeartpoints + score.heartpoints %}
+							{% set totalTakenpoints =  totalTakenpoints + score.takenpoints %}
+						{% endfor %}
+					{% endif %}
+
+
+
+					<div class="flex items-stretch justify-end">
+						{{ scoresElementsModule.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","ms-gold","icon--xs","bg-ms-silver-bleu","near-black") }}
+						{{ scoresElementsModule.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","ms-gold","icon--xs","bg-ms-silver-bleu","near-black") }}
+						{{ scoresElementsModule.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","ms-gold","icon--xs","bg-ms-silver-bleu","near-black") }}
+					</div>
+				</div>
+			</div>									
+			
+			<div class="thumb-line self-stretch justify-end-m flex order-2-m w-15-m">
+				<div class="mt1 mr1-m">
+					<span class="db thumbnail--m aspect-ratio aspect-ratio--1x1">
+						{% if app.user.joggeur.image is not null %}
+							<img class='db aspect-ratio--object' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+						{% else %}
+				  			<img class='db w-100' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">
+				  		{% endif %}
+					</span>
+				</div>   
+			</div>
+
+			{% else %}
+				<div class="ms-light-gray tr">
+					<div class="f5">{{ app.user.username }}</div>
+					<div class="f7 i mw5">Tu es connecté mais tu n'as pas encore de dossard, demande à Bob Marathon de t'en créer un!</div>
+					<a class="link ms-fushia db f7 tr" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+				</div>
+			{% endif %}
+			
+	    {% else %}
+	       <a class="button-connexion no-underline near-black tc" href="{{ path('fos_user_security_login') }}">Connexion</a>		
+	    {% endif %}
+
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined and app.user.joggeur is not empty %}
+			{% if joggeurScoreSaison is defined and joggeurScoreSaison is not null or joggeurScoreSaison != app.user.joggeur.joggeurScore %}
+				<div class="nav-points-bisous ms-fushia">
+					<div class="w-100 flex justify-end">
+						<div class="bg-ms-fushia ph2 pv1">
+							<svg class="icon icon--s fill-near-black"><use xlink:href="#icon-warning"></use></svg>
+						</div>
+						<a class="bg-near-black ph2 pv1 no-underline" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+							<svg class="dib v-mid icon icon--s fill-ms-fushia pr1"><use xlink:href="#icon-heartadd"></use></svg>
+							{% if joggeurScoreSaison.pointstogive is defined and joggeurScoreSaison.pointstogive is not empty %}
+								{{ joggeurScoreSaison.pointstogive }}
+							{% else %}
+								0
+							{% endif %}
+						</a>
+					</div> 
+				</div>
+			{% endif %}
+	{% endif %}		
+	</div>
+{% endmacro %}

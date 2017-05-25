@@ -1,8 +1,2 @@
 
-
-services:
-#    oc_user.example:
-#        class: OC\UserBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
-
  

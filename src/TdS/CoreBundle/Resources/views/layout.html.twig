@@ -7,10 +7,11 @@
 	  <title>{% block title %}Le Marathon de la Semaine{% endblock %}</title>
 	  <meta name="description" content="Un morceau (poème, chanson, cri, blabla, instrumental, recette, râle, solo...) à composer en une semaine en fonction du thème. Parce ce que la musique, c'est un sport. Ad Vitam Mp3" />
 	  
-	  <link href='https://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
 	  
-   	  <link href="{{ asset('bundles/tdsmarathon/css/styles.css') }}" rel='stylesheet' type='text/css'>   
+   	  <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Arsenal|Roboto" rel="stylesheet">
+   	  <link href="https://fonts.googleapis.com/css?family=Metal+Mania|New+Rocker" rel="stylesheet">
 
+   	  <link href="{{ asset('tachyons/css/tachyons.css') }}" rel='stylesheet' type='text/css'>   
    	  <link rel="icon" type="image/png" href="{{ asset('bundles/tdsmarathon/images/favicon.png') }}" />	  
 	  <link rel="apple-touch-icon" href="{{ asset('bundles/tdsmarathon/images/favicon-big.png') }}" />
 	  <script src="{{ asset('js/jquery-2.1.4.min.js') }}" type="text/javascript"></script> 
@@ -27,65 +28,115 @@
 	{% import "TdSCoreBundle:Macros:playlist-index.html.twig" as playlistIndexModule %}
 	{% import "TdSCoreBundle:Macros:article-wrapper.html.twig" as articleWrapperModule %}
 	{% import "TdSCoreBundle:Macros:lois.html.twig" as loisModule %}
-	{% import "TdSCoreBundle:Macros:vignette-theme.html.twig" as vignetteModule %}
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
 
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
 	{% import "TdSCoreBundle:Macros:icons-svg.html.twig" as icons %}
+	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
+
+	{# {% import "TdSCoreBundle:Macros:form-elements.html.twig" as formElementsModule %} #}
+
 	{{ icons.svg() }} 
 
 	<body>
 		<div id="device"></div>
-		<div class="main-wrapper">
+		<div class="main-wrapper f6 roboto near-black">
 
-			<div id="becky-content">
-				<div class="becky-overlay" data-close-becky></div>
-				<div class="becky-infos animated bounceInRight">
-					<a class="button btn btn-close-becky" data-close-becky>
-						<svg class="icon icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-					</a>
-					<div class="flex-container-h">
-						<span class="becky-img prm"><span></span></span> 
-						<span class="becky-text mlm pls"></span>
-					</div> 
-				</div>
-			</div>
 			
-			{% if saison is not defined %}
-				{% set saison = null %}
+
+
+			{% if saisonCurrent is not defined or saisonCurrent is  null %}
+		      	{% set saisonCurrent = saisonService.getCurrSaison() %}
 			{% endif %}
 
-			{{ headernavModule.header(saison) }} 
+			{% if saison is not defined or saison is  null %}
+		      	{% set saison = saisonCurrent %}
+			{% endif %}
+
+			{% if joggeurScoreSaison is not defined or joggeurScoreSaison is empty %}
+				{% set joggeurScoreSaison = null %}
+			{% endif %}
+			{{ headernavModule.header(saison,saisonCurrent,joggeurScoreSaison) }} 
 
 
-			<div class="flashbag align-center relative">
+			<div class="flashbag tc relative bg-ms-vert">
 	      		{% for message in app.session.flashbag.get('notice') %}
-	        		<span class="block pas">Info : {{ message }}</span>
+	        		<span class="db pa2">Info : {{ message }}</span>
 	      		{% endfor %}
 	    	</div>
 
 
-			<div class="wrapper flex-container relative bg--marbre">	    	
-				<div class="container-center container flex-item">{% block body %} {% endblock %}</div>
+
+			<div class="wrapper flex flex-auto flex-wrap relative bg--marbre">
+				<div class="container-border-left flex flex-auto flex-wrap min-h-100"></div>		    	
+				<div class="container-center flex-item ph2 ph3-ns  bl br bt-0 bb-0 b--dashed b--black-50">{% block body %} {% endblock %}</div>
+				<div class="container-border-right flex flex-auto flex-wrap"></div>
+			</div>
+
+		</div>
+
+
+		{{ footerModule.footer() }}
+		<div id="chat-wrapper" class="chat-wrapper fixed bottom-0 right-0 pointer z-4">
+			<a class="button-chat" data-action="open-chat" target="blank" href="{{ path('tds_chat') }}">
+				<svg class="icon icon--s fill-near-black" ><use xlink:href="#icon-dialog"></use></svg>
+			</a>
+		</div>
+
+
+		{# BOUTON BECKY FIXE #}
+		<div id="button-becky-fixed" class="button-becky-fixed shadow-subtle z-5">
+			<div class="relative">
+				<div class="button button-interrogation absolute right-0 top-0 f7 bg-near-black ms-fushia pa1" data-action="becky-who">?</div>
+				<div class="becky-img pointer" data-info="" data-random="1" data-btn-becky-main></div>
+			</div>
+        </div>
+
+        {# OVERLAY BECKY BOX #}
+        <div id="becky-wrapper" class="dn fixed  bottom-0 left-0 h-100 w-100 z-200 ">
+			<div class="becky-infos flex flex-auto flex-column justify-center h-100 w-100">
+				<div class="bg--pierre w-80 w-50-m w-40-l relative shadow-subtle">
+					<a class="button absolute right-0" data-close-becky>
+						<svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
+					</a>
+					<div class="flex flex-auto pt2">
+						<div class="becky-img flex-0 self-end"></div>
+						<span class="becky-text db pa4 pr5 f7"></span>
+					</div>
+				</div> 
 			</div>
 		</div>
 
 
-		{{ footerModule.footer() }} 
+
+
+        {# POPUP WRAPPER #}
+		<div id="popup" data-id="0" class="popup-wrapper z-999 ">		
+			<div class="flex flex-auto justify-center w-100 h-100">	
+				<div class='inner-popup bg-black w-90 w-70-sm w-50-m w-30-l self-center pointer'>
+					<btn class="popup-close" data-action="close-popup">
+						<svg class="icon icon--s fill-ms-fushia" ><use xlink:href="#icon-cancel"></use></svg>
+					</btn>
+					<div class="message ms-fushia pa3 pa4-l" data-message></div>
+				</div>
+			</div>
+		</div>
+
+
+
+		{#  POPUP LOIS WRAPPER #}
+		<div id="lois-wrapper" class="cursor"> 
+			{{ loisModule.lois() }}
+		</div> 
        
-  
+  		{# {% if is_granted("ROLE_SUPER_ADMIN") %}
+			{{ formElementsModule.delete_popup() }}
+		{% endif %} #}
 
-	  {% block javascripts %} 
-	  	
-	  	
-
-	  	<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-	  	
-
+	  {% block javascripts %} 	  	
 	  	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-	  	 
-	   	
+		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>	   	
 	   	<script src="{{ asset('js/jquery.jplayer.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('js/jplayer.playlist.min.js') }}" type="text/javascript"></script>
 	   	<script src="{{ asset('bundles/tdsmarathon/js/main.js') }}" type="text/javascript"></script>

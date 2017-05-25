@@ -70,27 +70,33 @@ class JoggeurScoreRepository extends \Doctrine\ORM\EntityRepository {
 
 
     public function findJoggeurBySaison(Saison $saison, Joggeur $joggeur){
+
     	$themesId = array();
-  		foreach ($saison->getThemes() as $theme) {
-      		$themesId[] = $theme->getId();
-  		}
+      foreach ($saison->getThemes() as $theme) {
+          $themesId[] = $theme->getId();
+          
+      }
+
 
   		$queryBuilder = $this->createQueryBuilder('c')
-        	->addSelect('c','s','t','ti','j','ji','jm','ju')
+        	->addSelect('c','s','t','ts','ti','j','ji','jm','ju')
         	->leftJoin('c.scores', 's')
           ->leftJoin('s.theme','t')
+          ->leftJoin('t.saison','ts')
           ->leftJoin('t.image','ti')
-          ->where('s.theme IN (:theme)')
-        	->setParameter('theme', $themesId)
           ->leftJoin('c.joggeur','j')
           ->leftJoin('j.image','ji')
           ->leftJoin('j.musicTitles','jm')
-          ->leftJoin('j.user','ju')
-        	->andWhere('c.joggeur = :joggeur')
+          ->leftJoin('j.user','ju')  
+          ->where('c.joggeur = :joggeur')
+          ->andWhere('t.id IN (:themesarray)')
        		->setParameter('joggeur', $joggeur)
+          ->setParameter('themesarray', $themesId)
+
         	->getQuery()->getOneOrNullResult();
+
  
-        return $queryBuilder;
+      return $queryBuilder;
 
     }
 

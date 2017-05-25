@@ -19,14 +19,18 @@ class AdminController extends Controller
 	    return $this->render('TdSMarathonBundle:Default:menu.html.twig');
 	}
 	
-    public function indexAction(){
+    public function indexAction(Request $request){
 
 		$userManager = $this->get('fos_user.user_manager');
 		$users = $userManager->findUsers();
 
+		$em=$this->getDoctrine()->getManager();
+    	$joggeurs = $em->getRepository('TdSMarathonBundle:Joggeur')->findAllJoggeursWithUsers();
+
+
         return $this->render('TdSUserBundle:Admin:index.html.twig', array(
         	'users'=>$users));
-    }
+    	}
 
     
 

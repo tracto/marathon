@@ -25,22 +25,32 @@ class SaisonController extends Controller{
 	public function ViewAction(Request $request, Saison $saison, $id){
 		$em=$this->getDoctrine()->getManager();
 
+		$tdsSaison = $this->container->get('tds_marathon.saison');
+		$tdsScore = $this->container->get('tds_marathon.scoring');
+		$saisonCurrent=$tdsSaison->getCurrSaison();
+
         $saison=$em->getRepository('TdSMarathonBundle:Saison')
                    ->findSaisonWithThemes($id);
 
-        $tdsScoring = $this->container->get('tds_marathon.scoring');
-        $joggeursScoresOfSaison=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 
+         $joggeursScoresOfSaison=$tdsScore->getAllJoggeursScoresOfSaison($saison);
+
+
+       
 
         $musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
 	      			->findAllBySaison($saison);
 	    shuffle($musicTitles);
 
+	    
 
         return $this->render('TdSMarathonBundle:saison:view.html.twig', array(
+        					'saisonCurrent'=>$saisonCurrent,
         					'saison'=>$saison,
         					'musicTitles'=>$musicTitles,
-        					'joggeursScoresOfSaison'=>$joggeursScoresOfSaison       						
+        					'joggeursScoresOfSaison'=>$joggeursScoresOfSaison,
+        					// 'joggeurScoreTemp'=>$joggeurScoreTemp
+        					     						
         ));		
 	}
 

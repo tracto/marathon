@@ -1,9 +1,11 @@
-$('.dropdown-saison').find('.select').on('click',function(){
-	$('.select').addClass('activate');
+$('body').on('click','[data-action="dropdown-saison"]',function(){
+	$('[data-action="dropdown-saison"]').addClass('activate');
 	$('.dropdown-saison-item').show();
+	$(this).find(".icon-arrow-left").css({'transform' : 'rotate(-90deg)'});
 
 });
 
-$( ".accordion-joggeur" ).accordion({
-      heightStyle: "content"
+$( '[data-action="accordion"]' ).accordion({
+      heightStyle: "content",
+      // header : '.accordion-header'
     });

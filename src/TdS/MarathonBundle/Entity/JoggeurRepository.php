@@ -19,13 +19,17 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findAllOnlyId(){
         $queryBuilder = $this->createQueryBuilder('j')
-            ->addSelect('partial j.{id}')
-            ->orderBy('j.pseudo', 'DESC');
+            ->addSelect('j') 
+            // 'partial j.{id,pseudo}'
+            ->orderBy('j.id', 'ASC');
 
         return $queryBuilder
             ->getQuery()
             ->getResult();
     }
+
+
+
 
     public function findAllSortByLastLogin(){
     	$queryBuilder = $this->createQueryBuilder('c')
@@ -38,6 +42,19 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
         return $queryBuilder
      		->getQuery()
      		->getResult();
+    }
+
+
+
+    public function findAllJoggeursWithUsers(){
+        $queryBuilder = $this->createQueryBuilder('c')
+          ->addSelect('c','u')
+          ->leftJoin('c.user', 'u');
+          
+
+        return $queryBuilder
+        ->getQuery()
+        ->getResult();
     }
 
 
@@ -74,4 +91,5 @@ class JoggeurRepository extends \Doctrine\ORM\EntityRepository{
  
         return $results;
     }
+
 }

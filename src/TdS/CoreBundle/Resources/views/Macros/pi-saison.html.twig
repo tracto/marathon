@@ -1,34 +1,37 @@
 {% macro saison(saison) %}
-	<h3 class="sub-sub-title">Saison</h3>
-		<div class="pbm">
+		<div class="">
 			{% if saison is defined and saison is not null and saison.statut == 1 %}
-				<div>Saison en cours : {{ saison.titre }}</div>
+				<div class="pa3 bb b--black-30 tc f5">Saison en cours : {{ saison.titre }}</div>
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<div class='closeSaison-wrapper ptm'>
-	        			<a id="closeSaison-grosBouton" data-action="show-brief-saison" class='btn' href="#">
-	        				<svg class="icon icon--xl icon-toggle"><use xlink:href="#icon-toggle"></use></svg>
+					<div class='closeSaison-wrapper pa3'>
+	        			<a id="closeSaison-grosBouton" data-action="show-brief-saison" class=' button-switch no-underline flex flex-auto flex-wrap justify-center' href="#">
+	        				<svg class="icon icon--l icon-toggle "><use xlink:href="#icon-toggle"></use></svg>	
+	        				<span class="bg-near-black ms-fushia self-center">Gros bouton qui ferme la saison pour toujours</span>
 	        			</a>
-	        			<span>Gros bouton qui ferme la saison pour toujours</span>
-	        			<div id="closeSaison-brief">
-	        				<span>Es-tu sûr de fermer cette saison?<br/>
+	        			<div id="closeSaison-brief" class="dn">
+	        				<span class="db i">Es-tu sûr de fermer cette saison?<br/>
 	        				Attention, Il vaut mieux fermer le thème en cours avant.<br/>
 	        				Les Points bisous à donner seront remis à zéro sans qu'ils ne soient retirés du score de la saison précédente.<br/>
-	        			</span>
-	        				<div>
-	        					<a class="button btn btn-action btn-oui" href="{{ path('tds_marathon_saison_disactive_validation') }}">oui</a>
-		        				<a class="button btn btn-action btn-non" href="">non</a>
+	        				</span>
+	        				<div class="mv2">
+	        					<a class="button pa2 btn-oui ms-fushia pa" href="{{ path('tds_marathon_saison_disactive_validation') }}">oui</a>
+		        				<a class="button btn-non ms-fushia pa2" href="">non</a>
 		        			</div>
 	        				
 	        			</div>
 	        		</div>
         		{% endif %}
 			{% else %} 
-				<div>Il n'y a pas de saison en cours.</div>
+				<div class="pa3 flex flex-auto justify-center">
+					<svg class="icon icon--s icon-warning self-center fill-near-black"><use xlink:href="#icon-warning"></use></svg>
+					<span class="dark-gray i self-center">Il n'y a pas de saison en cours.</span>
+				</div>
+
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<div class="block">
-						<a class="button btn btn-action align-right mbs mts" data-action="" href="{{ path('tds_marathon_saison_add') }}">
-								<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-								<span class="btn__label">Ajouter une saison</span>
+					<div class="flex flex-auto justify-center mb3">
+						<a class="button button-action" data-action="" href="{{ path('tds_marathon_saison_add') }}">
+								<svg class="icon icon--xs icon-plus"><use xlink:href="#icon-plus"></use></svg>
+								<span class="">Ajouter une saison</span>
 						</a>
 					</div>
 				{% endif %}

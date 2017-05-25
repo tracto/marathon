@@ -9,10 +9,12 @@
 
 #}
 
-<div id="fos_comment_thread_wrapper">
-	<h2 class="sub-title align-center pan man">Commentaires</h2>
+{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
+
+<div id="fos_comment_thread_wrapper" class="bg-ms-orange-light relative w-90 mw8 pt3 br3 mb3 center">
+	<h2 class="sub-title center tc ma0 pa0">Commentaires</h2>
 	{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-		<div class="fos_comment_infos pbs pts pll prl align-center">
+		<div class="fos_comment_infos pv2 ph4 tc f6 black-40">
 	        <i>
 	            Maintenant, il est possible d'ajouter des liens, des images et des vidéos youtube de l'internet. Il suffit de copier/coller l'url et Becky se charge du reste!<br/>
 	            exemples :<br/>
@@ -22,17 +24,19 @@
 	    </div>
 	{% endif %}
 
-	<div id="loading">
-  		<img id="loading-image" class="w-100" src="../../../bundles/tdscomment/images/ajax_loader.gif" alt="Loading..." />
+	<div id="loading" class"w-100">
+  		{{ loaderModule.loader() }} 
 	</div>
 
-	<div class="inner-wrapper">
+	<div class="inner-wrapper pr4 pb4 pl5">
 		<div id="fos_comment_thread">
 		</div>
 	</div>
 </div>
-    {# {% javascripts %} #}
-	{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+
+    {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %} #
+	{# {% javascripts  %} #} 
+
 	<script type="text/javascript">
 		// thread id
 		var fos_comment_thread_id = '{{ id }}';
@@ -46,7 +50,7 @@
 
 
 		$("[data-action='show-comments']").on('click',function(){
-				$(".comment-action-buttons").show();
+				$(".fos-comment-header-buttons").show();
 				comment.launchComments();
 				comment.construct();
 				$("#playlist-comments").show();
@@ -60,7 +64,7 @@
 
 		
 		$("[data-action='hide-comments']").on('click',function(){
-				$(".comment-action-buttons").hide();
+				$(".fos-comment-header-buttons").hide();
 				$("#fos_comment_thread_wrapper").hide();
 				
 		});
@@ -100,7 +104,8 @@
 		comment.launchComments = function (){
 			var fos_comment_script = document.createElement('script');
 		    fos_comment_script.async = true;
-		    fos_comment_script.src = '{{ asset_url }}';
+		    // fos_comment_script.src = '{{ asset_url }}';
+		    fos_comment_script.src = '{{ asset('bundles/tdscomment/js/comments.js') }}';
 		    fos_comment_script.type = 'text/javascript';
 
 		    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);

@@ -16,11 +16,13 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findAllThemes(){
         	$queryBuilder=$this->_em->createQueryBuilder()
-			->select('a','i','jc','m')
+			->select('a','i','jc','m','mj','mji')
 			->from($this->_entityName,'a')
             ->leftJoin('a.image','i')
             ->leftJoin('a.joggeurChronique','jc') 
             ->leftJoin('a.musicTitles','m')
+            ->leftJoin('m.joggeur','mj')
+            ->leftJoin('mj.image','mji')
        		->orderBy('a.dateFin','DESC')
             ;
 			
@@ -108,6 +110,7 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
     }
 
 
+
     public function findThemeOrderByDateFinOnlyId(){
       $queryBuilder=$this->_em->createQueryBuilder('a')
         ->addselect('partial a.{id, dateFin, statut}')
@@ -120,6 +123,13 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
             ->getQuery()
             ->getResult();
     }
+
+
+    
+
+
+
+
 
     
 }

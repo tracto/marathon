@@ -5,75 +5,90 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-		<h1 class="main-title man pan align-center">
-			<svg class="icon icon--m icon-heart"><use xlink:href="#icon-heart"></use></svg>
-			<span>Attribuer des points bisous</span>
-			<span class="button btn btn-default btn-becky" data-info="C'est ici que tu répartis tes points coeurs, tu as une semaine pour le faire.<br/>Prends ton temps et sinon, c'est en faisant des erreurs qu'on apprend.<br/>Par contre, si tu as oublié de les dépenser ils seront retirés de ton score et un mail sera directement envoyé à la CAF de ta région pour un rendez-vous de contrôle.">
-	        	<svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-	        </span>
-		</h1>
+	<div id="content" class="pa3 pa4-l">
+		
+	<div class="ma0 tc b--dashed b--black-20 bb bt-0 br-0 bl-0 pb3 mb3">
+		<div class="flex flex-auto justify-center w-100 mt4">	
+			<h1 class="self-center pr2 ma0 new-rocker f2">
+				<svg class="icon icon--s"><use xlink:href="#icon-heartadd"></use></svg>
+				<span>Attribuer des points bisous</span>
+			</h1>
+			<div>
+				<span class="button-becky db" data-info="C'est ici que tu répartis tes points coeurs, tu as une semaine pour le faire.<br/>Prends ton temps et sinon, c'est en faisant des erreurs qu'on apprend.<br/>Par contre, si tu as oublié de les dépenser ils seront retirés de ton score et un mail sera directement envoyé à la CAF de ta région pour un rendez-vous de contrôle." data-btn-becky>
+	        		{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+	    			<img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">
+	        	</span>
+	        </div>
+   		</div>
 
-		{% if themePost is defined and themePost is not null %}
-			<div class="align-center sep">
-			    <h2 class="sub-title pbn mbn">theme : {{ themePost.titre }}</h2>
-			    <div class="pbm">
-			    	<strong>nombre de points disponibles :</strong>
-			    	<span><span class='joggeurDonneur-points'>{{ scoreJoggeurParTheme.pointstogive }}</span>
-			    	 / 
-			    	<span class='joggeurDonneur-pointsInit'>{{ scoreJoggeurParTheme.pointstogive }}</span></span>
+        {% if themePost is defined and themePost is not null %}
+        	<div class="w-100 pt2">
+        		<div class="pb3">
+			    	<h2 class="ma0 fw1">theme</h2>
+			    	<div class="w-100 w-80-sm w-60-m w-50-l center">
+			    		{{ vignetteModule.vignette_line_theme(themePost) }}
+			    	</div>
+				</div>
+			    <div class="pl4 f5">
+			    	<span>nombre de points disponibles :</span>
+			    	<div class="bg-near-black ms-fushia dib pa2">
+			    		<span class='joggeurDonneur-points'>{{ scoreJoggeurParTheme.pointstogive }}</span>
+				    	 / 
+				    	<span class='joggeurDonneur-pointsInit'>{{ scoreJoggeurParTheme.pointstogive }}</span>
+			    	</div>
 				</div>
 			</div>
+        {% else %}
+        	<div class="w-100 pt2">
+			    <h2 class="ma0 fw1">theme : {{ themePost.titre }}</h2>
+			</div>
+    	{% endif %}
+    </div>
+
+		{% if themePost is defined and themePost is not null %}
+			
 		
 
 			{% if themePost.musicTitles is defined and themePost.musicTitles is not null %}
-				<div class='row'>
-					{% for musicTitle in themePost.musicTitles %}
-					
+				<div class='flex flex-auto flex-wrap justify-between'>
+					{% for musicTitle in themePost.musicTitles %}					
 						{% if musicTitle is not null %}
-							{% if musicTitle.joggeur != app.user.joggeur %}
-								<div class='col-addPoints-joggeurTitle col col-xs-12 col-md-6 pas sep--dashed'>
-									<div class="col col-xs-12 col-md-5">
-										<h3 class="sub-sub-title man pan">{{ musicTitle.joggeur.pseudo }}</h3>
-										<strong class="block">titre : {{ musicTitle.titre }}</strong>
-									</div>
+							{% if musicTitle.joggeur.id != app.user.joggeur.id %}
+								<div class='w-100 w-100-sm w-50-m w-33-l pa2'>
+									<div class="flex flex-auto flex-wrap justify-between bg-white-40 pa2">
+										<div class="w-100 w-30-l">
+											<h3 class="ma0 f6">{{ musicTitle.joggeur.pseudo }}</h3>
+											<span class="block">morceau : <i>{{ musicTitle.titre }}</i></span>
+										</div>
 
-									
-									<div class='col col-xs-12 col-md-7 heartPoints-icons clearfix' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
+										
+										<div class='heartPoints-icons cf self-end w-100 w-70-l' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
 											{% for i in 10..1  %}
-												<span class="heartPoints-icon" data-heart='{{ i }}'>
-													<svg class="icon icon--s icon-heart2" ><use xlink:href="#icon-heart2"></use></svg>
+												<span class="heartPoints-icon fr" data-heart='{{ i }}'>
+													<svg class="icon icon--xs pl1" ><use xlink:href="#icon-heart2"></use></svg>
 												</span>
 											{% endfor %}
-											<span class="heartPoints-icon heart-empty prs" data-heart='0'>
-												<svg class="icon icon--s icon-none"><use xlink:href="#icon-none"></use></svg>
+											<span class="heartPoints-icon heart-empty fr" data-heart='0'>
+												<svg class="icon icon--xs pr1"><use xlink:href="#icon-none"></use></svg>
 											</span>
-									</div>						
+										</div>						
+									</div>
 								</div>
 							{% endif %}
 
 						{% else %}
-							<div>Shocking! personne n'a participé à ce thème!</div>
+							<div class="tc">Shocking! personne n'a participé à ce thème!</div>
 						{% endif %}
 						
 					{% endfor %}
 				</div>
 
-				<div id="popup" data-id="0">
-					<div class="popup-wrapper">
-						<div class='inner-popup'>
-							<btn class="button btn-action btn btn-default pull-right popup-close">
-								<svg class="icon icon-cancel" ><use xlink:href="#icon-cancel"></use></svg>
-							</btn>
-							<div class="message">Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.</div>
-						</div>
-					</div>
-				</div>
+				
 
-				<div class='row addPoints-form'>
+				<div class='addPoints-form'>
 					{{ form_start(form) }}
 					    {{ form_row(form.remainingPoints, {'attr': {'value': scoreJoggeurParTheme.pointstogive}}) }}
-					    <ul class="tags score-tags">
+					    <ul class="tags score-tags dn">
 					        {% for tag in form.tags %}
 					            <li class="form-joggeur-item">
 					            	{{ form_widget(tag.idJoggeur, {'attr': {'class': 'tag-idJoggeur'}}) }}
@@ -82,29 +97,31 @@
 					        {% endfor %}
 					    </ul>
 
-					    <div class="align-center mts">
-				        <div class="button btn btn-action">
-				          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
-				           {{ form_widget(form.valider, {'attr': {'value': 'valider'}}) }}
-				        </div>
-
-				        <a class="button btn btn-actualiser" href="">
-							<svg class="icon icon--s icon-spinner11"><use xlink:href="#icon-spinner11"></use></svg>
-							<span>réactualiser</span>
-						</a>
-				      </div>
+					    <div class="flex flex-auto flex-wrap justify-center pb3">
+					    	<div>
+					            <div class="button button-save dib">
+					              <svg class="icon icon--xs icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+					               {{ form_widget(form.valider, {'attr': {'value': 'valider'}}) }}
+					            </div>
+					        
+					            <div class="button button-save"> 
+					               <svg class="icon icon--xs"><use xlink:href="#icon-spinner11"></use></svg>
+									<span>réactualiser</span>
+					            </div>
+					        </div>
+				      	</div>
 					
 					
 					{{ form_end(form) }}
 				</div>
 			{% else %}
-				<div class="align-center sep">
-			    	<h2 class="sub-title pbn mbn">Aucun joggeur n'a posté de morceau pour ce thème, cela est extrèmement choquant</h2>
+				<div class="tc">
+			    	<h2 class="ma0">Aucun joggeur n'a posté de morceau pour ce thème, cela est extrêmement choquant</h2>
 				</div>
 			{% endif %}
 		{% else %}
-			<div class="align-center sep">
-				<h2 class="sub-title pbn mbn">Il n'y a pas de thème ouvert à l'attribution de points bisous</h2>
+			<div class="tc">
+				<h2 class="ma0">Il n'y a pas de thème ouvert à l'attribution de points bisous</h2>
 			</div>
 		{% endif %}	
 	</div>

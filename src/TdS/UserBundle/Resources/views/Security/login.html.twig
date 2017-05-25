@@ -3,44 +3,46 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-<div id="content" class="bg--lightgrey pam pbxxl">
+<div id="content" class="pa4">
 	{% if error %}
 	    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 	{% endif %}
-	<h1 class="main-title man align-center">
-		<svg class="icon icon-locked"><use xlink:href="#icon-locked"></use></svg>
-		<span>Connexion</span>
-	</h1>
+	
+	<div class="ms-title flex-1 pv3">
+		<svg class="icon icon--s icon-locked"><use xlink:href="#icon-locked"></use></svg>					
+		<h2><span class="">Connexion</span></h2>	
+	</div>
 
-	<div class="form-wrapper bg-op--white bd--light pam">
+	<div class="form-wrapper">
 		<form class="form-connexion" action="{{ path("fos_user_security_check") }}" method="post">
 		    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-		    <div class="form-group row mll mrl ptm pbm">
-			    <label class="label-connexion col-xs-12 col-sm-4 control-label" for="username">Pseudo</label>
-			    <input class="col-xs-12 col-sm-6" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-			</div>
+		    <div class="form-group pv3 flex-wrap">
+			    <div class="w-100 flex flex-wrap justify-center pb3">
+				    <label class="label-connexion self-center pr3 w-10" for="username">Pseudo</label>
+				    <input class="form-widget db" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+				</div>
 
-			<div class="form-group row mll mrl ptm pbm">
-			    <label class="label-connexion col-xs-12 col-sm-4 control-label" for="password">mot de passe</label>
-			    <input class="col-xs-12 col-sm-6" type="password" id="password" name="_password" required="required" />
-			</div>
+				<div class="w-100 flex flex-wrap justify-center">
+				    <label class="label-connexion self-center pr3 w-10" for="password">mot de passe</label>
+				    <input class="form-widget db" type="password" id="password" name="_password" required="required" />
+				</div>
 
-			<div class="form-group flex-container-h pbm">
-				<div class="flex-container-h flex-item-center">
+				
+				<div class="center pt2 tc">
 			    	<input class="" type="checkbox" id="remember_me" name="_remember_me" value="on" />
-			    	<label class="flex-item-fluid" for="remember_me">se souvenir de moi</label>
+			    	<label class="" for="remember_me">se souvenir de moi</label>
 				</div>
 			</div>
 
-			<div class="align-center">
-		        <div class="button btn btn-action">
-		        	<svg class="icon icon-key"><use xlink:href="#icon-key"></use></svg>
-		        	<button type="submit" id="_submit" class="mln pln" name="_submit" value="connexion">connexion</button> 
+			<div class="tc center w-100">
+		        <div class="button button-save">
+		        	<svg class="icon icon--xs"><use xlink:href="#icon-key"></use></svg>
+		        	<button type="submit" id="_submit" class="" name="_submit" value="connexion">connexion</button> 
 		        </div>		       	        
 		    </div>
-		    <div class="align-center">
-		     	<a href="{{ path('fos_user_resetting_request') }}">Mot de passe perdu?</a>
+		    <div class="tc pt2">
+		     	<a class="near-black" href="{{ path('fos_user_resetting_request') }}">Mot de passe perdu?</a>
 		    </div>	
 		</form>
 		

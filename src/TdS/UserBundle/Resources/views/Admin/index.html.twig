@@ -5,58 +5,64 @@
 {% endblock %}
 
 {% block tdsadmin_body %}
-    <div id="content" class="bg--lightgrey pam pbxxl">
+    <div id="content" class="mv4">
 
     	
-        <div class="align-center mbm">
-        <h1 class="main-title man">
+        
+        {# <h1 class="main-title man">
             <svg class="icon icon-user"><use xlink:href="#icon-user"></use></svg>
             <span>Utilisateurs</span>
-        </h1>
+        </h1> #}
 
-        <a class="button btn btn-action mtn " href="{{ path('fos_user_registration_register') }}">
-            <svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
-            <span class="btn__label">Ajouter un utilisateur</span>
-         </a>
+        <div class="flex flex-auto justify-center w-100 mt4">   
+            <h1 class="self-center pr2 ma0 mb3 new-rocker f2">
+                <svg class="icon icon--s fill-near-black"><use xlink:href="#icon-user"></use></svg>
+                <span>Utilisateurs</span>
+            </h1>
+        
         </div>
 
+        <div class="w-100 mb4 tc">
+            <a class="button button-action dib" href="{{ path('fos_user_registration_register') }}">
+                <svg class="icon icon--xs icon-plus"><use xlink:href="#icon-plus"></use></svg>
+                <span class="btn__label">Ajouter un utilisateur</span>
+            </a>
+        </div>
         
 
-        <div class='user-table'>
-        	<div class='row row-title'>
-        		<div class='col col-md-4'>nom</div>
-        		<div class='col col-md-4'>email</div>
-        		<div class='col col-md-4'>joggeur relié</div>
-        	</div>
+        <table class="f6 w-100 mw8 center bg-white-30 pa2 pa2-sm pa3-m pa4-l shadow-subtle" cellspacing="0">
+            <thead>
+                <tr>
+                  <th class="bb b--black-80 tl pb3 pr3 ms-turquoise"><strong>Nom</strong></th>
+                  <th class="bb b--black-80 tl pb3 pr3 ms-turquoise"><strong>Email</strong></th>
+                  <th class="bb b--black-80 tl pb3 pr3 ms-turquoise"><strong>Joggeur Relié</strong></th>
+                  <th class="bb b--black-80 tl pb3 pr3 ms-turquoise"><strong>Actions</strong></th>
+                </tr>
+            </thead>
+
+            <tbody class="lh-copy">
             {% for user in users %}
-            	<div class='row'>
-            		<div class='col col-md-4'>{{ user.username }}</div>
-            		<div class='col col-md-4'>{{ user.email }}</div>
+            	<tr>
+            		<td class='pv3 pr3 bb b--black-20'>{{ user.username }}</td>
+            		<td class='pv3 pr3 bb b--black-20 word-wrap'>{{ user.email }}</td>
             		{% if user.joggeur is not null %}
-            			<div class='col col-md-2'>{{ user.joggeur.pseudo }}</div>
+            			<td class='pv3 pr3 bb b--black-20'>{{ user.joggeur.pseudo }}</td>
             			{% else %}
-            			<div class='col col-md-2'>pas de joggeur</div>
+            			<td class='pv3 pr3 bb b--black-20 ms-fushia'>pas de joggeur</td>
             		{% endif %}
-                    <div class='col col-md-2 align-center'>
-                        <a class='button btn btn-action' href="{{ path('tds_admin_user_edit', {'id': user.id}) }}">
-                            <svg class="icon icon-alone icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+                    <td class='pv3 pr3 bb b--black-20'>
+                        <a class='button button-action mr2' href="{{ path('tds_admin_user_edit', {'id': user.id}) }}">
+                            <svg class="icon icon-alone icon--xs icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
                         </a>
                         {% if user != app.user %}
-                            <a class='button btn btn-action btn-user-delete' data-delete data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
-                                <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                            <a class='button button-action btn-user-delete' data-delete data-href="{{ path('tds_admin_user_delete', {'id': user.id}) }} "  data-pseudo="{{ user.username }}" href="#">
+                                <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
                             </a>
                         {% endif %}
-                    </div>
-            	</div>
+                    </td>
+            	</tr>
             {% endfor %}
-        </div>
+        </table>
         
-        <div data-popupdelete class='popup-delete-confirmation'>
-            <div>
-                <p></p>
-                <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-                <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
-            </div>
-        </div> 
     </div>
 {% endblock %}

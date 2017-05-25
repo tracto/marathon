@@ -5,68 +5,32 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
-	<div class="container-fluid main-content-page pal pbxxl">
+	<div class="pb4">
 
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
-			<div class="mtm mrm mbn clearfix">
-				<a class="button btn btn-action pull-right" href="{{ path('tds_marathon_joggeur_add') }}" >
-					<svg class="icon icon--s icon-plus"><use xlink:href="#icon-plus"></use></svg>
+			<div class="">
+				<a class="button" href="{{ path('tds_marathon_joggeur_add') }}" >
+					<svg class="icon icon--xs"><use xlink:href="#icon-plus"></use></svg>
 					<span>Ajouter un joggeur</span>
 				</a>
 			</div>
 		{% endif %}
 
-		<h1 class="main-title align-center mas">joggeurs</h1>
-			
-			    
-	    <div class="list">
+		<div class="w-60-ns center tc">
+			<div class="ms-title pb3 flex-1">					
+		    	<h2><span class=""><span class="db pa3 ">Les joggeurs</span></span></h2>	
+		    </div>
+		</div>
+						    
+	    <div class="flex flex-auto flex-wrap">
 		    {% for joggeur in listeJoggeurs %}
 		    	{% if joggeur is not null %}
-			    	{% if is_granted("ROLE_USER") and joggeur.pseudo == app.user.joggeur.pseudo %}
-			    		<div class='col col-xs-6 col-sm-4 col-lg-2 list-item list-item-logged vignette-item man pan'>
-			    	{% else %}
-			    		<div class='col col-xs-6 col-sm-4 col-lg-2 list-item vignette-item man pan'>
-			    	{% endif %}
-
-					    <a class="thumbnail paxs" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
-					    	<div class="square">
-							    {% if joggeur.image is not null %}
-						  			<img src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
-								{% else %}
-								  	<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
-								{% endif %}
-							
-
-							    <div class='inner-item-text'>
-							    	<div class="relative">
-								    	<h3 class="pbn mbn">{{ joggeur.pseudo }}</h3>								
-								    	<div class="musictitle-count">
-									    	<svg class="icon icon-cd"><use xlink:href="#icon-cd"></use></svg>
-									    	<span>{{ joggeur.musicTitles|length  }}</span>
-									    </div>
-							    	</div>
-							    </div>	
-							</div>					    		
-					    </a>
-
-					    {% if is_granted("ROLE_SUPER_ADMIN") %}
-		                    <a class='button btn btn-action btn-liste-delete btn-joggeur-delete mrs mts' data-delete data-href="{{ path('tds_marathon_joggeur_delete', {'id': joggeur.id}) }} "  data-pseudo="{{ joggeur.pseudo }}">
-		                        <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-		                    </a>
-		               {% endif %}
+			    	<div class='w-50 w-33-sm w-20-m w-10-l pa1'>
+					    {{ vignetteModule.vignette_joggeur(joggeur) }}
 					</div>
 			    {% endif %}
 		    {% endfor %}
 		</div>
 
-		{% if is_granted("ROLE_SUPER_ADMIN") %}
-			<div class='popup-delete-confirmation' data-popupdelete>
-	            <div>
-	                <p></p>
-	                <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-	                <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
-	            </div>
-	        </div>
-    	{% endif %}
 	</div> 
 {% endblock %}

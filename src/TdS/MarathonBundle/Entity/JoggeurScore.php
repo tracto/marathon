@@ -30,6 +30,7 @@ class JoggeurScore
 
   /**
    * @ORM\OneToMany(targetEntity="TdS\MarathonBundle\Entity\Score", mappedBy="joggeurScore", cascade={"persist","remove"})
+   * @ORM\JoinColumn(nullable=true)
    */
   private $scores; 
 

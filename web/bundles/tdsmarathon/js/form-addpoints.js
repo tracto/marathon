@@ -38,8 +38,9 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 		joggeurId=$("#popup").attr('data-id');
 		$(this).removeClass('is-active');
 		remainingHearts = remainingHearts - (givenHearts - $('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val());		
-		$('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val(0);				
-		$("#popup").find('.popup-wrapper').show();		
+		$('.tag-idJoggeur[value="'+joggeurId+'"]').siblings().val(0);
+		$("#popup").find('[data-message]').html("Tu as trop d'amour à donner. Conduis-toi en homme, Vas faire des bisous ailleurs et reviens voter.");				
+		$("#popup").show();		
 	}
 
 	$('.joggeurDonneur-points').html(remainingHearts);
@@ -48,6 +49,3 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 });
 
 
-$("#popup").find('.popup-close').on('click',function(){
-	$("#popup").find('.popup-wrapper').hide();
-})

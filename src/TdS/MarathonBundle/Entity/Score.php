@@ -24,7 +24,7 @@ class Score
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="TdS\MarathonBundle\Entity\JoggeurScore", inversedBy="scores",cascade={"persist","remove"},fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="TdS\MarathonBundle\Entity\JoggeurScore", inversedBy="scores",cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $joggeurScore;
