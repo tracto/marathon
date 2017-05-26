@@ -140,10 +140,26 @@ tds_marathon_theme_switch_validation:
     
         
 
-
 tds_marathon_theme_active_validation:
     path: /theme/active/validation
     defaults: { _controller: TdSMarathonBundle:Theme:activeValidation }
+
+
+
+tds_marathon_theme_compils_view:
+    path: /theme/compils/view
+    defaults: { _controller: TdSMarathonBundle:Theme:compilsView }
+
+tds_marathon_theme_compil_create:
+    path: /theme/compil/create/{id}
+    defaults: { _controller: TdSMarathonBundle:Theme:compilCreate }
+    requirements:
+        theme_id: \d+
+
+tds_marathon_theme_compil_delete:
+    path:     /theme/compil/delete/{id}
+    defaults: { _controller: TdSMarathonBundle:Theme:compilDelete }
+
 
 
 

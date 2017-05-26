@@ -63,7 +63,13 @@
 							{% if saison is defined and saison is not null %}
 								{{ PIbisous.bisous(joggeurScoreSaison,postTheme) }}	
 							{% endif %}
-							{{ PIchronique.chronique(allThemes) }}								
+
+							{{ PIchronique.chronique(allThemes) }}
+
+							<div class="pa3 bt b--black-30">
+								<a class="button button-action center db" href="{{ path('tds_marathon_theme_compils_view') }}">les compils</a>
+							</div>								
+
 						</div>			
 					</div>
 

@@ -15,32 +15,6 @@ a { color: inherit; }
 
 
 
-
-
-/*@media (--breakpoint-medium){
-	body{
-		border:solid 1px red;
-
-	}
-}
-
-
-@media (--breakpoint-small-medium){
-	body{
-		border:solid 1px blue;
-
-	}
-}
-
-
-@media (--breakpoint-large){
-	body{
-		border:solid 1px green;
-
-	}
-}*/
-
-
 /*detection du device pour le js*/
 #device{
 	display:block;
@@ -1941,6 +1915,11 @@ button{
 }
 
 
+.footer-creditskm{
+	height:120px;
+}
+
+
 .footer-kilometrage{
 	bottom:35px;
 }
@@ -1959,8 +1938,8 @@ button{
 	background-size:100%;
 	display:block;
 	margin:0 auto;
-	width:68px;
-	height:100px;
+	width:80px;
+	height:114px;
 	top:0;
 }
 

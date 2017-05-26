@@ -51,7 +51,13 @@ security:
         - { path: ^/theme/delete/, roles: ROLE_ADMIN }
         - { path: ^/theme/switch, roles: ROLE_ADMIN }
         - { path: ^/theme/addchronique/, roles: ROLE_USER }
+<<<<<<< HEAD
         - { path: ^/theme/editchronique/, roles: ROLE_USER }  
+=======
+        - { path: ^/theme/editchronique/, roles: ROLE_USER } 
+        - { path: ^/theme/compils/view/, roles: ROLE_ADMIN } 
+        - { path: ^/theme/compil/create/, roles: ROLE_ADMIN } 
+>>>>>>> features
         - { path: ^/joggeurs/classement/, roles: ROLE_USER }
         - { path: ^/saisons, roles: ROLE_ADMIN }
         - { path: ^/saison/switch, roles: ROLE_ADMIN }

@@ -2,6 +2,9 @@
 
 namespace TdS\MarathonBundle\Controller;
 
+
+use \ZipArchive;
+
 use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\MusicTitle;
 use TdS\MarathonBundle\Entity\Saison;
@@ -14,6 +17,9 @@ use TdS\MarathonBundle\Form\ThemeType;
 use TdS\MarathonBundle\Form\ThemeEditType;
 use TdS\MarathonBundle\Form\ThemeChroniqueType;
 use TdS\MarathonBundle\Form\ThemeChroniqueEditType;
+
+use TdS\MarathonBundle\Form\ThemeCompilType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Response;
@@ -409,6 +415,135 @@ class ThemeController extends Controller{
 		    return $this->redirectToRoute('tds_dashboard');
 		}
    	}
+
+
+
+
+   	public function compilsViewAction(Request $request){
+   		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+	   		$em = $this->getDoctrine()->getManager();
+
+	   		$listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
+		        		  ->findAllThemes();
+
+		    return $this->render('TdSMarathonBundle:Theme:compilsview.html.twig',
+					  		array(
+				    			"listeThemes"=>$listeThemes,
+					  		));
+		  	
+
+	    }else{
+		    $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    return $this->redirectToRoute('tds_dashboard');
+		}
+
+   	}
+
+
+   	public function compilCreateAction(Request $request,$id){
+   		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+	   		$em = $this->getDoctrine()->getManager();
+
+	   		$theme=$em->getRepository('TdSMarathonBundle:Theme')
+		        		  ->findOneThemeById($id);
+
+		    
+
+		    $form=$this->createForm(new ThemeCompilType(),$theme);
+             
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+            	
+            	$stringToolbox = $this->container->get('string.toolbox');
+            	
+            	// formatage du titre
+            	$titre=$theme->getTitre();
+            	$folderTitle = str_replace(' ', '-', $titre);
+            	$folderTitle = str_replace('/', '-', $folderTitle);
+            	$folderTitle = str_replace('_', '-', $folderTitle);
+            	$folderTitle=$stringToolbox->replaceAllAccents($folderTitle);
+   				$folderTitle=$folderTitle."_".$id;
+   				$folderDest="uploads/compils/".$folderTitle;
+
+				$zip = new ZipArchive();
+				$zipname = $folderTitle.".zip"; 
+				$zip->open("uploads/compils/".$zipname,  ZipArchive::CREATE);
+
+				// print_r("<br/>titres :");
+				foreach($theme->getMusicTitles() as $musicTitle){
+					
+
+					// musictitle source
+					$musicTitleSource=$musicTitle->getWebPath();
+
+					// formatage du titre de chaque musictitle
+					$musicTitleTitre = str_replace(' ', '', $musicTitle->getTitre());
+					$musicTitleAuteur = str_replace(' ', '', $musicTitle->getJoggeur()->getPseudo());
+					$musicTitleString=$musicTitleTitre."-".$musicTitleAuteur;
+					$musicTitleString=$stringToolbox->replaceAllAccents($musicTitleString).".mp3";
+
+					// musictitle destination
+					$musicTitleDest=$folderDest."/".$musicTitleString;
+
+				    // Add current file to archive
+					$zip->addFile($musicTitleSource,$musicTitleString);
+					
+					if($theme->getZip()!==1){
+						$theme->setZip($folderTitle);
+					}
+					$em->flush();	
+				}
+
+				$zip->close();
+				$request->getSession()->getFlashBag()->add('notice',"Zip créé!");
+            }
+
+		  	return $this->render('TdSMarathonBundle:Theme:compilcreate.html.twig',
+					  		array(
+				    			"theme"=>$theme,
+				    			'form'=>$form->createView()
+					  		));
+
+	    }else{
+		    $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    return $this->redirectToRoute('tds_dashboard');
+		}
+
+   	}
+
+
+   	public function compilDeleteAction(Request $request,$id){
+   		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+	   		$em = $this->getDoctrine()->getManager();
+
+	   		$theme=$em->getRepository('TdSMarathonBundle:Theme')
+		        		  ->findOneThemeById($id);
+
+		    if($theme->getId() || $theme->getId() !== null ){
+		    	$themeZip=$theme->getZip();
+		    	$themeZipPath="uploads/compils/".$themeZip.".zip";
+		    	unlink($themeZipPath);
+		    	$theme->setZip(null);
+		    	$em->flush();
+		    	$request->getSession()->getFlashBag()->add('notice',"Zip supprimé : ".$themeZip.".zip");
+		    }
+
+		    $listeThemes=$em->getRepository('TdSMarathonBundle:Theme')
+		        		  ->findAllThemes();
+
+		    return $this->render('TdSMarathonBundle:Theme:compilsview.html.twig',
+					  		array(
+				    			"listeThemes"=>$listeThemes,
+					  		));
+
+	    }else{
+		    $request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    return $this->redirectToRoute('tds_dashboard');
+		}
+   	}
+   	
+
 
 
 }

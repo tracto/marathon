@@ -1,0 +1,61 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div class="form-wrapper center tc pb5">
+	<div class="flex flex-auto justify-center w-100 mt4">   
+        <h1 class="self-center pr2 ma0 mb3 new-rocker f2">
+            <svg class="icon icon--s fill-near-black"><use xlink:href="#icon-user"></use></svg>
+            <span>Créer une compil</span>
+        </h1>        
+    </div>
+
+    <div class="w-100 w-80-sm w-60-m w-50-l center">
+		{{ vignetteModule.vignette_line_theme(theme) }}
+	</div>
+
+    {% if theme.zip is not null and theme.zip is not empty %}
+    	<div class="pv3 bb bt-0 bl-0 br-0 b--solid b--near-black">
+    		<h3>Zip existant</h3>
+    		{% set zipwebpath = "uploads/compils/" ~ theme.zip ~ ".zip" %}
+    		<a class="button button-action" href="{{ asset(zipwebpath) }}"><span>{{ theme.zip }}.zip</span></a>
+    	</div>
+	{% endif %}
+
+    <div class="">
+    	<h3>Résumé avant création : </h3>
+    	<div class="">
+    		<div class="">Liste des titres : </div>
+    		<ul class="list pa0">
+    			{% for musictitle in theme.musictitles %} 
+    				<li>{{ musictitle.titre }} - {{ musictitle.joggeur.pseudo }}</li>
+    			{% endfor %}
+    		</ul>
+    	</div>
+    </div>
+    
+	{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	{{ form_errors(form) }}
+
+	
+	<div class="flex flex-auto flex-wrap justify-center">
+		<a class="button button-action db mr3" href="{{ path('tds_marathon_theme_compils_view') }}">retour à la liste</a>
+		<div>
+		    <div class="button button-save">
+		        <svg class="icon icon--xs icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg> 
+		        <input class="submit bg-transparent bn ms-fushia" type="submit" value="créer la compil" />
+		    </div>
+		</div>
+	</div>
+
+
+
+    {{ form_end(form) }} 
+</div>
+    
+
+
+{% endblock %}

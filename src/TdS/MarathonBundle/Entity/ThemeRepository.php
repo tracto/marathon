@@ -27,7 +27,6 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
             ;
 			
 
-
 		return $queryBuilder
     		->getQuery()
     		->getResult();

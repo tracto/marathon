@@ -123,6 +123,18 @@ class Theme
     private $thread;
 
 
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="zip", type="string", length=255)
+     */
+    private $zip;
+
+
+
+
+
     public function __construct(){
         // $this->$musicTitles = new ArrayCollection();
     }
@@ -427,5 +439,32 @@ class Theme
     {
         return $this->thread;
     }
+
+
+
+    /**
+     * Set zip
+     *
+     * @param string $zip
+     *
+     * @return Theme
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    /**
+     * Get zip
+     *
+     * @return integer
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
 }
 

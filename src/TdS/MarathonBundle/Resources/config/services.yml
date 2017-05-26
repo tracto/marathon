@@ -18,3 +18,10 @@ services:
         class:  TdS\MarathonBundle\Services\TdSHotfresh
         arguments: [ @doctrine.orm.entity_manager]
 
+
+
+    string.toolbox:
+        class:  TdS\MarathonBundle\Services\StringToolbox
+        
+
+

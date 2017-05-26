@@ -272,9 +272,21 @@
 
 
 					<div class="flex flex-auto flex-wrap pt2" data-id="playlist-footer">
-						<a class="creativec-lien" href="http://creativecommons.org/licenses/by-sa/4.0/">
-								<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
-						</a>
+
+						<div class="flex flex-auto flex-wrap justify-between mb2">
+							<a class="creativec-lien" href="http://creativecommons.org/licenses/by-sa/4.0/">
+									<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
+							</a>
+							{% if theme.zip is not null or theme.zip is defined %}
+								{% set zipwebpath = "uploads/compils/" ~ theme.zip ~ ".zip" %}			
+								<a class="button button-action" href="{{ asset(zipwebpath) }}">
+									<svg class="icon icon--xs "><use xlink:href="#icon-upload"></use></svg>
+									<span class="db">Télécharger la compil</span>								
+								</a>
+							{% endif %}
+						</div>
+
+
 
 						{% if is_granted("ROLE_SUPER_ADMIN") or (is_granted("ROLE_USER") and  theme.statut == 1 and app.user.joggeur is not empty) %}					
 							{% if joggeurInMusicList is null %}
