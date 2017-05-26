@@ -1940,6 +1940,9 @@ button{
 	height:20px;
 }
 
+.footer-creditskm{
+	height:120px;
+}
 
 .footer-kilometrage{
 	bottom:35px;
@@ -1959,8 +1962,8 @@ button{
 	background-size:100%;
 	display:block;
 	margin:0 auto;
-	width:68px;
-	height:100px;
+	width:80px;
+	height:114px;
 	top:0;
 }
 
