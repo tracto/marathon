@@ -123,9 +123,12 @@
 							    </a>
 							    <span class="dib v-mid pt1">commentaires</span>						
 							</div>
+						</div>
 
+
+						<div class="w-100 bg-ms-turquoise">
 							{% if is_granted("ROLE_SUPER_ADMIN") %}
-								<div class="pa3 absolute right-0 top-0">
+								<div class="pa3">
 									<a class="button btn btn-action mtm" href="{{ path('tds_marathon_theme_edit', {'id': theme.id}) }}">
 							  			<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 							  			<span class="btn__label">Modifier le thème</span>
@@ -135,18 +138,19 @@
 
 
 							{% if is_granted("ROLE_USER") and theme.statut == 0 and theme.joggeur == app.user.joggeur %} 
-								<a class="button absolute right-0 top-0" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': theme.id}) }}">
+								<a class="button" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': theme.id}) }}">
 					  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 					  				<span class="">Modifier le thème d'attente</span>
 								</a>					
-							{% endif %}						
-						</div>
+							{% endif %}	
+						</div>					
+						
 						{# fin header (infos) du thème #}
 
 						{# image du thème #}
 						<div class="">
 							{% if theme.image is not null %}
-								<img class="img-aspect-ratio db w-100" src="{{ theme.image.webPath  | imagine_filter('big_image') }}" alt="{{ theme.image.alt }}">
+								<img class="img-aspect-ratio db w-100 bg-white" src="{{ theme.image.webPath  | imagine_filter('big_image') }}" alt="{{ theme.image.alt }}">
 							{% endif %}
 						</div>
 						{# fin image du thème #}
@@ -264,7 +268,7 @@
 					{% set joggeurInMusicList = null %}
 					{% if app.user.joggeur is defined %}
 						{% for musicTitle in theme.musicTitles %}
-							 {% if musicTitle.joggeur == app.user.joggeur %}
+							 {% if musicTitle.joggeur.id == app.user.joggeur.id %}
 								{% set joggeurInMusicList = 1 %}
 							{% endif %}
 						{% endfor %}
@@ -277,7 +281,9 @@
 							<a class="creativec-lien" href="http://creativecommons.org/licenses/by-sa/4.0/">
 									<img src="{{ asset('bundles/tdsmarathon/images/icons/creativecommons-by-sa.svg') }}" alt="creative commons"/>
 							</a>
-							{% if theme.zip is not null or theme.zip is defined %}
+							{% set zipwebpath = "" %}
+							{% if theme.zip is not null and theme.zip is defined and theme.zip is not empty %}
+								
 								{% set zipwebpath = "uploads/compils/" ~ theme.zip ~ ".zip" %}			
 								<a class="button button-action" href="{{ asset(zipwebpath) }}">
 									<svg class="icon icon--xs "><use xlink:href="#icon-upload"></use></svg>
@@ -377,17 +383,6 @@
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 	{% import "TdSCoreBundle:Macros:loader.html.twig" as loaderModule %}
 
-	{# {% set joggeurPrec = null %}
-	{% set joggeurSuiv = null %}
-	{% if joggeursPrecSuiv is not null %} 
-		{% for joggeurPrecSuivItem in joggeursPrecSuiv %}
-			{% if loop.index == 1 %}
-				{% set joggeurPrec = joggeurPrecSuivItem %}
-			{% elseif loop.index == 2 %}
-				{% set joggeurSuiv = joggeurPrecSuivItem %}
-			{% endif %}
-		{% endfor %}
-	{% endif %} #}
 
 	{% if autoplay is null or autoplay is not defined %}
 		{% set autoplay = "false" %}
@@ -466,7 +461,7 @@
 
 
 						{# image du joggeur #}
-						<div class="playlist-header-image w-100 min-h-100">
+						<div class="playlist-header-image w-100 min-h-100 bg-white">
 							{% if joggeur.image is not null %}
 								<img class="w-100 db min-h-100" src="{{ joggeur.image.webPath  | imagine_filter('big_image') }}" alt="{{ joggeur.image.alt }}">
 							{% else %}
@@ -572,7 +567,7 @@
 
 					{% if is_granted("ROLE_SUPER_ADMIN") %}
 
-						<div class="flex flex-auto flex-wrap justify-end" data-id="playlist-footer">
+						<div class="flex flex-auto justify-end mb3" data-id="playlist-footer">
 							<div class="flex-item tr pa3 bg-black-50 white">
 								<span>Nombre total de morceaux : {{ joggeur.musicTitles.count }}</span>
 							</div>

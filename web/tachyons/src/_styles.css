@@ -1332,9 +1332,9 @@ button{
 .theme-nav-infos_left{	
 	height:50px;
 	top:0;
-	left:-250px;
+	left:-450px;
 	overflow:hidden;
-	transition:left 0.5s linear;
+	transition:left 0.3s linear;
 }
 
 .theme-nav-infos_left.active{
@@ -1346,9 +1346,9 @@ button{
 .theme-nav-infos_right{	
 	height:50px;
 	top:0;
-	right:-250px;
+	right:-450px;
 	overflow:hidden;
-	transition:right 0.5s linear;
+	transition:right 0.3s linear;
 }
 
 .theme-nav-infos_right.active{

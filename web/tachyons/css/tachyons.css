@@ -2239,9 +2239,9 @@ button { cursor: pointer; }
 .playlist-item-wrapper.jp-playlist-current .jp-numero { color: #13191b; }
 .playlist-fleches { top: -20px; }
 .playlist-fleche { width: 50px; height: 50px; }
-.theme-nav-infos_left { height: 50px; top: 0; left: -250px; overflow: hidden; transition: left .5s linear; }
+.theme-nav-infos_left { height: 50px; top: 0; left: -450px; overflow: hidden; transition: left .3s linear; }
 .theme-nav-infos_left.active { left: 0; }
-.theme-nav-infos_right { height: 50px; top: 0; right: -250px; overflow: hidden; transition: right .5s linear; }
+.theme-nav-infos_right { height: 50px; top: 0; right: -450px; overflow: hidden; transition: right .3s linear; }
 .theme-nav-infos_right.active { right: 0; }
 /* SCORES / General */
 .score-miniblock_vertical { padding-left: 2px; }
