@@ -28,11 +28,7 @@
 			</svg>
 		</label>
 
-		{# <select class="mobile-nav">
-			<option>coucou</option>
-			<option>coucou</option>
-			<option>coucou</option>
-		</select> #}
+		
 
 		<div class="flex-ns flex-auto-ns flex-wrap-ns justify-between-ns w-100">
 			<nav class="navbar-header self-center">
@@ -71,7 +67,7 @@
 
 				  		</a>
 				  		<audio id="audio" >
-    						<source src="../bundles/tdsmarathon/sounds/lawandorder-sound.mp3" type="audio/mpeg" />    
+    						<source src="{{ asset('bundles/tdsmarathon/sounds/lawandorder-sound.mp3') }}" type="audio/mpeg" />    
 						</audio>
 	            	</li>		            	           		            	
 				</ul>
@@ -91,7 +87,7 @@
 
     {# PARTIE 2 / header bg +logo + saison #}				
 	<div class="hero logo-wrapper dt w-100 center cover bg-center" style="background-image: url('{{ cssbg }}');">
-		<div class="dtc v-mid relative">
+		<div class="dtc v-mid relative pt5">
 			<img class="main-logo tc center db" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
 
 			
@@ -109,7 +105,7 @@
 					{% elseif saison.statut == 2 %}
 						{% set statut = "terminée" %}
 					{% endif %}
-					<h3 class="pa0 ma0 new-rocker">{{ statut }}</h3>
+					<h3 class="pa0 ma0 garamond">{{ statut }}</h3>
 				</div>
 
 				{% set hotFresh = hotfreshService.showContent() %} 
@@ -120,13 +116,13 @@
   						{{ render(controller('TdSCoreBundle:Core:EditHotfresh', {request: app.request,id:1})) }}
 					</div>
 				{% endif %}
-				<div id="hotfresh-inner" class="tc">
-						<div class="hotfresh-content bg-black ms-vert pv2 ph3 dib code f7"> 
-							{{ hotFresh.content }} 
+				<div id="hotfresh-inner" class="tc flex flex-auto flex-wrap-ns mh2 mh0-ns justify-center">
+						<div class="hotfresh-content bg-black ms-vert pv2 ph3 code f7 flex"> 
+							<span class="self-center">{{ hotFresh.content }}</span>
 						</div>
 						{% if is_granted("ROLE_SUPER_ADMIN") %}
-						<a class="button btn-action dib pa2" data-action="show-hotfresh-form" href="#">
-		  					<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
+						<a class="button btn-action pa2" data-action="show-hotfresh-form" href="#">
+		  					<svg class="icon icon--xs icon-pencil"><use xlink:href="#icon-pencil"></use></svg>	
 						</a>					
 					{% endif %}
 					</div>

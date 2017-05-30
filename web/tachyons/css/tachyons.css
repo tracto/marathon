@@ -2089,28 +2089,6 @@ code, .code { font-family: Consolas, monaco, monospace; }
 html { box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
 a { color: inherit; }
-/*@media (--breakpoint-medium){
-	body{
-		border:solid 1px red;
-
-	}
-}
-
-
-@media (--breakpoint-small-medium){
-	body{
-		border:solid 1px blue;
-
-	}
-}
-
-
-@media (--breakpoint-large){
-	body{
-		border:solid 1px green;
-
-	}
-}*/
 /*detection du device pour le js*/
 #device { display: block; }
 input:focus { outline: solid 1px #fd6274; }
@@ -2118,6 +2096,8 @@ select:focus { outline: solid 1px #fd6274; }
 textarea:focus { outline: solid 1px #fd6274; }
 button:focus { outline: solid 1px #fd6274; }
 input[type='submit']:focus { outline: none; }
+.pointerevents-none { pointer-events: none; }
+.pointerevents-all { pointer-events: all; }
 .wrapper { min-height: 50vh; width: 100%; }
 .wrapper .container-center { margin: 0 auto; max-width: 1440px; background-color: rgba( 217, 239, 231, .5 ); border: solid $grey4; border-width: 0 1px 0 1px; width: 100%; }
 .container-border-left { background-image: url( '../../bundles/tdsmarathon/images/motif-border-g.png' ); background-repeat: repeat-y; background-position-x: right; }
@@ -2144,7 +2124,8 @@ input[type='submit']:focus { outline: none; }
 /*HEADER*/
 .hero { max-height: 70vh; overflow: hidden; }
 .nav-toggler { position: absolute; top: -1000px; }
-.nav-toggler__label { position: fixed; top: 0; left: 0; z-index: 10000; width: 40px; height: 40px; padding: 10px 6px; margin: 0; cursor: pointer; }
+.nav-toggler__label { position: fixed; top: 0; left: 0; /*z-index:10000;*/ width: 100%; height: 40px; padding: 10px 6px; margin: 0; cursor: pointer; }
+.nav-toggler__label svg { width: 30px; }
 .nav-toggler:checked +  .nav-toggler__label { color: rgba( 0, 0, 0, .25 ); }
 .nav-toggler:checked ~ div nav.navbar-header ul { display: block; }
 select.mobile-nav { width: 40px; height: 40px; position: absolute; top: 0; left: 0; background: url( data:image/svg+xml,%3Csvg%20%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20version%3D%221.1%22%20%20viewBox%3D%220%200%2032%2032%22%3E%0A%09%09%09%20%20%3Cpath%20fill%3D%22white%22%20d%3D%22M0%200v3h32v-3h-32zm0%2010v3h32v-3h-32zm0%2010v3h32v-3h-32z%22/%3E%0A%09%09%09%3C/svg%3E ) no-repeat center/60%; font-size: 0; }
@@ -2160,12 +2141,12 @@ select.mobile-nav { width: 40px; height: 40px; position: absolute; top: 0; left:
 .button-lois { position: absolute; top: 100%; margin-top: 100px; }
 .navbar-first li.button-lois { line-height: 20px; }
 .button-lois a { border: outset 1px white; }
-.hero .saison-title { bottom: 130px; font-family: Metal Mania, cursive; font-size: 2rem; font-weight: 100; line-height: 0; width: 100%; }
+.hero .saison-title { bottom: 130px; font-family: Metal Mania, cursive; font-size: 2.5rem; font-weight: 100; line-height: 0; width: 100%; }
 .hero .saison-title h1 { margin: 0 auto; }
 .saison-title-shadow { color: black; position: absolute; width: 100%; line-height: 6rem; text-shadow: -1px -1px 5px black; -webkit-text-stroke: #000 1px; }
 .saison-title-gradient { background-image: -webkit-linear-gradient( #fffc00 20%, #f64aaa 65%, #c982d8 80% ); -webkit-background-clip: text; z-index: 1; position: absolute; width: 100%; line-height: 6rem; -webkit-text-fill-color: rgba( 0, 0, 0, 0 ); }
-.hero .saison-title h3 { position: relative; z-index: 2; color: #c982d8; top: 82px; font-size: 2.5rem; text-shadow: 0 0 1px #000; -webkit-text-stroke: .2px rgba( 0, 0, 0, .7 ); }
-.hero .hotfresh-wrapper { bottom: 190px; }
+.hero .saison-title h3 { position: relative; text-transform: uppercase; z-index: 2; color: #c982d8; top: 82px; font-size: 1.5rem; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+.hero .hotfresh-wrapper { bottom: 50px; }
 .hero .hotfresh-inner .button { max-height: 30px; padding: .2rem; }
 /* BUTTONS */
 button { cursor: pointer; }
@@ -2346,9 +2327,10 @@ button { cursor: pointer; }
 /*FOOTER*/
 .footer-wrapper { min-height: 200px; box-shadow: 0 -4px 26px rgb( 1, 73, 146 ); border-top: solid 1px #292135; }
 .sep-herbe { background-repeat: repeat-x; height: 20px; }
+.footer-creditskm { height: 120px; }
 .footer-kilometrage { bottom: 35px; }
 .kilometrage-wrapper { position: absolute; width: 100%; bottom: 20px; }
-.kilometrage-borne span { background-image: url( '../../bundles/tdsmarathon/images/footer/footer-borne-km.png' ); background-repeat: no-repeat; background-size: 100%; display: block; margin: 0 auto; width: 68px; height: 100px; top: 0; }
+.kilometrage-borne span { background-image: url( '../../bundles/tdsmarathon/images/footer/footer-borne-km.png' ); background-repeat: no-repeat; background-size: 100%; display: block; margin: 0 auto; width: 80px; height: 114px; top: 0; }
 .footer-button { border: outset 1px white; z-index: 1; }
 .footer-joggeurs { width: 100%; pointer-events: none; }
 .jog { position: absolute; background-repeat: no-repeat; background-size: 100%; width: 60px; height: 100px; }
@@ -3308,12 +3290,13 @@ button { cursor: pointer; }
  .word-wrap-m { word-break: break-all; }
  .word-nowrap-m { word-break: keep-all; }
  .hero { background-position: 50% 40px; }
- .navbar-second ul { margin-left: -0.7rem; }
+ .navbar-first li { cursor: pointer; min-width: 6rem; }
  .navbar-header_saison span {/*padding-right:0.5rem;*/ }
  .hero .logo-wrapper { max-width: 28rem; }
  .hero .main-logo { margin-top: 60px; }
- .hero .saison-title { font-size: 2rem; }
- .hero .hotfresh-wrapper { bottom: 180px; }
+ .hero .saison-title { font-size: 2.5rem; }
+ .hero .saison-title h3 { font-size: 1.5rem; }
+ .hero .hotfresh-wrapper { bottom: 50px; }
  .icon--xxs-m { width: 10px; height: 10px; }
  .icon--xs-m { width: 20px; height: 20px; }
  .icon--s-m { width: 30px; height: 30px; }
@@ -3740,11 +3723,11 @@ button { cursor: pointer; }
  .word-normal-l { word-break: normal; }
  .word-wrap-l { word-break: break-all; }
  .word-nowrap-l { word-break: keep-all; }
- .navbar-first li { cursor: pointer; min-width: 6rem; }
+ .navbar-first li { min-width: 6rem; }
  .hero .logo-wrapper { max-width: 32rem; }
  .hero .saison-title { font-size: 3rem; }
- .hero .saison-title h3 { top: 100px; }
- .hero .hotfresh-wrapper { bottom: 40px; }
+ .hero .saison-title h3 { top: 100px; font-size: 2rem; }
+ .hero .hotfresh-wrapper { bottom: 30px; }
  .icon--xxs-l { width: 10px; height: 10px; }
  .icon--xs-l { width: 20px; height: 20px; }
  .icon--s-l { width: 30px; height: 30px; }
