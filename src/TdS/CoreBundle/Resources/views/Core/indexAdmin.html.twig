@@ -66,9 +66,12 @@
 
 							{{ PIchronique.chronique(allThemes) }}
 
-							<div class="pa3 bt b--black-30">
-								<a class="button button-action center db" href="{{ path('tds_marathon_theme_compils_view') }}">les compils</a>
-							</div>								
+							{% if is_granted("ROLE_SUPER_ADMIN") %}
+								<div class="pa3 bt b--black-30 pb4">
+									<h4 class="fw4 ma0 mb3 pa0 f5">Compils</h4>
+									<a class="button button-action center" href="{{ path('tds_marathon_theme_compils_view') }}">voir la liste des compils</a>
+								</div>
+							{% endif %}								
 
 						</div>			
 					</div>

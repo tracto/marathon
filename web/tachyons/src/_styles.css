@@ -50,6 +50,12 @@ input[type='submit']:focus {
 	pointer-events:all;
 }
 
+@media (--breakpoint-not-small){
+	.pointerevents-all-ns{
+		pointer-events:all;
+	}
+}
+
 
 .wrapper{
 	min-height:50vh;
@@ -1106,7 +1112,7 @@ button{
 	background-size:100%;
 	width: 90%;
     max-width: 590px;
-    height: 100px;
+    height: 80px;
     padding: 0;
     margin: 1rem auto 0 auto;
 }
@@ -1114,13 +1120,14 @@ button{
 @media (--breakpoint-not-small){
 	.ms-title_framed{
 		padding: 4rem;
+		height: 120px;
 	    margin: 2rem auto;
 	}
 }
 
 @media (--breakpoint-small-medium){
 	.ms-title_framed{
-		padding: 4rem;
+		padding: 3rem;
 	}
 }
 
@@ -1132,8 +1139,8 @@ button{
 
 .ms-title_framed h2{
 	font-family: 'Metal Mania', cursive;
-	font-size:2rem;
-	margin-top:-2rem;
+	font-size:2.5rem;
+	margin-top:-1rem;
 }
 
 @media (--breakpoint-not-small){ 

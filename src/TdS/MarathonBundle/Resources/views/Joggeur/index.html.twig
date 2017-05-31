@@ -8,7 +8,7 @@
 	<div class="pb4">
 
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
-			<div class="">
+			<div class="pt3">
 				<a class="button" href="{{ path('tds_marathon_joggeur_add') }}" >
 					<svg class="icon icon--xs"><use xlink:href="#icon-plus"></use></svg>
 					<span>Ajouter un joggeur</span>
@@ -17,8 +17,8 @@
 		{% endif %}
 
 		<div class="w-60-ns center tc">
-			<div class="ms-title pb3 flex-1">					
-		    	<h2><span class=""><span class="db pa3 ">Les joggeurs</span></span></h2>	
+			<div class="ms-title pt4 pb5 flex-1">					
+		    	<h2><span class="db">Les joggeurs</span></h2>	
 		    </div>
 		</div>
 						    

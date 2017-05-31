@@ -42,7 +42,7 @@ security:
         - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/dashboard, roles: ROLE_USER }
-        - { path: ^/joggeur/add, roles: ROLE_USER } 
+        - { path: ^/joggeur/add/, roles: ROLE_ADMIN } 
         - { path: ^/joggeur/edit/, roles: ROLE_USER }
         - { path: ^/joggeur/addpoints/, roles: ROLE_USER }
         - { path: ^/joggeur/delete/, roles: ROLE_ADMIN }
@@ -51,11 +51,9 @@ security:
         - { path: ^/theme/delete/, roles: ROLE_ADMIN }
         - { path: ^/theme/switch, roles: ROLE_ADMIN }
         - { path: ^/theme/addchronique/, roles: ROLE_USER }
-
         - { path: ^/theme/editchronique/, roles: ROLE_USER } 
         - { path: ^/theme/compils/view/, roles: ROLE_ADMIN } 
         - { path: ^/theme/compil/create/, roles: ROLE_ADMIN } 
-
         - { path: ^/joggeurs/classement/, roles: ROLE_USER }
         - { path: ^/saisons, roles: ROLE_ADMIN }
         - { path: ^/saison/switch, roles: ROLE_ADMIN }

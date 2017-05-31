@@ -34,7 +34,7 @@ class Joggeur
     /**
      * @var string
      *
-     * @ORM\Column(name="presentation", type="text")
+     * @ORM\Column(name="presentation", type="text",nullable=true)
      */
     private $presentation;
 

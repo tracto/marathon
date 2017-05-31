@@ -1,7 +1,7 @@
 {% macro userpanel(saisonCurrent,joggeurScoreSaison) %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
-	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pb1 pr1  pt0-ns pr0-ns relative pointerevents-none">
+	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pb1 pr1  pt0-ns pr0-ns relative pointerevents-none pointerevents-all-ns">
   	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
 	  	{% if app.user.joggeur is defined and app.user.joggeur is not empty %}	  	
 			<div class="author-name self-center justify-end-m pr2 tr w-85-m">
@@ -68,7 +68,9 @@
 			{% endif %}
 			
 	    {% else %}
-	       <a class="button-connexion no-underline near-black tc" href="{{ path('fos_user_security_login') }}">Connexion</a>		
+		    <div class="mt3-ns">
+		       <a class="button-connexion no-underline near-black tc" href="{{ path('fos_user_security_login') }}">Connexion</a>
+		    </div>		
 	    {% endif %}
 
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined and app.user.joggeur is not empty %}

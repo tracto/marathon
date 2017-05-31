@@ -2207,8 +2207,8 @@ button { cursor: pointer; }
 .ms-title_turfu .turfu-apple span { display: block; background-image: url( '../../bundles/tdsmarathon/images/turfu-apple.jpg' ); background-repeat: no-repeat; width: 36px; height: 100%; margin: 0 auto; }
 .ms-title_turfu .turfu-netscape { background-image: url( '../../bundles/tdsmarathon/images/turfu-netscape.jpg' ); background-repeat: no-repeat; width: 88px; height: 31px; margin: 0 auto 20px auto; }
 .ms-title_turfu .turfu-ie { background-image: url( '../../bundles/tdsmarathon/images/turfu-ie.jpg' ); background-repeat: no-repeat; width: 88px; height: 31px; margin: 20px auto 0 auto; }
-.ms-title_framed { background-image: url( '../../bundles/tdsmarathon/images/frame-saison.png' ); background-repeat: no-repeat; background-size: 100%; width: 90%; max-width: 590px; height: 100px; padding: 0; margin: 1rem auto 0 auto; }
-.ms-title_framed h2 { font-family: 'Metal Mania', cursive; font-size: 2rem; margin-top: -2rem; }
+.ms-title_framed { background-image: url( '../../bundles/tdsmarathon/images/frame-saison.png' ); background-repeat: no-repeat; background-size: 100%; width: 90%; max-width: 590px; height: 80px; padding: 0; margin: 1rem auto 0 auto; }
+.ms-title_framed h2 { font-family: 'Metal Mania', cursive; font-size: 2.5rem; margin-top: -1rem; }
 .ms-title_framed .joggeur-cd-g { background-image: url( '../../bundles/tdsmarathon/images/joggeur-cd-g.png' ); background-repeat: no-repeat; background-size: 100%; width: 121px; height: 71px; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
 .ms-title_framed .joggeur-cd-d { background-image: url( '../../bundles/tdsmarathon/images/joggeur-cd-d.png' ); background-repeat: no-repeat; background-size: 100%; width: 121px; height: 71px; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
 .ms-subtitle { font-family: 'New Rocker', cursive; color: #13191b; font-size: 1.5rem; /*margin:1rem 0 0 0;*/ }
@@ -2527,6 +2527,7 @@ button { cursor: pointer; }
  .inline-flex-ns { display: -ms-inline-flexbox; display: inline-flex; }
  .flex-auto-ns { -ms-flex: 1 1 auto; flex: 1 1 auto; min-width: 0; /* 1 */ min-height: 0; /* 1 */ }
  .flex-0-ns { -ms-flex: 0 0 auto; flex: 0 0 auto; }
+ .flex-1-ns { -ms-flex: 1; flex: 1; }
  .flex-none-ns { -ms-flex: none; flex: none; }
  .flex-column-ns { -ms-flex-direction: column; flex-direction: column; }
  .flex-row-ns { -ms-flex-direction: row; flex-direction: row; }
@@ -2842,6 +2843,7 @@ button { cursor: pointer; }
  .word-wrap-ns { word-break: break-all; }
  .word-nowrap-ns { word-break: keep-all; }
  #device { display: none; }
+ .pointerevents-all-ns { pointer-events: all; }
  .nav-toggler__label { display: none; }
  .navbar-first > li { line-height: 60px; }
  .navbar-first li {/*min-width: 4rem;*/ cursor: pointer; }
@@ -2862,7 +2864,7 @@ button { cursor: pointer; }
  .ms-title_turfu .turfu-apple { margin: -20px 0 20px 0; }
  .ms-title_turfu .turfu-apple span { display: inline-block; margin: 0; }
  .ms-title_turfu .turfu-ie, .ms-title_turfu .turfu-netscape { margin: 0; }
- .ms-title_framed { padding: 4rem; margin: 2rem auto; }
+ .ms-title_framed { padding: 4rem; height: 120px; margin: 2rem auto; }
  .ms-title_framed h2 { font-size: 3rem; margin-top: 0; }
  .fos_comment_comment_show:before { left: -69px; width: 45px; }
  .fos_comment_comment_depth_0 { margin-left: 0; }
@@ -3763,7 +3765,7 @@ button { cursor: pointer; }
  .w-third-sm { width: calc( 100% / 3 ); }
  .w-two-thirds-sm { width: calc( 100% / 1.5 ); }
  .w-auto-sm { width: auto; }
- .ms-title_framed { padding: 4rem; }
+ .ms-title_framed { padding: 3rem; }
  .saison-liste_image { margin-bottom: .5rem; }
 }
 

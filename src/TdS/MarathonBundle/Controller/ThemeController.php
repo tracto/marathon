@@ -46,11 +46,14 @@ class ThemeController extends Controller{
 
 
     public function viewAction(Request $request, Theme $theme, $id, $autoplay="false"){
+    	$em = $this->getDoctrine()->getManager();
+    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    			->findOneThemeById($id);
+	    $em->clear();
+
     	if ($theme->getStatut() != 0 || ($theme->getStatut() == 0 && $this->getUser() == $theme->getJoggeur()->getUser())){
-	    	$em = $this->getDoctrine()->getManager();
 	    	
-
-
+	    	
 	    	// $theme=$em->getRepository('TdSMarathonBundle:Theme')
 	    	// 		->findOneThemeById($id); 
 
@@ -98,9 +101,7 @@ class ThemeController extends Controller{
 	                          ->findOneThemeById($idThemeSuiv);
 
 	        
-	    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
-	    			->findOneThemeById($id);
-	    	$em->clear();
+	    	
 
 	        $tdsScoring = $this->container->get('tds_marathon.scoring');
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfTheme($theme);
@@ -168,10 +169,15 @@ class ThemeController extends Controller{
     }
 
     public function editAction(Request $request, Theme $theme, $id){
-    	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $theme->getJoggeur()->getUser() ){
-	    	$em=$this->getDoctrine()->getManager();
+    	$em=$this->getDoctrine()->getManager();
 
-		  	$statut=$theme->getStatut();
+    	$theme=$em->getRepository('TdSMarathonBundle:Theme')
+	    			->findOneThemeById($id);
+
+    	$statut=$theme->getStatut();
+
+    	if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER') && $this->getUser() == $theme->getJoggeur()->getUser())){
+	    			  	
 		  	$form=$this->createForm(new ThemeEditType(),$theme, array('statut' => $statut));
 
 		  	if($form->handleRequest($request)->isValid()){

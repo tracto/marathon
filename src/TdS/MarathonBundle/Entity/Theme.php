@@ -127,7 +127,7 @@ class Theme
      /**
      * @var string
      *
-     * @ORM\Column(name="zip", type="string", length=255)
+     * @ORM\Column(name="zip", type="string", length=255, nullable=true)
      */
     private $zip;
 

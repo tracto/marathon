@@ -85,6 +85,10 @@
     flex:0 0 auto;
   }
 
+  .flex-1-ns{
+    flex:1;
+  }
+
   .flex-none-ns { flex: none; }
   .flex-column-ns { flex-direction: column; }
   .flex-row-ns     { flex-direction: row; }

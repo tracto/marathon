@@ -196,7 +196,7 @@ class TdSScoring {
             if(empty($joggeurDuTheme->getJoggeurScore())){
                 $joggeurScore= new JoggeurScore;
                 $joggeurDuTheme->setJoggeurScore($joggeurScore); 
-                $em->persist($joggeurDuTheme);              
+                $this->em->persist($joggeurDuTheme);              
             }
 
              if(empty($joggeurScore->getJoggeur())){

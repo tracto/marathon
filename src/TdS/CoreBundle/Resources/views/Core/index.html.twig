@@ -72,7 +72,7 @@
 
 						<div class='flex flex-auto flex-wrap justify-center'>	
 						    {% for theme in listeDernThemes %}
-						    	{% if theme is defined and theme is not null and theme != currentTheme %}
+						    	{% if theme is defined and theme is not null and theme != currentTheme and theme.statut != 0 %}
 						    		<div class="{{ classThemeItem }} pa2"> {# w-100 w-50-ns #} 
 						      			{{ vignetteModule.vignette_theme(theme) }}
 						      		</div>
@@ -170,13 +170,13 @@
 
 	{# PARTIE 2 / classement + actus #}
 	<div class="flex flex-auto flex-wrap">
-		<div class="flex-item w-100 w-100-sm w-50-ns bg-ms-light-violet pa3 pa4-l">
-			<div class="flex flex-auto flex-wrap mb3">
-				<svg class="icon icon--l icon--m-m icon--l-l db w-100 center tc w-auto-ns flex-0 fill-near-black mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
-				<div class="ms-title ms-title_spikes flex-0 flex-1-ns w-100">					
+		<div class="w-100 w-100-sm w-50-ns bg-ms-light-violet pa3 pa4-l">
+			<div class="flex flex-auto w-100 mb3">
+				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-20-ns center tc w-auto-ns fill-near-black mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
+				<div class="ms-title ms-title_spikes flex-0 flex-1-ns w-60">					
 			    	<h2 class="mt0"><span class="bg-ms-light-violet">Classement</span></h2>			    	
 			    </div>
-			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
+			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3 w-20-ns"><use xlink:href="#icon-cup"></use></svg>
 			</div>
 
 			{% if listeJoggeursScore|length >= 3 %} 										

@@ -1,7 +1,7 @@
 {% macro theme(saison, theme, draftmodeTheme, joggeurForDraftmodeTheme) %}
 	{% if saison is defined and saison is not null %}
 		<div class="pa3">			
-			<div class="ph2 pv3">
+			<div class="">
 				<h4 class="fw4 ma0 pa0 f5">Thème en attente</h4>									
 					{% if is_granted("ROLE_SUPER_ADMIN")  %}
 						{% if draftmodeTheme is not null %}
@@ -9,7 +9,7 @@
 								<svg class="icon icon--s icon-checkmark dib v-mid"><use xlink:href="#icon-checkmark"></use></svg>
 								<span class="dib v-mid">Il y a un thème en attente</span>
 							</div>
-							{% if draftmodeTheme.joggeur == app.user.joggeur %}
+							{% if joggeurForDraftmodeTheme == app.user.joggeur %}
 								<a class="button" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': draftmodeTheme.id}) }}">
 										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 										<span class="">Modifier le thème d'attente</span>
@@ -61,21 +61,25 @@
 	    			{% elseif is_granted("ROLE_USER")  %}
 	    				<div class="">
 	    				{% if joggeurForDraftmodeTheme is not null %}
-	        				{% if app.user.joggeur == joggeurForDraftmodeTheme %}
-	        					{% if draftmodeTheme is not defined or draftmodeTheme.statut is not null or draftmodeTheme.statut != 0 %} 
-	        						<div class="mv2">
-	        							<svg class="icon icon--s icon-warning fill-near-black dib v-mid"><use xlink:href="#icon-warning"></use></svg>
-	        							<strong class="f5">Tu es l'élu !</strong><br/> 
+	        				{% if app.user.joggeur.id == joggeurForDraftmodeTheme.id %}
+	        					{% if draftmodeTheme is not defined or draftmodeTheme is null %} 
+	        						<div class="mv2 tc">
+	        							
+	        							<div class="w-100 pt2">
+											<img src="{{ '../bundles/tdsmarathon/images/gifs/jesus-pentecote.gif' }}" alt="">
+										</div>
+										<svg class="icon icon--m icon-warning fill-near-black dib v-mid"><use xlink:href="#icon-warning"></use></svg>
+	        							<strong class="f4">Tu es l'élu !</strong><br/> 
 	        							C'est à toi de proposer le prochain thème.
 	        						</div>
-	        						<div class="pull-right">
-		        						<a class="button dib"  href="{{ path('tds_marathon_theme_add_draftmode') }}">
+	        						<div class="w-100">
+		        						<a class="button db tc center"  href="{{ path('tds_marathon_theme_add_draftmode') }}">
 												<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 												<span class="btn__label">Ecrire un thème d'attente</span>
 										</a>
 									</div>
-								{% elseif draftmodeTheme is defined and draftmodeTheme.statut == 0 %}
-									{% if draftmodeTheme.joggeur == app.user.joggeur %}
+								{% else %}
+									{% if joggeurForDraftmodeTheme == draftmodeTheme.joggeur %}
 										
 										<div class="mv2">
 	        								<svg class="icon icon--s icon-warning fill-near-black dib v-mid"><use xlink:href="#icon-warning"></use></svg>
@@ -84,7 +88,7 @@
 	        							</div>
 
 		        							
-		        						<div class="fr mv2">
+		        						<div class="mv2">
 											<a class="button dib" href="{{ path('tds_marathon_theme_edit_draftmode', {'id': draftmodeTheme.id}) }}">
 		  										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 		  										<span class="">Modifier le thème d'attente</span>
@@ -94,7 +98,7 @@
 										<div class="mv2">
 	        								<svg class="icon icon--s icon-warning fill-near-black dib v-mid"><use xlink:href="#icon-warning"></use></svg>
 	        								<strong class="f5">Tu es l'élu !</strong><br/> 
-	        								Mais Bob marathon t'as devancé et a écris le thème d'attente à ta place, va savoir pourquoi.
+	        								Mais Bob marathon t'a devancé et a écrit le thème d'attente à ta place, vas savoir pourquoi.
 	        							</div>
 										
 									{% endif %}
@@ -118,8 +122,8 @@
 				<h4 class="fw4 ma0 pa0 f5">Thème en Cours</h4>								
 				{% if theme is defined and theme is not null %}
 						<div class='closeTheme-wrapper'>
-		        			<a id="closeTheme-grosBouton" data-action="switch-show-brief" class='button-switch no-underline flex flex-auto flex-wrap justify-center' href="#">
-		        				<svg class="icon icon--l icon-toggle dib v-mid"><use xlink:href="#icon-toggle"></use></svg>
+		        			<a id="closeTheme-grosBouton" data-action="switch-show-brief" class='button-switch no-underline flex flex-auto  justify-center' href="#">
+		        				<svg class="icon icon--xl icon--l-ns icon-toggle"><use xlink:href="#icon-toggle"></use></svg>
 		        				<span class="bg-near-black ms-fushia self-center">Gros bouton qui ferme le thème pour toujours</span>
 		        			</a>
 		        			

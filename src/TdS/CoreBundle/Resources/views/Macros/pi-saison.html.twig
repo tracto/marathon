@@ -4,8 +4,8 @@
 				<div class="pa3 bb b--black-30 tc f5">Saison en cours : {{ saison.titre }}</div>
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
 					<div class='closeSaison-wrapper pa3'>
-	        			<a id="closeSaison-grosBouton" data-action="show-brief-saison" class=' button-switch no-underline flex flex-auto flex-wrap justify-center' href="#">
-	        				<svg class="icon icon--l icon-toggle "><use xlink:href="#icon-toggle"></use></svg>	
+	        			<a id="closeSaison-grosBouton" data-action="show-brief-saison" class=' button-switch no-underline flex flex-auto justify-center' href="#">
+	        				<svg class="icon icon--xl icon--l-ns icon-toggle "><use xlink:href="#icon-toggle"></use></svg>	
 	        				<span class="bg-near-black ms-fushia self-center">Gros bouton qui ferme la saison pour toujours</span>
 	        			</a>
 	        			<div id="closeSaison-brief" class="dn">

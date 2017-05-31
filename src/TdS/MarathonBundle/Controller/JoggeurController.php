@@ -196,8 +196,12 @@ class JoggeurController extends Controller{
     
 
     public function editAction(Joggeur $joggeur, $id, Request $request){
-      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
-      	$em=$this->getDoctrine()->getManager();	
+      $em=$this->getDoctrine()->getManager(); 
+      $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
+                    ->findJoggeurById($id);
+      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser()){
+        
+      	
       	$form = $this->createForm(new JoggeurEditType(), $joggeur);
 
       	$form->handleRequest($request);
@@ -253,12 +257,14 @@ class JoggeurController extends Controller{
 
 
     public function addpointsAction(Joggeur $joggeur, $id, Request $request){
-      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
-      	   $em=$this->getDoctrine()->getManager();
+      $em=$this->getDoctrine()->getManager(); 
+      $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
+                    ->findJoggeurById($id);
 
-          $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
-                             // ->findOneBy(array('id' => $id));
-                             ->findJoggeurById($id);
+      print_r($joggeur->getUser()->getId());
+      print_r("yo<br/>");
+      if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
+      	  
 
           $tdsSaison = $this->container->get('tds_marathon.saison');
           $saison=$tdsSaison->getCurrSaison();
@@ -266,6 +272,8 @@ class JoggeurController extends Controller{
       	 
           $themePost=$em->getRepository('TdSMarathonBundle:Theme')
                         ->findOneThemeByStatut(2);
+
+
 
           $joggeursDuTheme= new ArrayCollection();
 
@@ -326,7 +334,7 @@ class JoggeurController extends Controller{
                   $em->flush();
                   $em->clear();
                   $request->getSession()->getFlashBag()->add('notice',"Points bisous attribués avec succès");
-                  // return $this->redirect($this->generateUrl('tds_marathon_joggeur_classement',array('saisonid'=>$saison->getId())));
+                  
                   return $this->redirectToRoute('tds_dashboard');
             }
 
