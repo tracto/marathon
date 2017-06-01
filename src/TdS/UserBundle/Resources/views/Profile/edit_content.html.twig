@@ -1,46 +1,46 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="bg--lightgrey pam pbxxl">
-	<h1 class="main-title man align-center">
-		<svg class="icon icon--m icon-locked"><use xlink:href="#icon-locked"></use></svg>
-		<span>Modifier mon identifiant / email</span>
-	</h1>
+<div id="content" class="pa4">
+	<div class="ms-title flex-1 pv3">
+		<svg class="icon icon--s icon-locked"><use xlink:href="#icon-locked"></use></svg>					
+		<h2><span class="">Modifier mon identifiant / email</span></h2>	
+	</div>
 
-	<div class="form-wrapper bg-op--white bd--light pam">
+	<div class="form-wrapper">
 		{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 		    {# {{ form_widget(form) }} #}
+		    <div class="form-group">
+			    <div class="w-100 flex flex-wrap justify-center pb3">
+			      {{ form_label(form.username, "Identifiant", {'label_attr': {'class': 'form-label  control-label'}}) }}
+			      {{ form_errors(form.username) }}
+			      <div class="form-widget ">
+			        {{ form_widget(form.username) }}
+			      </div>
+			    </div>
 
-		    <div class="form-group row mll mrl ptm pbm">
-		      {{ form_label(form.username, "Identifiant", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-		      {{ form_errors(form.username) }}
-		      <div class="col-xs-12 col-sm-6">
-		        {{ form_widget(form.username) }}
-		      </div>
-		    </div>
+			    <div class="w-100 flex flex-wrap justify-center pb3">
+			      {{ form_label(form.email, "email", {'label_attr': {'class': 'form-label  control-label'}}) }}
+			      {{ form_errors(form.email) }}
+			      <div class="form-widget ">
+			        {{ form_widget(form.email) }}
+			      </div>
+			    </div>
 
-		    <div class="form-group row mll mrl ptm pbm">
-		      {{ form_label(form.email, "email", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-		      {{ form_errors(form.email) }}
-		      <div class="col-xs-12 col-sm-6">
-		        {{ form_widget(form.email) }}
-		      </div>
-		    </div>
+			    <div class="w-100 flex flex-wrap justify-center pb3">
+			      {{ form_label(form.current_password, "Mot de passe actuel", {'label_attr': {'class': 'form-label  control-label'}}) }}
+			      {{ form_errors(form.current_password) }}
+			      <div class="form-widget ">
+			        {{ form_widget(form.current_password) }}
+			      </div>
+			    </div>
 
-		    <div class="form-group row mll mrl ptm pbm">
-		      {{ form_label(form.current_password, "Mot de passe actuel", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-		      {{ form_errors(form.current_password) }}
-		      <div class="col-xs-12 col-sm-6">
-		        {{ form_widget(form.current_password) }}
-		      </div>
-		    </div>
-
-		    <div class="align-center">
-		        <div class="button btn btn-action">
-		        	<svg class="icon icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
-		        	<button type="submit" id="_submit" class="mln pln" name="_submit">Valider</button> 
-		        </div>
-		    </div>
-
+			    <div class="center tc">
+			        <div class="button button-save">
+			        	<svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
+			        	<button type="submit" id="_submit" class="mln pln" name="_submit">Valider</button> 
+			        </div>
+			    </div>
+			</div>
 		{{ form_end(form) }}
 	</div>
 </div>

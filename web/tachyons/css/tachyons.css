@@ -2243,6 +2243,7 @@ button { cursor: pointer; }
 .theme-nav-infos_left.active { left: 0; }
 .theme-nav-infos_right { height: 50px; top: 0; right: -450px; overflow: hidden; transition: right .3s linear; }
 .theme-nav-infos_right.active { right: 0; }
+.creativec-lien { width: 80px; }
 /* SCORES / General */
 .score-miniblock_vertical { padding-left: 2px; }
 .score-miniblock_vertical:first { padding-left: 0; }

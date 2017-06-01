@@ -306,17 +306,21 @@
 										<span class="">ajouter un morceau</span>
 									</a>
 								</div>
-							{% else %}
+							{% elseif is_granted("ROLE_SUPER_ADMIN") %}
 								<div class="flex flex-auto flex-wrap items-stretch justify-center">
 									<div class="tr pa2 bg-black-50 f7 ms-light-gray w-40">
 										<span>Tu as déjà ajouté un morceau au thème</span>
 									</div>
-								{% if is_granted("ROLE_SUPER_ADMIN") %}
 									<a class="button  db w-60" href="{{ path('tds_marathon_musicTitle_add', {'joggeur_id': app.user.joggeur.id, 'theme_id': theme.id, 'route':'theme-view'}) }}">
 										<svg class="icon icon--s pa1"><use xlink:href="#icon-add-music"></use></svg>
 										<span class="btn__label">ajouter un morceau</span>
 									</a>
-								{% endif %}
+								</div>
+							{% elseif is_granted("ROLE_USER") %}
+								<div class="flex flex-auto flex-wrap items-stretch justify-end">
+									<div class="tr pa2 bg-black-50 f7 ms-light-gray w-100 self-center">
+										<span>Tu as déjà ajouté un morceau au thème</span>
+									</div>
 								</div>
 							{% endif %} 
 						{% endif %}
