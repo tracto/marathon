@@ -349,7 +349,9 @@ class ThemeController extends Controller{
     public function addChroniqueAction(Request $request, $theme_id, $joggeurChronique_id){
     	$em = $this->getDoctrine()->getManager();
     	$joggeurChronique = $em->getRepository('TdSMarathonBundle:Joggeur')
-		      					->findOneBy(array('id' => $joggeurChronique_id));
+		      				   ->findJoggeurById($joggeurChronique_id);
+
+		
 
     	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')|| ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeurChronique->getUser() ){
 	    	
@@ -387,7 +389,7 @@ class ThemeController extends Controller{
 
     	$joggeurChronique = $em
 	      			->getRepository('TdSMarathonBundle:Joggeur')
-	      			->findOneBy(array('id' => $joggeurChronique_id));
+	      			->findJoggeurById($joggeurChronique_id);
 
     	if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')|| ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeurChronique->getUser() ){
 

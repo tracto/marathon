@@ -41,13 +41,15 @@
 			
 
 		{% elseif is_granted("ROLE_USER")  %}
-			{% set i=0 %}
+			{% set i = 0 %}
 			<div>
 				{% for theme in allThemes %}
-					{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
-						{% if app.user.joggeur == theme.joggeurChronique %}
-							{% set i=i+1 %}
-						{% endif %}
+					{% if (theme.chronique is empty or theme.chronique is  null) and (theme.statut != 0 and theme.statut != 1) %}
+						{% for musicTitle in theme.musicTitles %}
+								{% if loop.index == 1 and app.user.joggeur.id == musicTitle.joggeur.id %}
+									{% set i=i+1 %}									
+								{% endif %}
+						{% endfor %}
 					{% endif %}
 				{% endfor %}
 
@@ -63,17 +65,20 @@
 
 				<div class='chroniques-list mv2 dn'>
 					{% for theme in allThemes %}
-						{% if (theme.chronique is empty or theme.chronique is null) and theme.statut != 0 %}
-							{% if app.user.joggeur is not empty and app.user.joggeur == theme.joggeurChronique %}							<div class="pv2 db cf bb bt-0 bl-0 br-0 b--dashed b--black-30">
-									<div class="dib v-mid">	
-										<strong>{{ theme.titre }}</strong>
-									</div>
-									<a class="button dib v-mid fr" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': theme.joggeurChronique.id}) }}">
-										<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-										<span class="">Ecrire</span>
-									</a>
-								</div>									
-							{% endif %}		        			
+						{% if (theme.chronique is empty or theme.chronique is null) and (theme.statut != 0 and theme.statut != 1) %}
+							{% for musicTitle in theme.musicTitles %}
+								{% if loop.index == 1 and app.user.joggeur.id == musicTitle.joggeur.id %}
+									<div class="pv2 db cf bb bt-0 bl-0 br-0 b--dashed b--black-30">
+										<div class="dib v-mid">	
+											<strong>{{ theme.titre }}</strong>
+										</div>
+										<a class="button dib v-mid fr" href="{{ path('tds_marathon_theme_add_chronique', {'theme_id': theme.id, 'joggeurChronique_id': musicTitle.joggeur.id}) }}">
+											<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+											<span class="">Ecrire</span>
+										</a>
+									</div>								
+								{% endif %}
+							{% endfor %}																	
 						{% endif %}
 					{% endfor %}
 				</div>			

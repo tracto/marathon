@@ -7,21 +7,19 @@
 {% block tdsmarathon_body %}
 	{% if theme is defined and theme is not null %}
 	<div id="content" class="form-container">
-		<div class="ms-title">
-			<h1 class="">
-				<svg class="self-center icon icon--s icon-plus mr2"><use xlink:href="#icon-plus"></use></svg>
-				<span class="self-center">Modification d'une chronique</span>
-			</h1>
-			{# <h2 class="sub-title align-center">Thème : {{ theme.titre }}</h2> #}
+		<div class="">
+				<h1 class="ms-title">
+					<svg class="self-center icon icon--s icon-plus fill-near-black mr2"><use xlink:href="#icon-pencil"></use></svg>
+					<span class="self-center">Modification d'une chronique</span>
+				</h1>
 
-			
-	    	<div class="w-100 pb3 flex flex-auto justify-center">
-			    <span class="self-center fw1 mr2 db">thème</span>
-			    <div class="w-100 w-80-sm w-60-m w-50-l">
-			    	{{ vignetteModule.vignette_line_theme(theme) }}
-			    </div>
+				<div class="w-100 pb3 flex flex-auto justify-center">
+				    <span class="self-center fw1 mr2 db">thème</span>
+				    <div class="w-100 w-80-sm w-60-m w-50-l">
+				    	{{ vignetteModule.vignette_line_theme(theme) }}
+				    </div>
+				</div>
 			</div>
-		</div>
         
     	{% endif %}
 
