@@ -57,6 +57,25 @@ class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 
 
 
+  // public function findAllByTheme(Theme $theme){
+  //     $queryBuilder = $this->createQueryBuilder('c') 
+  //         ->addSelect('c','j','t','it','ij')
+  //         ->leftJoin('c.theme','t')
+  //         ->where('t.id IN (:id)')
+  //         ->setParameter('id', $themesId)
+  //         ->leftJoin('t.image', 'it')
+  //         ->leftJoin('c.joggeur', 'j') 
+  //         ->leftJoin('j.image', 'ij')         
+  //         ;
+                   
+          
+  //     return $queryBuilder
+  //         ->getQuery()
+  //         ->getResult();
+  // }
+
+
+
 
 	public function getFirst(Theme $theme){
 		$queryBuilder=$this->_em->createQueryBuilder()

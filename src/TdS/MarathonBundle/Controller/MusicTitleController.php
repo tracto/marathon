@@ -85,14 +85,15 @@ class MusicTitleController extends Controller{
 		 $em=$this->getDoctrine()->getManager();
 
 		 $theme = $em->getRepository('TdSMarathonBundle:Theme')
-	      			 ->find($theme_id);
+		 			 ->findOneThemeById($theme_id);
+	      			 
 
-		 $listeMusicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
-	           			      ->findBy(array('theme' => $theme));
+		 // $listeMusicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
+	  //          			      ->findBy(array('theme' => $theme));
 
 	    return $this->render('TdSMarathonBundle:MusicTitle:liste.html.twig', array(
         							'theme'=>$theme,
-        							 'listeMusicTitles'=>$listeMusicTitles
+        							 // 'listeMusicTitles'=>$listeMusicTitles
         							));
 	}
 

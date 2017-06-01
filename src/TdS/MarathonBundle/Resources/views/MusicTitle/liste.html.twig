@@ -6,31 +6,43 @@
 
 {% block tdsmarathon_body %}
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
-		<div id="content" class="bg--lightgrey pam pbxxl">
-			<h1 class="main-title man align-center">
-				<svg class="icon icon--m icon-add-music"><use xlink:href="#icon-add-music"></use></svg>
-				<span>Liste des morceaux</span>
-			</h1>
-			<h3 class="sub-title man align-center">Thème : {{ theme.titre }}</h3>
-			<div class="bg-op--white bd--light pam">
-				{% for musicTitle in listeMusicTitles %}
-					<div class="list-item sep--dashed pam clearfix">
-						<a class='button pull-right btn btn-action btn-musictitle-delete mrs mts' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }} "  data-pseudo="{{ musicTitle.titre }}">
-		                    <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-		                </a>
+		<div id="content" class="mv4">
+			
 
-						<h3 class="man">{{ musicTitle.titre }}</h3>
-						<span>Par : {{ musicTitle.joggeur.pseudo }}</span>				
-					</div>
-				{% endfor %}
+			<div class="flex flex-auto justify-center w-100 mt4">   
+            <h1 class="self-center pr2 ma0 mb3 new-rocker f2">
+                <svg class="icon icon--s fill-near-black"><use xlink:href="#icon-add-music"></use></svg>
+                <span>Liste des morceaux</span>
+
+        	</div>
+
+
+        	<div class="pb3">
+		    	<div class="w-100 w-80-sm w-60-m w-50-l center">
+		    		<span class="i">Thème</span>
+		    		{{ vignetteModule.vignette_line_theme(theme) }}
+		    	</div>
 			</div>
-	 	</div>
-	 	<div class='popup-delete-confirmation' data-popupdelete>
-	        <div>
-	            <p></p>
-	            <a id="btn-oui" href="" class="button btn btn-action btn-default btn-delete-oui">Oui</a>
-	            <a id="btn-non" href="" class="button btn btn-action btn-default btn-delete-non">Non</a>
-	        </div>
-		</div>
+
+			<table class="f6 w-100 mw8 center bg-white-30 pa2 pa2-sm pa3-m pa4-l shadow-subtle" cellspacing="0">
+				<tbody class="lh-copy">
+					{% for musicTitle in theme.musicTitles %}
+						<tr>
+							<td class='pv3 bb b--black-20 word-wrap'>
+								<span class='thumbnail--s dib v-mid'>
+									<img class="db w-100" src='{{ musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+								</span>
+							</td>
+							<td class='pv3 pr3 bb br b--black-20 word-wrap'>{{ musicTitle.joggeur.pseudo }}</td>
+							<td class='pv3 ph3 bb b--black-20 word-wrap'>{{ musicTitle.titre }}</td>		
+							<td class='pv3 pr3 bb b--black-20'>
+	                            <a class='button button-action btn-user-delete' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }}"  data-pseudo="{{ musicTitle.titre }}" href="#">
+	                                <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+	                            </a>
+	                        </td>
+                    	</tr>
+					{% endfor %}
+				</tbody>
+	 		</table>
 	{% endif %}
 {% endblock %}
