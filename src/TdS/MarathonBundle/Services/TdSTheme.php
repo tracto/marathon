@@ -3,18 +3,12 @@ namespace TdS\MarathonBundle\Services;
 
 use TdS\MarathonBundle\Entity\Joggeur;
 use TdS\MarathonBundle\Entity\Theme;
-// use TdS\MarathonBundle\Entity\JoggeurScore;
 use Doctrine\ORM\EntityManager;
 
 class TdSTheme {
 
 	private $em;
 
-	/**
-	 * @InjectParams({
-	 *    "em" = @Inject("doctrine.orm.entity_manager")
-	 * })
-	 */
 	public function __construct(EntityManager $em)
 	{
 	    $this->em = $em;

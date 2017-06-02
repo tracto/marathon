@@ -21,10 +21,6 @@ class TdSScoring {
 	}
 
 
-    // public function getPointsToGive($joggeurScore){
-    //     $joggeurScore->getPointstogive();
-
-    // }
 
 
 	public function getAllJoggeursScoresOfSaison($saison){

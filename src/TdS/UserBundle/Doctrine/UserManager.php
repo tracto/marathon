@@ -73,7 +73,7 @@ class UserManager extends BaseUserManager
      */
     public function findUsers()
     {   
-        print_r("coucou");
+        
         return $this->repository->findAll();
     }
 
