@@ -42,7 +42,7 @@
 					
 					<li class="navbar-item navbar-second pv3 pv0-ns db mr3-ns v-top bb bn-ns b--ms-bleu-bright self-center self-start-m pt2-m tc">
 						<span class="db link ms-bleu-bright " >Saisons</span>
-						<ul class="list mt2 mh0 ph0 pv0 absolute-ns">
+						<ul class="list mt2 mt0-ns mh0 ph0 pv0 absolute-ns">
 							{% for saisonListe in saisonService.allSaison() %}
 								{% for saisonItem in saisonListe %}
 									{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
