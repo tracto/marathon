@@ -499,10 +499,11 @@ class ThemeController extends Controller{
 					
 					if($theme->getZip()!==1){
 						$theme->setZip($folderTitle);
-					}
-					$em->flush();	
-				}
 
+					}						
+				}
+				$em->flush();
+				
 				$zip->close();
 				$request->getSession()->getFlashBag()->add('notice',"Zip créé!");
             }
