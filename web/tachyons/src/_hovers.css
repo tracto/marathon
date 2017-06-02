@@ -113,7 +113,7 @@
 
 /* Add pointer on hover */
 
-.pointer:hover {
+.pointer{
   cursor: pointer;
 }
 

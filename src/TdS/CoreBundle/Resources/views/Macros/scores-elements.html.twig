@@ -48,7 +48,7 @@
 				<h4 class="tc f5 ma0 pa0">{{ joggeurScore.joggeur.pseudo }}</h4>
 				<div class="tc f4">{{ joggeurScore.total }} pts</div>
 									
-				<div class="flex flex-auto flex-wrap justify-center  {{ podiumColor }} pt3 ph2 pb2">
+				<div class="flex flex-auto flex-wrap justify-center  {{ podiumColor }} pt3 ph1 ph2-ns pb2">
 					{{ self.scores_miniblock_vertical(totalFastpoints,"#icon-fast",podiumColor) }}
 					{{ self.scores_miniblock_vertical(totalHeartpoints,"#icon-heart",podiumColor) }}
 					{% if totalTakenpoints != 0 %}
@@ -94,7 +94,7 @@
 
 
 	<div class="wof-item_inner min-h-100 flex flex-auto flex-wrap flex-column justify-between tc">
-		<div class="wof-intitule pt3 ph2 self-center flex w-100">
+		<div class="wof-intitule pt3 ph2 self-center flex">
 			<div class="self-center w-100">
 				<h4 class="ma0 pa0 b tc">{{ intitule }}</h4>
 				<i class="f7 db tc">{{ desc }}</i>
@@ -110,7 +110,7 @@
 			{% endif %}
 		</a>
 
-		<div class="flex flex-column relative w-100 self-center tc mh2 bt b--ms-gold">
+		<div class="flex flex-column relative self-center tc mh2 bt b--ms-gold">
 			<div class="self-center w-100">				
 			 	<div class="pt3 f5">{{ wof_joggeur.pseudo }}</div>
 			</div>

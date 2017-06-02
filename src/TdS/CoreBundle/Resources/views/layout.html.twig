@@ -43,7 +43,7 @@
 
 	{{ icons.svg() }} 
 
-	<body>
+	<body class="relative">
 		<div id="device"></div>
 		<div class="main-wrapper f6 roboto near-black">
 
@@ -83,7 +83,7 @@
 
 		{{ footerModule.footer() }}
 		<div id="chat-wrapper" class="chat-wrapper fixed bottom-0 right-0 pointer z-4">
-			<a class="button-chat" data-action="open-chat" target="blank" href="{{ path('tds_chat') }}">
+			<a class="button-chat pointer" data-action="open-chat" target="blank" href="{{ path('tds_chat') }}">
 				<svg class="icon icon--s fill-near-black" ><use xlink:href="#icon-dialog"></use></svg>
 			</a>
 		</div>
@@ -130,7 +130,7 @@
 
 
 		{#  POPUP LOIS WRAPPER #}
-		<div id="lois-wrapper" class="cursor"> 
+		<div id="lois-wrapper" class="pointer"> 
 			{{ loisModule.lois() }}
 		</div> 
        

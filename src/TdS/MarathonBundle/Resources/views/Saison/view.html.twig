@@ -51,13 +51,13 @@
 				</div>
 			{% endif %}
 
-				<div class="pa3 pa4-l">
+				<div class="pa2 pa3-m pa4-l">
 					<div class="ms-title pt4">
-							<div class="">
+							<div class="dn db-ns">
 								<div class="gif-basket-g"></div>
 							</div>
 			    			<h2><span class="">Liste des Thèmes</span></h2>
-			    			<div class="">
+			    			<div class="dn db-ns">
 			    				<div class="gif-basket-d"></div>
 							</div>
 			    		</div>
@@ -67,7 +67,7 @@
 						</div>
 					<div class="flex flex-auto flex-wrap justify-center">	
 					    {% for theme in saison.themes %}
-					    	<div class="w-50 w-33-ns pa2">
+					    	<div class="w-100 w-50-sm w-33-ns pa2">
 					      		{{ vignetteModule.vignette_theme(theme) }}
 					      	</div>
 					    {% endfor %} 

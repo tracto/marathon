@@ -12,7 +12,9 @@ a { color: inherit; }
 
 
 
-
+body{
+	overflow-x:hidden;
+}
 
 
 /*detection du device pour le js*/
@@ -60,6 +62,7 @@ input[type='submit']:focus {
 .wrapper{
 	min-height:50vh;
 	width:100%;
+	/*overflow-x:hidden;*/
 }
 
 
@@ -102,12 +105,19 @@ input[type='submit']:focus {
 }
 
 #button-becky-fixed{
-	position:fixed;
-	bottom:5px;
-	left:0;
-	background-color:rgba(253, 98, 116, 0.8);
-	padding:0.5rem 0.5rem 0 0.5rem;
-	margin:0 0 0 1rem;
+	display:none;
+}
+
+@media (--breakpoint-not-small){
+	#button-becky-fixed{
+		display:block;
+		position:fixed;
+		bottom:5px;
+		left:0;
+		background-color:rgba(253, 98, 116, 0.8);
+		padding:0.5rem 0.5rem 0 0.5rem;
+		margin:0 0 0 1rem;
+	}
 }
 
 #button-becky-fixed .becky-img{
@@ -191,8 +201,10 @@ input[type='submit']:focus {
 
 
 /*BOUTON CHAT*/
-#chat-wrapper{
-	margin-right:1rem;
+@media (--breakpoint-not-small){
+	#chat-wrapper{
+		margin-right:1rem;
+	}
 }
 
 
@@ -239,12 +251,13 @@ input[type='submit']:focus {
     position: fixed;
     top: 0px;
     left: 0;
-    /*z-index:10000;*/
     width: 100%;
-    height: 40px;
-    padding:10px 6px;
+    height: 45px;
+    padding:11px 6px;
     margin:0;
+    z-index:-1;
     cursor: pointer;
+    background-color:var(--near-black);
 }
 
 .nav-toggler__label svg{
@@ -255,10 +268,15 @@ input[type='submit']:focus {
 	color: rgba(0,0,0,0.25);    
 }
 
-.nav-toggler:checked ~ div nav.navbar-header ul{
+.nav-toggler:checked ~ div nav.navbar-header>ul{
     display:block;
 }
 
+.nav-toggler:checked ~ .navbar-header_wrapper .navbar-header{
+	height: 100vh;
+	overflow-y:scroll;
+	overflow-x:hidden;	
+}
 
 select.mobile-nav{
 	width: 40px;
@@ -271,10 +289,42 @@ select.mobile-nav{
 }
 
 
+.navbar-header_wrapper{
+	position:fixed;
+	top:40px;
+}
+
+
+
+
+@media (--breakpoint-not-small){
+	.navbar-header_wrapper{
+		position:relative;
+		top:0px;
+		overflow:initial;
+	}
+
+	.navbar-header {
+		height: auto;
+	}
+}
+
+
+.navbar-item{
+	background-color:var(--near-black);
+}
 
 
 .navbar-first > li{
 	line-height: 10px;
+}
+
+.navbar-second ul {		
+	display:none;			
+}
+
+.navbar-second:hover ul, .navbar-second:focus ul, .navbar-second.active ul{
+	display:block;
 }
 
 .navbar-second li{
@@ -294,12 +344,7 @@ select.mobile-nav{
 		/*min-width: 4rem;*/
 		cursor:pointer;
 	}
-	.navbar-second ul {		
-		display:none;			
-	}
-	.navbar-second:hover ul{
-		display:block;
-	}
+	
 }
 
 @media (--breakpoint-medium){
@@ -379,7 +424,8 @@ select.mobile-nav{
 .button-lois{
 	position: absolute;
     top: 100%;
-	margin-top: 100px;
+	margin-top: 10px;
+	cursor:pointer;
 }
 
 @media (--breakpoint-not-small){
@@ -825,13 +871,17 @@ button{
 	background-image:url('../../bundles/tdsmarathon/images/gifs/sep-guitare.gif');
 	background-size: cover;
     background-repeat: no-repeat;
-    height: 45px;
+    height: 40px;
     width: 100%;
     margin: 0 auto;
     max-width: 350px;
 }
 
-
+@media (--breakpoint-not-small){
+	.sep-guitare{
+		height: 45px;
+	}
+}
 
 
 .gif-basket-g{
@@ -904,7 +954,7 @@ button{
 	font-size:1.8rem;
 	margin:0;
 	padding:0;
-	line-height: 2rem;
+	line-height: 1.6rem;
 	text-align:center;
 	display:flex;
 	justify-content:space-between;
@@ -913,6 +963,7 @@ button{
 @media (--breakpoint-not-small){ 
 	.ms-title h2{
 	    font-size:2.2rem;
+	    line-height: 2rem;
 	}
 }
 
@@ -1398,13 +1449,18 @@ button{
 	padding-left:2px;
 }
 
-.podium-1>div{
-	min-height:420px;
-}
 
 
-.podium-2>div{
-	min-height:400px;
+
+@media (--breakpoint-not-small){
+	.podium-1>div{
+		min-height:420px;
+	}
+
+
+	.podium-2>div{
+		min-height:400px;
+	}
 }
 
 
@@ -1440,18 +1496,20 @@ button{
 /* WALLS OF FAME */
 .medaillon-round{
 	display:block;
-	width:95%;
-	height:95%;
 	border-radius:50%;
 	overflow:hidden;
 	margin:1rem 0.5rem;
-
 }
+
+/*@media (--breakpoint-not-small){
+	.medaillon-round{
+		width:95%;
+		height:95%;
+	}
+}*/
 
 .medaillon-round img{
 	display:block;
-	width:100%;
-	min-height:100%;
 }
 
 .wof-item {
@@ -1610,53 +1668,54 @@ button{
 	padding:10px;
 }
 
-
-.fos_comment_comment_show{
-	border-left:solid 2px  rgba(0,0,0,0.2);	
-	margin-left:25px;
-}
-
-
-.fos_comment_comment_show:before{
-		content: '';
-	    width: 14px;
-	    height: 2px;
-	    background: rgba(0,0,0,0.2);
-	    position: absolute;
-	    top: 25px;
-	    left: -39px;
-}
-
-
-
 @media (--breakpoint-not-small){
-	.fos_comment_comment_show:before{
-			left:-69px;
-			width: 45px;
+	.fos_comment_comment_show{
+		border-left:solid 2px  rgba(0,0,0,0.2);	
+		margin-left:25px;
 	}
-}
-
-.fos_comment_comment_show:first-child{
-	padding-top:0;
-}
-
-.fos_comment_comment_show:last-child:after{
-	content: '';
-    position: absolute;
-    background: #bdbdbd;
-    bottom: 0;
-    left: -5px;
-    width: 7px;
-    height: 7px;
-    border: 3px solid rgba(0,0,0,0.2);
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-}
 
 
-.fos_comment_comment_show:last-child .fos_comment_thread-inner{
-	padding-bottom:0;
+	.fos_comment_comment_show:before{
+			content: '';
+		    /*width: 14px;*/
+		    height: 2px;
+		    background: rgba(0,0,0,0.2);
+		    position: absolute;
+		    top: 25px;
+		    /*left: -39px;*/
+	}
+
+
+
+	/*@media (--breakpoint-not-small){*/
+		.fos_comment_comment_show:before{
+				left:-69px;
+				width: 45px;
+		}
+	/*}*/
+
+	.fos_comment_comment_show:first-child{
+		padding-top:0;
+	}
+
+	.fos_comment_comment_show:last-child:after{
+		content: '';
+	    position: absolute;
+	    background: #bdbdbd;
+	    bottom: 0;
+	    left: -5px;
+	    width: 7px;
+	    height: 7px;
+	    border: 3px solid rgba(0,0,0,0.2);
+	    -webkit-border-radius: 50%;
+	    -moz-border-radius: 50%;
+	    border-radius: 50%;
+	}
+
+
+	.fos_comment_comment_show:last-child .fos_comment_thread-inner{
+		padding-bottom:0;
+	}
 }
 
 	
@@ -1674,7 +1733,7 @@ button{
 	
 	
 .fos_comment_comment_depth_0:before{
-		background:transparent;
+		background:transparent!important;
 }
 
 

@@ -10,30 +10,35 @@
     <link href='https://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
     {% block stylesheets %}
 
-       <link href="{{ asset('bundles/tdsmarathon/css/styles.css') }}" rel='stylesheet' type='text/css'>     
+       <link href="{{ asset('tachyons/css/tachyons.css') }}" rel='stylesheet' type='text/css'>    
     {% endblock %}
   </head>
 
 
 
-  <body>
-    <div class="main-wrapper">
-      <div class="flex-container-h">
-        <div class="flex-item-center">
-        <h1 class="main-title align-center mas">404</h1>
-        <h2 class="sub-title align-center  man pan">Et oui le jury du marathon est exclusivement composé de profs d'EPS.</h2>
+  <body class="bg--pierre">
+    <div class="main-wrapper flex flex-auto h-100 w-100 mw6 center mt3">
+      <div class="outset-frame_pl pa2">
+        <div class="outset-frame_inner_pl pa3 pa4-l">
+      {# <div class="self-center w-100"> #}
+        <div class="">
+          <h1 class="metal-mania f1 tc mt0">404</h1>
+          <span class="tc db pb3">
+            <h3 class="ma0">Le savais-tu?</h3>  
+            <span class="f5">le jury du marathon est exclusivement composé de profs d'EPS.</span>
+          </span>
         </div>
+      
+      <div class="">
+          {% set webPath='../web/bundles/tdsmarathon/images/groupeProfs.jpg' %}
+          <img class="db w-100" src="{{ asset(webPath) }}" />
       </div>
-      <div class="flex-container-h">
-        <span class="flex-item-center">
-          <h1 class="main-title man align-center">
-            {% set webPath='../web/bundles/tdsmarathon/images/groupeProfs.jpg' %}
-            <img width="400" src="{{ asset(webPath) }}" />
-        </span>      
+
+      <div class="tc">
+        <a class="button button-action ma2 mt3 f6" data-action="" href="{{ path('tds_home') }}">revenir à l'accueil</a>
       </div>
-      <div class="align-center">
-        <a class="button btn btn-action mbs mts" data-action="" href="{{ path('tds_home') }}">revenir à l'accueil</a>
-      </div>
+    </div>
+    </div>
     </div>
   </body>
 </html>

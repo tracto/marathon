@@ -17,11 +17,11 @@
 				{% set classColPlaylistTheme = "w-100" %}
 				{% set classColPlaylist="w-100 w-60-ns" %}
 				{% set classColTheme = "w-100 w-40-ns" %}
-				{% set classThemeItem = "w-50 w-33-ns" %} 
+				{% set classThemeItem = "w-100 w-33-ns" %} 
 			{% endif %}
 		{% else %}
 			{% set detectDerniersThemes = 1 %}
-			{% set classThemeItem = "w-50 w-50-sm w-33-m w-25-l" %}
+			{% set classThemeItem = "w-100 w-50-sm w-33-m w-25-l" %}
 		{% endif %}
 	{% endif %}
 {% endfor %}
@@ -57,11 +57,11 @@
 	        		<div class="{{ classColTheme }} bg-ms-turquoise pa2 pa3-l">
 
 						<div class="ms-title pt4">
-							<div class="">
+							<div class="dn db-ns">
 								<div class="gif-basket-g"></div>
 							</div>
 			    			<h2><span class="">Les derniers Thèmes</span></h2>
-			    			<div class="">
+			    			<div class="dn db-ns">
 			    				<div class="gif-basket-d"></div>
 							</div>
 			    		</div>
@@ -297,15 +297,12 @@
 					<div class="azteque"></div>
 					<div class="accordeon absolute w-100"><span class=""></span></div>
 			</div>
-			<div class="bg-ms-violet pa3 pa4-l">								
-				{# <div class="ms-title ms-title_spikes flex-1">					
-			    	<h2><span class="bg-ms-violet">Les joggeurs</span></h2>	
-			    </div> #}
-
+			<div class="bg-ms-violet pa3 pa4-l pb4">								
+				
 			    <div class="ms-title ms-title_spikes ms-title_spikes_light">
-    				<h2><span class="bg-ms-violet ms-light-gray">Les joggeurs</span></h2>
+    				<h2 class=""><span class="bg-ms-violet ms-light-gray">Les joggeurs</span></h2>
     			</div>
-				<div class="flex flex-auto flex-wrap">
+				<div class="flex flex-auto flex-wrap pt3 pt0-ns">
 				    {% for joggeur in listeJoggeurs %}
 				    	{% if joggeur is not null %}
 				    		{% if loop.index <= 9 %}

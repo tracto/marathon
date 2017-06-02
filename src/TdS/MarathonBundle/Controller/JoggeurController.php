@@ -261,8 +261,7 @@ class JoggeurController extends Controller{
       $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
                     ->findJoggeurById($id);
 
-      print_r($joggeur->getUser()->getId());
-      print_r("yo<br/>");
+      
       if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
       	  
 

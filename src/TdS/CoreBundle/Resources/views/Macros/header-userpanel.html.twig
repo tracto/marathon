@@ -1,14 +1,14 @@
 {% macro userpanel(saisonCurrent,joggeurScoreSaison) %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
-	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pb1 pr1  pt0-ns pr0-ns relative pointerevents-none pointerevents-all-ns">
+	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pb1 pr1  pt0-ns pr0-ns relative z-999">
   	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
 	  	{% if app.user.joggeur is defined and app.user.joggeur is not empty %}	  	
 			<div class="author-name self-center justify-end-m pr2 tr w-85-m">
 				<a class="link ms-light-gray pointerevents-all" href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
 					<span class="f6">{{ app.user.joggeur.pseudo }}</span> 
 				</a>
-				<a class="link ms-light-gray db f7 tr pointerevents-all" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+				<a class="link ms-light-gray db f7 tr" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
 			</div>
 
 			<div class="mr1">
@@ -68,8 +68,8 @@
 			{% endif %}
 			
 	    {% else %}
-		    <div class="mt3-ns">
-		       <a class="button-connexion no-underline near-black tc" href="{{ path('fos_user_security_login') }}">Connexion</a>
+		    <div class="mt3 mt3-ns mr1 mr0-ns fixed relative-ns top-0 right-0 z-5">
+		       <a class="db button-connexion no-underline near-black tc" href="{{ path('fos_user_security_login') }}">Connexion</a>
 		    </div>		
 	    {% endif %}
 
