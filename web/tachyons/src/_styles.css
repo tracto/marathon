@@ -1427,13 +1427,19 @@ button{
 
 /* SCORES / General */
 .score-miniblock_vertical{
-  	padding-left:2px;
+  	padding-left:3px;
+  	min-width:33%;
+  	max-width:37%;
 }
 
 
-.score-miniblock_vertical:first{
+.score-miniblock_vertical:first-child{
 	padding-left:0px;
 }
+
+
+
+
 
 
 .score-miniblock_horizontal .typepoints{
@@ -1551,6 +1557,11 @@ button{
 	min-width:40px;
 
 }
+
+
+.totale-score-item_pseudo{
+	min-width:55%;
+} 
 
 
 

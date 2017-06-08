@@ -2250,8 +2250,8 @@ button { cursor: pointer; }
 .theme-nav-infos_right.active { right: 0; }
 .creativec-lien { width: 80px; }
 /* SCORES / General */
-.score-miniblock_vertical { padding-left: 2px; }
-.score-miniblock_vertical:first { padding-left: 0; }
+.score-miniblock_vertical { padding-left: 3px; min-width: 33%; max-width: 37%; }
+.score-miniblock_vertical:first-child { padding-left: 0; }
 .score-miniblock_horizontal .typepoints { min-width: 2.2rem; }
 /* PODIUM */
 .podium-1, .podium-2 { padding-left: 2px; }
@@ -2278,6 +2278,7 @@ button { cursor: pointer; }
 /* CLASSEMENT */
 .totale-score-item { min-height: 40px; }
 .totale-score-item_ordre { min-width: 40px; }
+.totale-score-item_pseudo { min-width: 55%; }
 /* LISTE DES SAISONS */
 .saison-liste_image { min-height: 150px; margin-bottom: .5rem; }
 /* ACTUALITES */

@@ -155,7 +155,7 @@
 		{# ///////////////////////////////////////////////////////// #}
 
 
-		{# PARTIE 2 / bilan + la totale #}
+		{# PARTIE 2 / la totale #}
 		<div class="flex flex-auto flex-wrap">			
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
 				<div class="w-100 bg-ms-light-violet pa3 pa4-l">		
@@ -168,7 +168,7 @@
 					</div>
 					
 					<div class="latotale-wrapper flex flex-auto flex-wrap">
-						<div class="flex-item-fluid align-left w-50-ns pr2-ns">
+						<div class="flex-item-fluid align-left w-100 w-50-l pr2-ns">
 							{% set moitieClassement = (joggeursScoresOfSaison|length/2)|round(0, 'ceil') %}
 						    {% for joggeurScore in joggeursScoresOfSaison %}
 						    	{% if loop.index == moitieClassement %}

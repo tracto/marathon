@@ -48,7 +48,7 @@
 				<h4 class="tc f5 ma0 pa0">{{ joggeurScore.joggeur.pseudo }}</h4>
 				<div class="tc f4">{{ joggeurScore.total }} pts</div>
 									
-				<div class="flex flex-auto flex-wrap justify-center  {{ podiumColor }} pt3 ph1 ph2-ns pb2">
+				<div class="flex flex-auto justify-center  {{ podiumColor }} pt3">
 					{{ self.scores_miniblock_vertical(totalFastpoints,"#icon-fast",podiumColor) }}
 					{{ self.scores_miniblock_vertical(totalHeartpoints,"#icon-heart",podiumColor) }}
 					{% if totalTakenpoints != 0 %}
@@ -110,16 +110,16 @@
 			{% endif %}
 		</a>
 
-		<div class="flex flex-column relative self-center tc mh2 bt b--ms-gold">
-			<div class="self-center w-100">				
+		<div class="flex flex-column relative self-center tc bt b--ms-gold">
+			<div class="self-center w-100 mh2 ">				
 			 	<div class="pt3 f5">{{ wof_joggeur.pseudo }}</div>
 			</div>
 
-			<div class="relative bottom-0 mb2 mh2">
-				<div class="score f4">{{ wof_joggeur.joggeurScore.total }} pts</div>
-				<div class="flex flex-auto flex-wrap justify-center mt3 pa1">
+			<div class="relative bottom-0 ">
+				<div class="score f4 mh2">{{ wof_joggeur.joggeurScore.total }} pts</div>
+				<div class="flex flex-auto  justify-center mt3 pa1">
 					{{ self.scores_miniblock_vertical(totalFastpoints,"#icon-fast","ms-gold") }}
-					{{ self.scores_miniblock_vertical(totalHeartpoints,"#icon-heart2","ms-gold") }}
+					{{ self.scores_miniblock_vertical(totalHeartpoints,"#icon-heart","ms-gold") }}
 					{% if totalTakenpoints != 0 %}
 						{{ self.scores_miniblock_vertical(totalTakenpoints,"#icon-minus","ms-gold") }}
 					{% endif %}
@@ -160,7 +160,7 @@
 				</div>
 
 				<div class="relative bottom-0 b--dashed bb-0 bt bl-0 br-0 pt3">
-					<div class="flex flex-auto flex-wrap justify-center mt3">
+					<div class="flex flex-auto  justify-center mt3">
 							{{ self.scores_miniblock_vertical(score.fastpoints,"#icon-fast","ms-gold") }}
 							{{ self.scores_miniblock_vertical(score.heartpoints,"#icon-heart2","ms-gold","pa1") }}
 							{% if score.takenpoints != 0 %}
@@ -192,10 +192,10 @@
 		{% set color = 'ms-gold' %}
 	{% endif %}
 
-	<a class="flex flex-wrap flex-row items-center mb2 no-underline near-black w-100 bg-white-10 shadow-subtle"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
+	<a class="flex flex-wrap flex-row items-center mb3 mb2-ns no-underline near-black w-100 bg-white-10 shadow-subtle"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
 		<div class="flex flex-auto justify-start self-center items-stretch w-70 w-40-ns">
-			<div class="thumbnail--m self-center">
-				<img class="" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
+			<div class="thumbnail--m flex-0">
+				<img class="db w-100" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
 			</div>
 																		
 
@@ -211,7 +211,7 @@
 		
 
 		{# <div class="self-center flex"> #}
-		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns pv2 pv0-ns pr1 pr0-ns  mt0 b--{{ color }} bw2 bw0-ns  bt bt0-ns">
+		<div class="flex items-stretch justify-center justify-end-ns w-100 w-auto-ns  mt0 b--{{ color }} bw2 bw0-ns  bt bt0-ns min-h-100-ns">
 			{{ self.scores_miniblock_horizontal(score.fastpoints,"#icon-fast",color,"icon--xs") }}
 			{{ self.scores_miniblock_horizontal(score.heartpoints,"#icon-heart",color,"icon--xs") }}
 			{# {% if score.takenpoints != 0 %} #}
@@ -247,35 +247,44 @@
 
 
 	
-	<a class="totale-score-item flex flex-auto flex-wrap justify-between-ns w-100 bg-white-20 mb2  no-underline near-black shadow-subtle" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
-		<div class="flex flex-auto justify-start self-center items-stretch w-70 w-40-ns">
-			<div class="totale-score-item_ordre flex flex-0 f4 bg-near-black ms-light-violet tc pa2 br b--light-violet bw2  min-h-100">
-				<span class="dib v-mid h-100">{{ loopindex }}</span>
-			</div>
-
-			<span class="thumbnail--m self-center ">
-				{% if joggeurScore.joggeur.image is not null %}
-					<img class='db w-100' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
-				{% else %}
-				  	<img class='db w-100' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
-				{% endif %}
-			</span>
-
-		
-			<div class="flex flex-0 flex-auto-ns flex-wrap-ns self-center pl2 pl3-ns">
-				<h4 class="fw1 f6 ma0 pa0 self-center fw3">{{ joggeurScore.joggeur.pseudo }}</h4>			
-			</div>
+	<a class="totale-score-item flex flex-auto flex-wrap justify-between-ns w-100 bg-white-20 mb3 mb2-ns  no-underline near-black shadow-subtle" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
+		<div class="totale-score-item_ordre w-20 w-10-ns f4 bg-black-80 ms-light-violet tc pa2 br b--light-violet bw2  min-h-100 flex flex-auto flex-wrap center">
+				<span class="db self-center w-100 tc">{{ loopindex }}</span>
 		</div>
 
-		<div class=" flex flex-auto self-stretch justify-end bl bw2 b--ms-light-violet w-30 w-10-ns">
-			<span class="f6 self-center ph2 b">{{ joggeurScore.total }} pts</span>
-		</div>
+		<div class="flex flex-auto flex-wrap w-80 w-90-ns">
+			<div class="flex flex-auto justify-start self-center items-stretch w-100 w-40-ns">
+				
+
+				<span class="thumbnail--m self-center ">
+					{% if joggeurScore.joggeur.image is not null %}
+						<img class='db w-100' src='{{ joggeurScore.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/> 
+					{% else %}
+					  	<img class='db w-100' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">		
+					{% endif %}
+				</span>
+
 			
-		<div class="flex items-stretch justify-between justify-end-ns w-100 w-auto-ns pv2 pv0-ns pr1 pr0-ns  mt0 b--ms-light-violet bw2 bw0-ns  bt bt0-ns ">				
+				<div class="totale-score-item_pseudo flex flex-0 flex-auto-ns flex-wrap-ns self-center pl2 pl3-ns">
+					<h4 class="fw1 f6 ma0 pa0 self-center fw3">{{ joggeurScore.joggeur.pseudo }}</h4>			
+				</div>
+			
+
+				<div class=" flex flex-auto self-stretch justify-end bl bw2 b--ms-light-violet w-30 w-10-ns mw4">
+					<span class="f6 self-center ph2 b">{{ joggeurScore.total }} pts</span>
+				</div>
+			</div>
+
+			<div class="flex items-stretch justify-between justify-end-ns w-100 w-auto-ns mt0 b--ms-light-violet bw2 bw0-ns  bt bt0-ns ">				
 				{{ self.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","ms-light-violet","icon--xs") }}
 				{{ self.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","ms-light-violet","icon--xs") }}
 				{{ self.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","ms-light-violet","icon--xs") }}
+			</div>
 		</div>
+
+		
+			
+		
 	</a>
 {% endmacro %}
 {# FIN MACRO LISTE LA TOTALE #}
@@ -294,7 +303,7 @@
 
 {# MACRO MINI BLOCK SCORE VERTICAL / coeur - vitesse - retire #}
 {% macro scores_miniblock_vertical(typepoints,icon,color,extraclass) %}
-	<div class="score-miniblock_vertical content-center w-33">
+	<div class="score-miniblock_vertical content-center">
 		<div class="bg-near-black ">{# bl br b--{{ color }} #}
 			<div class="w-100 bb b--{{ color }}">
 				<svg class="icon icon-points w-100 pa1 fill-{{ color }} db center {{ color }}" ><use xlink:href="{{ icon }}"></use></svg>
@@ -314,12 +323,14 @@
 	{% if bordercolor is not defined or bordercolor is null %}
 		{% set bordercolor = color %}
 	{% endif %}
-	<div class="score-miniblock_horizontal content-stretch content-center-ns flex w-33 w-100-ns">
-		<div class="{{ bgcolor }} bl br b--{{ bordercolor }} ml1 flex items-center w-100">
-			<div class="w-100 br b--{{ color }} flex-auto ph1">
-				<svg class=" icon {{ extraclass }} fill-{{ color }}"><use xlink:href="{{ icon }}"></use></svg>
+	<div class="score-miniblock_horizontal content-stretch content-center-ns flex flex-auto w-33 w-100-ns">
+		<div class="{{ bgcolor }} bl br b--{{ bordercolor }} flex flex-auto items-center w-100">
+			<div class="w-50 w-100-ns br b--{{ color }} flex-auto ph1 self-center center tc">
+				<svg class="db icon {{ extraclass }} fill-{{ color }}"><use xlink:href="{{ icon }}"></use></svg>
 			</div>
-			<span class="typepoints flex flex-auto {{ color }} pa2 f7">{{ typepoints }}</span>
+			<div class="w-50 typepoints flex flex-auto {{ color }} pa2 f7 self-center center">
+				<span class="db w-100 tc">{{ typepoints }}</span>
+			</div>
 		</div> 
 	</div>
 {% endmacro %}
