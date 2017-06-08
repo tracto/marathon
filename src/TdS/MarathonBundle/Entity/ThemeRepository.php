@@ -1,7 +1,8 @@
 <?php
 namespace TdS\MarathonBundle\Entity;
-use TdS\MarathonBundle\Entity\Saison;
 
+use TdS\MarathonBundle\Entity\Saison;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ThemeRepository
@@ -33,16 +34,13 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
     }
 
     public function findDerniersThemes($limit){
-        $queryBuilder=$this->_em->createQueryBuilder('a')
-        ->addselect('a','i','partial m.{id}','partial th.{id,numComments}')
-        ->from($this->_entityName,'a')                
-        ->leftJoin('a.image','i')        
-        ->leftJoin('a.musicTitles','m')
-        ->leftJoin('a.thread','th')
+        $queryBuilder=$this->_em->createQueryBuilder()
+        ->select('a')
         ->orderBy('a.id', 'DESC')
-        // ->groupBy('a.id')
         ->setFirstResult(0)
-        ->setMaxResults($limit)     
+        ->setMaxResults($limit)
+        ->from($this->_entityName,'a')
+        
         ;
 
         return $queryBuilder
