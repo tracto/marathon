@@ -40,7 +40,7 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
         ->leftJoin('a.musicTitles','m')
         ->leftJoin('a.thread','th')
         ->orderBy('a.id', 'DESC')
-        ->groupBy('a.id')
+        // ->groupBy('a.id')
         ->setFirstResult(0)
         ->setMaxResults($limit)     
         ;

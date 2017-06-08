@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class SaisonController extends Controller{
-	public function ViewAction(Request $request, Saison $saison, $id){
+	public function viewAction(Request $request, Saison $saison, $id){
 		$em=$this->getDoctrine()->getManager();
 
 		$tdsSaison = $this->container->get('tds_marathon.saison');
@@ -44,7 +44,7 @@ class SaisonController extends Controller{
 
 	    
 
-        return $this->render('TdSMarathonBundle:saison:view.html.twig', array(
+        return $this->render('TdSMarathonBundle:Saison:view.html.twig', array(
         					'saisonCurrent'=>$saisonCurrent,
         					'saison'=>$saison,
         					'musicTitles'=>$musicTitles,

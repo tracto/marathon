@@ -7,18 +7,16 @@ tds_marathon_saison_view:
     defaults:  { _controller:  TdSMarathonBundle:Saison:view }      
     requirements:
         id: \d+
-    options:
-        expose: true
 
 
 tds_marathon_saison_add:
-    path:     /Saison/add
+    path:     /saison/add
     defaults: { _controller: TdSMarathonBundle:Saison:add }
 
 
 
 tds_marathon_saison_edit:
-    path:     /Saison/edit/{id}
+    path:     /saison/edit/{id}
     defaults: { _controller: TdSMarathonBundle:Saison:edit }
     requirements:
         id: \d+
