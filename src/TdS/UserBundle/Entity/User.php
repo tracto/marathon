@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User extends BaseUser{
 	/**
+     * @var integer
+     *
 	  * @ORM\Column(name="id", type="integer")
 	  * @ORM\Id
 	  * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,11 +26,27 @@ class User extends BaseUser{
 	 protected $id;
 
 
+     
+
+
 	 /**
        * @ORM\OneToOne(targetEntity="TdS\MarathonBundle\Entity\Joggeur", cascade={"persist","merge"}, inversedBy="user")
         * @ORM\JoinColumn(nullable=true)
        */
      private $joggeur;
+
+
+
+
+     /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
      /**
      * Set joggeur
