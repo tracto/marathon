@@ -8,7 +8,7 @@
       <div class="form-flex justify-center form-input-title f4">
         {{ form_label(form.titre, "Titre", {'label_attr': {'class': 'form-label  control-label'}}) }}
         {{ form_errors(form.titre) }}
-        <div class="form-widget w-40">
+        <div class="form-widget w-100 w-40-ns">
           {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
@@ -19,7 +19,7 @@
           <div class="form-flex justify-center mt3">
             {{ form_label(form.saison, "Saison", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.saison) }}
-            <div class="form-widget w-40">
+            <div class="form-widget w-100 w-40-ns tc">
               {{ form_widget(form.saison, {'attr': {'class': 'form-control'}}) }}
             </div>
           </div>
@@ -30,7 +30,7 @@
           <div class="form-flex justify-center mt3">
               {{ form_label(form.joggeur, "Joggeur auteur", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.joggeur) }}
-              <div class="form-widget w-40">
+              <div class="form-widget w-100 w-40-ns tc">
                   {{ form_widget(form.joggeur, {'attr': {'class': 'form-control'}}) }}
               </div>
           </div>
@@ -83,7 +83,7 @@
             <div class="form-flex justify-center">
               {{ form_label(form.chronique, "Chronique", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.chronique) }}
-              <div class="form-widget w-70">
+              <div class="form-widget w-100 w-70-ns">
                 {{ form_widget(form.chronique) }}
               </div>
             </div>
@@ -93,7 +93,7 @@
                 <div class="form-flex justify-center pt3">
                   {{ form_label(form.joggeurChronique, "Joggeur de la Chronique", {'label_attr': {'class': 'form-label control-label'}}) }}
                   {{ form_errors(form.joggeurChronique) }}
-                  <div class="form-widget w-70">
+                  <div class="form-widget w-100 w-70-ns tc">
                     {{ form_widget(form.joggeurChronique, {'attr': {'class': 'form-control'}}) }}
                   </div>
                 </div>

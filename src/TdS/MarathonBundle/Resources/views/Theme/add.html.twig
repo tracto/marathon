@@ -8,10 +8,12 @@
 	<div id="content" class="form-container">
     	<h1 class="ms-title">
 			{% if statut == 0 %}
-				<svg class="self-center icon icon--s icon-plus fill-near-black mr2"><use xlink:href="#icon-plus"></use></svg>			
-				<span class="self-center">Nouveau thème d'attente</span>
+				<div class="w-100 w-auto-ns">
+					<svg class="self-center icon icon--s icon-plus fill-near-black mr2"><use xlink:href="#icon-plus"></use></svg>			
+					<span class="self-center">Nouveau thème d'attente</span>
+				</div>
 				
-				<div class="self-center ml2">
+				<div class="self-center ml2-ns center tc ">
 					<span class="button-becky db" data-info="Tu es sur le point de créer le thème d'attente, c'est à dire le thème de la semaine prochaine. Il sera considéré comme brouillon et sera invisible des autres joggeurs jusqu'à son activation.<br/>N'oublie pas d'ajouter une image, c'est très important." data-btn-becky>
 		        		{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
             			<img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">

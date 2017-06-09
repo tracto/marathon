@@ -9,9 +9,12 @@
 	    <div class="ma0 tc b--dashed b--black-20 bb bt-0 br-0 bl-0 pb3 mb3 ">
 	    	<div class="flex flex-auto justify-center">
 		    	<h1 class="ms-title">
-					<svg class="self-center icon icon--s mr3 fill-near-black"><use xlink:href="#icon-add-music"></use></svg>
-					<span class="self-center">Ajouter un Morceau</span>
-					<div class="self-center ml2">
+		    		<div class="w-100 w-auto-ns">
+						<svg class="self-center icon icon--s mr3 fill-near-black"><use xlink:href="#icon-add-music"></use></svg>
+						<span class="self-center">Ajouter un Morceau</span>
+					</div>
+
+					<div class="self-center ml2-ns center tc">
 		            	<span class="button-becky db"  data-info="Ici tu peux ajouter ton morceau.Il faut qu'il soit en mp3. Evite les morceaux trop longs. Tu ne peux poster qu'un seul morceau par semaine et tu ne pourras pas le modifier ensuite.<br/> Si tu te rends compte que tu as fais une erreur ou que tu veux proposer un remix en plus, envoie un mail à Bob Marathon." data-btn-becky>
 		            		{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
 		                	<img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">

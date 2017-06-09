@@ -6,7 +6,7 @@
     <div class="form-group form-flex justify-center form-input-title f4">
       {{ form_label(form.titre, "titre", {'label_attr': {'class': 'form-label control-label'}}) }}
       {{ form_errors(form.titre) }}
-      <div class="form-widget w-40">
+      <div class="form-widget w-100 w-40-ns">
         {{ form_widget(form.titre) }}
       </div>       
     </div>
@@ -40,7 +40,7 @@
     <div class="form-group form-flex justify-center">
         {{ form_label(form.bilan, "Bilan de la Saison", {'label_attr': {'class': 'form-label control-label'}}) }}
         {{ form_errors(form.bilan) }}
-        <div class="form-widget">
+        <div class="form-widget w-100 w-70-ns">
           {{ form_widget(form.bilan) }}
         </div>
     </div>

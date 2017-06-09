@@ -15,7 +15,7 @@
         <div class="form-group form-flex form-input-title f4">
             {{ form_label(form.pseudo, "Pseudo", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.pseudo) }}
-            <div class="form-widget">
+            <div class="form-widget w-100 w-40-ns">
               {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
@@ -43,7 +43,7 @@
           <div class="form-flex">
               {{ form_label(form.presentation, "presentation", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.presentation) }}
-              <div class="form-widget">
+              <div class="form-widget w-100 w-70-ns">
                   {{ form_widget(form.presentation) }}
               </div>
           </div>
@@ -54,7 +54,7 @@
 
         <fieldset class="form-group">
           <div class="form-flex">
-              <div class="form-label flex flex-auto">
+              <div class="form-label flex flex-auto justify-center">
                   <span class="self-center pr2">Site Web</span>
                   <div class="self-end">
                       <span class="button-becky db" data-info="la zone 'nom' apparaîtra sur la page d'accueil publique (colonne 'pas loin') donc intitule le au mieux pour qu'on puissse te reconnaître<br/>Sur ton profil, c'est l'url seule qui est affichée" data-btn-becky>
@@ -67,7 +67,7 @@
                   <div class="form-flex">
                       {{ form_label(form.website.name, "nom", {'label_attr': {'class': 'form-label control-label'}}) }}
                       {{ form_errors(form.website.name) }}
-                      <div class="form-widget self-center">
+                      <div class="form-widget self-center w-100 w-70-ns">
                         {{ form_widget(form.website.name, {'attr': {'class': 'form-joggeur-website'}}) }}
                       </div>
                   </div>
@@ -75,7 +75,7 @@
                   <div class="form-flex">
                       {{ form_label(form.website.url, "url", {'label_attr': {'class': 'form-label control-label'}}) }}
                       {{ form_errors(form.website.url) }}
-                      <div class="form-widget self-center">
+                      <div class="form-widget self-center w-100 w-70-ns">
                         {{ form_widget(form.website.url, {'attr': {'class': 'form-joggeur-website w-100'}}) }}
                       </div>
                   </div>
@@ -85,7 +85,7 @@
           <div class="form-flex mt4">
               {{ form_label(form.mail, "Email", {'label_attr': {'class': 'form-label control-label'}}) }}
               {{ form_errors(form.mail) }}
-              <div class="form-widget w-70">
+              <div class="form-widget w-100 w-70-ns">
                 {{ form_widget(form.mail, {'attr': {'class': 'form-control w-100'}}) }}
               </div>
           </div>
