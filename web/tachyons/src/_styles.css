@@ -2001,7 +2001,7 @@ button{
 }
 
 .form-group input{
-	width:100%;
+	/*width:100%;*/
 	border-radius:5px;
 	padding:0.5rem;
 	color:var(--dark-gray);

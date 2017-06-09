@@ -2324,7 +2324,7 @@ button { cursor: pointer; }
 .form-flex { width: 100%; display: -ms-flexbox; display: flex; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-wrap: wrap; flex-wrap: wrap; }
 .form-front-wrapper .form-group { border-radius: 0; width: 100%; }
 .form-label { min-width: 100%; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; text-align: center; }
-.form-group input { width: 100%; border-radius: 5px; padding: .5rem; color: #333; }
+.form-group input {/*width:100%;*/ border-radius: 5px; padding: .5rem; color: #333; }
 .form-date div { padding-left: 1rem; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
 .form-error ul { width: 100%; background-color: #fd6274; padding: .4rem; font-style: italic; font-size: .7rem; margin-top: .5rem; }
 .form-error ul li { list-style: none; }
