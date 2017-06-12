@@ -2138,13 +2138,14 @@ select.mobile-nav { width: 40px; height: 40px; position: absolute; top: 0; left:
 .navbar-second:hover ul, .navbar-second:focus ul, .navbar-second.active ul { display: block; }
 .navbar-second li { line-height: 20px; }
 .button-connexion { margin-top: -0.7rem; padding-top: .7rem; font-size: .9rem; width: 91px; height: 37px; background-image: url( ../../bundles/tdsmarathon/images/header/button-connexion.svg ); background-repeat: no-repeat; background-size: cover; display: block; }
+.user-panel { margin-top: -57px; margin-right: -5px; }
 .navbar-header_saison span { display: -ms-flexbox; display: flex; -ms-flex: 0 1 auto; flex: 0 1 auto; margin-bottom: .1rem; }
 .navbar-header_saison span:before { content: ' '; background-color: #fd6274; height: 3px; width: 100%; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; -ms-flex: 1; flex: 1; }
 .navbar-header_saison span:after { content: ' '; background-color: #fd6274; height: 3px; width: 100%; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; -ms-flex: 1; flex: 1; }
 .navbar-header_saison span:before { margin-right: .5rem; }
 .navbar-header_saison span:after { margin-left: .5rem; }
-.nav-points-bisous { position: absolute; top: 100%; margin-top: 3px; }
-.button-lois { position: absolute; top: 100%; margin-top: 10px; cursor: pointer; }
+.nav-points-bisous { position: absolute; right: 0; top: 100%; margin-top: 3px; }
+.button-lois { position: absolute; left: 0; top: 100%; margin-top: 10px; cursor: pointer; }
 .navbar-first li.button-lois { line-height: 20px; }
 .button-lois a { border: outset 1px white; }
 .hero .saison-title { bottom: 130px; font-family: Metal Mania, cursive; font-size: 2.5rem; font-weight: 100; line-height: 0; width: 100%; }
@@ -2292,6 +2293,7 @@ button { cursor: pointer; }
 /* COMMENTS */
 .comment-action-buttons { margin-top: -20px; }
 #fos_comment_thread_wrapper { border: 1px solid rgba( 0, 0, 0, .1 ); background-color: rgba( 233, 234, 231, .3 ); }
+.fos_comment_infos { word-break: break-all; }
 #fos_comment_thread >.fos_comment_comment_form_holder { padding: 0 0 20px 0; margin-bottom: 20px; border-bottom: dashed 1px rgba( 0, 0, 0, .3 ); }
 #fos_comment_thread .fos_comment_comment_form_holder { width: 100%; padding-top: 30px; }
 .fos_comment_comment_new_form { margin: 0 auto; text-align: center; }
@@ -2300,7 +2302,7 @@ button { cursor: pointer; }
 .fos_comment_comment_form_body { height: 50px; }
 .fos_comment_comment_form_content textarea { background-color: rgba( 255, 255, 255, .5 ); border: none; height: auto; width: 100%; height: 100%; }
 .fos_comment_comment_body_wrapper { padding: 0 0 20px 0; }
-.fos_comment_comment_body { padding: 10px; }
+.fos_comment_comment_body { padding: 10px; word-break: break-all; }
 .fos_comment_comment_depth_0 { margin-left: 2rem; }
 .fos_comment_comment_depth_0:before { background: transparent !important; }
 .fos_comment_comment_replies { margin-left: 10px; padding-bottom: 20px; }
@@ -2324,6 +2326,7 @@ button { cursor: pointer; }
 .form-flex { width: 100%; display: -ms-flexbox; display: flex; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-wrap: wrap; flex-wrap: wrap; }
 .form-front-wrapper .form-group { border-radius: 0; width: 100%; }
 .form-label { min-width: 100%; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; text-align: center; }
+.form-widget input { width: 100%; }
 .form-group input {/*width:100%;*/ border-radius: 5px; padding: .5rem; color: #333; }
 .form-date div { padding-left: 1rem; -ms-flex: 1 1 auto; flex: 1 1 auto; -ms-flex-item-align: center; -ms-grid-row-align: center; align-self: center; }
 .form-error ul { width: 100%; background-color: #fd6274; padding: .4rem; font-style: italic; font-size: .7rem; margin-top: .5rem; }
@@ -2896,6 +2899,7 @@ button { cursor: pointer; }
  .form-group { padding: 2rem; }
  .form-label { min-width: 20%; text-align: right; padding-right: 1rem; }
  .form-widget { padding-left: 1rem; border-left: solid 1px rgba( 0, 0, 0, .2 ); }
+ .form-widget input { width: inherit; }
 }
 @media screen and (min-width: 40em) and (max-width: 65em) {
  .aspect-ratio-m { height: 0; position: relative; }

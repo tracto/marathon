@@ -5,7 +5,7 @@
       <div class="form-group form-flex form-input-title f4">     
         {{ form_label(form.titre, "titre", {'label_attr': {'class': 'form-label control-label'}}) }}
         {{ form_errors(form.titre) }}
-        <div class="form-widget">
+        <div class="form-widget w-100 w-70-ns">
           {{ form_widget(form.titre) }}
         </div>
       </div>
@@ -15,8 +15,8 @@
           <div class="w-100 form-flex">
             {{ form_label(form.theme, "thème", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.theme) }}
-            <div class="form-widget">
-              {{ form_widget(form.theme, {'attr': {'class': 'form-control'}}) }}
+            <div class="form-widget w-100 w-70-ns">
+              {{ form_widget(form.theme, {'attr': {'label_attr': 'form-control w-100'}}) }}
             </div>
           </div>
       
@@ -25,7 +25,7 @@
           <div class="w-100 form-flex mt3">
             {{ form_label(form.joggeur, "joggeur", {'label_attr': {'class': 'form-label control-label'}}) }}
             {{ form_errors(form.joggeur) }}
-            <div class="form-widget tc">
+            <div class="form-widget tc w-100 w-70-ns">
               {{ form_widget(form.joggeur, {'attr': {'class': 'form-control'}}) }}
             </div>
           </div>

@@ -388,6 +388,12 @@ select.mobile-nav{
 } 
 
 
+.user-panel{
+	margin-top:-57px;
+	margin-right:-5px;
+}
+
+
 .navbar-header_saison span{
 	display:flex;
 	flex:0 1 auto;
@@ -423,12 +429,14 @@ select.mobile-nav{
 
 .nav-points-bisous {
 	position: absolute;
+	right:0;
     top: 100%;
     margin-top: 3px;
 }
 
 .button-lois{
 	position: absolute;
+	left:0;
     top: 100%;
 	margin-top: 10px;
 	cursor:pointer;
@@ -1630,7 +1638,10 @@ button{
 }
 
 
-	
+
+.fos_comment_infos{
+	word-break:break-all;
+}	
 
 #fos_comment_thread >.fos_comment_comment_form_holder{
 	padding:0 0 20px 0;
@@ -1684,6 +1695,7 @@ button{
 
 .fos_comment_comment_body{
 	padding:10px;
+	word-break:break-all;
 }
 
 @media (--breakpoint-not-small){
@@ -1991,14 +2003,23 @@ button{
 }
 
 
-
+.form-widget input{
+	width:100%;
+}
 
 @media (--breakpoint-not-small){
 	.form-widget{
 		padding-left:1rem;
 		border-left:solid 1px rgba(0,0,0,0.2);
 	}
+
+	.form-widget input{
+		width:inherit;
+	}
 }
+
+
+
 
 .form-group input{
 	/*width:100%;*/

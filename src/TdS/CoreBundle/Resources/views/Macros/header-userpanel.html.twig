@@ -1,18 +1,18 @@
 {% macro userpanel(saisonCurrent,joggeurScoreSaison) %}
 	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 
-	<div class="user-panel flex flex-wrap flex-1-m justify-end pt3 pb1 pr1  pt0-ns pr0-ns relative z-999">
+	<div class="user-panel flex flex-auto flex-wrap flex-1-m justify-end pt3 pb1 pr1  pt0-ns pr0-ns absolute relative-ns top-0 right-0 w-80 w-auto-ns z-999">
   	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user is defined %}
 	  	{% if app.user.joggeur is defined and app.user.joggeur is not empty %}	  	
-			<div class="author-name self-center justify-end-m pr2 tr w-85-m">
+			<div class="author-name self-center justify-end-m pr2 tr  w-85 w-auto-ns order-1 order-1-ns">
 				<a class="link ms-light-gray pointerevents-all" href="{{ path('tds_marathon_joggeur_view', {'id': app.user.joggeur.id}) }}">
 					<span class="f6">{{ app.user.joggeur.pseudo }}</span> 
 				</a>
 				<a class="link ms-light-gray db f7 tr" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
 			</div>
 
-			<div class="mr1">
-				<div class="navbar-header_saison w-100 justify-end-m">
+			<div class="ph1 pb1 order-3 order-2-ns w-auto-ns justify-end bg-near-black">
+				<div class="navbar-header_saison w-100 justify-end">
 					<span class="center tc bg-near-black ms-fushia">{{ saisonCurrent.titre }}</span>
 				</div>	
 				{% set scoreTotal = 0 %}
@@ -20,9 +20,9 @@
 					{% set scoreTotal = joggeurScoreSaison.total %}
 				{% endif %}
 
-				<div class="flex justify-end-m">
+				<div class="flex justify-end">
 					<div class="f5 bg-ms-turquoise near-black self-stretch flex">
-						<span class="db self-center ph1">{{ scoreTotal }} points</span> 
+						<span class="db self-center pa1 lh-solid tr">{{ scoreTotal }} points</span> 
 					</div>
 
 					{% set totalHeartpoints = 0 %}
@@ -47,8 +47,8 @@
 				</div>
 			</div>									
 			
-			<div class="thumb-line self-stretch justify-end-m flex order-2-m w-15-m">
-				<div class="mt1 mr1-m">
+			<div class="thumb-line self-stretch justify-end-m flex order-2 order-3-ns w-15">
+				<div class="mt1 mr1 mr0-ns">
 					<span class="db thumbnail--m aspect-ratio aspect-ratio--1x1">
 						{% if app.user.joggeur.image is not null %}
 							<img class='db aspect-ratio--object' src='{{ app.user.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
