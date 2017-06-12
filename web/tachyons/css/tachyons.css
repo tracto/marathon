@@ -2862,6 +2862,7 @@ button { cursor: pointer; }
  .nav-toggler__label { display: none; }
  .navbar-first > li { line-height: 60px; }
  .navbar-first li {/*min-width: 4rem;*/ cursor: pointer; }
+ .user-panel { margin-top: 0; margin-right: 0; }
  .button-lois { margin-top: 3px; }
  .icon--xxs-ns { width: 10px; height: 10px; }
  .icon--xs-ns { width: 20px; height: 20px; }

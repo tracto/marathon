@@ -393,6 +393,14 @@ select.mobile-nav{
 	margin-right:-5px;
 }
 
+@media (--breakpoint-not-small){
+	.user-panel{
+		margin-top:0;
+		margin-right:0;
+	}
+
+}
+
 
 .navbar-header_saison span{
 	display:flex;
