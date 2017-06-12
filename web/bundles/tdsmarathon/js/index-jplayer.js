@@ -24,19 +24,19 @@ $(document).ready(function(){
                 var self = this;
 
                 var listItem = "<div class='playlist-item'>";
-                    listItem += "<div href='javascript:;' class='flex flex-auto flex-wrap" + playlistIndex.options.playlistOptions.itemClass + "' tabindex='1'>";
+                    listItem += "<div href='javascript:;' class='flex flex-auto " + playlistIndex.options.playlistOptions.itemClass + "' tabindex='1'>";
                 
-                        listItem +="<div class='w-70 flex'>";
+                        listItem +="<div class='w-65 flex pr2 pr0-ns'>";
                             listItem +="<div>";                          
-                                listItem +="<div class='jp-title i f6'>" + media.title + "</div>";
-                                listItem +="<div class='jp-theme'><span class='f8'> Theme : </span>" + media.theme + "</div>";
+                                listItem +="<div class='jp-title i f7 f6-ns break-all'>" + media.title + "</div>";
+                                listItem +="<div class='jp-theme break-all'><span class='f8'> Theme : </span>" + media.theme + "</div>";
                             listItem +="</div>";
                         listItem +="</div>";
 
                         
                 
-                        listItem +="<div class='flex flex-auto tr justify-end'>";
-				            listItem +="<div class='jp-artist pr2'>";
+                        listItem +="<div class='flex flex-auto tr justify-end w-35'>";
+				            listItem +="<div class='jp-artist pr1 pr2-ns'>";
                                 listItem +="<span class='db f8'>Joggeur</span>";
                                 listItem +="<span>" + media.artist + "</span>";
                             listItem +="</div>";

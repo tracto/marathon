@@ -50,6 +50,12 @@ select{
 }
 
 
+
+.break-all{
+	word-break:break-all;
+}
+
+
 .pointerevents-none{
 	pointer-events:none;
 }
@@ -1379,8 +1385,11 @@ button{
 	background:transparent;
 }
 
-.playlist-index-body .jp-infos-title{
-	max-height:40px;
+
+@media (--breakpoint-not-small){
+	.playlist-index-body .jp-infos-title{
+		max-height:40px;
+	}
 }
 
 .playlist-index-body .button-player{

@@ -20,7 +20,7 @@
 		<div class="flex flex-auto flex-wrap">
 			<div class="w-100 w-60-ns bg-ms-turquoise relative">
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<a class="button absolute mt2 ml2" href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
+					<a class="button button-action dib relative  pt2 mt2 mr2 ml2 tc tl-ns" href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
 						<span class="btn__label">Modifier la saison</span>	  						  				
 					</a>

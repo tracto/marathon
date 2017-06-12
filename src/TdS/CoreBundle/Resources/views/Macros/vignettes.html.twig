@@ -141,21 +141,21 @@
 
 {# MACRO VIGNETTE LINE THEME #}
 {% macro vignette_line_theme(themeItem) %}
-	<a class="vignette-theme-line flex flex-wrap justify-between no-underline near-black bg-white-10 shadow-subtle" href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
-		<div class="flex flex-auto flex-wrap w-60">
+	<a class="vignette-theme-line flex flex-auto justify-between no-underline near-black bg-white-10 shadow-subtle" href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
+		<div class="flex flex-auto w-70">
 			<div class="thumbnail--m flex">
 				<img class="" src="{{ themeItem.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ themeItem.image.alt }}">
 			</div>
 			<div class="vignette-theme-line_titre pl2 self-center">{{ themeItem.titre }}</div>
 		</div>
 		
-		<div class="flex flex-auto items-stretch justify-end flex-wrap">
-			<div class="flex flex-wrap bg-near-black pa2 mr1">
-	    		<svg class="flex-item icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-cd"></use></svg>
-	    		<span class="flex-item ms-turquoise">{{ themeItem.musicTitles|length  }}</span>
+		<div class="flex flex-auto items-stretch justify-end">
+			<div class="flex bg-near-black pa2 mr1">
+	    		<svg class="flex-item self-center icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-cd"></use></svg>
+	    		<span class="flex-item self-center ms-turquoise">{{ themeItem.musicTitles|length  }}</span>
 	    	</div>
 
-	    	<div class="flex flex-wrap bg-near-black pa2">
+	    	<div class="flex bg-near-black pa2">
 			    <svg class="flex-item icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-dialog-icon"></use></svg>
 			    {% if themeItem.thread is defined and themeItem.thread is not null %}
 				    <span class="ms-turquoise">{{ themeItem.thread.numComments }}</span>

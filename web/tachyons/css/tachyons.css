@@ -2098,6 +2098,7 @@ textarea:focus { outline: solid 1px #fd6274; }
 button:focus { outline: solid 1px #fd6274; }
 input[type='submit']:focus { outline: none; }
 select { background-color: white; border: solid 1px grey; }
+.break-all { word-break: break-all; }
 .pointerevents-none { pointer-events: none; }
 .pointerevents-all { pointer-events: all; }
 .wrapper { min-height: 50vh; width: 100%; /*overflow-x:hidden;*/ }
@@ -2239,7 +2240,6 @@ button { cursor: pointer; }
 .playlist-item-wrapper { border-bottom: 1px solid rgba( 0, 0, 0, .2 ); background: linear-gradient( to bottom, rgba( 255, 255, 255, .9 ) -18%, rgba( 223, 227, 222, .5 ) 12%, rgba( 223, 227, 222, .3 ) 181% ); }
 .jp-title-artist { -ms-flex-positive: 2; flex-grow: 2; }
 .playlist-index-body .playlist-item { border: none; background: transparent; }
-.playlist-index-body .jp-infos-title { max-height: 40px; }
 .playlist-index-body .button-player { padding: .2rem; }
 .playlist-index-body .jp-volume-bar { height: 5px; }
 .playlist-item-wrapper.jp-playlist-current { background: linear-gradient( 180deg, rgba( 6, 161, 154, .5 ) -18%, rgba( 139, 204, 198, .5 ) 12%, rgba( 19, 181, 76, .3 ) 181% ); }
@@ -2881,6 +2881,7 @@ button { cursor: pointer; }
  .ms-title_turfu .turfu-ie, .ms-title_turfu .turfu-netscape { margin: 0; }
  .ms-title_framed { padding: 4rem; height: 120px; margin: 2rem auto; }
  .ms-title_framed h2 { font-size: 3rem; margin-top: 0; }
+ .playlist-index-body .jp-infos-title { max-height: 40px; }
  .podium-1>div { min-height: 420px; }
  .podium-2>div { min-height: 400px; }
  .fos_comment_comment_show { border-left: solid 2px rgba( 0, 0, 0, .2 ); margin-left: 25px; }
