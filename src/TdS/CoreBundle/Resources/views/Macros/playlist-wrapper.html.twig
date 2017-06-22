@@ -396,21 +396,29 @@
 		<div class="bg-gradient_pl">
 			{# flèches joggeur precedent / joggeur suivant #}
 			{% if joggeurPrec is not null and joggeurSuiv is not null%}
+
 				<div class="playlist-fleches w-100 absolute z-1 cf pe-n">
 					<a class="fl pe-a ms-turquoise flex flex-auto no-underline relative overflow-hidden" data-action="theme-nav-infos-hover" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurPrec.id}) }}">
 						<svg class="playlist-fleche pa2 icon  fill-ms-fushia self-center bg-near-black db z-2"><use xlink:href="#icon-playlist-arrow-prev"></use></svg>
 
 						<div class="theme-nav-infos theme-nav-infos_left relative flex-ns dn flex-auto self-center pl2 bl b--ms-fushia bg-near-black z-1" data-action='show'>
 							<span class="self-center">
-								<span class="db">{{ joggeurPrec.pseudo }}</span>
-								
+								<span class="db">{{ joggeurPrec.pseudo }}</span>								
 							</span>
-							<img class="img-aspect-ratio self-center pl2" src="{{ joggeurPrec.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ joggeurPrec.image.alt }}">
+							{% if joggeurPrec.image is not null %}
+								<img class="img-aspect-ratio self-center pl2" src="{{ joggeurPrec.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ joggeurPrec.image.alt }}">
+							{% else %}
+								<img class="img-aspect-ratio self-center pl2" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">
+							{% endif %}
 						</div>
 					</a>
 					<a class="fr pe-a ms-turquoise flex flex-auto no-underline relative overflow-hidden" data-action="theme-nav-infos-hover" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurSuiv.id}) }}" >
 						<div class="theme-nav-infos theme-nav-infos_right relative flex-ns dn flex-auto self-center pr2 br b--ms-fushia bg-near-black z-1" data-action='show'>
-							<img class="img-aspect-ratio self-center pr2 " src="{{ joggeurSuiv.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ joggeurSuiv.image.alt }}">
+							{% if joggeurSuiv.image is not null %}
+								<img class="img-aspect-ratio self-center pr2 " src="{{ joggeurSuiv.image.webPath  | imagine_filter('tiny_thumb') }}" alt="{{ joggeurSuiv.image.alt }}">
+							{% else %}
+								<img class="img-aspect-ratio self-center pr2" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">
+							{% endif %}
 							<span class="self-center">
 								<span class="db">{{ joggeurSuiv.pseudo }}</span>
 							</span>
