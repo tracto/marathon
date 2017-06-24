@@ -1,0 +1,21 @@
+<div id="content" class="bg--lightgrey pa4">
+	{% trans_default_domain 'FOSUserBundle' %}
+
+	<div class="ms-title flex-1 pv3">
+	        <svg class="icon icon--s icon-locked"><use xlink:href="#icon-locked"></use></svg>                   
+	        <h2><span class="">Changer de mot de passe</span></h2>  
+	</div>
+	{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+	<div  class="form-group w-100 flex flex-auto">
+	    {{ form_widget(form) }}	    
+	</div>
+
+	<div class="center tc">
+        <div class="button button-save">
+          <svg class="icon icon--s"><use xlink:href="#icon-checkmark"></use></svg>  
+           <button class="" type="submit" value="envoyer">Modifier le mot de passe</button>
+        </div>
+    </div>
+
+	{{ form_end(form) }}
+</div>
