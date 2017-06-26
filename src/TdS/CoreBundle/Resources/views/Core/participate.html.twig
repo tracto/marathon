@@ -1,49 +1,40 @@
-{% extends "TdSCoreBundle::layout.html.twig" %}
+<div class="pa3 pb5 center tc bg--pierre f7" >
+		
+	<h2 class="metal-mania f1">Je veux Jogger</h2>
+	
+	    <span class="button-becky db center mb3" data-info="Yo! <br/> Remplis le formulaire et un message télépathique sera directement envoyé à l'organisateur (Bob Marathon)." data-btn-becky>
+			{% set webpath = "bundles/tdsbecky/images/rebecca.png" %}
+        	<img class="w-100 db" src="{{ webpath | imagine_filter('becky_thumb') }}" alt="becky">
+		</span>
+		
 
-{% block body %}
-	<div id="content" class="bg--lightgrey pam pbxxl">
-
-		<h1 class="main-title man align-center">
-			<span>participer au marathon</span>		
-			<span class="button btn btn-default btn-becky" data-info="Yo! moi c'est becky, une meuf alphanumérique comme dans code Lisa en moins bien détourée.<br/> Remplis le formulaire et un message télépathique sera directement envoyé à l'organisateur (Bob Marathon).">
-	            <svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
-	        </span>
-		</h1>
-
-		<div class="form-wrapper bg-op--white bd--light pam">
-	    	{{ form_start(form, {'attr': {'class': ''}}) }}
+		<div class="form-wrapper">
+	    	{{ form_start(form, {'attr': {'id': 'participate-form'}}) }}
 
 		    	{{ form_errors(form) }}
+		    	<div class="form-group ">
+			    	<div class="form-flex justify-center">
+				      {{ form_label(form.pseudo, "pseudo", {'label_attr': {'class': 'form-label control-label'}}) }}
+				      {{ form_errors(form.pseudo) }}
+				      <div class='form-widget'>
+				        {{ form_widget(form.pseudo, {'attr': {'class': ''}}) }}
+				      </div>
+				    </div>
 
-		    	<div class="form-group row mll mrl ptm pbm">
-			      {{ form_label(form.pseudo, "pseudo", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-			      {{ form_errors(form.pseudo) }}
-			      <div class='col-xs-12 col-sm-6'>
-			        {{ form_widget(form.pseudo, {'attr': {'class': ''}}) }}
-			      </div>
-			    </div>
 
+				    <div class="form-flex justify-center mt3">
+				      {{ form_label(form.email, "email", {'label_attr': {'class': 'form-label control-label'}}) }}
+				      {{ form_errors(form.email) }}
+				      <div class='form-widget'>
+				        {{ form_widget(form.email, {'attr': {'class': ''}}) }}
+				      </div>
+				    </div>
+				</div>
 
-			    <div class="form-group row mll mrl ptm pbm">
-			      {{ form_label(form.email, "email", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-			      {{ form_errors(form.email) }}
-			      <div class='col-xs-12 col-sm-6'>
-			        {{ form_widget(form.email, {'attr': {'class': ''}}) }}
-			      </div>
-			    </div>
-
-			    <div class="form-group row mll mrl ptm pbm">
-			      {{ form_label(form.content, "candidature", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
-			      {{ form_errors(form.content) }}
-			      <div class='col-xs-12 col-sm-6'>
-			        {{ form_widget(form.content, {'attr': {'class': ''}}) }}
-			      </div>
-			    </div>
-
-		    	<div class="align-center">
-			        <div class="button btn btn-action mts">
+		    	<div class="center tc">
+			        <div class="button button-save">
 			          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
-			           {{ form_widget(form.save, {'attr': {'value': 'valider'}}) }}
+			           {{ form_widget(form.envoyer, {'attr': {'value': 'valider'}}) }}
 			        </div>
 			     </div>
 
@@ -53,4 +44,4 @@
 		</div>
 	</div>
 
-{% endblock %}
+

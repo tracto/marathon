@@ -98,11 +98,26 @@ tds_marathon_kilometrage:
         expose: true
 
 
+
+
+tds_jeveuxjogger:
+    path:    /jeveuxjogger
+    defaults: { _controller: TdSCoreBundle:Core:participate }
+    options:
+        expose: true
+
+tds_jeveuxjogger_validate:
+    path:    /jeveuxjogger/validate
+    defaults: { _controller: TdSCoreBundle:Core:participateValidate }
+
+
 tds_credits:
     path:    /credits
     defaults: { _controller: TdSCoreBundle:Core:credits }
     options:
         expose: true
+
+
 
 
 

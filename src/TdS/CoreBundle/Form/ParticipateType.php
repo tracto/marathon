@@ -10,8 +10,7 @@ class ParticipateType extends AbstractType
     {
         $builder->add('email', 'email')
                 ->add('pseudo', 'text')
-                ->add('content', 'textarea')
-                ->add('save','submit');
+                ->add('envoyer','submit');
     }
 
     public function getName()

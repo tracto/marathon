@@ -237,26 +237,32 @@ class CoreController extends Controller{
 			$form->handleRequest($request);
             $data = $form->getData();
 
-           $contenuMail="yo";
+            $contenuMail="Un nouveau joggeur souhaite participer au Marathon!<br/>";
+            $contenuMail.="Nom d'utilisateur : ".$data['pseudo']."<br/>";
+            $contenuMail.="Email : ".$data['email']."<br/>";
+            $contenuMail.="Envoies-lui un email pour lui transmettre ses identifiants de connexion dès que tu auras créé son compte, il sera content.";
 
             $message = \Swift_Message::newInstance()
                 ->setSubject("Marathon de la Semaine : demande d'inscription")
                 ->setFrom($data['email'])
-                ->setTo('kl6yranne@yahoo.fr')
-                ->setBody($contenuMail);
+                ->setTo('anneclaire.bourdois@gmail.com')
+                ->setBody($contenuMail,'text/html');
+                
 
             $mailer=$this->get('mailer');
 
             $mailer->send($message);
 
-
-            return $this->render('TdSCoreBundle:Core:participate-validation.html.twig',array('data'=>$data));
         }
 
 		return $this->render('TdSCoreBundle:Core:participate.html.twig',array(
 				'form'=>$form->createView()));
 		
 	}
+
+
+
+	
 
 	public function creditsAction(){
 		return $this->render('TdSCoreBundle:Core:credits.html.twig');
