@@ -141,7 +141,7 @@ select{
 
 
 
-#becky-wrapper .becky-img{
+.becky-wrapper .becky-img{
 	background-image:url('../../bundles/tdsbecky/images/rebecca.png');
 	background-size:cover;
 	width:100px;
@@ -679,7 +679,7 @@ button{
 
 .button-switch span{
 	margin-left:-8px;
-	padding:18px;
+	/*padding:18px;*/
 	/*height:60px;*/
 }
     
@@ -1418,6 +1418,27 @@ button{
 	width:50px;
 	height:50px;
 }
+
+
+
+
+.playlist-vignette-box{
+	width:150px;
+}
+
+
+.playlist-vignette-box .button-delete{
+	display:none;
+}
+
+
+.playlist-vignette-box .vignette-encoche{
+	margin-left:-3px;
+}
+
+
+
+
 
 .theme-nav-infos_left{	
 	height:50px;

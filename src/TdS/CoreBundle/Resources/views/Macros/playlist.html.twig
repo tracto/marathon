@@ -1,5 +1,6 @@
 {% macro playlist(theme,joggeur) %}
 
+{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
 
 <div class='playlist-body'>
 	{# liste envoyée au jplayer / invisible #}
@@ -13,9 +14,20 @@
 						{% else %}
 							{% set imagePlaylist = musicTitle.joggeur.image.webPath|imagine_filter('tiny_thumb') %}
 						{% endif %}
-						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='{{ musicTitle.joggeur.pseudo  }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}'>
+						<li class='musicTitleItem'  data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='{{ musicTitle.joggeur.pseudo  }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}' data-vignetteid='{{ musicTitle.joggeur.id }}'>
 								{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
-						</li>										
+						</li>
+
+						<div class="vignette-box-content dn" data-vignetteid='{{ musicTitle.joggeur.id }}'>
+							<div class="flex flex-auto w-100">									
+								<div class="w-100 bg-near-black">
+									{{ vignetteModule.vignette_joggeur(musicTitle.joggeur,null) }}
+								</div>
+								<div class="vignette-encoche">
+									<svg class="icon icon--xs"><use xlink:href="#icon-play"></use></svg>
+								</div>
+							</div>
+						</div>										
 					{% endfor %}
 				</ul>
 			{% endif %}
@@ -28,10 +40,21 @@
 						{% else %}
 							{% set imagePlaylist = musicTitle.theme.image.webPath | imagine_filter('tiny_thumb') %}
 						{% endif %}
-						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='theme / {{ musicTitle.theme.titre }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}'>
+						<li class='musicTitleItem' data-id='{{ musicTitle.id }}' data-titre='{{ musicTitle.titre }}'  data-artiste='theme / {{ musicTitle.theme.titre }}' data-thumb='{{ imagePlaylist }}' data-path='{{ asset(musicTitle.webPath) }}'  data-vignetteid='{{ musicTitle.theme.id }}'>
 							{{ musicTitle.id }} - {{ musicTitle.titre }} -  {{ musicTitle.webPath }}
 							
-						</li>					
+						</li>
+
+						<div class="vignette-box-content dn" data-vignetteid='{{ musicTitle.theme.id }}'>
+							<div class="flex flex-auto w-100">	
+								<div class="w-100 bg-near-black">
+									{{ vignetteModule.vignette_theme(musicTitle.theme) }}
+								</div>
+								<div class="vignette-encoche">
+									<svg class="icon icon--xs"><use xlink:href="#icon-play"></use></svg>
+								</div>
+							</div>
+						</div>					
 					{% endfor %}
 				</ul>
 			{% endif %}

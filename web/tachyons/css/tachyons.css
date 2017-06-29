@@ -2109,7 +2109,7 @@ select { background-color: white; border: solid 1px grey; }
 .button-becky { background-color: #fd6274; border: outset 1px white; border-radius: 8px; text-decoration: none; height: 50px; width: 50px; cursor: pointer; }
 #button-becky-fixed { display: none; }
 #button-becky-fixed .becky-img { background-image: url( '../../bundles/tdsbecky/images/rebecca-hot.png' ); background-size: cover; width: 70px; height: 94px; }
-#becky-wrapper .becky-img { background-image: url( '../../bundles/tdsbecky/images/rebecca.png' ); background-size: cover; width: 100px; height: 134px; }
+.becky-wrapper .becky-img { background-image: url( '../../bundles/tdsbecky/images/rebecca.png' ); background-size: cover; width: 100px; height: 134px; }
 /*POPUP*/
 #popup { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba( 28, 31, 32, .7 ); display: none; }
 /*LOIS DU MARATHON*/
@@ -2170,7 +2170,7 @@ button { cursor: pointer; }
 .button-player .icon { display: inline-block; vertical-align: middle; fill: #13191b; }
 .button-save { position: relative; margin: 0 auto; width: auto; text-align: center; display: inline-block; margin-bottom: 2rem; }
 .button-save button { border: none; background: transparent; color: #fd6274; }
-.button-switch span { margin-left: -8px; padding: 18px; /*height:60px;*/ }
+.button-switch span { margin-left: -8px; /*padding:18px;*//*height:60px;*/ }
 /* ICONS */
 .icon--xxs { width: 10px; height: 10px; }
 .icon--xs { width: 20px; height: 20px; }
@@ -2246,6 +2246,9 @@ button { cursor: pointer; }
 .playlist-item-wrapper.jp-playlist-current .jp-numero { color: #13191b; }
 .playlist-fleches { top: -20px; }
 .playlist-fleche { width: 50px; height: 50px; }
+.playlist-vignette-box { width: 150px; }
+.playlist-vignette-box .button-delete { display: none; }
+.playlist-vignette-box .vignette-encoche { margin-left: -3px; }
 .theme-nav-infos_left { height: 50px; top: 0; left: -450px; overflow: hidden; transition: left .3s linear; }
 .theme-nav-infos_left.active { left: 0; }
 .theme-nav-infos_right { height: 50px; top: 0; right: -450px; overflow: hidden; transition: right .3s linear; }

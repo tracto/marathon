@@ -87,7 +87,7 @@ $('body').on('click','[data-btn-becky]',function(){
 
 
 $('body').on("click","[data-close-becky]",function(){
-  $("#becky-wrapper").hide();
+  $("[data-container-becky]").hide();
 });
 
 

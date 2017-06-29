@@ -78,6 +78,7 @@ class CoreController extends Controller{
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 	        
 
+	        
 
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'listeSaisons'=>$listeSaisons,

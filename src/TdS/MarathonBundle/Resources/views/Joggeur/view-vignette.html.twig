@@ -1,0 +1,11 @@
+<div class="flex flex-auto w-100">
+	
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
+	
+	<div class="w-100 bg-near-black">
+		{{ vignetteModule.vignette_joggeur(joggeur,null) }}
+	</div>
+	<div class="vignette-encoche">
+		<svg class="icon icon--xs"><use xlink:href="#icon-play"></use></svg>
+	</div>
+</div>

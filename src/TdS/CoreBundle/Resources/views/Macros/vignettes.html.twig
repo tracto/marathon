@@ -43,7 +43,7 @@
 
 					    <div class='vignette-infos-theme flex bg-near-black ms-turquoise pa2'>
 					    		<div class="self-center">
-							    	<h3 class="ma0">{{ theme.titre }}</h3>
+							    	<h3 class="ma0 f5 fw2">{{ theme.titre }}</h3>
 							    	<i class="f7">Créé par : {{ theme.joggeur.pseudo }}</i>
 							    	
 									{% if theme.chronique is defined and theme.chronique is not null %}
@@ -56,7 +56,7 @@
 					</div>					    		
 	    		</a>
 	    		{% if is_granted("ROLE_SUPER_ADMIN") %}
-                    <a class='button absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
+                    <a class='button button-delete absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
                         <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
                     </a>
                 {% endif %}				    		
@@ -89,7 +89,7 @@
 		<a class="db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 
 			<div class="relative">
-				<div class="aspect-ratio aspect-ratio--1x1 z-0">
+				<div class="aspect-ratio aspect-ratio--1x1 z-0 bg-white">
 					{% if joggeur.image is not null %}
 			  			<img class="aspect-ratio--object" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
 					{% else %}
@@ -97,14 +97,7 @@
 		  			{% endif %}
 	  			</div>
 				
-				{# {% if joggeur.id == app.user.joggeur.id %}
-					<div class="ribbon w-100 ph2 bg-ms-fushia tc flex aspect-ratio--object o-50">
-						<div class="self-center w-100 tc">						
-							<svg class="icon icon--s dib v-mid"><use xlink:href="#icon-warning"></use></svg>
-							<span class="dib v-mid near-black">Ton profil</strong></span>
-						</div>
-					</div>
-				{% endif %} #}
+				
 
 				<div class="absolute top-0 flex flex-auto flex-wrap justify-center w-100 z-1">
 	    			<div class="flex flex-wrap {{ bgclass }} pa2 mr2">
@@ -119,7 +112,7 @@
 			</div>					    		
 		</a>
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
-            <a class='button absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_joggeur_delete', {'id': joggeur.id}) }} "  data-pseudo="{{ joggeur.pseudo }}">
+            <a class='button button-delete absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_joggeur_delete', {'id': joggeur.id}) }} "  data-pseudo="{{ joggeur.pseudo }}">
                 <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
             </a>
         {% endif %}			    		
