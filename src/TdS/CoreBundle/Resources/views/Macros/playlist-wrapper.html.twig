@@ -110,15 +110,17 @@
 										<img class='w-100' src='{{ theme.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
 									</span>
 								</a>
+
 							</div>
 
 							<div class="comment-show-button relative top-0 fl">
 								<a href="#fos_comment_thread_wrapper" class="button button-special button-comments dib v-top relative" data-action="show-comments">
 							            <svg class="db top-0 icon icon--s absolute"><use xlink:href="#icon-dialog-icon"></use></svg>
-							            {% if theme.thread.numComments is defined and theme.thread.numComments is not null and theme.thread.numComments is not empty %} 
-							            	<span class="db tc absolute w-100 pt1">{{ theme.thread.numComments }}</span>
+
+							            {% if theme.thread.numcomments is defined and theme.thread.numcomments is not null %} 
+							            	<span id="comment-btn-count" class="db tc absolute w-100 pt1">{{ theme.thread.numcomments }}</span>
 							            {% else %}
-							            	<span class="db tc absolute w-100 pt1">0</span>
+							            	<span id="comment-btn-count" class="db tc absolute w-100 pt1">0</span>
 							        	{% endif %}
 							    </a>
 							    <span class="dib v-mid pt1">commentaires</span>						
