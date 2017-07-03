@@ -18,7 +18,7 @@
 
 		{# PARTIE 1 : les thèmes + podium / wall of fame #}		
 		<div class="flex flex-auto flex-wrap">
-			<div class="w-100 w-60-ns bg-ms-turquoise relative">
+			<div class="w-100 w-60-ns bg-near-black relative">
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
 					<a class="button button-action dib relative  pt2 mt2 mr2 ml2 tc tl-ns" href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
@@ -54,7 +54,7 @@
 							<div class="dn db-ns">
 								<div class="gif-basket-g"></div>
 							</div>
-			    			<h2><span class="">Liste des Thèmes</span></h2>
+			    			<h2><span class="ms-turquoise">Liste des Thèmes</span></h2>
 			    			<div class="dn db-ns">
 			    				<div class="gif-basket-d"></div>
 							</div>

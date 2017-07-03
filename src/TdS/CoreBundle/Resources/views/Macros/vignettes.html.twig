@@ -9,7 +9,7 @@
 		{% endif %}
 		    		
 
-	    		<a class="db w-100 no-underline" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+	    		<a class="db w-100 no-underline ba b--solid b--ms-dark-turquoise" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
 
 		    		<div class="relative">
 		    			<div class="aspect-ratio aspect-ratio--1x1 z-0">
@@ -41,7 +41,7 @@
 							</div>
 						</div>
 
-					    <div class='vignette-infos-theme flex bg-near-black ms-turquoise pa2'>
+					    <div class='vignette-infos-theme flex bg-ms-turquoise near-black pa2'>
 					    		<div class="self-center">
 							    	<h3 class="ma0 f5 fw2">{{ theme.titre }}</h3>
 							    	<i class="f7">Créé par : {{ theme.joggeur.pseudo }}</i>
@@ -56,8 +56,8 @@
 					</div>					    		
 	    		</a>
 	    		{% if is_granted("ROLE_SUPER_ADMIN") %}
-                    <a class='button button-delete absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
-                        <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                    <a class='button button-delete absolute bottom-0 right-0 ma1' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
+                        <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
                     </a>
                 {% endif %}				    		
 		</div>

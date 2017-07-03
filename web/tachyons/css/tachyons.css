@@ -455,6 +455,7 @@ img { max-width: 100%; }
 .b--transparent { border-color: transparent; }
 /*Marathon current border colors*/
 .b--ms-turquoise { border-color: #06a19a; }
+.b--ms-dark-turquoise { border-color: #1e5d5a; }
 .b--ms-fushia { border-color: #fd6274; }
 .b--ms-gold { border-color: #ccc50c; }
 .b--ms-violet { border-color: #7c15a7; }

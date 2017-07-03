@@ -87,6 +87,8 @@
 
 /*Marathon current border colors*/
 .b--ms-turquoise { border-color: var(--ms-turquoise) };
+.b--ms-dark-turquoise { border-color: var(--ms-dark-turquoise) };
+
 .b--ms-fushia { border-color: var(--ms-fushia) };
 .b--ms-gold { border-color: var(--ms-gold) };
 .b--ms-violet { border-color: var(--ms-violet) };
