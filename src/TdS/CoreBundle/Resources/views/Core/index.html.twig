@@ -9,22 +9,32 @@
 {% set classColTheme = "flex-auto" %}
 {% set classThemeItem = "w-50 w-25-ns" %}
 {% set detectDerniersThemes = null %}
+
+{% if listeJoggeursScore is empty %}
+	{% set classColPlaylistTheme = "w-100  flex flex-auto" %}
+	{% set classColTheme = "w-100 w-100-ns" %}
+{% endif %}
+
 {% for theme in saison.themes %}	        		      				
 	{% if theme is defined and theme is not null %}
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
 			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				
-				{% set classColPlaylistTheme = "w-100 flex flex-auto" %}
+				{% set classColPlaylistTheme = "w-100  flex flex-auto flex-wrap" %}
 				{% set classColPlaylist="w-100 w-60-ns" %}
 				{% set classColTheme = "w-100 w-40-ns" %}
 				{% set classThemeItem = "w-100 w-33-ns" %} 
 			{% endif %}
 		{% else %}
+			
 			{% set detectDerniersThemes = 1 %}
 			{% set classThemeItem = "w-100 w-50-sm w-33-m w-25-l" %}
-		{% endif %}
-	{% endif %}
+		{% endif %}		
+	{% endif %}	
 {% endfor %}
+
+
+
    
 <div class="index-wrapper">
 	{# lecteur fixe (si pas de thème en cours) #}
@@ -170,25 +180,31 @@
 
 	{# PARTIE 2 / classement + actus #}
 	<div class="flex flex-auto flex-wrap">
-		<div class="w-100 w-100-sm w-50-ns bg-ms-light-violet pa3 pa4-l">
+		<div class="w-100 w-100-sm w-50-ns bg-joggeurs-chanteurs pa3 pa4-l">
 			<div class="flex flex-auto w-100 mb3">
-				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-20-ns center tc w-auto-ns fill-near-black mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
-				<div class="ms-title ms-title_spikes flex-0 flex-1-ns w-60">					
-			    	<h2 class="mt0"><span class="bg-ms-light-violet">Classement</span></h2>			    	
+				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-20-ns center tc w-auto-ns fill-ms-light-gray mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
+				<div class="ms-title self-center flex-0 flex-1-ns w-60">					
+			    	<h2 class="mt0 mb0"><span class="ms-light-gray">Classement</span></h2>			    	
 			    </div>
-			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3 w-20-ns"><use xlink:href="#icon-cup"></use></svg>
+			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-ms-light-gray mv3 w-20-ns"><use xlink:href="#icon-cup"></use></svg>
 			</div>
 
 			{% if listeJoggeursScore|length >= 3 %} 										
-				<div class="">
-					{% for joggeurScore in listeJoggeursScore %}
-						{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
-					{% endfor %}
-				</div>
+					<div class="">
+						{% for joggeurScore in listeJoggeursScore %}
+							{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
+						{% endfor %}
+					</div>
 
-				<div class="pt3">						
-					{{ scoresElementsModule.scores_legende() }}
-				</div>
+					<div class="pt3">						
+						{{ scoresElementsModule.scores_legende() }}
+					</div>
+				
+			{% else %}
+					<div class="near-black i tc pa3 bg-white-40">
+						<span>la saison viens de débuter, il n'y a donc pas de score pour l'instant</span>
+					</div>
+				
 			{% endif %}
 		</div>
 		

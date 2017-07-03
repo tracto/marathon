@@ -1617,6 +1617,12 @@ button{
 } 
 
 
+.bg-joggeurs-chanteurs{
+	background-image:url('../../bundles/tdsmarathon/images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+}
+
+
 
 /* LISTE DES SAISONS */
 

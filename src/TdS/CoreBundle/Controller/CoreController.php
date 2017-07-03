@@ -48,7 +48,7 @@ class CoreController extends Controller{
 	      	shuffle($musicTitles);
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
-	      					  ->findSeveral(3,0);
+	      					  ->findSeveral(2,0);
 
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')

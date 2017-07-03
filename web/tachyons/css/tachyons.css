@@ -2284,6 +2284,7 @@ button { cursor: pointer; }
 .totale-score-item { min-height: 40px; }
 .totale-score-item_ordre { min-width: 40px; }
 .totale-score-item_pseudo { min-width: 55%; }
+.bg-joggeurs-chanteurs { background-image: url( '../../bundles/tdsmarathon/images/bg-marathonchanteurs.jpg' ); background-size: cover; }
 /* LISTE DES SAISONS */
 .saison-liste_image { min-height: 150px; margin-bottom: .5rem; }
 /* ACTUALITES */
