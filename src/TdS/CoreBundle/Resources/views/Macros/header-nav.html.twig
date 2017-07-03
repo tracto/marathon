@@ -89,7 +89,9 @@
     {# PARTIE 2 / header bg +logo + saison #}				
 	<div class="hero logo-wrapper dt w-100 center cover bg-center" style="background-image: url('{{ cssbg }}');">
 		<div class="dtc v-mid relative pt5">
-			<img class="main-logo tc center db" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
+			<a class="tc center db" href="{{ path('tds_home') }}">
+				<img class="main-logo" src="{{ asset('bundles/tdsmarathon/images/bg-header-layers/logo.png') }}"/>
+			</a>
 
 			
 
