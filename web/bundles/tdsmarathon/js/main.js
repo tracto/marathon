@@ -119,7 +119,7 @@ $('body').on('click',"[data-action='jeveuxjogger']",function(){
               processData:false,
               success: function(data, textStatus, jqXHR)
               {
-                var webPath='../../web/bundles/tdsmarathon/images/groupeProfs.jpg';
+                var webPath='../../bundles/tdsmarathon/images/groupeProfs.jpg';
                 var reponse = "<div class='pa3 pb5 center tc bg--pierre f7'>";
                       reponse += "<h2 class='metal-mania f1'>Je veux Jogger</h2>";
                       reponse += "<img class='w-60' src='"+webPath+"'/>";

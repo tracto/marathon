@@ -98,10 +98,11 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:    
-    transport: gmail
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+    
 
 fos_user:
     db_driver:     orm
