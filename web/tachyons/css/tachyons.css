@@ -940,11 +940,11 @@ code, .code { font-family: Consolas, monaco, monospace; }
    Docs: http://tachyons.io/docs/elements/links/
 
 */
-.link { text-decoration: none; transition: color .15s ease-in; }
+.link { text-decoration: none; opacity: 1; transition: background-color .15s ease-in; }
 .link:link, .link:visited { transition: color .15s ease-in; }
 .link:hover { transition: color .15s ease-in; }
 .link:active { transition: color .15s ease-in; }
-.link:focus { transition: color .15s ease-in; outline: 1px dotted currentColor; }
+.link:focus { transition: color .15s ease-in; opacity: .8; }
 /*
 
    LISTS
@@ -2159,11 +2159,13 @@ select.mobile-nav { width: 40px; height: 40px; position: absolute; top: 0; left:
 .hero .hotfresh-inner .button { max-height: 30px; padding: .2rem; }
 /* BUTTONS */
 button { cursor: pointer; }
-.button { background-color: #13191b; border: none; color: #fd6274; text-decoration: none; padding: .5rem; cursor: pointer; }
-.button svg { fill: #fd6274; display: inline-block; vertical-align: middle; }
-.button span { display: inline-block; vertical-align: middle; }
-.button-special { background-color: transparent; color: #13191b; padding: 0; }
+.button { background-color: #13191b; border: none; color: #fd6274; text-decoration: none; padding: .5rem; cursor: pointer; transition: all .15s ease-in; }
+.button-action { cursor: pointer; transition: all .15s ease-in; }
+.button svg { fill: #fd6274; display: inline-block; vertical-align: middle; transition: all .15s ease-in; }
+.button span { display: inline-block; vertical-align: middle; transition: all .15s ease-in; }
+.button-special { background-color: transparent; color: #13191b; padding: 0; transition: all .15s ease-in; }
 .button-nude { background-color: transparent; color: #13191b; border: none; padding: 0; }
+.button-becky { transition: all .15s ease-in; }
 .button-comments { width: 30px; }
 .button-caret { background-color: rgba( 255, 255, 255, .1 ); color: #13191b; }
 .button-caret svg { fill: #13191b; float: right; }
@@ -2171,7 +2173,8 @@ button { cursor: pointer; }
 .button-player .icon { display: inline-block; vertical-align: middle; fill: #13191b; }
 .button-save { position: relative; margin: 0 auto; width: auto; text-align: center; display: inline-block; margin-bottom: 2rem; }
 .button-save button { border: none; background: transparent; color: #fd6274; }
-.button-switch span { margin-left: -8px; /*padding:18px;*//*height:60px;*/ }
+.button-switch { transition: all .15s ease-in; }
+.button-switch span { margin-left: -8px; }
 /* ICONS */
 .icon--xxs { width: 10px; height: 10px; }
 .icon--xs { width: 20px; height: 20px; }
@@ -2229,11 +2232,18 @@ button { cursor: pointer; }
 .outset-frame_pl { border: outset 1px #ded8d5; }
 .outset-frame_inner_pl { border: inset 1px #ded8d5; }
 /* VIGNETTE */
+.vignette-theme { overflow: hidden; transition: all .15s ease-out; }
+.vignette-theme .vignette-infos-theme {/*transition: all .15s ease-out;*/ }
+/*.vignette-theme img{
+	opacity:1;
+	transition: all .15s ease-in;
+}*/
 .vignette-theme-line { margin-bottom: .5rem; }
 .vignette-theme-line:last-child { margin-bottom: 0; }
 .vignette-theme-line_titre { max-width: 76%; }
 .vignette-infos-theme { min-height: 90px; }
 .vignette-infos-joggeur { min-height: 50px; }
+.vignette-iconchronique { top: -30px; }
 /* PLAYLIST */
 .col-playlist-droite { }
 .col-playlist-droite .jp-playlist-inner { height: auto; max-height: 110vh; overflow-x: hidden; overflow-y: auto; }
@@ -2367,6 +2377,22 @@ button { cursor: pointer; }
 .jog14 { background-image: url( '../../bundles/tdsmarathon/images/gifs/joggeurs/jog14.gif' ); top: -25px; right: 40%; width: 32px; height: 100px; }
 .jog15 { background-image: url( '../../bundles/tdsmarathon/images/gifs/joggeurs/jog15.png' ); top: -20px; left: 20%; width: 80px; height: 130px; }
 .pastis-lien { width: 150px; }
+.main-logo:hover { animation: bounce .15s ease alternate; animation-iteration-count: 3; }
+.button-lois:hover { animation: vibrate .05s ease alternate; animation-iteration-count: 8; }
+.becky-img { position: relative; left: 0; }
+.becky-img:hover { animation: vibratebecky .15s ease alternate; animation-iteration-count: 10; }
+@keyframes bounce {
+ 0% { transform: scale( 1.0 ); }
+ 100% { transform: scale( 1.1 ); }
+}
+@keyframes vibrate {
+ 0% { left: 0; }
+ 100% { left: 10px; }
+}
+@keyframes vibratebecky {
+ 0% { left: -10px; }
+ 100% { left: 10px; }
+}
 /* Variables */
 /* Importing here will allow you to override any variables in the modules */
 /*
@@ -2907,6 +2933,29 @@ button { cursor: pointer; }
  .form-label { min-width: 20%; text-align: right; padding-right: 1rem; }
  .form-widget { padding-left: 1rem; border-left: solid 1px rgba( 0, 0, 0, .2 ); }
  .form-widget input { width: inherit; }
+ #header li:hover { background: #496262; }
+ #header li:hover>span { color: #ccc50c; }
+ #header li:hover>a { color: #ccc50c; }
+ .button-connexion:hover { color: white; }
+ .button:hover { background-color: #496262; color: #ccc50c; }
+ .button-action:hover { background-color: #496262; color: #ccc50c; }
+ .button:hover svg { fill: #ccc50c; }
+ .button-action:hover svg { fill: #ccc50c; }
+ .button-special:hover { color: #13191b; }
+ .button-becky:hover { background: #496262; border: inset 1px lightgrey; }/*a:hover .bg-near-black{
+        background:white;
+    }*/
+ .button-switch:hover { background-color: #496262; }
+ .button-switch:hover span { color: #ccc50c; }
+ .vignette-theme { overflow: hidden; transition: all .15s ease-out; }
+ .vignette-theme .vignette-infos-theme { transition: all .15s ease-out; }
+ .vignette-theme:hover { }
+ .vignette-theme:hover .vignette-infos-theme { background-color: #fd6274; }
+ .vignette-theme:hover .vignette-iconchronique { background-color: #fd6274; }
+ .vignette-theme:hover img { animation: bounce .15s ease alternate; animation-iteration-count: 2; opacity: .6; }
+ .vignette-joggeur { overflow: hidden; transition: all .15s ease-out; }
+ .vignette-joggeur:hover .vignette-infos-joggeur { background-color: #06a19a; color: #13191b; }
+ .vignette-joggeur:hover img { animation: bounce .15s ease alternate; animation-iteration-count: 2; opacity: .6; }
 }
 @media screen and (min-width: 40em) and (max-width: 65em) {
  .aspect-ratio-m { height: 0; position: relative; }

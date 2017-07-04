@@ -34,15 +34,19 @@
     
 
 
-      <div class="form-group">        
+      <div class="form-group">
+                
         <div class="form-flex">
             {{ form_label(form.file, "fichier audio", {'label_attr': {'class': 'form-label control-label'}}) }}
             
             <div class='form-widget'>
               {{ form_widget(form.file) }}
+              <span class='db i f7 dark-gray'>
+                Format du fichier : mp3 / Taille maximum : 10Mo
+              </span>
             </div>
         </div>
-        <div class="w-100 form-error">{{ form_errors(form.file) }}</div>
+        <div class="w-100 form-error">{{ form_errors(form.file) }}</div>      
       </div>
 
 

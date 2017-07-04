@@ -247,12 +247,12 @@
 
 
 	
-	<a class="totale-score-item flex flex-auto flex-wrap justify-between-ns w-100 bg-white-40 mb3 mb2-ns  no-underline near-black shadow-subtle" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
-		<div class="totale-score-item_ordre w-20 w-10-ns f4 bg-black-80 ms-light-gray tc pa2 br b--ms-light-gray bw2  min-h-100 flex flex-auto flex-wrap center">
+	<a class="totale-score-item flex flex-auto flex-wrap justify-between-ns w-100 bg-white-40 mb3 mb2-ns no-underline near-black " href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
+		<div class="totale-score-item_ordre w-20 w-10-ns f4 bg-near-black ms-light-gray tc pa2 min-h-100 flex flex-auto flex-wrap center">
 				<span class="db self-center w-100 tc">{{ loopindex }}</span>
 		</div>
 
-		<div class="flex flex-auto flex-wrap w-80 w-90-ns">
+		<div class="flex flex-auto flex-wrap w-80 w-90-ns pl2">
 			<div class="flex flex-auto justify-start self-center items-stretch w-100 w-40-ns">
 				
 
@@ -270,15 +270,15 @@
 				</div>
 			
 
-				<div class=" flex flex-auto self-stretch justify-end bl bw2 b--ms-light-gray w-30 w-10-ns mw4">
+				<div class=" flex flex-auto self-stretch justify-end bl bw2 b--black-20 w-30 w-10-ns mw4">
 					<span class="f6 self-center ph2 b">{{ joggeurScore.total }} pts</span>
 				</div>
 			</div>
 
 			<div class="flex items-stretch justify-between justify-end-ns w-100 w-auto-ns mt0 b--ms-light-gray bw2 bw0-ns  bt bt0-ns ">				
-				{{ self.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","ms-light-gray","icon--xs") }}
-				{{ self.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","ms-light-gray","icon--xs") }}
-				{{ self.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","ms-light-gray","icon--xs") }}
+				{{ self.scores_miniblock_horizontal(totalFastpoints,"#icon-fast","ms-gold","icon--xs","bg-ms-silver-bleu") }}
+				{{ self.scores_miniblock_horizontal(totalHeartpoints,"#icon-heart","ms-gold","icon--xs","bg-ms-silver-bleu") }}
+				{{ self.scores_miniblock_horizontal(totalTakenpoints,"#icon-minus","ms-gold","icon--xs","bg-ms-silver-bleu") }}
 			</div>
 		</div>
 

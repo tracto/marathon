@@ -1,0 +1,153 @@
+
+@media (--breakpoint-not-small){
+    #header li:hover{
+        background:var(--ms-silver-bleu);
+        
+    }
+
+
+    #header li:hover>span{
+        color:var(--ms-gold);
+    }
+
+    #header li:hover>a{
+        color:var(--ms-gold);
+    } 
+
+    .button-connexion:hover{
+        color:white;
+    }
+
+    .button:hover, .button-action:hover{
+        background-color:var(--ms-silver-bleu);
+        color:var(--ms-gold);
+    }
+
+    .button:hover svg, .button-action:hover svg{
+        fill:var(--ms-gold);
+    }
+
+    .button-special:hover{
+        color:var(--near-black);
+    }
+
+    .button-becky:hover{
+        background:var(--ms-silver-bleu);
+        border:inset 1px lightgrey;
+    }
+
+    
+
+    /*a:hover .bg-near-black{
+        background:white;
+    }*/
+
+
+    .button-switch:hover{
+        background-color:var(--ms-silver-bleu);
+    }
+
+
+    .button-switch:hover span{
+        color:var(--ms-gold);
+    }
+
+
+    .vignette-theme{
+        overflow:hidden;
+        transition: all .15s ease-out;
+    }
+
+    .vignette-theme .vignette-infos-theme{
+        transition: all .15s ease-out;
+    }
+
+    .vignette-theme:hover{
+
+    }
+
+
+    .vignette-theme:hover .vignette-infos-theme, .vignette-theme:hover .vignette-iconchronique{
+        background-color:var(--ms-fushia);
+    }
+
+
+    .vignette-theme:hover img{
+        animation: bounce 0.15s ease alternate;
+        animation-iteration-count: 2;
+        opacity:0.6;
+    }
+
+
+
+    .vignette-joggeur{
+        overflow:hidden;
+        transition: all .15s ease-out;
+    }
+
+
+    .vignette-joggeur:hover .vignette-infos-joggeur{
+        background-color:var(--ms-turquoise);
+        color:var(--near-black);
+    }
+
+
+    .vignette-joggeur:hover img{
+        animation: bounce 0.15s ease alternate;
+        animation-iteration-count: 2;
+        opacity:0.6;
+    }
+
+
+
+}
+
+.main-logo:hover{
+    animation: bounce 0.15s ease alternate;
+   animation-iteration-count: 3;
+}
+.button-lois:hover{
+    animation: vibrate 0.05s  ease alternate;
+   animation-iteration-count: 8;
+}
+
+.becky-img{
+    position:relative;
+    left:0;
+}
+
+.becky-img:hover{
+   animation: vibratebecky 0.15s ease alternate;
+   animation-iteration-count: 10;
+}
+
+
+
+
+@keyframes bounce{
+     0% {
+        transform: scale(1.0);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes vibrate{
+     0% {
+        left:0px;
+    }
+    100% {
+        left:10px;
+    }
+}
+
+
+@keyframes vibratebecky{
+     0% {
+        left:-10px;
+    }
+    100% {
+        left:10px;
+    }
+}

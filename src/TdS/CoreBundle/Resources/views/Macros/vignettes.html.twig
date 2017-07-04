@@ -9,7 +9,7 @@
 		{% endif %}
 		    		
 
-	    		<a class="db w-100 no-underline ba b--solid b--ms-dark-turquoise" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+	    		<a class="vignette-theme db w-100 no-underline ba b--solid b--ms-dark-turquoise" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
 
 		    		<div class="relative">
 		    			<div class="aspect-ratio aspect-ratio--1x1 z-0">
@@ -41,14 +41,14 @@
 							</div>
 						</div>
 
-					    <div class='vignette-infos-theme flex bg-ms-turquoise near-black pa2'>
+					    <div class='vignette-infos-theme relative flex bg-ms-turquoise near-black pa2'>
 					    		<div class="self-center">
 							    	<h3 class="ma0 f5 fw2">{{ theme.titre }}</h3>
 							    	<i class="f7">Créé par : {{ theme.joggeur.pseudo }}</i>
 							    	
 									{% if theme.chronique is defined and theme.chronique is not null %}
-										<div class="">
-											<svg class="icon icon--xs fill-ms-turquoise"><use xlink:href="#icon-newspaper"></use></svg>
+										<div class="absolute right-0 bg-ms-turquoise vignette-iconchronique mr1 pa1">
+											<svg class="icon icon--xs fill-near-black"><use xlink:href="#icon-newspaper"></use></svg>
 										</div>
 									{% endif %}
 								</div>
@@ -86,7 +86,7 @@
 		{% set colortextclass = "near-black" %}
 	{% endif %}   
 	<div class='relative'>
-		<a class="db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+		<a class="vignette-joggeur db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 
 			<div class="relative">
 				<div class="aspect-ratio aspect-ratio--1x1 z-0 bg-white">
@@ -106,7 +106,7 @@
 			    	</div>
 				</div>
 
-			    <div class='vignette-infos-joggeur flex {{ bgclass }} {{ colortextclass }} pa2 h3 w-100'>
+			    <div class='vignette-infos-joggeur relative flex {{ bgclass }} {{ colortextclass }} pa2 h3 w-100 z-1'>
 				    	<h3 class="ma0 fw1 tc f6 self-center w-100">{{ joggeur.pseudo }}</h3>
 			    </div>	
 			</div>					    		

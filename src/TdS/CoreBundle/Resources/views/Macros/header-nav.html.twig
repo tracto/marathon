@@ -34,19 +34,19 @@
 			<nav class="navbar-header self-center">
 				<ul class="navbar-first self-center list ma0 pa0 w-100 relative dn db-ns f7 flex-ns flex-auto-ns justify-between ">
 					{% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_USER") %}
-	            		<li class="navbar-item db mr2-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
+	            		<li class="navbar-item link db ph2-m ph3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="ms-bleu-bright db pv3 pv0-ns no-underline" href="{{ path('tds_dashboard') }}">Tableau de bord</a></li>  
 	            	{% endif %}
 
-					<li class="navbar-item db mr2-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright db pv3 pv0-ns"  href="{{ path('tds_home') }}">Accueil</a></li>
-					<li class="navbar-item db mr2-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
+					<li class="link navbar-item db ph2-m ph3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="ms-bleu-bright db pv3 pv0-ns no-underline"  href="{{ path('tds_home') }}">Accueil</a></li>
+					<li class="navbar-item link db ph2-m ph3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class=" ms-bleu-bright pv3 pv0-ns db no-underline"  href="{{ path('tds_marathon_joggeur_home') }}">Joggeurs</a></li>
 					
-					<li class="navbar-item navbar-second pv3 pv0-ns db mr3-ns v-top bb bn-ns b--ms-bleu-bright self-center self-start-m pt2-m tc">
-						<span class="db link ms-bleu-bright " >Saisons</span>
-						<ul class="list mt2 mt0-ns mh0 ph0 pv0 absolute-ns">
+					<li class="navbar-item link navbar-second pv3 pv0-ns db ph2-m ph3-l v-top bb bn-ns b--ms-bleu-bright self-center self-start-m pt2-m tc relative">
+						<span class="db  ms-bleu-bright " >Saisons</span>
+						<ul class="list mt2 mt0-ns mh0 ph0 pv0 absolute-ns left-0-ns">
 							{% for saisonListe in saisonService.allSaison() %}
 								{% for saisonItem in saisonListe %}
 									{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
-									<li class="tc bg-near-black pv2 ph3-ns b--ms-bleu-bright bb-ns"><a class="link ms-bleu-bright db" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
+									<li class="link tc bg-near-black pv2 ph3-ns b--ms-bleu-bright bb-ns"><a class="ms-bleu-bright db no-underline" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
 									{% endif %}
 								{% endfor %}
 							{% endfor %}
@@ -55,7 +55,7 @@
 					
 					
 					{% if is_granted("ROLE_SUPER_ADMIN") %}
-	            		<li class="navbar-item db mr0-m mr3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="link ms-bleu-bright pv3 pv0-ns db"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
+	            		<li class="navbar-item link db ph2-m ph3-l v-top bb bn-ns b--light-silver tc self-center self-start-m pt2-m"><a class="ms-bleu-bright pv3 pv0-ns db no-underline"  href="{{ path('tds_admin_home') }}">utilisateurs</a></li>          
 	            	{% endif %}
 
 	            	<li class="button-lois lh-solid" data-action="button-lois">
@@ -64,7 +64,7 @@
 								<svg class="db icon icon--m fill-ms-fushia "><use xlink:href="#icon-caducee"></use>
 								</svg>
 							</span>
-							<span class="f5 b self-center ph2">les Lois du Marathon</span>
+							<span class="f5 b self-center ph2 near-black">les Lois du Marathon</span>
 
 				  		</a>
 				  		<audio id="audio" >

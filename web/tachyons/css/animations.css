@@ -8,9 +8,19 @@ and open the template in the editor.
     Author     : charles
 */
 
-#header li:hover{
-    background:white;
+/*#header li:hover{
+    background:#496262;
+    
 }
+
+#header li:hover>span{
+    color:#ccc50c;
+}
+
+#header li:hover>a{
+    color:#ccc50c;
+} 
+
 .button-connexion:hover{
     color:white;
 }
@@ -46,4 +56,4 @@ a:hover .bg-near-black{
     100% {
         left:10px;
     }
-}
+}*/

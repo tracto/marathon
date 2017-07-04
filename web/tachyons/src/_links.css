@@ -7,7 +7,8 @@
 
 .link {
   text-decoration: none;
-  transition: color .15s ease-in;
+  opacity:1;
+  transition: background-color .15s ease-in;
 }
 
 .link:link,
@@ -22,6 +23,6 @@
 }
 .link:focus   {
   transition: color .15s ease-in;
-  outline: 1px dotted currentColor;
+  opacity:0.8;
 }
 
