@@ -26,10 +26,10 @@
 	{% endif %}
 
 
-	<div class="podium {{ classPodium }} podium-{{ loopindex }} w-33">
-		<div class="bg-{{ podiumColor }} w-100 h-100 center flex flex-auto flex-wrap flex-column">
+	<a class="podium {{ classPodium }} podium-{{ loopindex }} w-33 no-underline animation-easeout" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
+		<div class="podium-barre-bg bg-{{ podiumColor }} w-100 h-100 center flex flex-auto flex-wrap flex-column">
 			<div class="flex-item self-start f1 ms-gold tc b pt3 w-100">{{ loopindex }}</div>
-			<a class="flex-item self-end w-100 center" href="{{ path('tds_marathon_joggeur_view', {'id': joggeurScore.joggeur.id}) }}">
+			<div class="flex-item self-end w-100 center">
 				{% if loopindex == 1 %}
 					<div class="podium-helmet w-100 ph2-m ph3-l relative">		 	
 						<svg class="icon w-100 fill-ms-gold"><use xlink:href="#icon-vikinghelmet"></use></svg>
@@ -42,7 +42,7 @@
 			  			<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 					{% endif %}
 				</div>
-			</a>
+			</div>
 
 			<div class="w-100 flex-item self-end pa1">
 				<h4 class="tc f5 ma0 pa0">{{ joggeurScore.joggeur.pseudo }}</h4>
@@ -57,13 +57,11 @@
 				</div>						
 			</div>
 
-			<div class="podium-celtic w-100 bg-ms-gold">		 	
+			<div class="podium-celtic w-100 bg-ms-gold relative">		 	
 				<svg class="icon w-100 fill-{{ podiumColor }}"><use xlink:href="#pattern-celtic"></use></svg>
 			</div>
 		</div>
-		 
-		 
-	</div>
+	</a>
 {% endmacro %}
 {# FIN MACRO PODIUM #}
 
@@ -93,7 +91,7 @@
 
 
 
-	<div class="wof-item_inner min-h-100 flex flex-auto flex-wrap flex-column justify-between tc">
+	<a class="wof-item_inner min-h-100 flex flex-auto flex-wrap flex-column justify-between tc animation-easeout pointer no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': wof_joggeur.id}) }}">
 		<div class="wof-intitule pt3 ph2 self-center flex">
 			<div class="self-center w-100">
 				<h4 class="ma0 pa0 b tc">{{ intitule }}</h4>
@@ -101,14 +99,14 @@
 			</div>
 		</div>
 
-		<a class="medaillon-round self-center" href="{{ path('tds_marathon_joggeur_view', {'id': wof_joggeur.id}) }}">
+		<div class="medaillon-round self-center pointer" >
 
 			{% if wof_joggeur.image is not null %}
 				<img class="" src="{{ wof_joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_joggeur.image.alt }}">
 			{% else %}
 		  		<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 			{% endif %}
-		</a>
+		</div>
 
 		<div class="flex flex-column relative self-center tc bt b--ms-gold">
 			<div class="self-center w-100 mh2 ">				
@@ -126,7 +124,7 @@
 				</div>
 			</div>
 		</div>
-	</div>		 
+	</a>		 
 {% endmacro %}
 {# FIN MACRO WALL OF FAME JOGGEUR #}
 

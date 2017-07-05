@@ -5,6 +5,10 @@
         
     }
 
+    .animation-easeout{
+        transition: all .15s ease-out;
+    }
+
 
     #header li:hover>span{
         color:var(--ms-gold);
@@ -52,6 +56,34 @@
         color:var(--ms-gold);
     }
 
+    .button-player{
+        transition: border .15s ease-out;
+    }
+
+    .button-player:hover{
+        border:inset 1px rgba(255,255,255,0.8);
+        /*background-image:url('../../bundles/tdsmarathon/images/bg-pierre.jpg');*/
+    }
+
+    .jp-progress:hover .jp-seek-bar,.jp-volume-bar:hover .jp-volume-bar-value{
+        background-color:var(--ms-fushia);
+    }
+
+
+    .playlist-item-wrapper:hover{
+            background: linear-gradient( 
+                180deg, 
+                rgba( 6, 161, 154, .5 ) -18%, 
+                rgba( 253, 98, 116, .3 ) 12%, 
+                rgba( 19, 181, 76, .3 ) 181% 
+            );
+    }
+
+
+
+
+
+
 
     .vignette-theme{
         overflow:hidden;
@@ -62,9 +94,7 @@
         transition: all .15s ease-out;
     }
 
-    .vignette-theme:hover{
-
-    }
+    
 
 
     .vignette-theme:hover .vignette-infos-theme, .vignette-theme:hover .vignette-iconchronique{
@@ -100,10 +130,52 @@
 
 
 
+
+
+    .podium-barre-bg{
+        /*filter:brightness(100%);*/
+        transition: all .15s ease-out;
+    }
+    
+
+    .podium:hover .podium-barre-bg.bg-ms-bleu{
+        background-color:#075c92;
+    }
+    .podium:hover .podium-barre-bg.bg-ms-vermillon{
+        background-color:#ab4806;
+    }
+    .podium:hover .podium-barre-bg.bg-ms-purple{
+        background-color:#b934ca;
+    }
+
+    .podium:hover .podium-celtic svg{
+        fill:var(--near-black);
+        /*animation: vibratetop 0.20s ease alternate;;
+        animation-iteration-count: 2;*/
+    }
+
+    .podium:hover .medaillon-round{
+        animation: bounce 0.15s ease alternate;
+        animation-iteration-count: 2;
+    }
+
+
+
+    .wof-item_inner:hover{
+        background-color: rgba( 241, 247, 3, .9 );
+    }
+
+    .wof-item_inner:hover .medaillon-round{
+        animation: bounce 0.15s ease alternate;
+        animation-iteration-count: 2;
+    }
+
+
+
 }
 
 .main-logo:hover{
-    animation: bounce 0.15s ease alternate;
+   animation: bounce 0.15s ease alternate;
    animation-iteration-count: 3;
 }
 .button-lois:hover{
@@ -139,6 +211,15 @@
     }
     100% {
         left:10px;
+    }
+}
+
+@keyframes vibratetop{
+     0% {
+        top:0px;
+    }
+    100% {
+        top:5px;
     }
 }
 

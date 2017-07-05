@@ -33,13 +33,13 @@ body{
 
 input:focus,
 select:focus,
-textarea:focus,
-button:focus {
+textarea:focus{
     outline: solid 1px var(--ms-fushia);
+
 }
 
 
-input[type='submit']:focus {
+.jp-playlist-item,.button-player:focus,.button:focus,.button-save,input[type='submit']:focus {
     outline: none;	
 }
 

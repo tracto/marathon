@@ -57,9 +57,9 @@ $(document).ready(function(){
           createTitle=function(media){
               var self = this;
 
-              var listItem = "<div class='playlist-title align-center'>";
-              listItem +="<span class='jp-title'>" + media.title + "</span>";
-              listItem +="<span class='jp-artist'> ( " + media.artist  + " ) </span>";        
+              var listItem = "<div class='playlist-title tc pb2'>";
+              listItem +="<span class='jp-artist db i f6'>" + media.artist  + "</span>"; 
+              listItem +="<span class='jp-title db'>" + media.title + "</span>";        
               listItem += "</div>";
 
               
@@ -127,7 +127,8 @@ $(document).ready(function(){
                 repeat: '.jp-repeat',
                 repeatOff: '.jp-repeat-off',
                 gui: '.jp-gui',
-                noSolution: '.jp-no-solution'
+                noSolution: '.jp-no-solution',
+                shufflebeh: '.jp-shuffle'
              },
              playlistOptions: {
                 autoplay: false,
@@ -147,7 +148,7 @@ $(document).ready(function(){
                 $('[data-infostitle]').empty();
                 title=createTitle(musicTitlesArray[0]);
                 $('[data-infostitle]').append(title);
-
+                
              },
 
              play : function(){
@@ -156,6 +157,8 @@ $(document).ready(function(){
                 title=createTitle(musicTitlesArray[titleCurrent]);
                 $('[data-infostitle]').append(title);
              },
+
+
 
              ended: function() {
                 
@@ -169,7 +172,6 @@ $(document).ready(function(){
 
           i++;
       });
-// });
 
 
 
@@ -185,7 +187,6 @@ $(document).ready(function(){
       var posX = $(this).offset().left-140;
 
       var vignetteContent=$(".vignette-box-content[data-vignetteid='"+vignetteid+"']").html();
-      console.log(vignetteid);
       var type=$(this).data("type");
       
       vignetteBox.show();

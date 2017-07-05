@@ -2096,7 +2096,7 @@ body { overflow-x: hidden; }
 input:focus { outline: solid 1px #fd6274; }
 select:focus { outline: solid 1px #fd6274; }
 textarea:focus { outline: solid 1px #fd6274; }
-button:focus { outline: solid 1px #fd6274; }
+.jp-playlist-item, .button-player:focus, .button:focus, .button-save,
 input[type='submit']:focus { outline: none; }
 select { background-color: white; border: solid 1px grey; }
 .break-all { word-break: break-all; }
@@ -2388,6 +2388,10 @@ button { cursor: pointer; }
 @keyframes vibrate {
  0% { left: 0; }
  100% { left: 10px; }
+}
+@keyframes vibratetop {
+ 0% { top: 0; }
+ 100% { top: 5px; }
 }
 @keyframes vibratebecky {
  0% { left: -10px; }
@@ -2934,6 +2938,7 @@ button { cursor: pointer; }
  .form-widget { padding-left: 1rem; border-left: solid 1px rgba( 0, 0, 0, .2 ); }
  .form-widget input { width: inherit; }
  #header li:hover { background: #496262; }
+ .animation-easeout { transition: all .15s ease-out; }
  #header li:hover>span { color: #ccc50c; }
  #header li:hover>a { color: #ccc50c; }
  .button-connexion:hover { color: white; }
@@ -2947,15 +2952,28 @@ button { cursor: pointer; }
     }*/
  .button-switch:hover { background-color: #496262; }
  .button-switch:hover span { color: #ccc50c; }
+ .button-player { transition: border .15s ease-out; }
+ .button-player:hover { border: inset 1px rgba( 255, 255, 255, .8 ); /*background-image:url('../../bundles/tdsmarathon/images/bg-pierre.jpg');*/ }
+ .jp-progress:hover .jp-seek-bar { background-color: #fd6274; }
+ .jp-volume-bar:hover .jp-volume-bar-value { background-color: #fd6274; }
+ .playlist-item-wrapper:hover { background: linear-gradient( 180deg, rgba( 6, 161, 154, .5 ) -18%, rgba( 253, 98, 116, .3 ) 12%, rgba( 19, 181, 76, .3 ) 181% ); }
  .vignette-theme { overflow: hidden; transition: all .15s ease-out; }
  .vignette-theme .vignette-infos-theme { transition: all .15s ease-out; }
- .vignette-theme:hover { }
  .vignette-theme:hover .vignette-infos-theme { background-color: #fd6274; }
  .vignette-theme:hover .vignette-iconchronique { background-color: #fd6274; }
  .vignette-theme:hover img { animation: bounce .15s ease alternate; animation-iteration-count: 2; opacity: .6; }
  .vignette-joggeur { overflow: hidden; transition: all .15s ease-out; }
  .vignette-joggeur:hover .vignette-infos-joggeur { background-color: #06a19a; color: #13191b; }
  .vignette-joggeur:hover img { animation: bounce .15s ease alternate; animation-iteration-count: 2; opacity: .6; }
+ .podium-barre-bg {/*filter:brightness(100%);*/ transition: all .15s ease-out; }
+ .podium:hover .podium-barre-bg.bg-ms-bleu { background-color: #075c92; }
+ .podium:hover .podium-barre-bg.bg-ms-vermillon { background-color: #ab4806; }
+ .podium:hover .podium-barre-bg.bg-ms-purple { background-color: #b934ca; }
+ .podium:hover .podium-celtic svg { fill: #13191b; /*animation: vibratetop 0.20s ease alternate;;
+        animation-iteration-count: 2;*/ }
+ .podium:hover .medaillon-round { animation: bounce .15s ease alternate; animation-iteration-count: 2; }
+ .wof-item_inner:hover { background-color: rgba( 241, 247, 3, .9 ); }
+ .wof-item_inner:hover .medaillon-round { animation: bounce .15s ease alternate; animation-iteration-count: 2; }
 }
 @media screen and (min-width: 40em) and (max-width: 65em) {
  .aspect-ratio-m { height: 0; position: relative; }
