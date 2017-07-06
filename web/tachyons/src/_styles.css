@@ -39,7 +39,7 @@ textarea:focus{
 }
 
 
-.jp-playlist-item,.button-player:focus,.button:focus,.button-save,input[type='submit']:focus {
+.jp-playlist-item,.button-player:focus,.button:focus,.button-save,input[type='submit']:focus,button:focus {
     outline: none;	
 }
 
@@ -227,7 +227,7 @@ select{
 		#f64aaa 65%,
 		#c982d8 80%
 	);
-	border:inset 2px rgba(255,255,255,0.5);
+	border:outset 2px rgba(255,255,255,0.5);
 	padding:0.5rem;
 	width:100%;
 
@@ -1667,14 +1667,18 @@ button{
 
 /* LISTE DES SAISONS */
 
+.vignette-saison-liste{
+	overflow:hidden;
+}
+
 .saison-liste_image{
 	min-height:150px;
 	margin-bottom:0.5rem;
 }
 
-@media (--breakpoint-small-medium){
+@media (--breakpoint-not-small){
 	.saison-liste_image{
-		margin-bottom:0.5rem;
+		margin-bottom:0;
 	}
 }
 

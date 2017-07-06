@@ -2045,6 +2045,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .z-100 { z-index: 100; }
 .z-200 { z-index: 200; }
 .z-999 { z-index: 999; }
+.z-1000 { z-index: 1000; }
 .z-9999 { z-index: 9999; }
 .z-max { z-index: 2147483647; }
 .z-inherit { z-index: inherit; }
@@ -2097,7 +2098,7 @@ input:focus { outline: solid 1px #fd6274; }
 select:focus { outline: solid 1px #fd6274; }
 textarea:focus { outline: solid 1px #fd6274; }
 .jp-playlist-item, .button-player:focus, .button:focus, .button-save,
-input[type='submit']:focus { outline: none; }
+input[type='submit']:focus, button:focus { outline: none; }
 select { background-color: white; border: solid 1px grey; }
 .break-all { word-break: break-all; }
 .pointerevents-none { pointer-events: none; }
@@ -2123,7 +2124,7 @@ select { background-color: white; border: solid 1px grey; }
 .balance { background-image: url( '../../bundles/tdsmarathon/images/gifs/balance.gif' ); background-size: cover; background-repeat: no-repeat; width: 75px; height: 60px; }
 .justice { background-image: url( '../../bundles/tdsmarathon/images/gifs/justice.jpg' ); background-size: cover; background-repeat: no-repeat; width: 50%; height: 210px; }
 /*BOUTON CHAT*/
-#chat-wrapper .button-chat { display: block; background: linear-gradient( to bottom, #fffc00 20%, #f64aaa 65%, #c982d8 80% ); border: inset 2px rgba( 255, 255, 255, .5 ); padding: .5rem; width: 100%; /*background-image: -webkit-linear-gradient(#fffc00 20%,#f64aaa 65%,#c982d8 80%);*/ }
+#chat-wrapper .button-chat { display: block; background: linear-gradient( to bottom, #fffc00 20%, #f64aaa 65%, #c982d8 80% ); border: outset 2px rgba( 255, 255, 255, .5 ); padding: .5rem; width: 100%; /*background-image: -webkit-linear-gradient(#fffc00 20%,#f64aaa 65%,#c982d8 80%);*/ }
 /*HEADER*/
 .hero { max-height: 70vh; overflow: hidden; }
 .nav-toggler { position: absolute; top: -1000px; }
@@ -2297,6 +2298,7 @@ button { cursor: pointer; }
 .totale-score-item_pseudo { min-width: 55%; }
 .bg-joggeurs-chanteurs { background-image: url( '../../bundles/tdsmarathon/images/bg-marathonchanteurs.jpg' ); background-size: cover; }
 /* LISTE DES SAISONS */
+.vignette-saison-liste { overflow: hidden; }
 .saison-liste_image { min-height: 150px; margin-bottom: .5rem; }
 /* ACTUALITES */
 /*.article-wrapper{
@@ -2919,6 +2921,7 @@ button { cursor: pointer; }
  .playlist-index-body .jp-infos-title { max-height: 40px; }
  .podium-1>div { min-height: 420px; }
  .podium-2>div { min-height: 400px; }
+ .saison-liste_image { margin-bottom: 0; }
  .fos_comment_comment_show { border-left: solid 2px rgba( 0, 0, 0, .2 ); margin-left: 25px; }
  .fos_comment_comment_show:before { content: ''; /*width: 14px;*/ height: 2px; background: rgba( 0, 0, 0, .2 ); position: absolute; top: 25px; /*left: -39px;*/ }/*@media (--breakpoint-not-small){*/
  .fos_comment_comment_show:before { left: -69px; width: 45px; }/*}*/
@@ -2939,6 +2942,7 @@ button { cursor: pointer; }
  .form-widget input { width: inherit; }
  #header li:hover { background: #496262; }
  .animation-easeout { transition: all .15s ease-out; }
+ .animation-easein { transition: all .15s ease-in; }
  #header li:hover>span { color: #ccc50c; }
  #header li:hover>a { color: #ccc50c; }
  .button-connexion:hover { color: white; }
@@ -2947,11 +2951,11 @@ button { cursor: pointer; }
  .button:hover svg { fill: #ccc50c; }
  .button-action:hover svg { fill: #ccc50c; }
  .button-special:hover { color: #13191b; }
- .button-becky:hover { background: #496262; border: inset 1px lightgrey; }/*a:hover .bg-near-black{
-        background:white;
-    }*/
+ .button-becky:hover { background: #496262; border: inset 1px lightgrey; }
  .button-switch:hover { background-color: #496262; }
  .button-switch:hover span { color: #ccc50c; }
+ .button-save:hover button { color: #ccc50c; }
+ #chat-wrapper .button-chat:hover { background: linear-gradient( to bottom, #c982d8 20%, #f64aaa 65%, #fffc00 95% ); border: inset 2px rgba( 255, 255, 255, .5 ); }
  .button-player { transition: border .15s ease-out; }
  .button-player:hover { border: inset 1px rgba( 255, 255, 255, .8 ); /*background-image:url('../../bundles/tdsmarathon/images/bg-pierre.jpg');*/ }
  .jp-progress:hover .jp-seek-bar { background-color: #fd6274; }
@@ -2965,6 +2969,12 @@ button { cursor: pointer; }
  .vignette-joggeur { overflow: hidden; transition: all .15s ease-out; }
  .vignette-joggeur:hover .vignette-infos-joggeur { background-color: #06a19a; color: #13191b; }
  .vignette-joggeur:hover img { animation: bounce .15s ease alternate; animation-iteration-count: 2; opacity: .6; }
+ .vignette-theme-line:hover { background-color: rgba( 255, 255, 255, .6 ); }
+ .vignette-theme-line:hover .vignette-infos-theme-line>div { background-color: #06a19a; }
+ .vignette-theme-line:hover .vignette-infos-theme-line>div svg { fill: #13191b; color: #13191b; }
+ .vignette-theme-line:hover .vignette-infos-theme-line>div span { fill: #13191b; color: #13191b; }
+ .vignette-saison-liste:hover .ms-subtitle h3 { background-color: #ccc50c; color: #13191b; }
+ .vignette-saison-liste:hover .saison-liste_image { animation: bounce .15s ease alternate; animation-iteration-count: 2; opacity: .6; }
  .podium-barre-bg {/*filter:brightness(100%);*/ transition: all .15s ease-out; }
  .podium:hover .podium-barre-bg.bg-ms-bleu { background-color: #075c92; }
  .podium:hover .podium-barre-bg.bg-ms-vermillon { background-color: #ab4806; }
@@ -2974,6 +2984,11 @@ button { cursor: pointer; }
  .podium:hover .medaillon-round { animation: bounce .15s ease alternate; animation-iteration-count: 2; }
  .wof-item_inner:hover { background-color: rgba( 241, 247, 3, .9 ); }
  .wof-item_inner:hover .medaillon-round { animation: bounce .15s ease alternate; animation-iteration-count: 2; }
+ .totale-score-item:hover, .ligne-score-item:hover { background-color: rgba( 255, 255, 255, .7 ); /*transition: all .15s ease-out;*/ }
+ .totale-score-item:hover .score-miniblock_horizontal>div { background-color: #06a19a; }
+ .ligne-score-item:hover .score-miniblock_horizontal>div { background-color: #06a19a; }
+ .list-websites li:hover { background-color: rgba( 255, 255, 255, .3 ); }
+ .footer-button:hover { border: inset 1px white; transition: all .15s ease-out; }
 }
 @media screen and (min-width: 40em) and (max-width: 65em) {
  .aspect-ratio-m { height: 0; position: relative; }
@@ -3868,6 +3883,5 @@ button { cursor: pointer; }
  .w-two-thirds-sm { width: calc( 100% / 1.5 ); }
  .w-auto-sm { width: auto; }
  .ms-title_framed { padding: 3rem; }
- .saison-liste_image { margin-bottom: .5rem; }
 }
 

@@ -190,7 +190,7 @@
 		{% set color = 'ms-gold' %}
 	{% endif %}
 
-	<a class="flex flex-wrap flex-row items-center mb3 mb2-ns no-underline near-black w-100 bg-white-10 shadow-subtle"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
+	<a class="ligne-score-item flex flex-wrap flex-row items-center mb3 mb2-ns no-underline near-black w-100 bg-white-10 shadow-subtle animation-easein"  href="{{ path('tds_marathon_theme_view', {'id': score.theme.id}) }}">
 		<div class="flex flex-auto justify-start self-center items-stretch w-70 w-40-ns">
 			<div class="thumbnail--m flex-0">
 				<img class="db w-100" src="{{ score.theme.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ score.theme.image.alt }}">
@@ -245,7 +245,7 @@
 
 
 	
-	<a class="totale-score-item flex flex-auto flex-wrap justify-between-ns w-100 bg-white-40 mb3 mb2-ns no-underline near-black " href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
+	<a class="totale-score-item flex flex-auto flex-wrap justify-between-ns w-100 bg-white-40 mb3 mb2-ns no-underline near-black animation-easein" href="{{ path('tds_marathon_joggeur_view', {'id':  joggeurScore.joggeur.id}) }}">
 		<div class="totale-score-item_ordre w-20 w-10-ns f4 bg-near-black ms-light-gray tc pa2 min-h-100 flex flex-auto flex-wrap center">
 				<span class="db self-center w-100 tc">{{ loopindex }}</span>
 		</div>
@@ -321,8 +321,8 @@
 	{% if bordercolor is not defined or bordercolor is null %}
 		{% set bordercolor = color %}
 	{% endif %}
-	<div class="score-miniblock_horizontal content-stretch content-center-ns flex flex-auto w-33 w-100-ns">
-		<div class="{{ bgcolor }} bl br b--{{ bordercolor }} flex flex-auto items-center w-100">
+	<div class="score-miniblock_horizontal content-stretch content-center-ns flex flex-auto w-33 w-100-ns ">
+		<div class="{{ bgcolor }} bl br b--{{ bordercolor }} flex flex-auto items-center w-100 animation-easein">
 			<div class="w-50 w-100-ns br b--{{ color }} flex-auto ph1 self-center center tc">
 				<svg class="db icon {{ extraclass }} fill-{{ color }}"><use xlink:href="{{ icon }}"></use></svg>
 			</div>

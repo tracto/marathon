@@ -280,11 +280,11 @@
 			<div class="">
 				{% for saisonItem in listeSaisons %}
 					<div class="flex flex-wrap mv4 pa2 shadow-subtle">
-						<a class="flex flex-auto flex-wrap no-underline near-black w-100 w-100-sm w-40-ns relative" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
-							<div class="ms-subtitle w-100 absolute">
-								<h3 class="tc pv3 w-100 bg-near-black ms-bleu-bright ma0">{{ saisonItem.titre }}</h3>
+						<a class="vignette-saison-liste flex flex-auto flex-wrap no-underline near-black w-100 w-100-sm w-40-ns relative animation-easein" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
+							<div class="ms-subtitle w-100 absolute z-2">
+								<h3 class="tc pv3 w-100 bg-near-black ms-bleu-bright ma0 animation-easein">{{ saisonItem.titre }}</h3>
 							</div>
-							<div class="w-100 saison-liste_image">
+							<div class="w-100 saison-liste_image animation-easeout">
 								{% if saisonItem.image is defined and saisonItem.image is not empty %}
 									<img class="db w-100 min-h-100 cover" style='background-image:url("{{ saisonItem.image.webPath | imagine_filter('medium_thumb') }}")' alt="{{ saisonItem.image.alt }}">
 								{% else %}
@@ -345,9 +345,9 @@
 				<div class="ms-title ms-title_spikes flex-1">					
 			    	<h2><span class="bg-green">Pas Loin</span></h2>	
 			    </div>
-				<ul class="list ma0 pa0">
+				<ul class="list list-websites ma0 pa0">
 					{% for website in websites %}
-						<li class="mv1 mh0 mh3-ns tc pv2 bg-white-30"><a class="no-underline near-black" href="{{ website.url }}">{{ website.name }}</a></li>
+						<li class="mv1 mh0 mh3-ns tc pv2 bg-white-20"><a class="no-underline near-black animation-easein" href="{{ website.url }}">{{ website.name }}</a></li>
 					{% endfor %}						
 				</ul>
 

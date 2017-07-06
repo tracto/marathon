@@ -9,6 +9,10 @@
         transition: all .15s ease-out;
     }
 
+    .animation-easein{
+        transition: all .15s ease-in;
+    }
+
 
     #header li:hover>span{
         color:var(--ms-gold);
@@ -42,9 +46,7 @@
 
     
 
-    /*a:hover .bg-near-black{
-        background:white;
-    }*/
+    
 
 
     .button-switch:hover{
@@ -55,6 +57,24 @@
     .button-switch:hover span{
         color:var(--ms-gold);
     }
+
+
+    .button-save:hover button{
+        color:var(--ms-gold);
+    }
+
+
+    #chat-wrapper .button-chat:hover{
+            background: linear-gradient( to bottom,#c982d8  20%, #f64aaa 65%, #fffc00 95% );
+            border: inset 2px rgba( 255, 255, 255, .5 );
+    }
+
+
+
+
+
+
+
 
     .button-player{
         transition: border .15s ease-out;
@@ -128,6 +148,32 @@
         opacity:0.6;
     }
 
+    .vignette-theme-line:hover{
+        background-color:rgba(255,255,255,0.6);
+    }
+
+    .vignette-theme-line:hover .vignette-infos-theme-line>div{
+        background-color:var(--ms-turquoise);
+    }
+    .vignette-theme-line:hover .vignette-infos-theme-line>div svg, .vignette-theme-line:hover .vignette-infos-theme-line>div span{
+        fill:var(--near-black);
+        color:var(--near-black);
+    }
+
+
+    .vignette-saison-liste:hover .ms-subtitle h3{
+        background-color:var(--ms-gold);
+        color:var(--near-black);
+
+    }
+
+
+    .vignette-saison-liste:hover .saison-liste_image{
+        animation: bounce 0.15s ease alternate;
+        animation-iteration-count: 2;
+        opacity:0.6;
+    }
+
 
 
 
@@ -171,6 +217,32 @@
     }
 
 
+
+    .totale-score-item:hover, .ligne-score-item:hover{
+        background-color:rgba(255,255,255,0.7);
+        /*transition: all .15s ease-out;*/
+    }
+
+    .totale-score-item:hover .score-miniblock_horizontal>div, .ligne-score-item:hover .score-miniblock_horizontal>div{
+        background-color:var(--ms-turquoise);
+    }
+
+
+
+
+
+
+
+    .list-websites li:hover{
+        background-color:rgba(255,255,255,0.3);
+    }
+
+
+
+    .footer-button:hover{
+        border:inset 1px white;
+        transition: all .15s ease-out;
+    }
 
 }
 

@@ -137,7 +137,6 @@ $(document).ready(function(){
 
           if(vignettetype=="joggeur"){
             var vignetteContent=$(".vignette-box-content_joggeur[data-vignetteid='"+vignetteid+"']").html();
-            console.log(vignetteid);
           }else{
             var vignetteContent=$(".vignette-box-content_theme[data-vignetteid='"+vignetteid+"']").html();
           }
@@ -150,20 +149,17 @@ $(document).ready(function(){
         });
 
 
-        $('body').on('mouseover',"#playlist-vignette-box",function(e){
+        $('body').on('mouseover',"#playlist-vignette-box-playlistindex",function(e){
           var vignetteBox = $('#playlist-vignette-box');
           vignetteBox.show();
         });
 
-        $('body').on('mouseout',"[data-action='show-vignette']",function(e){ 
+        $('body').on('mouseout',"[data-action='show-vignette-playlistindex']",function(e){ 
           var vignetteBox = $('#playlist-vignette-box');
           vignetteBox.hide();
 
         });
 
-        $('body').on('mouseout',"#playlist-vignette-box",function(e){ 
-          var vignetteBox = $('#playlist-vignette-box');
-          vignetteBox.hide();
-        });
+       
       }
 });

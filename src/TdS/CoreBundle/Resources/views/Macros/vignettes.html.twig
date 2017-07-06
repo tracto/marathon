@@ -9,7 +9,7 @@
 		{% endif %}
 		    		
 
-	    		<a class="vignette-theme db w-100 no-underline ba b--solid b--ms-dark-turquoise" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+	    		<a class="vignette-theme db w-100 no-underline ba b--solid b--ms-dark-turquoise animation-easein" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
 
 		    		<div class="relative">
 		    			<div class="aspect-ratio aspect-ratio--1x1 z-0">
@@ -41,7 +41,7 @@
 							</div>
 						</div>
 
-					    <div class='vignette-infos-theme relative flex bg-ms-turquoise near-black pa2'>
+					    <div class='vignette-infos-theme relative flex bg-ms-turquoise near-black pa2 animation-easein'>
 					    		<div class="self-center">
 							    	<h3 class="ma0 f5 fw2">{{ theme.titre }}</h3>
 							    	<i class="f7">Créé par : {{ theme.joggeur.pseudo }}</i>
@@ -106,7 +106,7 @@
 			    	</div>
 				</div>
 
-			    <div class='vignette-infos-joggeur relative flex {{ bgclass }} {{ colortextclass }} pa2 h3 w-100 z-1'>
+			    <div class='vignette-infos-joggeur relative flex {{ bgclass }} {{ colortextclass }} pa2 h3 w-100 z-1 animation-easein'>
 				    	<h3 class="ma0 fw1 tc f6 self-center w-100">{{ joggeur.pseudo }}</h3>
 			    </div>	
 			</div>					    		
@@ -134,7 +134,7 @@
 
 {# MACRO VIGNETTE LINE THEME #}
 {% macro vignette_line_theme(themeItem) %}
-	<a class="vignette-theme-line flex flex-auto justify-between no-underline near-black bg-white-10 shadow-subtle" href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
+	<a class="vignette-theme-line flex flex-auto justify-between no-underline near-black bg-white-10 shadow-subtle animation-easein" href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
 		<div class="flex flex-auto w-70">
 			<div class="thumbnail--m flex">
 				<img class="" src="{{ themeItem.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ themeItem.image.alt }}">
@@ -142,8 +142,8 @@
 			<div class="vignette-theme-line_titre pl2 self-center">{{ themeItem.titre }}</div>
 		</div>
 		
-		<div class="flex flex-auto items-stretch justify-end">
-			<div class="flex bg-near-black pa2 mr1">
+		<div class="vignette-infos-theme-line flex flex-auto items-stretch justify-end">
+			<div class="flex bg-near-black pa2 mr1 animation-easeout">
 	    		<svg class="flex-item self-center icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-cd"></use></svg>
 	    		<span class="flex-item self-center ms-turquoise">{{ themeItem.musicTitles|length  }}</span>
 	    	</div>
