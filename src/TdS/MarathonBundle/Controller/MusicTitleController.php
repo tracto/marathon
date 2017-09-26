@@ -17,6 +17,8 @@ class MusicTitleController extends Controller{
 	
 
 	public function addAction($theme_id, $joggeur_id,  $route, Request $request){
+		
+
 		$em=$this->getDoctrine()->getManager();
 		$theme=new Theme();
 		$joggeur=new Joggeur();

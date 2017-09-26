@@ -81,7 +81,7 @@ class MusicTitle
 
     /**
     * @Assert\File(
-    *     maxSize = "10000000",
+    *     maxSize = "15M",
     *     mimeTypes = {"audio/mpeg", "audio/mp3"},
     *     mimeTypesMessage = "Tu n'as pas uploadé un fichier .mp3 valide"
     * )

@@ -26,6 +26,7 @@ class CoreController extends Controller{
 	public function IndexAction(Request $request){
 			$em = $this->getDoctrine()->getManager();
 
+
 			$tdsScoring = $this->container->get('tds_marathon.scoring');
 			$tdsSaison = $this->container->get('tds_marathon.saison');
 

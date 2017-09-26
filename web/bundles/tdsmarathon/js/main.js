@@ -29,9 +29,7 @@ $(".navbar-second").on('click',function(){
     $(this).addClass("active");  
 });
 
-//   .nav-toggler:checked ~ div nav.navbar-header ul{
-//     display:block;
-// }
+
 
 
 	$.ajax({
@@ -109,6 +107,7 @@ $('body').on('click',"[data-action='jeveuxjogger']",function(){
 
        $("#participate-form").submit(function(e){
           var formData = new FormData(this);
+          console.log("submit");
           $.ajax({
               url: Routing.generate('tds_jeveuxjogger'),
               type: 'POST',
