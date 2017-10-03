@@ -45,6 +45,7 @@
 						<ul class="list mt2 mt0-ns mh0 ph0 pv0 absolute-ns left-0-ns z-1000">
 							{% for saisonListe in saisonService.allSaison() %}
 								{% for saisonItem in saisonListe %}
+									
 									{% if saisonItem.statut != 0 or (saisonItem.statut == 0 and is_granted("ROLE_SUPER_ADMIN")) %} 
 									<li class="link tc bg-near-black pv2 ph3-ns b--ms-bleu-bright bb-ns"><a class="ms-bleu-bright db no-underline" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">{{ saisonItem.titre }}</a></li>
 									{% endif %}

@@ -30,6 +30,9 @@ class CoreController extends Controller{
 			$tdsScoring = $this->container->get('tds_marathon.scoring');
 			$tdsSaison = $this->container->get('tds_marathon.saison');
 
+			$listeDernThemes=$em->getRepository('TdSMarathonBundle:Theme')
+            					->findDerniersThemes(8);
+
 			$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
 						->findAllSaisonsWithThemes();
 
@@ -39,8 +42,7 @@ class CoreController extends Controller{
 	        $saison=$em->getRepository('TdSMarathonBundle:Saison')
                    ->findSaisonWithThemes($saison->getId());
 
-            $listeDernThemes=$em->getRepository('TdSMarathonBundle:Theme')
-            					->findDerniersThemes(8);
+            
 
 
 	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')

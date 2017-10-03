@@ -279,6 +279,7 @@
 			    </div>
 			<div class="">
 				{% for saisonItem in listeSaisons %}
+					{% if saisonItem.themes is defined and saisonItem.themes is not empty %}
 					<div class="flex flex-wrap mv4 pa2 shadow-subtle">
 						<a class="vignette-saison-liste flex flex-auto flex-wrap no-underline near-black w-100 w-100-sm w-40-ns relative animation-easein" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
 							<div class="ms-subtitle w-100 absolute z-2">
@@ -300,7 +301,8 @@
 								{% endfor %}
 							</div>
 						{% endif %}
-					</div>	
+					</div>
+					{% endif %}	
 				{% endfor %}				
 			</div>				
 		</div>
