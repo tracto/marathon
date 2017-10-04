@@ -17,7 +17,7 @@
 	{% endif %}
 
 	<div class='playlist-wrapper bg--pierre relative w-100' data-type="theme" data-autoplay={{ autoplay }}>
-		<div class="bg-gradient_pl">
+		<div class="bg-gradient_pl min-h-100">
 			{# flèches theme precedent / thème suivant #}
 			{% if themePrec is not null  and themeSuiv is not null %} 
 				<div class="playlist-fleches w-100 absolute z-1 cf pe-n">
@@ -110,15 +110,17 @@
 										<img class='w-100' src='{{ theme.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>  
 									</span>
 								</a>
+
 							</div>
 
 							<div class="comment-show-button relative top-0 fl">
 								<a href="#fos_comment_thread_wrapper" class="button button-special button-comments dib v-top relative" data-action="show-comments">
 							            <svg class="db top-0 icon icon--s absolute"><use xlink:href="#icon-dialog-icon"></use></svg>
-							            {% if theme.thread.numComments is defined and theme.thread.numComments is not null and theme.thread.numComments is not empty %} 
-							            	<span class="db tc absolute w-100 pt1">{{ theme.thread.numComments }}</span>
+
+							            {% if theme.thread.numcomments is defined and theme.thread.numcomments is not null %} 
+							            	<span id="comment-btn-count" class="db tc absolute w-100 pt1">{{ theme.thread.numcomments }}</span>
 							            {% else %}
-							            	<span class="db tc absolute w-100 pt1">0</span>
+							            	<span id="comment-btn-count" class="db tc absolute w-100 pt1">0</span>
 							        	{% endif %}
 							    </a>
 							    <span class="dib v-mid pt1">commentaires</span>						
@@ -348,7 +350,7 @@
 
 
 			{# PARTIE 2 / commentaires #}
-			<div class="fos-comment-header-buttons w-100 bt black-30 pb4 dn">
+			<div class="fos-comment-header-buttons w-100 bt black-30 pb4 dn relative">
 				<div class="comment-action-buttons center tc">
 					<button class="button" data-action="hide-comments">
 						<svg class="icon icon--xs icon-alone icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
@@ -361,7 +363,7 @@
 			</div>
 
 		
-			<div id="playlist-comments" class="playlist-comments dn">
+			<div id="playlist-comments" class="playlist-comments dn pb4">
 				{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': theme.id } %}
 			</div>
 			{# FIN PARTIE 2 #}	
@@ -592,8 +594,11 @@
 					{% endif %}				 		
 				</div>
 				{# fin colonne 2 / playlist #}
+
 			</div>
 		</div>
 	</div>
+
+
 {% endmacro %}
 {# FIN MACRO PLAYLIST WRAPPER DE JOGGEUR #}

@@ -35,17 +35,15 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findDerniersThemes($limit){
         $queryBuilder=$this->_em->createQueryBuilder()
-        ->select('a')
+        ->select('a')        
         ->orderBy('a.id', 'DESC')
         ->setFirstResult(0)
-        ->setMaxResults($limit)
-        ->from($this->_entityName,'a')
-        
+        ->setMaxResults($limit) 
+        ->from($this->_entityName,'a')       
         ;
 
-        return $queryBuilder
-            ->getQuery()
-            ->getResult();
+        $paginator = new Paginator($queryBuilder, $fetchJoin = true);
+        return $paginator;
 
     }
 

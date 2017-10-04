@@ -1,29 +1,33 @@
 {% trans_default_domain 'FOSUserBundle' %}
 <div id="content" class="bg--lightgrey pam">
-    <h1 class="main-title man align-center">
-        <span>Mot de passe perdu</span>
-    </h1>
+    <div class="ms-title flex-1 pv3">
+        <svg class="icon icon--s icon-locked"><use xlink:href="#icon-locked"></use></svg>                   
+        <h2><span class="">Réinitialiser le mot de passe</span></h2>  
+    </div>
 
-    <div class="form-wrapper bg-op--white bd--light pam pbxxl">
+    <div class="form-wrapper bg-op--white bd--light">
         <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos-form fos_user_resetting_request">
-            <div  class="form-group row mll mrl ptm">
+            <div  class="form-group w-100 flex flex-wrap justify-center pb3">
                 {% if invalid_username is defined %}
                     <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
                 {% endif %}
                 
-                <label class="col-xs-12 col-sm-4 control-label" for="username">utilisateur</label>
+                <label class="form-label control-label self-center w-40" for="username">utilisateur</label>
                 
-                <div class="col-xs-12 col-sm-6">
+                <div class="form-widget self-center w-60">
                     <input class="form-control" type="text" id="username" name="username" required="required" />
                 </div>
             </div>
 
-            <div class="align-center">
-                <div class="button btn btn-action mts">
-                  <svg class="icon icon-paperplane"><use xlink:href="#icon-paperplane"></use></svg> 
-                  <button class="" type="submit" value="envoyer">envoyer</button>
+            
+
+                <div class="center tc">
+                    <div class="button button-save">
+                      <svg class="icon icon--s icon-paperplane"><use xlink:href="#icon-paperplane"></use></svg>  
+                       <button class="" type="submit" value="envoyer">envoyer</button>
+                    </div>
                 </div>
-            </div>
+            
         </form>
     </div>
 </div>

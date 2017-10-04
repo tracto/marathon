@@ -26,8 +26,12 @@ class CoreController extends Controller{
 	public function IndexAction(Request $request){
 			$em = $this->getDoctrine()->getManager();
 
+
 			$tdsScoring = $this->container->get('tds_marathon.scoring');
 			$tdsSaison = $this->container->get('tds_marathon.saison');
+
+			$listeDernThemes=$em->getRepository('TdSMarathonBundle:Theme')
+            					->findDerniersThemes(8);
 
 			$listeSaisons=$em->getRepository('TdSMarathonBundle:Saison')
 						->findAllSaisonsWithThemes();
@@ -38,8 +42,7 @@ class CoreController extends Controller{
 	        $saison=$em->getRepository('TdSMarathonBundle:Saison')
                    ->findSaisonWithThemes($saison->getId());
 
-            $listeDernThemes=$em->getRepository('TdSMarathonBundle:Theme')
-            					->findDerniersThemes(8);
+            
 
 
 	      	$musicTitles=$em->getRepository('TdSMarathonBundle:MusicTitle')
@@ -48,7 +51,7 @@ class CoreController extends Controller{
 	      	shuffle($musicTitles);
 
 	      	$listeArticles=$em->getRepository('TdSMarathonBundle:Article')
-	      					  ->findSeveral(3,0);
+	      					  ->findSeveral(2,0);
 
 	      	
 	      	$websites=$em->getRepository('TdSMarathonBundle:Website')
@@ -78,6 +81,7 @@ class CoreController extends Controller{
 	        $listeJoggeursScore=$tdsScoring->getAllJoggeursScoresOfSaison($saison);
 	        
 
+	        
 
 			return $this->get('templating')->renderResponse('TdSCoreBundle:Core:index.html.twig', array(
 					'listeSaisons'=>$listeSaisons,
@@ -237,26 +241,32 @@ class CoreController extends Controller{
 			$form->handleRequest($request);
             $data = $form->getData();
 
-           $contenuMail="yo";
+            $contenuMail="Un nouveau joggeur souhaite participer au Marathon!<br/>";
+            $contenuMail.="Nom d'utilisateur : ".$data['pseudo']."<br/>";
+            $contenuMail.="Email : ".$data['email']."<br/>";
+            $contenuMail.="Envoies-lui un email pour lui transmettre ses identifiants de connexion dès que tu auras créé son compte, il sera content.";
 
             $message = \Swift_Message::newInstance()
                 ->setSubject("Marathon de la Semaine : demande d'inscription")
                 ->setFrom($data['email'])
-                ->setTo('kl6yranne@yahoo.fr')
-                ->setBody($contenuMail);
+                ->setTo('anneclaire.bourdois@gmail.com')
+                ->setBody($contenuMail,'text/html');
+                
 
             $mailer=$this->get('mailer');
 
             $mailer->send($message);
 
-
-            return $this->render('TdSCoreBundle:Core:participate-validation.html.twig',array('data'=>$data));
         }
 
 		return $this->render('TdSCoreBundle:Core:participate.html.twig',array(
 				'form'=>$form->createView()));
 		
 	}
+
+
+
+	
 
 	public function creditsAction(){
 		return $this->render('TdSCoreBundle:Core:credits.html.twig');

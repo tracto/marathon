@@ -42,7 +42,9 @@ $(document).ready(function(){
               var musicTitleArtiste=$(this).data('artiste');
               var musicTitlePath=$(this).data('path');
               var musicTitleThumb=$(this).data('thumb');
-              var musicTitleItem={index:musicTitleIndex, title:musicTitleTitre, artist:musicTitleArtiste, mp3:musicTitlePath, thumb:musicTitleThumb};
+              var musicTitleVignetteid=$(this).data('vignetteid');
+      
+              var musicTitleItem={index:musicTitleIndex, title:musicTitleTitre, artist:musicTitleArtiste, mp3:musicTitlePath, thumb:musicTitleThumb, vignetteid:musicTitleVignetteid};
               musicTitlesArray.push(musicTitleItem);
           });
 
@@ -55,9 +57,9 @@ $(document).ready(function(){
           createTitle=function(media){
               var self = this;
 
-              var listItem = "<div class='playlist-title align-center'>";
-              listItem +="<span class='jp-title'>" + media.title + "</span>";
-              listItem +="<span class='jp-artist'> ( " + media.artist  + " ) </span>";        
+              var listItem = "<div class='playlist-title tc pb2'>";
+              listItem +="<span class='jp-artist db i f6'>" + media.artist  + "</span>"; 
+              listItem +="<span class='jp-title db'>" + media.title + "</span>";        
               listItem += "</div>";
 
               
@@ -67,12 +69,13 @@ $(document).ready(function(){
           createListItem=function(media){
                 var self = this;
                 var listItem = "<li class='playlist-item-wrapper pa2'>";
-                  listItem += "<div>";
-                      listItem += "<a href='javascript:;' class='w-100 flex flex-auto no-underline near-black " + myPlaylist.options.playlistOptions.itemClass + "' data-tabindex='"+media.index+"'>";
-                        listItem += "<span class='jp-thumb thumbnail--m flex-item'>";
-                          listItem += "<img class='db w-100' src='"+media.thumb+"'/>";
-                        listItem += "</span>";
+                  listItem += "<div class='w-100 flex flex-auto no-underline near-black'>";
 
+                    listItem += "<span class='jp-thumb thumbnail--m flex-item pointer' data-action='show-vignette' data-type='"+playlistType+"' data-vignetteid='"+media.vignetteid+"'>";
+                      listItem += "<img class='db w-100' src='"+media.thumb+"'/>";
+                    listItem += "</span>";
+
+                    listItem += "<a href='db w-100' class='flex flex-auto no-underline " + myPlaylist.options.playlistOptions.itemClass + "' data-tabindex='"+media.index+"'>";
                         listItem += "<div class='jp-title-artist flex-item pl2'>";
                             listItem += "<span class='jp-title db w-100'>" + media.title + "</span>";
                             listItem +=(media.artist ?" <span class='jp-artist db w-100 i dark-gray '>" + media.artist + "</span>" : "");
@@ -124,7 +127,8 @@ $(document).ready(function(){
                 repeat: '.jp-repeat',
                 repeatOff: '.jp-repeat-off',
                 gui: '.jp-gui',
-                noSolution: '.jp-no-solution'
+                noSolution: '.jp-no-solution',
+                shufflebeh: '.jp-shuffle'
              },
              playlistOptions: {
                 autoplay: false,
@@ -144,7 +148,7 @@ $(document).ready(function(){
                 $('[data-infostitle]').empty();
                 title=createTitle(musicTitlesArray[0]);
                 $('[data-infostitle]').append(title);
-
+                
              },
 
              play : function(){
@@ -153,6 +157,8 @@ $(document).ready(function(){
                 title=createTitle(musicTitlesArray[titleCurrent]);
                 $('[data-infostitle]').append(title);
              },
+
+
 
              ended: function() {
                 
@@ -166,11 +172,46 @@ $(document).ready(function(){
 
           i++;
       });
+
+
+
+  if(is_medium){
+    $('body').on('mouseover',"[data-action='show-vignette']",function(e){ 
+        
+      var vignetteBox = $('#playlist-vignette-box');
+      vignetteBox.html("");
+
+      var vignetteid=$(this).data("vignetteid");
+
+      var posY = $(this).offset().top;
+      var posX = $(this).offset().left-140;
+
+      var vignetteContent=$(".vignette-box-content[data-vignetteid='"+vignetteid+"']").html();
+      var type=$(this).data("type");
+      
+      vignetteBox.show();
+      vignetteBox.css({"top":posY+"px","left":posX+"px"});
+      vignetteBox.html(vignetteContent);
+
+    });
+
+
+    $('body').on('mouseover',"#playlist-vignette-box",function(e){
+      var vignetteBox = $('#playlist-vignette-box');
+      vignetteBox.show();
+    });
+
+    $('body').on('mouseout',"[data-action='show-vignette']",function(e){ 
+      var vignetteBox = $('#playlist-vignette-box');
+      vignetteBox.hide();
+
+    });
+
+    $('body').on('mouseout',"#playlist-vignette-box",function(e){ 
+      var vignetteBox = $('#playlist-vignette-box');
+      vignetteBox.hide();
+    });
+  }
+
 });
 
-
-
-// $('body').on('mouseover',"[data-action='theme-nav-infos-hover']",function(){
-//     console.log("yo");
-//     $(this).find("[data-action='show']").addClass("active");
-// });

@@ -1,0 +1,57 @@
+{% macro footerparticipate() %}	
+	<div class="pa3 pb5 center tc bg--pierre f7" >
+		
+
+	<h2 class="metal-mania f1">Je veux Jogger</h2>
+	
+
+			
+			<span class="button btn btn-default btn-becky" data-info="Yo! moi c'est becky, une meuf alphanumérique comme dans code Lisa en moins bien détourée.<br/> Remplis le formulaire et un message télépathique sera directement envoyé à l'organisateur (Bob Marathon).">
+	            <svg class="icon icon-alone icon-becky"><use xlink:href="#icon-becky"></use></svg>
+	        </span>
+		
+
+		<div class="form-wrapper bg-op--white bd--light pam">
+	    	{{ form_start(form, {'attr': {'class': ''}}) }}
+
+		    	{{ form_errors(form) }}
+
+		    	<div class="form-group row mll mrl ptm pbm">
+			      {{ form_label(form.pseudo, "pseudo", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+			      {{ form_errors(form.pseudo) }}
+			      <div class='col-xs-12 col-sm-6'>
+			        {{ form_widget(form.pseudo, {'attr': {'class': ''}}) }}
+			      </div>
+			    </div>
+
+
+			    <div class="form-group row mll mrl ptm pbm">
+			      {{ form_label(form.email, "email", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+			      {{ form_errors(form.email) }}
+			      <div class='col-xs-12 col-sm-6'>
+			        {{ form_widget(form.email, {'attr': {'class': ''}}) }}
+			      </div>
+			    </div>
+
+			    <div class="form-group row mll mrl ptm pbm">
+			      {{ form_label(form.content, "candidature", {'label_attr': {'class': 'col-xs-12 col-sm-4 control-label'}}) }}
+			      {{ form_errors(form.content) }}
+			      <div class='col-xs-12 col-sm-6'>
+			        {{ form_widget(form.content, {'attr': {'class': ''}}) }}
+			      </div>
+			    </div>
+
+		    	<div class="align-center">
+			        <div class="button btn btn-action mts">
+			          <svg class="icon icon--s icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>  
+			           {{ form_widget(form.save, {'attr': {'value': 'valider'}}) }}
+			        </div>
+			     </div>
+
+		  		{{ form_rest(form) }}
+
+	  		{{ form_end(form) }} 
+		</div>
+	</div>
+{% endmacro %}
+

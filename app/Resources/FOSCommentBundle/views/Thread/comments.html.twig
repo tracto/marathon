@@ -6,7 +6,7 @@
     {% endif %}
 
 
-<div class="fos_comment_thread-inner relative">   
+<div class="fos_comment_thread-inner relative" data-count="{{ thread.numcomments }}">   
         {% if depth == 0 %}  
         
             {% if fos_comment_can_comment_thread(thread) %}

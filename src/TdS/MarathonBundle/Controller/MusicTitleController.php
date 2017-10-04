@@ -17,6 +17,8 @@ class MusicTitleController extends Controller{
 	
 
 	public function addAction($theme_id, $joggeur_id,  $route, Request $request){
+		
+
 		$em=$this->getDoctrine()->getManager();
 		$theme=new Theme();
 		$joggeur=new Joggeur();
@@ -64,7 +66,7 @@ class MusicTitleController extends Controller{
 				$em->persist($musicTitle);
 				$em->flush();
 				
-				$request->getSession()->getFlashBag()->add('notice','morceau bien uploadé.');
+				$request->getSession()->getFlashBag()->add('notice',"Ton morceau a été ajouté! Tes points vitesse seront comptabilisés lors de la fermeture du thème. En attendant, je t'invite à aller voir si tu as des points bisous à donner pour le thème précédent (si tu y avais participé).");
 				return $this->redirect($url);
 			}
 

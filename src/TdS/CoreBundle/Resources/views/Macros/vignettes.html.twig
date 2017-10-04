@@ -9,7 +9,7 @@
 		{% endif %}
 		    		
 
-	    		<a class="db w-100 no-underline" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
+	    		<a class="vignette-theme db w-100 no-underline ba b--solid b--ms-dark-turquoise animation-easein" href="{{ path('tds_marathon_theme_view', {'id': theme.id}) }}">
 
 		    		<div class="relative">
 		    			<div class="aspect-ratio aspect-ratio--1x1 z-0">
@@ -41,14 +41,14 @@
 							</div>
 						</div>
 
-					    <div class='vignette-infos-theme flex bg-near-black ms-turquoise pa2'>
+					    <div class='vignette-infos-theme relative flex bg-ms-turquoise near-black pa2 animation-easein'>
 					    		<div class="self-center">
-							    	<h3 class="ma0">{{ theme.titre }}</h3>
+							    	<h3 class="ma0 f5 fw2">{{ theme.titre }}</h3>
 							    	<i class="f7">Créé par : {{ theme.joggeur.pseudo }}</i>
 							    	
 									{% if theme.chronique is defined and theme.chronique is not null %}
-										<div class="">
-											<svg class="icon icon--xs fill-ms-turquoise"><use xlink:href="#icon-newspaper"></use></svg>
+										<div class="absolute right-0 bg-ms-turquoise vignette-iconchronique mr1 pa1">
+											<svg class="icon icon--xs fill-near-black"><use xlink:href="#icon-newspaper"></use></svg>
 										</div>
 									{% endif %}
 								</div>
@@ -56,8 +56,8 @@
 					</div>					    		
 	    		</a>
 	    		{% if is_granted("ROLE_SUPER_ADMIN") %}
-                    <a class='button absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
-                        <svg class="icon icon-alone icon--s icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+                    <a class='button button-delete absolute bottom-0 right-0 ma1' data-delete data-href="{{ path('tds_marathon_theme_delete', {'id': theme.id}) }} "  data-pseudo="{{ theme.titre }}">
+                        <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
                     </a>
                 {% endif %}				    		
 		</div>
@@ -86,10 +86,10 @@
 		{% set colortextclass = "near-black" %}
 	{% endif %}   
 	<div class='relative'>
-		<a class="db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
+		<a class="vignette-joggeur db w-100 no-underline" href="{{ path('tds_marathon_joggeur_view', {'id': joggeur.id}) }}">
 
 			<div class="relative">
-				<div class="aspect-ratio aspect-ratio--1x1 z-0">
+				<div class="aspect-ratio aspect-ratio--1x1 z-0 bg-white">
 					{% if joggeur.image is not null %}
 			  			<img class="aspect-ratio--object" src="{{ joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeur.image.alt }}">
 					{% else %}
@@ -97,14 +97,7 @@
 		  			{% endif %}
 	  			</div>
 				
-				{# {% if joggeur.id == app.user.joggeur.id %}
-					<div class="ribbon w-100 ph2 bg-ms-fushia tc flex aspect-ratio--object o-50">
-						<div class="self-center w-100 tc">						
-							<svg class="icon icon--s dib v-mid"><use xlink:href="#icon-warning"></use></svg>
-							<span class="dib v-mid near-black">Ton profil</strong></span>
-						</div>
-					</div>
-				{% endif %} #}
+				
 
 				<div class="absolute top-0 flex flex-auto flex-wrap justify-center w-100 z-1">
 	    			<div class="flex flex-wrap {{ bgclass }} pa2 mr2">
@@ -113,13 +106,13 @@
 			    	</div>
 				</div>
 
-			    <div class='vignette-infos-joggeur flex {{ bgclass }} {{ colortextclass }} pa2 h3 w-100'>
+			    <div class='vignette-infos-joggeur relative flex {{ bgclass }} {{ colortextclass }} pa2 h3 w-100 z-1 animation-easein'>
 				    	<h3 class="ma0 fw1 tc f6 self-center w-100">{{ joggeur.pseudo }}</h3>
 			    </div>	
 			</div>					    		
 		</a>
 		{% if is_granted("ROLE_SUPER_ADMIN") %}
-            <a class='button absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_joggeur_delete', {'id': joggeur.id}) }} "  data-pseudo="{{ joggeur.pseudo }}">
+            <a class='button button-delete absolute bottom-0 right-0' data-delete data-href="{{ path('tds_marathon_joggeur_delete', {'id': joggeur.id}) }} "  data-pseudo="{{ joggeur.pseudo }}">
                 <svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
             </a>
         {% endif %}			    		
@@ -141,7 +134,7 @@
 
 {# MACRO VIGNETTE LINE THEME #}
 {% macro vignette_line_theme(themeItem) %}
-	<a class="vignette-theme-line flex flex-auto justify-between no-underline near-black bg-white-10 shadow-subtle" href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
+	<a class="vignette-theme-line flex flex-auto justify-between no-underline near-black bg-white-10 shadow-subtle animation-easein" href="{{ path('tds_marathon_theme_view', {'id': themeItem.id}) }}">
 		<div class="flex flex-auto w-70">
 			<div class="thumbnail--m flex">
 				<img class="" src="{{ themeItem.image.webPath | imagine_filter('tiny_thumb') }}" alt="{{ themeItem.image.alt }}">
@@ -149,8 +142,8 @@
 			<div class="vignette-theme-line_titre pl2 self-center">{{ themeItem.titre }}</div>
 		</div>
 		
-		<div class="flex flex-auto items-stretch justify-end">
-			<div class="flex bg-near-black pa2 mr1">
+		<div class="vignette-infos-theme-line flex flex-auto items-stretch justify-end">
+			<div class="flex bg-near-black pa2 mr1 animation-easeout">
 	    		<svg class="flex-item self-center icon icon--xs fill-ms-turquoise pr2"><use xlink:href="#icon-cd"></use></svg>
 	    		<span class="flex-item self-center ms-turquoise">{{ themeItem.musicTitles|length  }}</span>
 	    	</div>

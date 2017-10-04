@@ -97,8 +97,12 @@
             var event = jQuery.Event('fos_comment_before_load_thread');
 
             event.identifier = identifier;
+            var themeid=$("#fos_comment_thread").data("themeid");
+            var commentpath=window.location.protocol + "//" + window.location.host + "/theme/view/"+themeid;
+            
             event.params = {
-                permalink: encodeURIComponent(permalink || window.location.href)
+                permalink: encodeURIComponent(permalink || commentpath),
+                // window.location.href
             };
 
             FOS_COMMENT.thread_container.trigger(event);
@@ -110,8 +114,7 @@
                     FOS_COMMENT.thread_container.html(data);
                     FOS_COMMENT.thread_container.attr('data-thread', event.identifier);
                     FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', event.identifier);
-            
-                    $(".comment-btn-count span").html($('[data-count]').data("count"));
+                    $("#comment-btn-count").html($('.fos_comment_thread-inner').data("count"));
                 }
             );
         },

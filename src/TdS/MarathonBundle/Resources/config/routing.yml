@@ -242,6 +242,23 @@ tds_marathon_joggeur_morescores_js:
         expose: true
 
 
+tds_marathon_joggeur_vignette_js:
+    pattern: /joggeur/view-vignette/{id}
+    defaults:  
+        _controller: TdSMarathonBundle:Joggeur:viewVignette
+    options:
+        expose: true
+
+
+
+tds_marathon_theme_vignette_js:
+    pattern: /theme/view-vignette/{id}
+    defaults:  
+        _controller: TdSMarathonBundle:Theme:viewVignette
+    options:
+        expose: true
+
+
 
 tds_marathon_joggeur_add:
     path:     /joggeur/add

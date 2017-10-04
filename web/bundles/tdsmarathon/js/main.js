@@ -29,9 +29,7 @@ $(".navbar-second").on('click',function(){
     $(this).addClass("active");  
 });
 
-//   .nav-toggler:checked ~ div nav.navbar-header ul{
-//     display:block;
-// }
+
 
 
 	$.ajax({
@@ -87,14 +85,66 @@ $('body').on('click','[data-btn-becky]',function(){
 
 
 $('body').on("click","[data-close-becky]",function(){
-  $("#becky-wrapper").hide();
+  $("[data-container-becky]").hide();
 });
 
 
 
 
 
+// JE VEUX JOGGER
+$('body').on('click',"[data-action='jeveuxjogger']",function(){  
+  $.ajax({
+    type: "GET",
+    url: Routing.generate('tds_jeveuxjogger'),
+    data:'',
+    cache: false,
+    success: function(data){
+       $("[data-jeveuxjogger]").html(data);
+       $("[data-jeveuxjogger]").show();
+       $("html, body").animate({ scrollTop: $(document).height() }, 500); 
 
+
+       $("#participate-form").submit(function(e){
+          var formData = new FormData(this);
+          console.log("submit");
+          $.ajax({
+              url: Routing.generate('tds_jeveuxjogger'),
+              type: 'POST',
+              data:  formData,
+              mimeType:"multipart/form-data",
+              contentType: false,
+              cache: false,
+              processData:false,
+              success: function(data, textStatus, jqXHR)
+              {
+                var webPath='../../bundles/tdsmarathon/images/groupeProfs.jpg';
+                var reponse = "<div class='pa3 pb5 center tc bg--pierre f7'>";
+                      reponse += "<h2 class='metal-mania f1'>Je veux Jogger</h2>";
+                      reponse += "<img class='w-60' src='"+webPath+"'/>";
+    
+                      reponse += "<div class='pv3'>";
+                      reponse += "<h3>Demande Envoyée!</h3>";
+                      reponse += "Elle sera examinée par un groupe de 26 profs d'EPS.<br/>";
+                      reponse += "Si jamais ta demande est acceptée, tu recevras un mail de confirmation d'inscription</div>";
+                      reponse += "<div class='tc'>";
+                        reponse += "<a class='button button-action' href=''>";
+                          reponse += "<svg class='icon icon--s icon-checkmark'><use xlink:href='#icon-checkmark'></use></svg>";  
+                        reponse += "<span>ok</span></a>";
+                      reponse += "</div>";
+                reponse += "</div>";
+                $("[data-jeveuxjogger]").html(reponse);
+              },
+              error: function(jqXHR, textStatus, errorThrown)
+              {
+              }
+          });
+          e.preventDefault(); //Prevent Default action.
+          e.unbind();
+        });   
+    },
+  });
+});
 
 
 // CREDITS / MENTIONS LEGALES
@@ -107,7 +157,7 @@ $('body').on('click',"[data-action='credits']",function(){
     success: function(data){
        $("[data-credits]").html(data);
        $("[data-credits]").show();
-       $("html, body").animate({ scrollTop: $(document).height() }, 500);    
+       $("html, body").animate({ scrollTop: $(document).height() }, 500);           
     },
   });
 });

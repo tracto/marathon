@@ -9,22 +9,32 @@
 {% set classColTheme = "flex-auto" %}
 {% set classThemeItem = "w-50 w-25-ns" %}
 {% set detectDerniersThemes = null %}
+
+{% if listeJoggeursScore is empty %}
+	{% set classColPlaylistTheme = "w-100  flex flex-auto" %}
+	{% set classColTheme = "w-100 w-100-ns" %}
+{% endif %}
+
 {% for theme in saison.themes %}	        		      				
 	{% if theme is defined and theme is not null %}
 		{% if theme.statut == 1 %}
 			{% set currentTheme = theme %}
 			{% if listeJoggeursScore is not defined or listeJoggeursScore is empty %}				
-				{% set classColPlaylistTheme = "w-100 flex flex-auto" %}
+				{% set classColPlaylistTheme = "w-100  flex flex-auto flex-wrap" %}
 				{% set classColPlaylist="w-100 w-60-ns" %}
 				{% set classColTheme = "w-100 w-40-ns" %}
 				{% set classThemeItem = "w-100 w-33-ns" %} 
 			{% endif %}
 		{% else %}
+			
 			{% set detectDerniersThemes = 1 %}
 			{% set classThemeItem = "w-100 w-50-sm w-33-m w-25-l" %}
-		{% endif %}
-	{% endif %}
+		{% endif %}		
+	{% endif %}	
 {% endfor %}
+
+
+
    
 <div class="index-wrapper">
 	{# lecteur fixe (si pas de thème en cours) #}
@@ -42,7 +52,7 @@
   	<div class='flex flex-auto flex-wrap'>
   		{% if saison is defined and saison.statut is not null %}
       					
-			<div class="{{ classColPlaylistTheme }} bg-ms-turquoise">
+			<div class="{{ classColPlaylistTheme }} bg-near-black">
 				{# colonne playlist theme en cours #}
 				{% if currentTheme is defined and currentTheme is not null %}
 					<div class="{{ classColPlaylist }} flex flex-wrap flex-auto">
@@ -54,13 +64,13 @@
 
        			{# colonne derniers thèmes #}
         		{% if listeDernThemes is defined and listeDernThemes is not null and listeDernThemes is not empty  %}
-	        		<div class="{{ classColTheme }} bg-ms-turquoise pa2 pa3-l">
+	        		<div class="{{ classColTheme }} bg-near-black pa2 pa3-l">
 
 						<div class="ms-title pt4">
 							<div class="dn db-ns">
 								<div class="gif-basket-g"></div>
 							</div>
-			    			<h2><span class="">Les derniers Thèmes</span></h2>
+			    			<h2><span class="ms-turquoise">Les derniers Thèmes</span></h2>
 			    			<div class="dn db-ns">
 			    				<div class="gif-basket-d"></div>
 							</div>
@@ -170,25 +180,31 @@
 
 	{# PARTIE 2 / classement + actus #}
 	<div class="flex flex-auto flex-wrap">
-		<div class="w-100 w-100-sm w-50-ns bg-ms-light-violet pa3 pa4-l">
+		<div class="w-100 w-100-sm w-50-ns bg-joggeurs-chanteurs pa3 pa4-l">
 			<div class="flex flex-auto w-100 mb3">
-				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-20-ns center tc w-auto-ns fill-near-black mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
-				<div class="ms-title ms-title_spikes flex-0 flex-1-ns w-60">					
-			    	<h2 class="mt0"><span class="bg-ms-light-violet">Classement</span></h2>			    	
+				<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-20-ns center tc w-auto-ns fill-ms-light-gray mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
+				<div class="ms-title self-center flex-0 flex-1-ns w-60">					
+			    	<h2 class="mt0 mb0"><span class="ms-light-gray">Classement</span></h2>			    	
 			    </div>
-			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3 w-20-ns"><use xlink:href="#icon-cup"></use></svg>
+			    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-ms-light-gray mv3 w-20-ns"><use xlink:href="#icon-cup"></use></svg>
 			</div>
 
 			{% if listeJoggeursScore|length >= 3 %} 										
-				<div class="">
-					{% for joggeurScore in listeJoggeursScore %}
-						{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
-					{% endfor %}
-				</div>
+					<div class="">
+						{% for joggeurScore in listeJoggeursScore %}
+							{{ scoresElementsModule.scores_latotale(joggeurScore,loop.index) }}
+						{% endfor %}
+					</div>
 
-				<div class="pt3">						
-					{{ scoresElementsModule.scores_legende() }}
-				</div>
+					<div class="pt3">						
+						{{ scoresElementsModule.scores_legende() }}
+					</div>
+				
+			{% else %}
+					<div class="near-black i tc pa3 bg-white-40">
+						<span>la saison viens de débuter, il n'y a donc pas de score pour l'instant</span>
+					</div>
+				
 			{% endif %}
 		</div>
 		
@@ -263,12 +279,13 @@
 			    </div>
 			<div class="">
 				{% for saisonItem in listeSaisons %}
+					{% if saisonItem.themes is defined and saisonItem.themes is not empty %}
 					<div class="flex flex-wrap mv4 pa2 shadow-subtle">
-						<a class="flex flex-auto flex-wrap no-underline near-black w-100 w-100-sm w-40-ns relative" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
-							<div class="ms-subtitle w-100 absolute">
-								<h3 class="tc pv3 w-100 bg-near-black ms-bleu-bright ma0">{{ saisonItem.titre }}</h3>
+						<a class="vignette-saison-liste flex flex-auto flex-wrap no-underline near-black w-100 w-100-sm w-40-ns relative animation-easein" href="{{ path('tds_marathon_saison_view', {'id': saisonItem.id}) }}">
+							<div class="ms-subtitle w-100 absolute z-2">
+								<h3 class="tc pv3 w-100 bg-near-black ms-bleu-bright ma0 animation-easein">{{ saisonItem.titre }}</h3>
 							</div>
-							<div class="w-100 saison-liste_image">
+							<div class="w-100 saison-liste_image animation-easeout">
 								{% if saisonItem.image is defined and saisonItem.image is not empty %}
 									<img class="db w-100 min-h-100 cover" style='background-image:url("{{ saisonItem.image.webPath | imagine_filter('medium_thumb') }}")' alt="{{ saisonItem.image.alt }}">
 								{% else %}
@@ -284,7 +301,8 @@
 								{% endfor %}
 							</div>
 						{% endif %}
-					</div>	
+					</div>
+					{% endif %}	
 				{% endfor %}				
 			</div>				
 		</div>
@@ -329,9 +347,9 @@
 				<div class="ms-title ms-title_spikes flex-1">					
 			    	<h2><span class="bg-green">Pas Loin</span></h2>	
 			    </div>
-				<ul class="list ma0 pa0">
+				<ul class="list list-websites ma0 pa0">
 					{% for website in websites %}
-						<li class="mv1 mh0 mh3-ns tc pv2 bg-white-30"><a class="no-underline near-black" href="{{ website.url }}">{{ website.name }}</a></li>
+						<li class="mv1 mh0 mh3-ns tc pv2 bg-white-20"><a class="no-underline near-black animation-easein" href="{{ website.url }}">{{ website.name }}</a></li>
 					{% endfor %}						
 				</ul>
 

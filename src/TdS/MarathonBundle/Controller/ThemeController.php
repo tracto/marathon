@@ -122,6 +122,14 @@ class ThemeController extends Controller{
 	}
 
 
+
+	public function viewVignetteAction(Theme $theme, $id){
+      $em = $this->getDoctrine()->getManager();
+      return $this->render('TdSMarathonBundle:Theme:view-vignette.html.twig',array(
+                 'theme'=>$theme));
+  	}
+
+
 	
 
 

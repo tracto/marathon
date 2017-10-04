@@ -112,6 +112,10 @@ class ThreadController extends Controller
                 $this->onCreateThreadErrorDuplicate($form);
             }
 
+            // if($thread->getPermalink()=="http://localhost:8888/marathon-de-la-semaine/web/app_dev.php/dashboard"){
+
+            // }
+
             // Add the thread
             $threadManager->saveThread($thread);
 
@@ -388,12 +392,14 @@ class ThreadController extends Controller
         $sorter = $request->query->get('sorter');
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
 
+
+        
+            
         // We're now sure it is no duplicate id, so create the thread
         if (null === $thread) {
             // Decode the permalink for cleaner storage (it is encoded on the client side)
             $permalink = urldecode($request->query->get('permalink'));
-            // echo "<h2>yo".$permalink."</h2>";
-            // $themeId=
+            
 
             $thread = $this->container->get('fos_comment.manager.thread')
                 ->createThread();
@@ -407,10 +413,7 @@ class ThreadController extends Controller
             $theme=$em->getRepository('TdSMarathonBundle:Theme')
                  ->findOneBy(array('id'=>$themeId));
                  
-            if(!empty($theme)){
-                $theme->setThread($thread);
-                $em->persist($theme);
-            }
+            
 
             // Validate the entity
             $validator = $this->get('validator');
@@ -426,6 +429,12 @@ class ThreadController extends Controller
 
             // Add the thread
             $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+
+            if(!empty($theme)){
+                $theme->setThread($thread);
+                $em->persist($theme);
+                $em->flush();
+            }
         }
 
         $viewMode = $request->query->get('view', 'tree');

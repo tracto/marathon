@@ -18,7 +18,7 @@
 
 		{# PARTIE 1 : les thèmes + podium / wall of fame #}		
 		<div class="flex flex-auto flex-wrap">
-			<div class="w-100 w-60-ns bg-ms-turquoise relative">
+			<div class="w-100 w-60-ns bg-near-black relative">
 				{% if is_granted("ROLE_SUPER_ADMIN") %}
 					<a class="button button-action dib relative  pt2 mt2 mr2 ml2 tc tl-ns" href="{{ path('tds_marathon_saison_edit', {'id': saison.id}) }}">
 		  				<svg class="icon icon--s icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
@@ -28,8 +28,6 @@
 
 				{% if saison.bilan is defined and saison.bilan is not empty and saison.bilan is not null %} 
 				<div class="w-100 bg-ms-orange-light pa3 pa4-l">
-					
-
 					<div class="ms-title ms-title_turfu">
 						<div class="w-100 flex-none">
 							<svg class="db icon fill-near-black tc w-30 center"><use xlink:href="#icon-flags"></use></svg>
@@ -56,7 +54,7 @@
 							<div class="dn db-ns">
 								<div class="gif-basket-g"></div>
 							</div>
-			    			<h2><span class="">Liste des Thèmes</span></h2>
+			    			<h2><span class="ms-turquoise">Liste des Thèmes</span></h2>
 			    			<div class="dn db-ns">
 			    				<div class="gif-basket-d"></div>
 							</div>
@@ -158,13 +156,13 @@
 		{# PARTIE 2 / la totale #}
 		<div class="flex flex-auto flex-wrap">			
 			{% if joggeursScoresOfSaison is defined and joggeursScoresOfSaison is not null %}
-				<div class="w-100 bg-ms-light-violet pa3 pa4-l">		
-					<div class="flex flex-auto flex-wrap mb3">
-						<svg class="icon icon--l icon--m-m icon--l-l db w-100 center tc w-auto-ns flex-0 fill-near-black mt3 mb0 mb3-ns"><use xlink:href="#icon-cup"></use></svg>
-						<div class="ms-title ms-title_spikes flex-0 flex-1-ns">					
-					    	<h2><span class="bg-ms-light-violet">Classement</span></h2>			    	
+				<div class="bg-joggeurs-chanteurs w-100 bg-ms-light-violet pa3 pa4-l">		
+					<div class="flex flex-auto w-100 w-60-l mb3 center">
+						<svg class="icon icon--l icon--m-m icon--l-l db w-100 w-20-ns center tc w-auto-ns fill-ms-light-gray mv0 mv3-ns"><use xlink:href="#icon-cup"></use></svg>
+						<div class="ms-title self-center flex-0 flex-1-ns w-60">					
+					    	<h2 class="mt0 mb0"><span class="ms-light-gray">Classement</span></h2>			    	
 					    </div>
-					    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-near-black mv3"><use xlink:href="#icon-cup"></use></svg>
+					    <svg class="dn db-ns icon icon--s icon--m-m icon--l-l flex-0 fill-ms-light-gray mv3 w-20-ns"><use xlink:href="#icon-cup"></use></svg>
 					</div>
 					
 					<div class="latotale-wrapper flex flex-auto flex-wrap">

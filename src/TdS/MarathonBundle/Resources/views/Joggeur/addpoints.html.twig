@@ -40,7 +40,9 @@
 			</div>
         {% else %}
         	<div class="w-100 pt2">
-			    <h2 class="ma0 fw1">theme : {{ themePost.titre }}</h2>
+        		{% if themePost is defined and themePost is not null %}
+			   	 	<h2 class="ma0 fw1">theme : {{ themePost.titre }}</h2>
+				{% endif %}
 			</div>
     	{% endif %}
     </div>
@@ -122,6 +124,9 @@
 		{% else %}
 			<div class="tc">
 				<h2 class="ma0">Il n'y a pas de thème ouvert à l'attribution de points bisous</h2>
+				<i class="db mw6 center"><strong class="db">Petit rappel pour les joggeurs : </strong>Les points bisous se font attribuer sur le thème précédent, celui qui vient de finir, non pour le thème en cours. Donc lorsque le thème en cours est le tout premier thème, vous ne pouvez pas encore donner de points bisous.<br/><br/>
+
+				Les points vitesse sont quand à eux calculés lorsque Bob Marathon ferme le thème. C'est donc normal d'avoir un score à 0 lorsque nous en sommes au tout premier thème.<br/></i>
 			</div>
 		{% endif %}	
 	</div>

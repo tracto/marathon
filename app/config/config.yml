@@ -97,25 +97,32 @@ doctrine:
         # result_cache_driver: apc
 
 # Swiftmailer Configuration
-swiftmailer:
-    
-    
+swiftmailer:    
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+    
 
 fos_user:
     db_driver:     orm
     firewall_name: main
     user_class:    TdS\UserBundle\Entity\User
     from_email: 
-        address:    charles.torris@gmail.com
-        sender_name: marathon
+        address:    lemarathondelasemaine@gmail.com
+        sender_name: le marathon de la semaine 
     registration:
         form:
             type: app_user_registration
+    # change_password:
+    #     form:
+    #         type: me_user_change_password
+    service:
+            mailer: fos_user.mailer.twig_swift
+    # resetting:
+    #     email:
+    #         template: Email/password_resetting.email.twig
+    #     token_ttl: 43200
 
 
 

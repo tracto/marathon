@@ -64,11 +64,32 @@
 			{{ headernavModule.header(saison,saisonCurrent,joggeurScoreSaison) }} 
 
 
-			<div class="flashbag tc relative bg-ms-vert">
-	      		{% for message in app.session.flashbag.get('notice') %}
-	        		<span class="db pa2">Info : {{ message }}</span>
-	      		{% endfor %}
-	    	</div>
+
+
+			{# FLASHBAG WRAPPER #}
+			{% if app.session.flashBag.peek('notice') is not empty %} 
+				<div  class="becky-wrapper fixed  bottom-0 left-0 h-100 w-100 z-200 bg-black-50" data-container-becky>
+					<div class="becky-infos flex flex-auto flex-column justify-center h-100 w-100">
+
+						<div class="bg--pierre w-80 w-50-m w-40-l relative shadow-subtle center">
+
+							<a class="button absolute right-0" data-close-becky>
+								<svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
+							</a>
+							<div class="flex flex-auto pt2">
+								<div class="becky-img flex-0 self-end">
+
+								</div>
+								<span class="becky-text db pa4 pr5 f7">
+						      		{% for message in app.session.flashbag.get('notice') %}
+						        		<span class="db pa2">{{ message }}</span>
+						      		{% endfor %}
+						      	</span>
+						    </div>
+						</div>
+					</div>
+		    	</div>
+	    	{% endif %} 
 
 
 
@@ -83,10 +104,16 @@
 
 		{{ footerModule.footer() }}
 		<div id="chat-wrapper" class="chat-wrapper fixed bottom-0 right-0 pointer z-4">
-			<a class="button-chat pointer" data-action="open-chat" target="blank" href="{{ path('tds_chat') }}">
+			<a class="button-chat pointer animation-easein" data-action="open-chat" target="blank" href="{{ path('tds_chat') }}">
 				<svg class="icon icon--s fill-near-black" ><use xlink:href="#icon-dialog"></use></svg>
 			</a>
 		</div>
+
+
+		{# PLAYLIST BOX VIGNETTE joggeur/theme #}
+		<div id="playlist-vignette-box" class="playlist-vignette-box absolute dn bg-nearblack z-999">
+		</div>
+		{# FIN PLAYLIST BOX VIGNETTE joggeur/theme #}
 
 
 		{# BOUTON BECKY FIXE #}
@@ -98,9 +125,9 @@
         </div>
 
         {# OVERLAY BECKY BOX #}
-        <div id="becky-wrapper" class="dn fixed  bottom-0 left-0 h-100 w-100 z-200 ">
+        <div id="becky-wrapper" class="becky-wrapper dn fixed  bottom-0 left-0 h-100 w-100 z-200 bg-black-50" data-container-becky>
 			<div class="becky-infos flex flex-auto flex-column justify-center h-100 w-100">
-				<div class="bg--pierre w-80 w-50-m w-40-l relative shadow-subtle">
+				<div class="bg--pierre w-80 w-50-m w-40-l relative shadow-subtle center">
 					<a class="button absolute right-0" data-close-becky>
 						<svg class="icon icon--xs"><use xlink:href="#icon-cancel"></use></svg>
 					</a>
@@ -111,6 +138,7 @@
 				</div> 
 			</div>
 		</div>
+
 
 
 

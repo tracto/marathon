@@ -106,6 +106,17 @@ class JoggeurController extends Controller{
 
 
 
+
+  public function viewVignetteAction(Joggeur $joggeur, $id){
+      $em = $this->getDoctrine()->getManager();
+      $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
+                    ->findJoggeurById($id);
+      return $this->render('TdSMarathonBundle:Joggeur:view-vignette.html.twig',array(
+                 'joggeur'=>$joggeur));
+  }
+
+
+
   public function morescoresAction(Joggeur $joggeur, $id){
     $em = $this->getDoctrine()->getManager();
 

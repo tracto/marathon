@@ -33,13 +33,13 @@ body{
 
 input:focus,
 select:focus,
-textarea:focus,
-button:focus {
+textarea:focus{
     outline: solid 1px var(--ms-fushia);
+
 }
 
 
-input[type='submit']:focus {
+.jp-playlist-item,.button-player:focus,.button:focus,.button-save,input[type='submit']:focus,button:focus {
     outline: none;	
 }
 
@@ -141,7 +141,7 @@ select{
 
 
 
-#becky-wrapper .becky-img{
+.becky-wrapper .becky-img{
 	background-image:url('../../bundles/tdsbecky/images/rebecca.png');
 	background-size:cover;
 	width:100px;
@@ -227,7 +227,7 @@ select{
 		#f64aaa 65%,
 		#c982d8 80%
 	);
-	border:inset 2px rgba(255,255,255,0.5);
+	border:outset 2px rgba(255,255,255,0.5);
 	padding:0.5rem;
 	width:100%;
 
@@ -602,6 +602,12 @@ button{
 	text-decoration:none;
 	padding:0.5rem;
 	cursor:pointer;
+	transition: all .15s ease-in;	
+}
+
+.button-action{
+	cursor:pointer;
+	transition: all .15s ease-in;
 }
 
 
@@ -609,17 +615,22 @@ button{
 	fill:var(--ms-fushia);
 	display:inline-block;
 	vertical-align:middle;
+	transition: all .15s ease-in;
 }
 
 .button span{
 	display:inline-block;
 	vertical-align:middle;
+	transition: all .15s ease-in;
 }
+
+
 
 .button-special{
 	background-color:transparent;
 	color:var(--near-black);
 	padding:0;
+	transition: all .15s ease-in;
 }
 
 .button-nude{
@@ -627,6 +638,10 @@ button{
 	color:var(--near-black);
 	border:none;
 	padding:0;
+}
+
+.button-becky{
+	transition: all .15s ease-in;
 }
 
 .button-comments{
@@ -677,10 +692,13 @@ button{
 	color:var(--ms-fushia);
 }
 
+
+.button-switch{
+	transition: all .15s ease-in;
+}
+
 .button-switch span{
 	margin-left:-8px;
-	padding:18px;
-	/*height:60px;*/
 }
     
 
@@ -1312,6 +1330,24 @@ button{
 
 
 /* VIGNETTE */
+.vignette-theme{
+	overflow:hidden;
+	transition: all .15s ease-out;
+}
+
+.vignette-theme .vignette-infos-theme{
+	/*transition: all .15s ease-out;*/
+}
+
+/*.vignette-theme img{
+	opacity:1;
+	transition: all .15s ease-in;
+}*/
+
+
+
+
+
 .vignette-theme-line{
 	margin-bottom:0.5rem;
 }
@@ -1332,6 +1368,11 @@ button{
 
 .vignette-infos-joggeur{
 	min-height:50px;
+}
+
+
+.vignette-iconchronique{
+	top:-30px;
 }
 
 
@@ -1418,6 +1459,27 @@ button{
 	width:50px;
 	height:50px;
 }
+
+
+
+
+.playlist-vignette-box{
+	width:150px;
+}
+
+
+.playlist-vignette-box .button-delete{
+	display:none;
+}
+
+
+.playlist-vignette-box .vignette-encoche{
+	margin-left:-3px;
+}
+
+
+
+
 
 .theme-nav-infos_left{	
 	height:50px;
@@ -1596,17 +1658,27 @@ button{
 } 
 
 
+.bg-joggeurs-chanteurs{
+	background-image:url('../../bundles/tdsmarathon/images/bg-marathonchanteurs.jpg');
+	background-size:cover;
+}
+
+
 
 /* LISTE DES SAISONS */
+
+.vignette-saison-liste{
+	overflow:hidden;
+}
 
 .saison-liste_image{
 	min-height:150px;
 	margin-bottom:0.5rem;
 }
 
-@media (--breakpoint-small-medium){
+@media (--breakpoint-not-small){
 	.saison-liste_image{
-		margin-bottom:0.5rem;
+		margin-bottom:0;
 	}
 }
 

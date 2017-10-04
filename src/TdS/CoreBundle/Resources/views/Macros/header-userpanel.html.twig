@@ -80,7 +80,7 @@
 						<div class="bg-ms-fushia ph2 pv1">
 							<svg class="icon icon--s fill-near-black"><use xlink:href="#icon-warning"></use></svg>
 						</div>
-						<a class="bg-near-black ph2 pv1 no-underline pointerevents-all" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
+						<a class="button bg-near-black ph2 pv1 no-underline pointerevents-all" href="{{ path('tds_marathon_joggeur_addpoints', {'id' : app.user.joggeur.id }) }}">
 							<svg class="dib v-mid icon icon--s fill-ms-fushia pr1"><use xlink:href="#icon-heartadd"></use></svg>
 							{% if joggeurScoreSaison.pointstogive is defined and joggeurScoreSaison.pointstogive is not empty %}
 								{{ joggeurScoreSaison.pointstogive }}
