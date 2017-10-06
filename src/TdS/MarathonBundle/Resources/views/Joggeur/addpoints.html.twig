@@ -58,21 +58,32 @@
 							{% if musicTitle.joggeur.id != app.user.joggeur.id %}
 								<div class='w-100 w-100-sm w-50-m w-33-l pa2'>
 									<div class="flex flex-auto flex-wrap justify-between bg-white-40 pa2">
-										<div class="w-100 w-30-l">
-											<h3 class="ma0 f6">{{ musicTitle.joggeur.pseudo }}</h3>
-											<span class="block">morceau : <i>{{ musicTitle.titre }}</i></span>
+										<div class="flex flex-auto w-100 bb bl-0 br-0 bt-0 b--solid b--gray pb2">
+											<div class="mr2">
+												<span class="db thumbnail--m aspect-ratio aspect-ratio--1x1 z-1">
+													{% if musicTitle.joggeur.image is not null %}
+														<img class='db aspect-ratio--object' src='{{ musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+													{% else %}
+											  			<img class='db w-100' src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('tiny_thumb') }}" alt="">
+											  		{% endif %}
+										  		</span>
+									  		</div>
+									  		<div class="w-80">
+												<h3 class="ma0 f6">{{ musicTitle.joggeur.pseudo }}</h3>
+												<span class="db"><i>{{ musicTitle.titre }}</i></span>
+											</div>
 										</div>
 
 										
-										<div class='heartPoints-icons cf self-end w-100 w-70-l' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
-											{% for i in 10..1  %}
-												<span class="heartPoints-icon fr" data-heart='{{ i }}'>
+										<div class='heartPoints-icons cf self-end w-100 pt2' data-idJoggeur='{{ musicTitle.joggeur.id }}'>	
+											{% for i in 15..1  %}
+												<span class="heartPoints-icon fr pointer" data-heart='{{ i }}'>
 													<svg class="icon icon--xs pl1" ><use xlink:href="#icon-heart2"></use></svg>
 												</span>
 											{% endfor %}
-											<span class="heartPoints-icon heart-empty fr" data-heart='0'>
+											{# <span class="heartPoints-icon heart-empty fr" data-heart='0'>
 												<svg class="icon icon--xs pr1"><use xlink:href="#icon-none"></use></svg>
-											</span>
+											</span> #}
 										</div>						
 									</div>
 								</div>

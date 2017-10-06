@@ -2356,7 +2356,7 @@ button { cursor: pointer; }
 .footer-wrapper { min-height: 200px; box-shadow: 0 -4px 26px rgb( 1, 73, 146 ); border-top: solid 1px #292135; }
 .sep-herbe { background-repeat: repeat-x; height: 20px; }
 .footer-creditskm { height: 120px; }
-.footer-kilometrage { bottom: 35px; }
+.footer-kilometrage { bottom: 45px; }
 .kilometrage-wrapper { position: absolute; width: 100%; bottom: 20px; }
 .kilometrage-borne span { background-image: url( '../../bundles/tdsmarathon/images/footer/footer-borne-km.png' ); background-repeat: no-repeat; background-size: 100%; display: block; margin: 0 auto; width: 80px; height: 114px; top: 0; }
 .footer-button { border: outset 1px white; z-index: 1; }

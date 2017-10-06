@@ -295,7 +295,7 @@ class ThemeController extends Controller{
 	  				if($joggeursDuTheme[0] && $currentTheme){
 	  					$joggeurScore=$joggeurDuTheme->getJoggeurScore();
             			$currentTheme->setJoggeurChronique($joggeursDuTheme[0]);
-            			$joggeurScore->setPointstogive(10);            
+            			$joggeurScore->setPointstogive(15);            
         			}
 	  			}
 	  		}
