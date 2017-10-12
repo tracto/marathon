@@ -2272,9 +2272,9 @@ button { cursor: pointer; }
 .score-miniblock_horizontal .typepoints { min-width: 2.2rem; }
 /* PODIUM */
 .podium-1, .podium-2 { padding-left: 2px; }
-.podium-1 .medaillon-round { width: 140%; margin-left: -20%; z-index: 20; }
-.podium-2 .medaillon-round { width: 130%; margin-left: -15%; z-index: 19; }
-.podium-3 .medaillon-round { width: 120%; margin-left: -10%; z-index: 18; }
+.podium-1 .medaillon-round { width: 140%; margin-left: -20%; z-index: 20; padding-bottom: 140%; }
+.podium-2 .medaillon-round { width: 130%; margin-left: -15%; z-index: 19; padding-bottom: 130%; }
+.podium-3 .medaillon-round { width: 120%; margin-left: -10%; z-index: 18; padding-bottom: 120%; }
 .podium-helmet { margin-bottom: -4rem; z-index: 21; }
 .podium-celtic svg { max-height: 40px; }
 /* WALLS OF FAME */

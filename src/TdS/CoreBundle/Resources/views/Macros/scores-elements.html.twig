@@ -35,11 +35,11 @@
 						<svg class="icon w-100 fill-ms-gold"><use xlink:href="#icon-vikinghelmet"></use></svg>
 					</div>
 				{% endif %}
-				<div class="medaillon-round">
+				<div class="medaillon-round aspect-ratio bg-white">
 				    {% if joggeurScore.joggeur.image is not null %}
-			  			<img src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
+			  			<img class="aspect-ratio--object" src="{{ joggeurScore.joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ joggeurScore.joggeur.image.alt }}">
 			  		{% else %}
-			  			<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
+			  			<img class="aspect-ratio--object" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 					{% endif %}
 				</div>
 			</div>
@@ -99,12 +99,12 @@
 			</div>
 		</div>
 
-		<div class="medaillon-round self-center pointer" >
+		<div class="medaillon-round w-100 self-center pointer aspect-ratio aspect-ratio--1x1 bg-white" >
 
 			{% if wof_joggeur.image is not null %}
-				<img class="" src="{{ wof_joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_joggeur.image.alt }}">
+				<img class="aspect-ratio--object" src="{{ wof_joggeur.image.webPath | imagine_filter('medium_thumb') }}" alt="{{ wof_joggeur.image.alt }}">
 			{% else %}
-		  		<img src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
+		  		<img class="aspect-ratio--object" src="{{ 'uploads/img/anonymous.jpg' | imagine_filter('medium_thumb') }}" alt="">		
 			{% endif %}
 		</div>
 
