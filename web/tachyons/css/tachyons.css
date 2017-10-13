@@ -2350,6 +2350,8 @@ button { cursor: pointer; }
 .form-error ul li { list-style: none; }
 .heartPoints-icon.is-active svg { fill: #fd6274; }
 .heartPoints-icon.is-active ~ .heartPoints-icon svg { fill: #fd6274; }
+.heart-empty.is-active svg { fill: #13191b !important; }
+.heart-empty.is-active ~ .heart-empty svg { fill: #13191b !important; }
 /*ACCORDION*/
 .ui-accordion-header-active .icon-arrow-left { transform: rotate( -90deg ); }
 /*FOOTER*/

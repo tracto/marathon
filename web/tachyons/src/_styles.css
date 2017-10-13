@@ -2148,6 +2148,12 @@ button{
 }
 
 
+.heart-empty.is-active svg,
+.heart-empty.is-active ~ .heart-empty svg{
+	fill:var(--near-black)!important;
+}
+
+
 
 
 

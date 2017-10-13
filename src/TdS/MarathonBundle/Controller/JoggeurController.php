@@ -316,7 +316,7 @@ class JoggeurController extends Controller{
             $form=$this->createForm(new TaskType(),$task);
              
             $form->handleRequest($request);
-
+            $joggeurPointstogive_old=$joggeur->getJoggeurScore()->getPointstogive();
             if ($form->isSubmitted() && $form->isValid()) {
 
                   $joggeur=$em->getRepository('TdSMarathonBundle:Joggeur')
@@ -326,6 +326,7 @@ class JoggeurController extends Controller{
                   $em->persist($joggeur);
                   
                   $tags=$form->get('tags')->getData();
+                  $totalGivenHearts=0;
                   foreach($tags as $tag){
                             $idJoggeur=$tag->idJoggeur;
                             $joggeurHeart=$em->getRepository('TdSMarathonBundle:Joggeur')
@@ -338,12 +339,17 @@ class JoggeurController extends Controller{
                                $scoreHeart->setHeartpoints($tag->heartPoints+$scoreHeart->getHeartpoints());
                                $scoreJoggeurHeart->setScore($scoreHeart);
                                $em->persist($scoreJoggeurHeart); 
-                            }                                        
+                            }
+                            $totalGivenHearts=$tag->heartPoints+$totalGivenHearts;                                        
                   }
-                  
-                  $em->flush();
-                  $em->clear();
-                  $request->getSession()->getFlashBag()->add('notice',"Points bisous attribués avec succès");
+                  if($totalGivenHearts<=$joggeurPointstogive_old){
+                    $em->flush();
+                    $em->clear();
+                    $request->getSession()->getFlashBag()->add('notice',"Points bisous attribués avec succès ( ".$totalGivenHearts." / ".$joggeurPointstogive_old." pts )");
+                  }else{
+                    $request->getSession()->getFlashBag()->add('notice',"je sais pas ce que tu as essayé de faire mais tu as manifestement donné plus de points bisous qu'il n'y avait dans ta cagnotte.<br/> 
+                      Nous allons donc signaler ton comportement à la caf de ta région");
+                  }
                   
                   return $this->redirectToRoute('tds_dashboard');
             }
