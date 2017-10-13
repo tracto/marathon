@@ -281,7 +281,7 @@ input[type="tel"], input[type="text"], input[type="url"], .border-box { box-sizi
 .aspect-ratio--7x5 { padding-bottom: 71.42%; }
 .aspect-ratio--5x7 { padding-bottom: 140%; }
 .aspect-ratio--1x1 { padding-bottom: 100%; }
-.aspect-ratio--object { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 100; }
+.aspect-ratio--object { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; }
 /*
 
    IMAGES
@@ -2278,7 +2278,7 @@ button { cursor: pointer; }
 .podium-helmet { margin-bottom: -4rem; z-index: 21; }
 .podium-celtic svg { max-height: 40px; }
 /* WALLS OF FAME */
-.medaillon-round { display: block; border-radius: 50%; overflow: hidden; margin: 1rem .5rem; }
+.medaillon-round { display: block; border-radius: 50%; overflow: hidden; margin: 1rem .5rem; z-index: 3; }
 /*@media (--breakpoint-not-small){
 	.medaillon-round{
 		width:95%;
