@@ -22,5 +22,13 @@ $(function() {
 	$("[data-action='show-website-form']").on('click',function(){ 
 		 $("#form-addliens").show(); 
 	});
+
+
+	$('#form-addmusictitle').submit(function(){
+	  $('#loading-file').find("span").html("veuillez patienter, le fichier est en train de s'uploader");
+	  $('#loading-file').addClass("bg-ms-fushia pa2 i");
+	  $('#loading').show();
+	  $("#tds_marathonbundle_musictitle_valider").prop("disabled",true);
+	});
 });
  
