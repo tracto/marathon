@@ -16,6 +16,36 @@ use Doctrine\ORM\EntityRepository;
  */
 class MusicTitleRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function findOneMusictitleById($id){
+      $queryBuilder=$this->createQueryBuilder('a')       
+        /*->from($this->_entityName,'a')*/ 
+        ->where('a.id = :id')
+        ->setParameter('id', $id)      
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+  }
+
+
+  /*public function findJoggeurById($id){
+        $results = $this->createQueryBuilder('j')
+          ->addSelect('j','i','m','mt','mti','u','js','jss')
+          ->leftJoin('j.image','i')
+          ->leftJoin('j.musicTitles','m')
+          ->leftJoin('m.theme','mt')
+          ->leftJoin('mt.image','mti')
+          ->leftJoin('j.user','u')
+          ->leftJoin('j.joggeurScore','js')
+          ->leftJoin('js.scores','jss')
+          ->where('j.id = :id')
+          ->setParameter('id', $id)
+          ->getQuery()->getOneOrNullResult();
+ 
+        return $results;
+    }*/
+
+
+
 	public function getDixieme(Theme $theme){
 		$queryBuilder=$this->_em->createQueryBuilder()
 			->addselect('a','j','ji')

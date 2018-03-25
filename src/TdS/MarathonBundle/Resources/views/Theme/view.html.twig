@@ -4,7 +4,9 @@
   Marathon - {{ parent() }}
 {% endblock %}
 
-{% block tdsmarathon_body %}	
+{% block tdsmarathon_body %}
+	{% import "TdSCoreBundle:Macros:playlist-wrapper.html.twig" as playlistWrapperModule %}
+		
 	<div class="">
 		{% set autoplay = "true" %}
 		{{ playlistWrapperModule.pl_theme(theme,null,themePrec,themeSuiv,theme.statut,autoplay,listeJoggeursScore) }}

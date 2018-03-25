@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
+	{% import "TdSCoreBundle:Macros:playlist-index.html.twig" as playlistIndexModule %}
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
+	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
 	
 	<div class="main-content-saison relative min-h-100">
 		{# lecteur fixe  #}

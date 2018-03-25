@@ -3,6 +3,11 @@
 
 {% block body %}
 
+	{% import "TdSCoreBundle:Macros:playlist-index.html.twig" as playlistIndexModule %}
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
+	{% import "TdSCoreBundle:Macros:scores-elements.html.twig" as scoresElementsModule %}
+	{% import "TdSCoreBundle:Macros:article-wrapper.html.twig" as articleWrapperModule %}
+
 {% set currentTheme = null %}
 {% set classColPlaylistTheme = "w-100 w-100-sm w-55-m w-60-l" %}
 {% set classColPlaylist="flex-auto" %}

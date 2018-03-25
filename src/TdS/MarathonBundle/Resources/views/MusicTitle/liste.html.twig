@@ -5,15 +5,18 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
+
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
 		<div id="content" class="mv4">
 			
 
 			<div class="flex flex-auto justify-center w-100 mt4">   
-            <h1 class="self-center pr2 ma0 mb3 new-rocker f2">
-                <svg class="icon icon--s fill-near-black"><use xlink:href="#icon-add-music"></use></svg>
-                <span>Liste des morceaux</span>
-
+	            <h1 class="self-center pr2 ma0 mb3 new-rocker f2">
+	                <svg class="icon icon--s fill-near-black"><use xlink:href="#icon-add-music"></use></svg>
+	                <span>Liste des morceaux</span>
+	                {{ theme.id }}
+	            </h1>
         	</div>
 
 
@@ -24,25 +27,92 @@
 		    	</div>
 			</div>
 
-			<table class="f6 w-100 mw8 center bg-white-30 pa2 pa2-sm pa3-m pa4-l shadow-subtle" cellspacing="0">
-				<tbody class="lh-copy">
-					{% for musicTitle in theme.musicTitles %}
-						<tr>
-							<td class='pv3 bb b--black-20 word-wrap'>
-								<span class='thumbnail--s dib v-mid'>
-									<img class="db w-100" src='{{ musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
-								</span>
-							</td>
-							<td class='pv3 pr3 bb br b--black-20 word-wrap'>{{ musicTitle.joggeur.pseudo }}</td>
-							<td class='pv3 ph3 bb b--black-20 word-wrap'>{{ musicTitle.titre }}</td>		
-							<td class='pv3 pr3 bb b--black-20'>
-	                            <a class='button button-action btn-user-delete' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }}"  data-pseudo="{{ musicTitle.titre }}" href="#">
-	                                <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
-	                            </a>
-	                        </td>
-                    	</tr>
-					{% endfor %}
-				</tbody>
-	 		</table>
+
+			<div class="w-100 mw8 center">
+				<div class="tl mb3">
+					<button href="" class="button pa3" data-action="reorder">
+						<svg class="icon icon--xs"><use xlink:href="#icon-switch-order"></use></svg>
+		  				<span class="">Modifier l'ordre</span>
+					</button>
+
+					<button  href="" class="button dn" data-action="validate-reorder">
+						<svg class="icon icon--xs"><use xlink:href="#icon-checkmark"></use></svg>
+		  				<span class="">valider l'ordre</span>
+					</button>
+				</div>
+
+				<div id="musictitlesListe"></div>
+
+				<table class="f6 w-100 bg-white-30 pa2 pa2-sm pa3-m pa4-l shadow-subtle collapse" cellspacing="0">
+					<tbody class="lh-copy" id="list-sortable">
+						{% for musicTitle in theme.musicTitles %}
+							<tr class="bb b--black-20 " data-id="{{ musicTitle.id }}">
+								<td class='pl2 pv2  word-wrap'>
+									<div class="v-mid pr3">
+										<span class='db aspect-ratio aspect-ratio--1x1 z-1'>
+											<img class="db aspect-ratio--object" src='{{ musicTitle.joggeur.image.webPath | imagine_filter('tiny_thumb')  }}'/>
+										</span>
+									</div>
+								</td>
+								<td class='pv2 pr3 br b--black-20 word-wrap w-30'>{{ musicTitle.joggeur.pseudo }}</td>
+								<td class='pv2 ph3 word-wrap w-55'>{{ musicTitle.titre }}</td>
+										
+								<td class='pv2 center w-10'>
+		                            <a class='button button-action' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }}"  data-pseudo="{{ musicTitle.titre }}" href="#">
+		                                <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
+		                            </a>
+		                            <a class='button button-action'  data-href="" href="{{ path('tds_marathon_musictitle_edit', {'id': musicTitle.id}) }}">
+		                                <svg class="icon icon-alone icon--xs icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+		                            </a>
+		                        </td>
+	                    	</tr>
+						{% endfor %}
+					</tbody>
+		 		</table>
+	 		</div>
+		<script>
+	 		$("button[data-action=reorder]").on('click',function(){
+	 			$("#list-sortable").find('tr').addClass("bg-white-40 ba b--dashed pointer");
+	 			$(this).addClass("o-60");
+	 			$("button[data-action=validate-reorder]").show();
+				$( "#list-sortable" ).sortable();
+    			$( "#list-sortable" ).disableSelection();
+
+	 		});
+
+	 		$("button[data-action=validate-reorder]").on('click',function(){
+	 			var themeid={{ theme.id }};
+
+	 			var musictitlesTabNew=[];
+	 			$("#list-sortable tr").each(function(){
+	 				musictitlesTabNew.push($(this).data('id'));
+	 			});
+	 			$("#musictitlesListe").html(JSON.stringify(musictitlesTabNew));
+
+			    $.ajax({
+			        type: "GET",
+			        url: Routing.generate('tds_marathon_musictitle_reorder_js'),
+			        data:{
+			        	theme_id:themeid,
+			        	musictitlesTabNew:JSON.stringify(musictitlesTabNew)
+
+			        },
+			        dataType: 'json',
+			        cache: false,
+			        success: function(data){
+			           /*$('#closeTheme-brief').html(data);
+			           $("[data-action='switch-cancel']").on('click',function(){
+							$('#closeTheme-brief').html("");
+						});*/
+						console.log("checkreorder:"+themeid);
+						/*var dataJson=jQuery.parseJSON( data );*/
+						markers=JSON.stringify(data);
+						console.log("data:"+markers);
+						window.location.reload(true);
+			        }
+	    		});    
+	    		return false;
+	 		});  			
+	 	</script>
 	{% endif %}
 {% endblock %}

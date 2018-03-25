@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
+	
 	<div class="pb4">
 
 		{% if is_granted("ROLE_SUPER_ADMIN") %}

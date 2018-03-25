@@ -1,3 +1,7 @@
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
@@ -11,8 +15,7 @@ app:
 #     prefix: /_console
 
 
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
 
 
 fos_js_routing:

@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block tdsmarathon_body %}
+	{% import "TdSCoreBundle:Macros:vignettes.html.twig" as vignetteModule %}
+	
 	{% if theme is defined and theme is not null %}
 	<div id="content" class="form-container">
 		<div class="">
