@@ -1,0 +1,155 @@
+.form-wrapper{
+		width:100%;
+		max-width:800px;
+		margin:0 auto;
+}
+
+.form-group{
+	.control-label{
+		text-align:center;
+
+		@media $medium{
+			text-align:right;
+		}
+	}
+
+	select{
+		text-align:center;
+		width: 100%;
+	}
+}
+
+
+.date>div{
+	display:none;
+}
+
+
+   
+
+.col-addPoints-joggeurTitle{
+	border-right:dashed 1px $grey1;
+
+	
+}
+
+
+.heartPoints-icon{
+	float:right;
+	font-size:1.5em;
+	cursor:pointer;
+	padding-right:2px;
+
+	.icon{
+		/*width:15px;
+		height:15px;*/
+	}
+}
+
+.heartPoints-icon.is-active,
+.heartPoints-icon.is-active ~ .heartPoints-icon{
+	color:#e91862;
+}
+
+
+.heart-empty.is-active{
+	color:#333;
+}
+
+.heartPoints-icon.is-disabled{
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+
+.addPoints-form{
+	.btn-actualiser{
+		background:transparent;
+		border:solid 1px $grey1;
+		padding: 12px;
+    	vertical-align: top;
+
+    	&:hover {
+    		color:$color10;
+    	}
+	}
+}
+
+
+#popup{
+	
+}
+
+#popup .popup-wrapper{
+	display:none;
+	position:fixed;
+	background-color:rgba(0,0,0,0.3);
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+#popup .inner-popup{
+	position:absolute;
+	background-color:lightgrey;
+	width:300px;
+	height:200px;
+	top:50%;
+	left:50%;
+	margin:-150px 0 0 -100px;
+	
+}
+
+#popup .inner-popup .message{
+	padding:50px 40px;
+}
+
+.score-tags{
+	visibility:hidden;
+	height:0;
+}
+
+
+
+
+
+
+/*.col-addPoints-joggeurTitle{
+	border:solid 1px darkgrey;
+	margin:5px;
+}*/
+
+
+
+
+
+
+
+
+
+.popup-delete-confirmation{
+	display:none;
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0px;
+	left:0px;
+	background-color:rgba(0,0,0,0.5);
+	z-index:100;
+}
+
+.popup-delete-confirmation div{
+	display:block;
+	position:absolute;
+	top:50%;
+	left:50%;
+	background-color:lightgrey;
+	padding:20px;
+	color:#333;
+	height:150px;
+	width:400px;
+	margin:-75px 0 0 -200px;
+
+}
+

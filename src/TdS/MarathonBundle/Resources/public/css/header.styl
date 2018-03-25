@@ -1,0 +1,331 @@
+
+.main-header{
+	position: relative;
+	color:white;
+	background-repeat:no-repeat;
+	background-color:$color9;
+	background-position:50% 50%;
+	background-size:cover;
+	width:100%;
+	min-height:400px;
+
+
+	@media $medium{
+		min-height:620px;
+	}
+}
+
+.main-logo{
+	width: 90%;
+    margin: 0 auto;
+    display: block;
+    max-width: 500px;
+    position: relative;
+    top: 70px;
+}
+
+.saison-title{
+	color:$color17;
+    width: 80%;
+    font-size: 1em;
+    text-shadow: #000 2px 2px 2px;
+    text-transform: uppercase;
+    position: relative;
+    bottom: 95px;
+    line-height: 1.8em;
+
+    @media $medium{
+		width: 30%;
+	}
+
+}
+
+.hotfresh-wrapper{
+	width:100%;
+	position:relative;
+	bottom:75px;	
+}
+
+.hotfresh-inner{
+	font-size:0;
+	width:400px;
+	margin:0 auto;
+	overflow-y:hidden;	
+}
+
+.hotfresh-content{
+	font-size:14px;
+	background-color:black;
+	color: #ccc50c;
+}
+
+#form-hotfresh{
+	display:none;
+	color:$grey1;
+	overflow:hidden;
+
+	input{
+		height:40px;
+	}
+
+	.btn-action{
+		padding:0.1em 1em;
+	}
+}
+
+
+
+
+.header-bg{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	min-width:200px;
+	pointer-events: none;
+	height:642px;
+	margin:0 auto;
+}
+
+
+
+.jambes-group {
+	position:relative;
+	width:1200px;
+	height:642px;
+	margin:0 auto;
+}
+
+.jambes-group div{
+	position:absolute;
+	/*top:0;*/
+  	width:100%;
+  	height:100%;
+	/*max-width:1200px;
+	height:642px;
+	margin:0 auto;*/
+}
+
+/*.jambes-1{
+	background-image:url('../images/bg-header-layers/jambes1.png');
+}
+.jambes-2{
+	background-image:url('../images/bg-header-layers/jambes2.png');
+}
+.jambes-3{
+	background-image:url('../images/bg-header-layers/jambes3.png');
+}
+.jambes-4{
+	background-image:url('../images/bg-header-layers/jambes4.png');
+}
+.jambes-5{
+	background-image:url('../images/bg-header-layers/jambes5.png');
+}
+.jambes-6{
+	background-image:url('../images/bg-header-layers/jambes6.png');
+}
+.jambes-7{
+	background-image:url('../images/bg-header-layers/jambes7.png');
+}
+.jambes-8{
+	background-image:url('../images/bg-header-layers/jambes8.png');
+}
+.jambes-9{
+	background-image:url('../images/bg-header-layers/jambes9.png');
+}*/
+
+/*.header h1{
+
+	position:relative;
+	top:10px;
+	background-image:url('../images/bg-header-layers/logo.png');
+	width:495px;
+	height:519px;
+	font-size:24px;
+	margin:0 auto;
+	pointer-events:none;
+	z-index:10;
+}*/
+
+
+
+
+.nav-toggler {
+    position: absolute;
+    top: -1000px;
+}
+
+.nav-toggler__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:20;
+    width: 40px;
+    height: 40px;
+    fill:$grey6;
+    padding:10px 6px;
+    margin:0;
+    cursor: pointer;
+    background-color:transparent;
+
+
+    @media $medium{
+      display: none;
+    }
+}
+
+
+
+.nav-toggler:checked {
+
+    + .nav-toggler__label {
+        color: rgba(0,0,0,0.25);
+    }
+
+    ~ .navbar-header ul{
+    	display:block;
+		text-align:center;
+    }
+}
+
+
+.navbar-header{
+	width: 100%;
+	background-color:$color1;
+	min-height:40px;
+	position:absolute;
+	color:$grey6;
+	box-shadow: 2px 0 5px #000;
+	z-index: 110;
+
+	@media $medium{
+		position: fixed;
+    	height: 50px;    	
+	}
+}
+
+
+
+.navbar-first{
+	display:none;
+	margin: 0;
+	margin-left: -40px;
+
+	@media $medium{
+		display:block;
+		padding-top:0 ;
+		margin: 0;
+
+	}
+}
+
+.navbar-first > li {
+	display:block;
+	line-height: 50px;
+	color:$grey6;
+
+
+	@media $medium{
+		display:inline-block;
+		vertical-align: top;
+		text-align: center;
+    	min-width: 150px;
+    	cursor:pointer;
+	}	
+}
+
+.navbar-first > li:hover{
+	background-color:$color18;
+}
+
+.navbar-second{	
+	display:block;
+	background-color:$color1 !important;
+	cursor:pointer;
+
+}
+
+.navbar-second ul{
+	display:none;
+	padding:0;
+	margin:0;
+
+	li:hover{
+		background-color:$color18;
+		width:100%;
+	}
+}
+
+.navbar-second:hover{
+	background-color:$color1 !important;
+
+	> ul{
+		display:block;
+	}
+
+	
+	
+}
+
+.navbar-first li.active{
+	background-color:$color18;
+}
+
+
+.navbar-first .user {
+	border-top:solid 1px $grey5;
+
+	@media $medium{
+		border:none;
+		float:right;
+	}
+
+
+	.author-name {
+		line-height:1.1em;
+	}
+
+	.thumbnail{
+		height:35px;
+	}
+
+	.deconnexion {
+		font-size:0.9em;
+		text-align:right;
+		color:$grey5;
+	}
+}
+
+
+.beta {
+	width:100%;
+	position:absolute;
+	top:40px;
+	z-index:5;
+	font-size:0.8em;
+
+	@media $medium{
+		position:fixed;
+		top:47px;
+		font-size:1em;
+	}
+
+	.inner-beta {
+		background-color:rgba(255,255,0,0.8);
+		color:$grey1;
+		width:80%;
+		margin:0 auto;
+		line-height:1.1em;
+		border-radius: 0 0 7px 7px;
+
+		@media $medium{
+			width: 300px;
+		}
+	}
+	
+}
+
+
+
+
+

@@ -1,0 +1,137 @@
+.list{
+	/*width:95%;
+	margin:0 auto;*/
+}
+
+
+.list-item{
+	position:relative;
+
+	.thumbnail{
+		color:$grey6;
+    	border:none;
+    	display:block;
+    	width:100%;
+    	height:100%;
+	}
+
+	
+
+	.square {
+		background-color:rgba(255,255,255,0.5);
+		border:solid 1px $grey3;
+		border-radius:5px;
+	    position:relative;
+	    width:100%;
+	    height:100%;
+	    overflow:hidden;
+	    padding-bottom:100%;
+
+		img {
+	    	position:absolute;
+	    	left: 0;
+    		width: 100%;
+    		height:100%;
+		}
+	}
+
+	.round{
+
+		border-radius:50%;
+		overflow:hidden;
+		width:100%;
+		height:100%;
+
+		img {
+    		width: 100%;
+		}
+	}
+}
+
+
+
+
+.inner-item-text{
+	position:absolute;
+	bottom:0;
+	margin:0 auto;
+	width:100%;
+						
+	&::before {
+		content: '';
+		background-image:url("../../tdsmarathon/images/bg-vignette-joggeur.png");
+		background-repeat:repeat-x;
+		opacity: .8;
+	    height: 385px;
+	    width: 100%;
+	    position: absolute;
+	    bottom: 0;
+	}
+
+	h3{
+		font-size:1.1em;
+		font-weight:normal;
+		text-align:center;
+	}
+}
+
+
+
+
+.comment-count,
+.musictitle-count,
+.has-chronique{
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 12px;
+	padding: 0 3px 3px 5px;
+
+	.icon { padding: 7px; }
+
+	span {
+		transform: translateX(-3px);
+	}
+}
+
+.has-chronique{
+	padding: 0 3px 3px 0px;
+
+	.icon {
+		padding:5px;
+	}
+}
+
+
+
+
+
+
+.btn-liste-delete{
+	position:absolute;
+	right:0;
+	top:0;
+	border-radius:0 5px 0 0;
+}
+
+.joggeur-list-item-logged{
+	background-color:pink;
+}
+
+
+
+.col-draftmode-theme{
+	overflow:hidden;
+
+	.ribbon {
+		
+	}
+
+	.square {
+		background-color:$color1;
+
+		img {
+			opacity:0.6;
+		}
+
+	}
+}
