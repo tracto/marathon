@@ -1,0 +1,17 @@
+{% extends "TdSMarathonBundle::layout.html.twig" %}
+
+{% block title %}
+  Marathon - {{ parent() }}
+{% endblock %}
+
+{% block tdsmarathon_body %}
+	<div id="content" class="form-container">
+		<h1 class="ms-title">
+			<svg class="self-center icon icon--s mr3 fill-near-black"><use xlink:href="#icon-pencil"></use></svg>
+			<span class="self-center">Modifier un morceau</span>
+		</h1>
+		
+	    
+	    {{ include('TdSMarathonBundle:MusicTitle:form.html.twig') }}
+ 	</div>
+{% endblock %}

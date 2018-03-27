@@ -37,11 +37,11 @@
 
 					<button  href="" class="button dn" data-action="validate-reorder">
 						<svg class="icon icon--xs"><use xlink:href="#icon-checkmark"></use></svg>
-		  				<span class="">valider l'ordre</span>
+		  				<span class="">Valider l'ordre</span>
 					</button>
 				</div>
 
-				<div id="musictitlesListe"></div>
+				<div id="musictitlesListe" class="clip"></div>
 
 				<table class="f6 w-100 bg-white-30 pa2 pa2-sm pa3-m pa4-l shadow-subtle collapse" cellspacing="0">
 					<tbody class="lh-copy" id="list-sortable">
@@ -58,7 +58,7 @@
 								<td class='pv2 ph3 word-wrap w-55'>{{ musicTitle.titre }}</td>
 										
 								<td class='pv2 center w-10'>
-		                            <a class='button button-action' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }}"  data-pseudo="{{ musicTitle.titre }}" href="#">
+		                            <a class='button button-action mr2' data-delete data-href="{{ path('tds_marathon_musictitle_delete', {'id': musicTitle.id}) }}"  data-pseudo="{{ musicTitle.titre }}" href="#">
 		                                <svg class="icon icon-alone icon--xs icon-cancel"><use xlink:href="#icon-cancel"></use></svg>
 		                            </a>
 		                            <a class='button button-action'  data-href="" href="{{ path('tds_marathon_musictitle_edit', {'id': musicTitle.id}) }}">
@@ -71,48 +71,53 @@
 		 		</table>
 	 		</div>
 		<script>
-	 		$("button[data-action=reorder]").on('click',function(){
-	 			$("#list-sortable").find('tr').addClass("bg-white-40 ba b--dashed pointer");
-	 			$(this).addClass("o-60");
-	 			$("button[data-action=validate-reorder]").show();
-				$( "#list-sortable" ).sortable();
-    			$( "#list-sortable" ).disableSelection();
+			$(document).ready(function(){
+		 		$("body").on('click',"button[data-action=reorder]",function(){
+		 			$("#list-sortable").find('tr').addClass("bg-white-40 ba b--dashed pointer");
+		 			$(this).addClass("o-60");
+		 			$("button[data-action=validate-reorder]").show();
+		 			$( "#list-sortable" ).sortable();
+					$( "#list-sortable" ).sortable("enable");
+	    			$( "#list-sortable" ).disableSelection();
 
-	 		});
+		 		});
 
-	 		$("button[data-action=validate-reorder]").on('click',function(){
-	 			var themeid={{ theme.id }};
+		 		$("body").on('click',"button[data-action=validate-reorder]",function(){
+		 			var themeid={{ theme.id }};
 
-	 			var musictitlesTabNew=[];
-	 			$("#list-sortable tr").each(function(){
-	 				musictitlesTabNew.push($(this).data('id'));
-	 			});
-	 			$("#musictitlesListe").html(JSON.stringify(musictitlesTabNew));
+		 			var musictitlesTabNew=[];
+		 			$("#list-sortable tr").each(function(){
+		 				musictitlesTabNew.push($(this).data('id'));
+		 			});
+		 			$("#musictitlesListe").html(JSON.stringify(musictitlesTabNew));
 
-			    $.ajax({
-			        type: "GET",
-			        url: Routing.generate('tds_marathon_musictitle_reorder_js'),
-			        data:{
-			        	theme_id:themeid,
-			        	musictitlesTabNew:JSON.stringify(musictitlesTabNew)
+				    $.ajax({
+				        type: "GET",
+				        url: Routing.generate('tds_marathon_musictitle_reorder_js'),
+				        data:{
+				        	theme_id:themeid,
+				        	musictitlesTabNew:JSON.stringify(musictitlesTabNew)
 
-			        },
-			        dataType: 'json',
-			        cache: false,
-			        success: function(data){
-			           /*$('#closeTheme-brief').html(data);
-			           $("[data-action='switch-cancel']").on('click',function(){
-							$('#closeTheme-brief').html("");
-						});*/
-						console.log("checkreorder:"+themeid);
-						/*var dataJson=jQuery.parseJSON( data );*/
-						markers=JSON.stringify(data);
-						console.log("data:"+markers);
-						window.location.reload(true);
-			        }
-	    		});    
-	    		return false;
-	 		});  			
+				        },
+				        
+				        dataType: 'json',
+				        cache: false,
+				        success: function(data){
+							markers=JSON.stringify(data);							
+				        },
+				        complete: function(){
+				        	$("#list-sortable").sortable( "disable" );
+				        	$( "#list-sortable" ).disableSelection();
+				        	$("#list-sortable").find('tr').removeClass("bg-white-40 ba b--dashed pointer");
+							$("button[data-action=validate-reorder]").hide();
+							$("button[data-action=reorder]").removeClass("o-60");
+
+				        }
+		    		});
+		    		return false;    
+		    		
+		 		});
+		 	});  			
 	 	</script>
 	{% endif %}
 {% endblock %}
