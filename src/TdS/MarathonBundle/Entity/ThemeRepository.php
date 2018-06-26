@@ -35,7 +35,9 @@ class ThemeRepository extends \Doctrine\ORM\EntityRepository{
 
     public function findDerniersThemes($limit){
         $queryBuilder=$this->_em->createQueryBuilder()
-        ->select('a')        
+        ->select('a') 
+        ->where('a.statut != :statut')
+        ->setParameter('statut', 0)      
         ->orderBy('a.id', 'DESC')
         ->setFirstResult(0)
         ->setMaxResults($limit) 

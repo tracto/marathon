@@ -1,9 +1,9 @@
 
 
 var remainingHearts=parseInt($('.joggeurDonneur-pointsInit').html());
-var remainingHearts=6;
+var remainingHearts="";
 var givenHearts=0;
-
+var remainingHearts_before=parseInt($('.joggeurDonneur-pointsInit').html());
 
 
 $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
@@ -12,8 +12,8 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 	var remainingHearts=parseInt($('.joggeurDonneur-pointsInit').html());
 	var givenHearts=0;
 
-	$(this).addClass('is-active').siblings().removeClass('is-active');
-
+	$(this).addClass('is-active').siblings().not(".heart-empty").removeClass('is-active');
+	
 	
 	$('[data-idJoggeur]').each(function(){		
 		if($(this).find('.is-active').length) {
@@ -47,5 +47,14 @@ $(".heartPoints-icons").on('click','.heartPoints-icon', function() {
 	$('#task_remainingPoints').val(remainingHearts);
 	
 });
+
+
+$('#form-addpoints').submit(function(){
+	  $("#task_valider").prop("disabled",true);
+	});
+
+
+
+
 
 

@@ -55,13 +55,15 @@ class MusicTitleController extends Controller{
 		      	$musicTitle->setJoggeur($joggeur);
 	   		}
 
-
+                        
 
 		    $form=$this->get('form.factory')->create(new MusicTitleType(), $musicTitle); 
 			$form->handleRequest($request);
 
 			if($form->isValid()){
-
+                                
+                            /* TODO verifier que le joggeur na pas deja un track sur ce theme */
+                            
 				$em=$this->getDoctrine()->getManager();
 				$em->persist($musicTitle);
 				$em->flush();

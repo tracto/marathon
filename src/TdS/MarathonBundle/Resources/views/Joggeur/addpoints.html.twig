@@ -81,9 +81,9 @@
 													<svg class="icon icon--xs pl1" ><use xlink:href="#icon-heart2"></use></svg>
 												</span>
 											{% endfor %}
-											{# <span class="heartPoints-icon heart-empty fr" data-heart='0'>
+											<span class="heartPoints-icon heart-empty fr" data-heart='0'>
 												<svg class="icon icon--xs pr1"><use xlink:href="#icon-none"></use></svg>
-											</span> #}
+											</span>
 										</div>						
 									</div>
 								</div>
@@ -99,7 +99,7 @@
 				
 
 				<div class='addPoints-form'>
-					{{ form_start(form) }}
+					{{ form_start(form, {'attr': {'id': 'form-addpoints'}}) }}
 					    {{ form_row(form.remainingPoints, {'attr': {'value': scoreJoggeurParTheme.pointstogive}}) }}
 					    <ul class="tags score-tags dn">
 					        {% for tag in form.tags %}
@@ -117,10 +117,7 @@
 					               {{ form_widget(form.valider, {'attr': {'value': 'valider'}}) }}
 					            </div>
 					        
-					            <div class="button button-save"> 
-					               <svg class="icon icon--xs"><use xlink:href="#icon-spinner11"></use></svg>
-									<span>réactualiser</span>
-					            </div>
+					            
 					        </div>
 				      	</div>
 					

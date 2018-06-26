@@ -49,6 +49,8 @@ class SaisonRepository extends \Doctrine\ORM\EntityRepository{
             ->addselect('n','t','i','it','mt','partial th.{id,numComments}')
             ->leftJoin('n.image','i')
             ->leftJoin('n.themes','t')
+            ->where('t.statut != :statut')
+            ->setParameter('statut', 0)
             ->leftJoin('t.musicTitles','mt')
             ->leftJoin('t.image','it')
             ->leftJoin('t.thread','th')

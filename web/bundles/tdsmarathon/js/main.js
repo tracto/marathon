@@ -1,21 +1,5 @@
 $(function() {
 
-  // var url = window.location.pathname;
-  // var urlTheme=Routing.generate('tds_marathon_theme_view');
-  // var urlJoggeur=Routing.generate('tds_marathon_joggeur_view');
-
-  // var urlSep = url.split('/');
-
-  // if(urlSep.length >= 6){
-  //   url = url.substr(0,url.lastIndexOf('/'));
-  //   if(url==urlTheme){
-  //     url=Routing.generate('tds_marathon_theme_home');
-  //   }else if(url==urlJoggeur){
-  //     url=Routing.generate('tds_marathon_joggeur_home');
-  //   }
-  // }
-
-  // $('nav.navbar-header a[href="'+ url +'"]').parent().addClass('active');
 
 $(".nav-toggler__label").on('click',function(){
   if($("#mobile-nav").is(':checked')){
