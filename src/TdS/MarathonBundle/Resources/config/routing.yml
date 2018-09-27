@@ -280,6 +280,16 @@ tds_marathon_musicTitle_add:
         route:  "[^/]+"
         theme_id: \d+
         joggeur_id: \d+
+    
+
+tds_marathon_musicTitle_add_js:
+    path:  /musictitle/add/{theme_id}/{joggeur_id}
+    defaults: { _controller: TdSMarathonBundle:MusicTitle:addjs }
+    requirements:
+        theme_id: \d+
+        joggeur_id: \d+
+    options:
+        expose: true
 
 tds_marathon_musictitle_edit:
     path:  /musictitle/edit/{id}

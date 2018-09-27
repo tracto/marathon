@@ -110,6 +110,75 @@ class MusicTitleController extends Controller{
 	}
 
 
+
+	public function addjsAction($theme_id, $joggeur_id, Request $request){
+		$em=$this->getDoctrine()->getManager();
+		$theme=new Theme();
+		$joggeur=new Joggeur();
+		$musicTitle=new MusicTitle();
+
+		if($joggeur_id){
+			$joggeur = $em->getRepository('TdSMarathonBundle:Joggeur')
+		      			->findJoggeurById($joggeur_id);
+		}
+
+		if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_USER')) && $this->getUser() == $joggeur->getUser() ){
+			
+			
+			if($theme_id){
+				$theme = $em
+		      			->getRepository('TdSMarathonBundle:Theme')
+		      			->findOneThemeById($theme_id);
+		      	$musicTitle->setTheme($theme);
+		   	}
+
+			if($joggeur_id){
+		      	$musicTitle->setJoggeur($joggeur);
+	   		}
+
+	   		/*$filedata = json_decode($this->getRequest()->get('filedata'));*/
+	   		$formdata = $request->request->get('formdata',null);
+
+		    $form=$this->get('form.factory')->create(new MusicTitleType(), $formdata); 
+			$form->handleRequest($request);
+
+			if($form->isValid()){
+
+				/*$em=$this->getDoctrine()->getManager();
+				$em->persist($musicTitle);
+				$em->flush();
+				
+				$request->getSession()->getFlashBag()->add('notice','morceau bien uploadé.');
+				return $this->redirect($url);*/
+			}
+
+	        /*return $this->render('TdSMarathonBundle:MusicTitle:add.html.twig', array(
+	        							'theme'=>$theme,
+	        							'joggeur'=>$joggeur,
+	        							'form'=>$form->createView()
+	        ));*/
+
+	        $response = new JsonResponse();
+			
+
+			$response->setData(array(
+				"theme_id"=>$theme_id,
+				"joggeur_id"=>$joggeur_id,
+				"formdata"=>$formdata,
+				'form'=>$form
+			)
+			);
+
+			
+			return $response;
+
+        }else{
+		    	$request->getSession()->getFlashBag()->add('notice',"tu n'as pas le droit d'effectuer cette action.");
+		    	/*return $this->redirectToRoute('tds_dashboard');*/
+		}
+	}
+
+
 	public function editAction(Request $request, $id, MusicTitle $musicTitle){
     	$em=$this->getDoctrine()->getManager();
 

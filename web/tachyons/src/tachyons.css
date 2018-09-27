@@ -29,6 +29,7 @@
 
 
 /* Modules */
+
 @import './_box-sizing';
 @import './_aspect-ratios';
 @import './_images';
@@ -80,7 +81,7 @@
 @import './_z-index';
 @import './_nested';
 @import './_word-break';
-@import './_styles';
+
 
 /* Variables */
 /* Importing here will allow you to override any variables in the modules */
@@ -93,3 +94,4 @@
 
 /* Uncomment out the line below to help debug layout issues */
 /* @import './_debug'; */
+@import './_styles';

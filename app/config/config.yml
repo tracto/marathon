@@ -44,6 +44,8 @@ framework:
 
 # Twig Configuration
 twig:
+    form_themes:
+        - 'form/fields.html.twig'
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
@@ -130,7 +132,7 @@ fos_comment:
 #     intercept_redirects: false
 
 liip_imagine:
-    default_image: ../uploads/img/anonymous.jpg
+    # default_image: ../uploads/img/anonymous.jpg
     resolvers:
         default:
             web_path: ~

@@ -170,26 +170,26 @@
 .ms-purple { color: var(--ms-purple); }
 .ms-bleu-bright { color: var(--ms-bleu-bright); }
 .ms-bleu { color: var(--ms-bleu); }
-.ms-vermillon { color: var(--ms-vermillon) };
-.ms-vert { color: var(--ms-vert) };
-.ms-light-gray { color: var(--ms-light-gray) };
-.ms-silver-bleu { color: var(--ms-silver-bleu) };
+.ms-vermillon { color: var(--ms-vermillon) }
+.ms-vert { color: var(--ms-vert) }
+.ms-light-gray { color: var(--ms-light-gray) }
+.ms-silver-bleu { color: var(--ms-silver-bleu) }
 
 
 
-.bg-ms-turquoise { background-color: var(--ms-turquoise) };
-.bg-ms-fushia { background-color: var(--ms-fushia) };
-.bg-ms-gold { background-color: var(--ms-gold) };
-.bg-ms-violet { background-color: var(--ms-violet) };
+.bg-ms-turquoise { background-color: var(--ms-turquoise) }
+.bg-ms-fushia { background-color: var(--ms-fushia) }
+.bg-ms-gold { background-color: var(--ms-gold) }
+.bg-ms-violet { background-color: var(--ms-violet) }
 .bg-ms-light-violet { background-color: var(--ms-light-violet); }
-.bg-ms-purple { background-color: var(--ms-purple) };
-.bg-ms-bleu-bright { background-color: var(--ms-bleu-bright) };
-.bg-ms-bleu { background-color: var(--ms-bleu) };
-.bg-ms-vermillon { background-color: var(--ms-vermillon) };
-.bg-ms-orange-light { background-color: var(--ms-orange-light) };
-.bg-ms-vert { background-color: var(--ms-vert) };
-.bg-ms-light-gray { background-color: var(--ms-light-gray) };
-.bg-ms-silver-bleu { background-color: var(--ms-silver-bleu) };
+.bg-ms-purple { background-color: var(--ms-purple) }
+.bg-ms-bleu-bright { background-color: var(--ms-bleu-bright) }
+.bg-ms-bleu { background-color: var(--ms-bleu) }
+.bg-ms-vermillon { background-color: var(--ms-vermillon) }
+.bg-ms-orange-light { background-color: var(--ms-orange-light) }
+.bg-ms-vert { background-color: var(--ms-vert) }
+.bg-ms-light-gray { background-color: var(--ms-light-gray) }
+.bg-ms-silver-bleu { background-color: var(--ms-silver-bleu) }
 
 
 .fill-ms-turquoise { fill: var(--ms-turquoise); }
@@ -200,7 +200,7 @@
 .fill-ms-purple { fill: var(--ms-purple); }
 .fill-ms-bleu-bright { fill: var(--ms-bleu-bright); }
 .fill-ms-bleu { fill: var(--ms-bleu); }
-.fill-ms-vermillon { fill: var(--ms-vermillon) };
+.fill-ms-vermillon { fill: var(--ms-vermillon) }
 .fill-ms-light-gray { fill: var(--ms-light-gray); }
 .fill-ms-silver-bleu { fill: var(--ms-silver-bleu); }
 

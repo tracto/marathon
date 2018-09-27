@@ -1,5 +1,8 @@
+
+
 <div class="form-wrapper">
-   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+  <form name="tds_marathonbundle_musictitle"  class="form-horizontal" id="form-add-musictitle" data-idjoggeur="1" data-idtheme="19">
+   {# {{ form_start(form, {'attr': {'class': 'form-horizontal','id': 'form-add-musictitle','data-idjoggeur':'1','data-idtheme':'19'}}) }} #}
     {{ form_errors(form) }}
 
       <div class="form-group form-flex form-input-title f4">     
@@ -32,16 +35,15 @@
         </div>
       {% endif %} 
     
-
-
-      <div class="form-group">        
-        <div class="form-flex">
-            {{ form_label(form.file, "fichier audio", {'label_attr': {'class': 'form-label control-label'}}) }}
-            
-            <div class='form-widget'>
-              {{ form_widget(form.file) }}
-            </div>
+      <div class="form-group box__input w-100 pa4 tc">
+        <div class="">
+          {{ form_widget(form.file) }}
         </div>
+        <label class="tc pointer" for="tds_marathonbundle_musictitle_file">
+          <strong>Choose a file</strong>
+          <span class="box__dragndrop"> or drag it here</span>.
+        </label>
+        <div class="box__uploading">Uploading&hellip;</div>
         <div class="w-100 form-error">{{ form_errors(form.file) }}</div>
       </div>
 
@@ -55,3 +57,130 @@
 
   {{ form_end(form) }} 
 </div>
+
+
+<script>
+$(function(){
+    var isAdvancedUpload = function() {
+      var div = document.createElement('div');
+      return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
+    }();
+
+    var $form = $('.box__input');
+
+    if (isAdvancedUpload) {
+      $form.addClass('has-advanced-upload');
+
+
+      var droppedFiles = false;
+
+      $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      })
+      .on('dragover dragenter', function() {
+        $form.addClass('is-dragover');
+      })
+      .on('dragleave dragend drop', function() {
+        $form.removeClass('is-dragover');
+      })
+      .on('drop', function(e) {
+        droppedFiles = e.originalEvent.dataTransfer.files;
+        /*$(this).find("input[type=file]").value()=droppedFiles;*/
+      });
+
+    }
+
+    
+    /*var formData = new FormData($("form"));*/
+    $("body").on('submit',"#form-add-musictitle", function(e) {
+      if ($form.hasClass('is-uploading')) return false;
+
+      $form.addClass('is-uploading').removeClass('is-error');
+      if (isAdvancedUpload) {
+
+        /*var formData = new FormData($(this));*/
+    /*for (var value of formData.values()) {
+           console.log(value); 
+        }*/
+
+        /*console.log(formData);*/
+        /*console.log( $( this ).serialize() );*/
+
+
+        e.preventDefault();
+
+        var idjoggeur=$("#form-add-musictitle").data("idjoggeur");
+        var idtheme=$("#form-add-musictitle").data("idtheme");
+
+
+        /*var formData = new FormData($("#form-add-musictitle"));*/
+       /* var formData = new FormData($("form"));*/
+        /*formData.append("joggeur", $("#tds_marathonbundle_musictitle_titre").files[0]);*/
+        /*formData.append("username", "Groucho");*/
+        /*fileData.append( $("input[type=file]").attr('name'), file );
+        if (droppedFiles) {
+          $.each( droppedFiles, function(i, file) {
+            fileData.append( $("input[type=file]").attr('name'), file );
+          });
+        }*/
+        
+        // Display the values
+        /*for (var value of formData.values()) {
+           console.log(value); 
+        }*/
+
+        var formdata=$(this).serialize();
+        console.log(formdata);
+        $.ajax({
+          url: Routing.generate('tds_marathon_musicTitle_add_js', { theme_id: idtheme, joggeur_id: idjoggeur  }),
+          type: "POST",
+          data: {
+            formdata:formdata
+          },
+          /*dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,*/
+          complete: function() {
+            $form.removeClass('is-uploading');
+          },
+          success: function(data) {
+            $form.addClass( data.success == true ? 'is-success' : 'is-error' );
+            /*console.log(formdata);*/
+          },
+          error: function() {
+            // Log the error, show an alert, whatever works for you
+          }
+        });
+      }
+    });
+
+
+    /*$.ajax({
+        type: "GET",
+        url: Routing.generate('tds_marathon_musictitle_reorder_js'),
+        data:{
+          theme_id:themeid,
+          musictitlesTabNew:JSON.stringify(musictitlesTabNew)
+
+        },
+        
+        dataType: 'json',
+        cache: false,
+        success: function(data){
+      markers=JSON.stringify(data);             
+        },
+        complete: function(){
+          $("#list-sortable").sortable( "disable" );
+          $( "#list-sortable" ).disableSelection();
+          $("#list-sortable").find('tr').removeClass("bg-white-40 ba b--dashed pointer");
+      $("button[data-action=validate-reorder]").hide();
+      $("button[data-action=reorder]").removeClass("o-60");
+
+        }
+    });
+    return false;*/
+  });
+    
+</script>

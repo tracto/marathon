@@ -73,7 +73,12 @@ input[type='submit']:focus {
 	border:solid $grey4;
 	border-width:0 1px 0 1px;
 	width:100%;		
+}
 
+@media screen and (min-width: 65em) and (max-width: 100rem){
+	.wrapper .container-center{
+		max-width:1200px;
+	}
 }
 
 .container-border-left{
@@ -1952,6 +1957,44 @@ button{
 
 
 
+.box__input{
+	/*border:dashed 2px var(--ms-turquoise);*/
+}
+
+.box__input .box__dragndrop,
+.box__input .box__uploading{
+  display: none;
+}
+
+.box__input.is-uploading  {
+  border:none;
+}
+.box__input.is-uploading .box__uploading {
+  display: block;
+}
+
+.box__input.has-advanced-upload .box__dragndrop {
+  display: inline;
+}
+
+.box__input.has-advanced-upload{
+	border:dashed 1px var(--ms-turquoise);
+
+}
+.box__input.has-advanced-upload .box__dragndrop {
+  display: inline;
+}
+.box__input.is-dragover {
+  background-color: rgba(6,161,154,0.3);
+}
+
+.box__input label:hover strong{
+	color:var(--ms-turquoise);
+}
+
+
+
+
 .form-error ul{
 	width:100%;
 	background-color:var(--ms-fushia);
@@ -2141,7 +2184,6 @@ button{
 .pastis-lien{
 	width:150px;
 }
-
 
 
 
